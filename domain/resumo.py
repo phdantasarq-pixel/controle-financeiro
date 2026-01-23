@@ -1,28 +1,15 @@
-from domain.despesa import Despesa
-from domain.receita import Receita
+from services.calendar import mes_ano
 
 
-def resumo_mensal(despesas: list[Despesa], receitas: list[Receita]) -> dict:
-    total_fixos = sum(
-        d.valor for d in despesas if d.tipo == "fixo"
+def resumo_mensal(lancamentos, mes):
+    receitas = sum(
+        l.valor for l in lancamentos
+        if l.tipo == "receita" and mes_ano(l.data) == mes
     )
 
-    total_variaveis = sum(
-        d.valor for d in despesas if d.tipo == "variavel"
+    despesas = sum(
+        l.valor for l in lancamentos
+        if l.tipo == "despesa" and mes_ano(l.data) == mes
     )
 
-    total_despesas = total_fixos + total_variaveis
-
-    total_receitas = sum(
-        r.valor for r in receitas if r.recebido
-    )
-
-    saldo = total_receitas - total_despesas
-
-    return {
-        "fixos": total_fixos,
-        "variaveis": total_variaveis,
-        "despesas": total_despesas,
-        "receitas": total_receitas,
-        "saldo": saldo
-    }
+    return receitas, despesas, receitas - despesas

@@ -1,14 +1,15 @@
 import streamlit as st
+from services.calendar import meses_disponiveis
 
-def sidebar():
-    st.sidebar.title("📂 Navegação")
+def render_sidebar():
+    st.sidebar.title("📅 Navegação")
 
-    ano = st.sidebar.selectbox("Ano", [2026])
-    mes = st.sidebar.selectbox("Mês", list(range(1, 13)))
-
-    pagina = st.sidebar.radio(
+    menu = st.sidebar.radio(
         "Menu",
-        ["📌 Despesas", "💰 A Receber", "📊 Resumo Mensal", "📈 Dashboard"]
+        ["Lançamentos", "Resumo Mensal", "Planejamento"]
     )
 
-    return ano, mes, pagina
+    meses = meses_disponiveis()
+    mes_atual = st.sidebar.selectbox("Mês", meses)
+
+    return menu, mes_atual
