@@ -1,8 +1,17 @@
 from datetime import datetime
-import pandas as pd
+from dateutil.relativedelta import relativedelta
 
 def mes_ano():
-    # Gera os últimos 12 meses para o usuário selecionar
+    """
+    Gera 13 períodos (MM/YYYY) em ordem cronológica.
+    6 meses passados, o atual, e 6 meses futuros.
+    """
     hoje = datetime.now()
-    datas = pd.date_range(end=hoje, periods=12, freq='MS').sort_values(ascending=False)
-    return [data.strftime('%m/%Y') for data in datas]
+    periodos = []
+
+    # Gerar do mais antigo (-6) para o mais futuro (+6)
+    for i in range(-6, 7):
+        data = hoje + relativedelta(months=i)
+        periodos.append(data.strftime("%m/%Y"))
+
+    return periodos

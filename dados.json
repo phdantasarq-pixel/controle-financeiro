@@ -79,5 +79,14 @@
         "valor":1000.0,
         "categoria":"Cartão Inter",
         "descricao":"Laranja Mecânica"
+    },
+    {
+        "data_registro":"2026-01-23T18:39:18.064",
+        "data_vencimento":"2026-02-19T00:00:00.000",
+        "tipo":"Despesa",
+        "natureza":"Fixo",
+        "valor":6000.0,
+        "categoria":"Cartão Azul",
+        "descricao":""
     }
 ]
