@@ -4,16 +4,17 @@ from domain.resumo import resumo_mensal
 from services.calendar_service import mes_ano
 from services.database import Database
 
-
 def resumo_page(df):
     st.header("📊 Resumo Financeiro")
 
+    # Filtro de Meses
     opcoes = mes_ano()
     mes_selecionado = st.selectbox("Selecione o período:", opcoes)
 
-    # Nota: Certifique-se que resumo_mensal usa 'data_vencimento' agora
+    # Cálculo do resumo baseado no mês selecionado
     receitas, despesas, saldo = resumo_mensal(df, mes_selecionado)
 
+    # Exibição das métricas
     c1, c2, c3 = st.columns(3)
     c1.metric("Receitas", f"R$ {receitas:,.2f}")
     c2.metric("Despesas", f"R$ {despesas:,.2f}")
@@ -21,10 +22,14 @@ def resumo_page(df):
 
     if not df.empty:
         st.subheader("Extrato Detalhado")
+        st.info("💡 A tabela abaixo está ordenada automaticamente pela data de vencimento.")
 
-        # 1. Definimos a ordem das colunas e removemos a 'data' antiga da exibição
-        colunas_exibicao = [
-            "data_registro",
+        # 1. ORDENAÇÃO: Ordena o DataFrame pela data de vencimento (mais antiga primeiro)
+        # Usamos inplace=False para não gerar avisos de cópia do Pandas
+        df_exibicao = df.sort_values(by="data_vencimento", ascending=True)
+
+        # 2. COLUNAS VISÍVEIS: Definimos o que aparece (ocultando data_registro e data)
+        colunas_visiveis = [
             "data_vencimento",
             "tipo",
             "natureza",
@@ -33,30 +38,42 @@ def resumo_page(df):
             "descricao"
         ]
 
+        # 3. CONFIGURAÇÃO DO EDITOR
         df_editado = st.data_editor(
-            df,
-            column_order=colunas_exibicao,  # Remove 'data' e organiza o resto
+            df_exibicao,
+            column_order=colunas_visiveis,
             use_container_width=True,
             num_rows="dynamic",
             column_config={
-                # 2. Formata data_registro para padrão BR (apenas data, sem hora)
-                "data_registro": st.column_config.DateColumn(
-                    "Data Lançamento",
-                    format="DD/MM/YYYY",
-                    disabled=True
-                ),
                 "data_vencimento": st.column_config.DateColumn(
                     "Vencimento",
                     format="DD/MM/YYYY"
                 ),
-                "tipo": st.column_config.SelectboxColumn("Tipo", options=["Receita", "Despesa"]),
-                "natureza": st.column_config.SelectboxColumn("Natureza", options=["Fixo", "Variável"]),
-                "valor": st.column_config.NumberColumn("Valor (R$)", format="R$ %.2f"),
+                "tipo": st.column_config.SelectboxColumn(
+                    "Tipo",
+                    options=["Receita", "Despesa"]
+                ),
+                "natureza": st.column_config.SelectboxColumn(
+                    "Natureza",
+                    options=["Fixo", "Variável"]
+                ),
+                "valor": st.column_config.NumberColumn(
+                    "Valor (R$)",
+                    format="R$ %.2f"
+                ),
+                "categoria": st.column_config.TextColumn("Categoria"),
+                "descricao": st.column_config.TextColumn("Descrição")
             }
         )
 
-        if not df_editado.equals(df):
+        # 4. LÓGICA PARA SALVAR ALTERAÇÕES
+        # Comparamos o editado com o de exibição para detectar mudanças
+        if not df_editado.equals(df_exibicao):
             if st.button("💾 Salvar Alterações"):
+                # Atualizamos o estado global e o arquivo físico
                 st.session_state.df = df_editado
-                Database.salvar_dados(df_editado)
-                st.rerun()
+                if Database.salvar_dados(df_editado):
+                    st.success("Alterações salvas com sucesso!")
+                    st.rerun()
+                else:
+                    st.error("Erro ao salvar no banco de dados.")
