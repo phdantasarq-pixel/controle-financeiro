@@ -1,6 +1,6 @@
 import streamlit as st
 from domain.planejamento import agrupar_por_mes
-from services.calendar import gerar_meses
+from services.calendar_service import gerar_meses
 
 
 def planejamento_page(lancamentos):

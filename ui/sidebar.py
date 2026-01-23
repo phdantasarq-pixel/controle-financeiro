@@ -1,5 +1,5 @@
 import streamlit as st
-from services.calendar import meses_disponiveis
+from services.calendar_service import meses_disponiveis
 
 def render_sidebar():
     st.sidebar.title("📅 Navegação")

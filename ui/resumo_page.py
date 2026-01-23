@@ -1,14 +1,23 @@
 import streamlit as st
 from domain.resumo import resumo_mensal
-from services.calendar import gerar_meses
+from services.calendar_service import mes_ano
 
 
-def resumo_page(lancamentos):
-    st.title("📊 Resumo Mensal")
+def resumo_page(df):
+    st.header("📊 Resumo Financeiro")
 
-    mes = st.selectbox("Mês", gerar_meses())
-    r, d, s = resumo_mensal(lancamentos, mes)
+    # Filtro de Meses
+    opcoes = mes_ano()
+    mes_selecionado = st.selectbox("Selecione o período:", opcoes)
 
-    st.metric("Receitas", f"R$ {r:.2f}")
-    st.metric("Despesas", f"R$ {d:.2f}")
-    st.metric("Saldo", f"R$ {s:.2f}")
+    receitas, despesas, saldo = resumo_mensal(df, mes_selecionado)
+
+    # Exibição em Cartões (Metrics)
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Receitas", f"R$ {receitas:,.2f}")
+    c2.metric("Despesas", f"R$ {despesas:,.2f}")
+    c3.metric("Saldo Atual", f"R$ {saldo:,.2f}", delta=float(saldo))
+
+    if not df.empty:
+        st.subheader("Extrato Detalhado")
+        st.dataframe(df, use_container_width=True)
