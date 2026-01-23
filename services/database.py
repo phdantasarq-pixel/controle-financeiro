@@ -2,8 +2,8 @@ import json
 import os
 import pandas as pd
 
-# Garante que o arquivo seja salvo na mesma pasta do script
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Sobe um nível para salvar o dados.json na raiz do projeto, fora da pasta services
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, 'dados.json')
 
 
@@ -15,16 +15,17 @@ class Database:
             return pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
 
         try:
-            df = pd.read_json(DB_PATH, orient='records', convert_dates=['data'])
+            df = pd.read_json(DB_PATH, orient='records')
+            if not df.empty:
+                df['data'] = pd.to_datetime(df['data'])
             return df
         except Exception:
             return pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
 
     @staticmethod
     def salvar_dados(df):
-        """Salva o DataFrame no arquivo JSON dentro do diretório do projeto."""
+        """Salva o DataFrame no arquivo JSON na raiz do projeto."""
         try:
-            # Converte para JSON mantendo o formato de lista de dicionários
             df.to_json(DB_PATH, orient='records', date_format='iso', indent=4, force_ascii=False)
             return True
         except Exception as e:
