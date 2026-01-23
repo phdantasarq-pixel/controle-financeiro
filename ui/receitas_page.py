@@ -1,22 +1,51 @@
 import streamlit as st
-from domain.receitas import Receita
+from datetime import date
+from domain.receita import Receita
+from domain.mappers import receita_para_dict
 
-def receitas_page(dados):
-    st.header("💰 Valores a Receber")
 
-    receitas = dados["receitas"]
+def receitas_page(dados: dict):
+    st.header("💰 A Receber")
 
-    qtd = st.number_input("Quantidade de receitas", 1, 20, max(1, len(receitas)))
+    if "receitas" not in dados:
+        dados["receitas"] = []
 
-    for i in range(qtd):
-        with st.expander(f"Receita {i+1}", expanded=True):
-            col1, col2, col3, col4 = st.columns(4)
+    with st.form("form_receita"):
+        descricao = st.text_input("Origem / Pessoa")
+        valor = st.number_input("Valor (R$)", min_value=0.0, step=50.0)
+        data_recebimento = st.date_input("Data", value=date.today())
+        recebido = st.checkbox("Já recebido?")
 
-            pessoa = col1.text_input("Pessoa", key=f"r_p_{i}")
-            pago = col2.number_input("Pago", step=10.0, key=f"r_pg_{i}")
-            deve = col3.number_input("Deve", step=10.0, key=f"r_dv_{i}")
-            desc = col4.text_input("Descrição", key=f"r_d_{i}")
+        submitted = st.form_submit_button("➕ Adicionar receita")
 
-            receitas.append(
-                Receita(pessoa, pago, deve, desc).__dict__
+        if submitted:
+            receita = Receita(
+                descricao=descricao,
+                valor=valor,
+                recebido=recebido,
+                data=data_recebimento
             )
+
+            dados["receitas"].append(receita_para_dict(receita))
+            st.success("Receita adicionada com sucesso!")
+            st.rerun()
+
+    st.divider()
+
+    if not dados["receitas"]:
+        st.info("Nenhuma receita cadastrada.")
+        return
+
+    remover_index = None
+
+    for i, r in enumerate(dados["receitas"]):
+        with st.expander(f"{r['descricao']} — R$ {r['valor']:.2f}"):
+            st.write(f"Data: {r['data']}")
+            st.write(f"Status: {'Recebido' if r['recebido'] else 'Pendente'}")
+
+            if st.button("🗑️ Remover", key=f"remover_receita_{i}"):
+                remover_index = i
+
+    if remover_index is not None:
+        dados["receitas"].pop(remover_index)
+        st.rerun()

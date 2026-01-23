@@ -1,8 +1,10 @@
 from dataclasses import dataclass
+from datetime import date
+
 
 @dataclass
 class Receita:
-    pessoa: str
-    pago: float
-    deve: float
     descricao: str
+    valor: float
+    recebido: bool
+    data: date

@@ -1,20 +1,30 @@
 import streamlit as st
 from domain.resumo import resumo_mensal
+from domain.mappers import dict_para_despesa, dict_para_receita
 
-def resumo_page(dados):
+
+def resumo_page(dados: dict):
     st.header("📊 Resumo Mensal")
 
-    resumo = resumo_mensal(
-        dados["despesas"],
-        dados["receitas"]
-    )
+    despesas = [
+        dict_para_despesa(d) for d in dados.get("despesas", [])
+    ]
+    receitas = [
+        dict_para_receita(r) for r in dados.get("receitas", [])
+    ]
 
-    col1, col2, col3, col4 = st.columns(4)
+    if not despesas and not receitas:
+        st.info("Nenhum dado para gerar resumo.")
+        return
 
-    col1.metric("Fixos", f"R$ {resumo['fixos']:,.2f}")
-    col2.metric("Variáveis", f"R$ {resumo['variaveis']:,.2f}")
-    col3.metric("Total Despesas", f"R$ {resumo['total_despesas']:,.2f}")
-    col4.metric("Total Receitas", f"R$ {resumo['total_receitas']:,.2f}")
+    resumo = resumo_mensal(despesas, receitas)
 
-    st.divider()
-    st.metric("Resultado do mês", f"R$ {resumo['resultado']:,.2f}")
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Receitas", f"R$ {resumo['receitas']:.2f}")
+    col2.metric("Despesas", f"R$ {resumo['despesas']:.2f}")
+    col3.metric("Saldo", f"R$ {resumo['saldo']:.2f}")
+
+    with st.expander("🔍 Detalhamento"):
+        st.write(f"Fixos: R$ {resumo['fixos']:.2f}")
+        st.write(f"Variáveis: R$ {resumo['variaveis']:.2f}")

@@ -1,25 +1,57 @@
 import streamlit as st
-from domain.despesas import Despesa
+from datetime import date
+from domain.despesa import Despesa
+from domain.mappers import despesa_para_dict
 
-def despesas_page(dados):
-    st.header("📌 Despesas do mês")
 
-    despesas = dados["despesas"]
+def despesas_page(dados: dict):
+    st.header("📉 Despesas")
 
-    qtd = st.number_input("Quantidade de despesas", 1, 30, max(1, len(despesas)))
+    if "despesas" not in dados:
+        dados["despesas"] = []
 
-    for i in range(qtd):
-        with st.expander(f"Despesa {i+1}", expanded=True):
-            col1, col2, col3 = st.columns(3)
+    with st.form("form_despesa"):
+        descricao = st.text_input("Descrição")
+        valor = st.number_input("Valor (R$)", min_value=0.0, step=50.0)
+        tipo = st.selectbox("Tipo", ["fixo", "variavel"])
+        vencimento = st.date_input("Vencimento", value=date.today())
+        divida = st.checkbox("É dívida?")
+        paga = st.checkbox("Já foi paga?")
 
-            descricao = col1.text_input("Descrição", key=f"d_desc_{i}")
-            divida = col2.number_input("Dívida", step=10.0, key=f"d_div_{i}")
-            pago = col3.number_input("Pago", step=10.0, key=f"d_pag_{i}")
+        submitted = st.form_submit_button("➕ Adicionar despesa")
 
-            tipo = col1.selectbox("Tipo", ["fixo", "variavel"], key=f"d_tipo_{i}")
-            venc = col2.text_input("Vencimento", key=f"d_venc_{i}")
-            valor = col3.number_input("Valor mensal", step=10.0, key=f"d_val_{i}")
-
-            despesas.append(
-                Despesa(descricao, divida, pago, tipo, venc, valor).__dict__
+        if submitted:
+            despesa = Despesa(
+                descricao=descricao,
+                divida=divida,
+                paga=paga,
+                tipo=tipo,
+                vencimento=vencimento,
+                valor=valor
             )
+
+            dados["despesas"].append(despesa_para_dict(despesa))
+            st.success("Despesa adicionada com sucesso!")
+            st.rerun()
+
+    st.divider()
+
+    if not dados["despesas"]:
+        st.info("Nenhuma despesa cadastrada.")
+        return
+
+    remover_index = None
+
+    for i, d in enumerate(dados["despesas"]):
+        with st.expander(f"{d['descricao']} — R$ {d['valor']:.2f}"):
+            st.write(f"Tipo: {d['tipo']}")
+            st.write(f"Vencimento: {d['vencimento']}")
+            st.write(f"Dívida: {'Sim' if d['divida'] else 'Não'}")
+            st.write(f"Status: {'Paga' if d['paga'] else 'Em aberto'}")
+
+            if st.button("🗑️ Remover", key=f"remover_despesa_{i}"):
+                remover_index = i
+
+    if remover_index is not None:
+        dados["despesas"].pop(remover_index)
+        st.rerun()

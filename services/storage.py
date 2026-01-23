@@ -1,18 +1,28 @@
 import json
 import os
 
-def caminho_mes(ano, mes):
-    pasta = f"data/{ano}"
-    os.makedirs(pasta, exist_ok=True)
-    return f"{pasta}/{ano}-{mes:02d}.json"
+ARQUIVO = "dados.json"
 
-def carregar_mes(ano, mes):
+
+def estrutura_padrao():
+    return {
+        "despesas": [],
+        "receitas": []
+    }
+
+
+def carregar_dados():
+    if not os.path.exists(ARQUIVO):
+        return estrutura_padrao()
+
     try:
-        with open(caminho_mes(ano, mes), "r") as f:
+        with open(ARQUIVO, "r", encoding="utf-8") as f:
             return json.load(f)
-    except:
-        return {"despesas": [], "receitas": []}
+    except json.JSONDecodeError:
+        # Arquivo corrompido ou vazio
+        return estrutura_padrao()
 
-def salvar_mes(ano, mes, dados):
-    with open(caminho_mes(ano, mes), "w") as f:
-        json.dump(dados, f, indent=2)
+
+def salvar_dados(dados: dict):
+    with open(ARQUIVO, "w", encoding="utf-8") as f:
+        json.dump(dados, f, indent=4, ensure_ascii=False)

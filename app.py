@@ -1,23 +1,69 @@
 import streamlit as st
-from ui.sidebar import sidebar
-from services.storage import carregar_mes, salvar_mes
+
+# =========================
+# Services
+# =========================
+from services.storage import carregar_dados, salvar_dados
+
+# =========================
+# UI Pages
+# =========================
 from ui.despesas_page import despesas_page
 from ui.receitas_page import receitas_page
 from ui.resumo_page import resumo_page
 
-st.set_page_config("Controle Financeiro", layout="wide")
+# =========================
+# Configuração da página
+# =========================
+st.set_page_config(
+    page_title="Controle Financeiro 2026",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-ano, mes, pagina = sidebar()
+# =========================
+# Estado Global (Session)
+# =========================
+if "dados" not in st.session_state:
+    st.session_state.dados = carregar_dados()
 
-dados = carregar_mes(ano, mes)
+dados = st.session_state.dados
 
-if pagina == "📌 Despesas":
+# =========================
+# Sidebar - Menu Principal
+# =========================
+st.sidebar.title("💰 Controle Financeiro")
+
+menu = st.sidebar.radio(
+    "Menu",
+    [
+        "📉 Despesas",
+        "💵 A Receber",
+        "📊 Resumo Mensal"
+    ]
+)
+
+st.sidebar.divider()
+
+st.sidebar.caption("Planejamento financeiro • MVP Streamlit")
+
+# =========================
+# Renderização das páginas
+# =========================
+if menu == "📉 Despesas":
     despesas_page(dados)
-elif pagina == "💰 A Receber":
+
+elif menu == "💵 A Receber":
     receitas_page(dados)
-elif pagina == "📊 Resumo Mensal":
+
+elif menu == "📊 Resumo Mensal":
     resumo_page(dados)
 
-if st.sidebar.button("💾 Salvar mês"):
-    salvar_mes(ano, mes, dados)
-    st.sidebar.success("Dados salvos!")
+# =========================
+# Persistência (manual)
+# =========================
+st.sidebar.divider()
+
+if st.sidebar.button("💾 Salvar dados"):
+    salvar_dados(st.session_state.dados)
+    st.sidebar.success("Dados salvos com sucesso!")
