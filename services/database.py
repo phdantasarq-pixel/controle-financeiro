@@ -10,17 +10,20 @@ DB_PATH = os.path.join(BASE_DIR, 'dados.json')
 class Database:
     @staticmethod
     def carregar_dados():
-        """Lê o JSON e retorna um DataFrame do Pandas."""
         if not os.path.exists(DB_PATH):
-            return pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
+            return pd.DataFrame(
+                columns=['data_registro', 'data_vencimento', 'tipo', 'natureza', 'valor', 'categoria', 'descricao'])
 
         try:
             df = pd.read_json(DB_PATH, orient='records')
             if not df.empty:
-                df['data'] = pd.to_datetime(df['data'])
+                # Garante que ambas as colunas sejam tratadas como datetime pelo Pandas
+                df['data_registro'] = pd.to_datetime(df['data_registro'])
+                df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
             return df
         except Exception:
-            return pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
+            return pd.DataFrame(
+                columns=['data_registro', 'data_vencimento', 'tipo', 'natureza', 'valor', 'categoria', 'descricao'])
 
     @staticmethod
     def salvar_dados(df):
