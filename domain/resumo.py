@@ -1,28 +1,19 @@
-from domain.despesa import Despesa
-from domain.receita import Receita
+import pandas as pd
 
 
-def resumo_mensal(despesas: list[Despesa], receitas: list[Receita]) -> dict:
-    total_fixos = sum(
-        d.valor for d in despesas if d.tipo == "fixo"
-    )
+def resumo_mensal(df, mes_referencia):
+    if df.empty:
+        return 0.0, 0.0, 0.0
 
-    total_variaveis = sum(
-        d.valor for d in despesas if d.tipo == "variavel"
-    )
+    df_copy = df.copy()
+    # Garante que a coluna data seja datetime
+    df_copy['data'] = pd.to_datetime(df_copy['data'])
+    df_copy['mes_ano'] = df_copy['data'].dt.strftime('%m/%Y')
 
-    total_despesas = total_fixos + total_variaveis
+    df_filtrado = df_copy[df_copy['mes_ano'] == mes_referencia]
 
-    total_receitas = sum(
-        r.valor for r in receitas if r.recebido
-    )
+    receitas = df_filtrado[df_filtrado['tipo'] == 'Receita']['valor'].sum()
+    despesas = df_filtrado[df_filtrado['tipo'] == 'Despesa']['valor'].sum()
+    saldo = receitas - despesas
 
-    saldo = total_receitas - total_despesas
-
-    return {
-        "fixos": total_fixos,
-        "variaveis": total_variaveis,
-        "despesas": total_despesas,
-        "receitas": total_receitas,
-        "saldo": saldo
-    }
+    return receitas, despesas, saldo

@@ -1,30 +1,23 @@
 import streamlit as st
 from domain.resumo import resumo_mensal
-from domain.mappers import dict_para_despesa, dict_para_receita
+from services.calendar_service import mes_ano
 
 
-def resumo_page(dados: dict):
-    st.header("📊 Resumo Mensal")
+def resumo_page(df):
+    st.header("📊 Resumo Financeiro")
 
-    despesas = [
-        dict_para_despesa(d) for d in dados.get("despesas", [])
-    ]
-    receitas = [
-        dict_para_receita(r) for r in dados.get("receitas", [])
-    ]
+    # Filtro de Meses
+    opcoes = mes_ano()
+    mes_selecionado = st.selectbox("Selecione o período:", opcoes)
 
-    if not despesas and not receitas:
-        st.info("Nenhum dado para gerar resumo.")
-        return
+    receitas, despesas, saldo = resumo_mensal(df, mes_selecionado)
 
-    resumo = resumo_mensal(despesas, receitas)
+    # Exibição em Cartões (Metrics)
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Receitas", f"R$ {receitas:,.2f}")
+    c2.metric("Despesas", f"R$ {despesas:,.2f}")
+    c3.metric("Saldo Atual", f"R$ {saldo:,.2f}", delta=float(saldo))
 
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Receitas", f"R$ {resumo['receitas']:.2f}")
-    col2.metric("Despesas", f"R$ {resumo['despesas']:.2f}")
-    col3.metric("Saldo", f"R$ {resumo['saldo']:.2f}")
-
-    with st.expander("🔍 Detalhamento"):
-        st.write(f"Fixos: R$ {resumo['fixos']:.2f}")
-        st.write(f"Variáveis: R$ {resumo['variaveis']:.2f}")
+    if not df.empty:
+        st.subheader("Extrato Detalhado")
+        st.dataframe(df, use_container_width=True)

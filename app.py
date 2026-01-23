@@ -1,69 +1,60 @@
 import streamlit as st
-
-# =========================
-# Services
-# =========================
-from services.storage import carregar_dados, salvar_dados
-
-# =========================
-# UI Pages
-# =========================
-from ui.despesas_page import despesas_page
-from ui.receitas_page import receitas_page
+import pandas as pd
+from datetime import datetime
 from ui.resumo_page import resumo_page
 
-# =========================
-# Configuração da página
-# =========================
-st.set_page_config(
-    page_title="Controle Financeiro 2026",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# Configurações Iniciais
+st.set_page_config(page_title="Meu Controle Financeiro", layout="wide")
 
-# =========================
-# Estado Global (Session)
-# =========================
-if "dados" not in st.session_state:
-    st.session_state.dados = carregar_dados()
+# --- GERENCIAMENTO DE DADOS ---
+if 'df' not in st.session_state:
+    # Inicializa com colunas padrão
+    st.session_state.df = pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
 
-dados = st.session_state.dados
 
-# =========================
-# Sidebar - Menu Principal
-# =========================
-st.sidebar.title("💰 Controle Financeiro")
+def adicionar_lancamento(data, tipo, valor, categoria, descricao):
+    novo_dado = pd.DataFrame([{
+        'data': pd.to_datetime(data),
+        'tipo': tipo,
+        'valor': float(valor),
+        'categoria': categoria,
+        'descricao': descricao
+    }])
+    st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
 
-menu = st.sidebar.radio(
-    "Menu",
-    [
-        "📉 Despesas",
-        "💵 A Receber",
-        "📊 Resumo Mensal"
-    ]
-)
 
-st.sidebar.divider()
+# --- BARRA LATERAL (MENU) ---
+st.sidebar.title("💰 Controle XP")
+menu = st.sidebar.radio("Navegar para:", ["Resumo", "Novo Lançamento", "Configurações"])
 
-st.sidebar.caption("Planejamento financeiro • MVP Streamlit")
+# --- LÓGICA DE NAVEGAÇÃO ---
+if menu == "Resumo":
+    resumo_page(st.session_state.df)
 
-# =========================
-# Renderização das páginas
-# =========================
-if menu == "📉 Despesas":
-    despesas_page(dados)
+elif menu == "Novo Lançamento":
+    st.header("📝 Novo Lançamento")
 
-elif menu == "💵 A Receber":
-    receitas_page(dados)
+    with st.form("form_lancamento", clear_on_submit=True):
+        col1, col2 = st.columns(2)
+        with col1:
+            data = st.date_input("Data", datetime.now())
+            tipo = st.selectbox("Tipo", ["Receita", "Despesa"])
+        with col2:
+            valor = st.number_input("Valor (R$)", min_value=0.0, step=0.01)
+            categoria = st.text_input("Categoria (ex: Aluguel, Salário)")
 
-elif menu == "📊 Resumo Mensal":
-    resumo_page(dados)
+        descricao = st.text_area("Descrição")
+        submit = st.form_submit_button("Salvar Lançamento")
 
-# =========================
-# Persistência (manual)
-# =========================
-st.sidebar.divider()
+        if submit:
+            if valor > 0:
+                adicionar_lancamento(data, tipo, valor, categoria, descricao)
+                st.success("Lançamento adicionado com sucesso!")
+            else:
+                st.error("O valor deve ser maior que zero.")
 
-if st.sidebar.button("💾 Salvar dados"):
-    salvar_dados(st.session_state.dados)
-    st.sidebar.success("Dados salvos com sucesso!")
+elif menu == "Configurações":
+    st.header("⚙️ Configurações")
+    if st.button("Limpar Todos os Dados"):
+        st.session_state.df = pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
+        st.rerun()
