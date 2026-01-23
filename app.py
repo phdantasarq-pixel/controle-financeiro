@@ -2,14 +2,15 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from ui.resumo_page import resumo_page
+from services.database import Database
 
 # Configurações Iniciais
 st.set_page_config(page_title="Meu Controle Financeiro", layout="wide")
 
-# --- GERENCIAMENTO DE DADOS ---
+# --- GERENCIAMENTO DE DADOS (Persistência em JSON) ---
 if 'df' not in st.session_state:
-    # Inicializa com colunas padrão
-    st.session_state.df = pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
+    # Em vez de iniciar vazio, tenta carregar do dados.json
+    st.session_state.df = Database.carregar_dados()
 
 
 def adicionar_lancamento(data, tipo, valor, categoria, descricao):
@@ -20,7 +21,11 @@ def adicionar_lancamento(data, tipo, valor, categoria, descricao):
         'categoria': categoria,
         'descricao': descricao
     }])
+    # Atualiza o Session State
     st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
+
+    # SALVA FISICAMENTE NO ARQUIVO
+    Database.salvar_dados(st.session_state.df)
 
 
 # --- BARRA LATERAL (MENU) ---
@@ -49,7 +54,7 @@ elif menu == "Novo Lançamento":
         if submit:
             if valor > 0:
                 adicionar_lancamento(data, tipo, valor, categoria, descricao)
-                st.success("Lançamento adicionado com sucesso!")
+                st.success("Lançamento adicionado e salvo com sucesso!")
             else:
                 st.error("O valor deve ser maior que zero.")
 
@@ -57,4 +62,6 @@ elif menu == "Configurações":
     st.header("⚙️ Configurações")
     if st.button("Limpar Todos os Dados"):
         st.session_state.df = pd.DataFrame(columns=['data', 'tipo', 'valor', 'categoria', 'descricao'])
+        # Limpa o arquivo físico também
+        Database.salvar_dados(st.session_state.df)
         st.rerun()
