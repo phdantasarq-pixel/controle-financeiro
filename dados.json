@@ -259,5 +259,122 @@
         "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (12/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-01",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet Pai",
+        "descricao": "LinkCe"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 13000.0,
+        "categoria": "Salário",
+        "descricao": "Nttdata"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet",
+        "descricao": "LinkCe"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 6000.0,
+        "categoria": "Cartão Itaú",
+        "descricao": "Azul"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 750.0,
+        "categoria": "Aluguél Casa 57",
+        "descricao": "Flavinha"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 0.01,
+        "categoria": "Moradia",
+        "descricao": ""
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-01",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet Pai",
+        "descricao": "LinkCe"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 13000.0,
+        "categoria": "Salário",
+        "descricao": "Nttdata"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet",
+        "descricao": "LinkCe"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 6000.0,
+        "categoria": "Cartão Itaú",
+        "descricao": "Azul"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 750.0,
+        "categoria": "Aluguél Casa 57",
+        "descricao": "Flavinha"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 0.01,
+        "categoria": "Moradia",
+        "descricao": ""
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-06-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (5/12)"
     }
 ]
