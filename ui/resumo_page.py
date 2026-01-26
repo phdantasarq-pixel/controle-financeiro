@@ -22,63 +22,58 @@ def resumo_page(df):
 
     if not df.empty:
         df_p = df.copy()
-        df_p['data_vencimento'] = pd.to_datetime(df_p['data_vencimento'], format='mixed')
+        # Blindagem contra erro de tipos (H2.5 / PyArrow)
+        df_p['data_vencimento'] = pd.to_datetime(df_p['data_vencimento'], errors='coerce')
+        df_p['data_registro'] = pd.to_datetime(df_p['data_registro'], errors='coerce')
+
         m, a = map(int, mes_sel.split('/'))
         df_f = df_p[(df_p['data_vencimento'].dt.month == m) & (df_p['data_vencimento'].dt.year == a)].copy()
 
-        # Exibição da Tabela
         st.dataframe(
             df_f.sort_values("data_vencimento"),
             use_container_width=True,
-            hide_index=False,  # Precisamos do index para a exclusão
+            hide_index=False,
             column_config={
                 "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD-MM-YYYY"),
                 "data_registro": st.column_config.DateColumn("Registro", format="DD-MM-YYYY"),
                 "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
+                "tipo": "Tipo", "natureza": "Natureza", "categoria": "Categoria", "descricao": "Descrição"
             }
         )
 
         st.write("---")
-        st.subheader("🗑️ Excluir Lançamento")
+        st.subheader("🗑️ Gerenciar Lançamento")
 
-        # Criamos uma lista amigável para o seletor de exclusão
-        df_f['selecao'] = df_f.index.astype(str) + " - " + df_f['descricao'] + " (R$ " + df_f['valor'].astype(str) + ")"
-        item_para_excluir = st.selectbox("Selecione o item que deseja remover:",
-                                         options=[""] + df_f['selecao'].tolist())
+        # Lista formatada para o selectbox
+        df_f['selecao'] = df_f.index.astype(str) + " - " + df_f['descricao'] + " (R$ " + df_f['valor'].map(
+            '{:,.2f}'.format) + ")"
+        item_para_excluir = st.selectbox("Selecione o item para remover:", options=[""] + df_f['selecao'].tolist())
 
         if item_para_excluir != "":
             idx_escolhido = int(item_para_excluir.split(" - ")[0])
             linha_alvo = df.loc[idx_escolhido]
             descricao_original = linha_alvo['descricao']
-
-            # Lógica para detectar se é parcelamento (ex: "Compra (1/5)")
-            is_parcela = "(" in descricao_original and "/" in descricao_original
+            is_parcela = bool(re.search(r'\(\d+/\d+\)', descricao_original))
 
             col_ex1, col_ex2 = st.columns(2)
 
             with col_ex1:
                 if st.button("❌ Excluir APENAS este", use_container_width=True):
-                    st.session_state.df = df.drop(idx_escolhido)
-                    Database.salvar_dados(st.session_state.df)
-                    st.success("Item excluído!")
+                    with st.spinner("Excluindo registro..."):
+                        st.session_state.df = df.drop(idx_escolhido)
+                        Database.salvar_dados(st.session_state.df)
                     st.rerun()
 
             with col_ex2:
                 if is_parcela:
-                    if st.button("🧨 Excluir TODAS as parcelas", use_container_width=True):
-                        # Extrai o nome base antes do (1/10)
-                        nome_base = descricao_original.split(" (")[0]
-                        # Filtra tudo que contém o mesmo nome base
-                        # Usamos str.contains para pegar todas as parcelas futuras e passadas
-                        mascara_exclusao = df['descricao'].str.contains(re.escape(nome_base), na=False)
-                        qtd_removida = mascara_exclusao.sum()
-
-                        st.session_state.df = df[~mascara_exclusao]
-                        Database.salvar_dados(st.session_state.df)
-                        st.success(f"{qtd_removida} parcelas removidas com sucesso!")
+                    if st.button("🧨 Excluir TODAS as parcelas", use_container_width=True, type="primary"):
+                        with st.spinner("Removendo todas as parcelas do grupo..."):
+                            nome_base = descricao_original.split(" (")[0].strip()
+                            mascara_exclusao = df['descricao'].str.contains(re.escape(nome_base), na=False)
+                            st.session_state.df = df[~mascara_exclusao]
+                            Database.salvar_dados(st.session_state.df)
                         st.rerun()
                 else:
-                    st.info("Este item não parece ser um parcelamento.")
-
+                    st.info("💡 Este item não possui parcelas vinculadas.")
     else:
         st.info("Nenhum dado encontrado para este mês.")
