@@ -88,5 +88,50 @@
         "valor":6000.0,
         "categoria":"Cartão Azul",
         "descricao":""
+    },
+    {
+        "data_registro":null,
+        "data_vencimento":"2026-01-26",
+        "tipo":"Despesa",
+        "natureza":"Variável",
+        "valor":10.0,
+        "categoria":"Alimentação",
+        "descricao":""
+    },
+    {
+        "data_registro":null,
+        "data_vencimento":"2026-01-26",
+        "tipo":"Despesa",
+        "natureza":"Variável",
+        "valor":20.0,
+        "categoria":"Alimentação",
+        "descricao":"Sopa"
+    },
+    {
+        "data_registro":null,
+        "data_vencimento":"2026-01-26",
+        "tipo":"Despesa",
+        "natureza":"Variável",
+        "valor":500.0,
+        "categoria":"Educação",
+        "descricao":"Curso Alura (1\/2)"
+    },
+    {
+        "data_registro":null,
+        "data_vencimento":"2026-02-26",
+        "tipo":"Despesa",
+        "natureza":"Variável",
+        "valor":500.0,
+        "categoria":"Educação",
+        "descricao":"Curso Alura (2\/2)"
+    },
+    {
+        "data_registro":null,
+        "data_vencimento":"2026-01-26",
+        "tipo":"Despesa",
+        "natureza":"Fixo",
+        "valor":0.01,
+        "categoria":"Moradia",
+        "descricao":""
     }
 ]

@@ -1,19 +1,18 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime, timedelta
 from ui.resumo_page import resumo_page
 from ui.dashboard_page import dashboard_page
 from services.database import Database
+import os
 
-# --- CONFIGURAÇÃO DA PÁGINA (PlanejAI) ---
+# --- 1. CONFIGURAÇÃO E IDENTIDADE ---
 st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 
-# --- CSS PARA UX MODERNA (MENU LATERAL) ---
+# CSS para Menu Lateral Moderno
 st.markdown("""
     <style>
-        /* Remove o menu padrão do Streamlit para um visual mais limpo */
         [data-testid="stSidebarNav"] {display: none;}
-
-        /* Estilização dos botões do menu lateral para parecerem blocos */
         .stButton button {
             width: 100%;
             border-radius: 8px;
@@ -23,81 +22,98 @@ st.markdown("""
             border: 1px solid rgba(151, 166, 195, 0.2);
             padding-left: 15px;
             margin-bottom: 10px;
-            transition: 0.3s;
         }
         .stButton button:hover {
             border: 1px solid #28a745;
             background-color: rgba(40, 167, 69, 0.05);
         }
+        [data-testid="stSidebar"] [data-testid="stImage"] {
+            padding: 20px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# --- INICIALIZAÇÃO DO ESTADO ---
+# --- 2. INICIALIZAÇÃO DE DADOS ---
 if 'df' not in st.session_state:
     st.session_state.df = Database.carregar_dados()
 if 'pagina' not in st.session_state:
     st.session_state.pagina = "Resumo"
 
-# --- SIDEBAR (NOVA UX) ---
+# --- 3. SIDEBAR (MENU PlanejAI) ---
 with st.sidebar:
-    st.title("💎 PlanejAI")
+    logo_path = "assets/logo.png"
+    if os.path.exists(logo_path):
+        st.image(logo_path, use_container_width=True)
+    else:
+        st.title("💎 PlanejAI")
+
     st.caption("Seu Consultor Financeiro Inteligente")
     st.write("---")
 
-    # Navegação por botões (substituindo o Radio)
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
     if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
 
     st.write("---")
-    # Widget de Saldo Rápido
-    saldo_total = st.session_state.df['valor'].sum() if not st.session_state.df.empty else 0
-    st.metric("Patrimônio Geral", f"R$ {saldo_total:,.2f}")
+    total = st.session_state.df['valor'].sum() if not st.session_state.df.empty else 0
+    st.metric("Patrimônio Geral", f"R$ {total:,.2f}")
 
-# --- ROTEAMENTO DE PÁGINAS ---
+# --- 4. ROTEAMENTO DE PÁGINAS ---
 if st.session_state.pagina == "Resumo":
     resumo_page(st.session_state.df)
 
 elif st.session_state.pagina == "Lançamento":
     st.header("📝 Novo Registro")
 
-    # LISTA DE CATEGORIAS PADRONIZADAS (História de Usuário 1.1)
-    cats_sugeridas = [
-        "Moradia", "Alimentação", "Transporte", "Lazer",
-        "Saúde", "Educação", "Assinaturas", "Salário",
-        "Investimentos", "Freelance", "Outro"
-    ]
+    categorias = ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas", "Salário",
+                  "Investimentos", "Outro"]
 
-    with st.form("form_lancamento", clear_on_submit=True):
+    with st.form("form_planejai", clear_on_submit=True):
         col1, col2 = st.columns(2)
         with col1:
-            data = st.date_input("Vencimento", format="DD/MM/YYYY")
+            data_base = st.date_input("Vencimento", format="DD/MM/YYYY")
             tipo = st.selectbox("Tipo", ["Despesa", "Receita"])
-            valor = st.number_input("Valor (R$)", min_value=0.01, step=0.01)
+            valor = st.number_input("Valor R$", min_value=0.01, step=0.01)
 
         with col2:
             natureza = st.selectbox("Natureza", ["Fixo", "Variável"])
-            cat_selecionada = st.selectbox("Categoria", cats_sugeridas)
-            cat_personalizada = st.text_input("Se 'Outro', especifique:")
+            cat_sel = st.selectbox("Categoria", categorias)
+            cat_outra = st.text_input("Se 'Outro', qual?")
 
-        descricao = st.text_input("Descrição (Ex: Aluguel Janeiro)")
+        descricao = st.text_input("Descrição")
 
-        # Logica de Parcelas (Placeholder para o próximo passo)
-        parcelado = st.checkbox("Este lançamento é parcelado?")
-        if parcelado:
-            qtd_parcelas = st.number_input("Quantidade de Parcelas", min_value=2, max_value=48, value=2)
+        st.write("---")
+        is_parcelado = st.checkbox("Parcelar este lançamento?")
+        num_parcelas = st.number_input("Qtd de Parcelas", min_value=2, max_value=60, value=2) if is_parcelado else 1
 
-        if st.form_submit_button("Salvar Lançamento"):
-            # Lógica para definir a categoria final
-            categoria_final = cat_personalizada if cat_selecionada == "Outro" and cat_personalizada else cat_selecionada
+        if st.form_submit_button("Salvar no PlanejAI"):
+            final_cat = cat_outra if cat_sel == "Outro" else cat_sel
+            novos_dados = []
 
-            # Aqui você deve chamar a função de salvar no banco de dados
-            st.success(f"Lançamento '{descricao}' em '{categoria_final}' salvo com sucesso!")
+            for i in range(num_parcelas):
+                vencimento = data_base + pd.DateOffset(months=i)
+                desc_final = f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao
+
+                novo_item = {
+                    "data_vencimento": vencimento.strftime("%Y-%m-%d"),
+                    "tipo": tipo,
+                    "natureza": natureza,
+                    "valor": valor if not is_parcelado else valor / num_parcelas,  # Valor total dividido ou cheio
+                    "categoria": final_cat,
+                    "descricao": desc_final
+                }
+                novos_dados.append(novo_item)
+
+            # Adicionar ao DataFrame e Salvar
+            novo_df = pd.DataFrame(novos_dados)
+            st.session_state.df = pd.concat([st.session_state.df, novo_df], ignore_index=True)
+            Database.salvar_dados(st.session_state.df)
+            st.success(f"Lançamento(s) salvo(s)! {num_parcelas} registro(s) criado(s).")
 
 elif st.session_state.pagina == "Dashboard":
     dashboard_page(st.session_state.df)
 
 elif st.session_state.pagina == "Config":
-    st.header("⚙️ Configurações e Automações")
-    st.write("Em breve: Clonagem de despesas fixas e integração com IA.")
+    st.header("⚙️ Configurações")
+    st.info("Módulo de Clonagem e IA em desenvolvimento.")
