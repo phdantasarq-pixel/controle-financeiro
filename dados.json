@@ -1,137 +1,263 @@
 [
     {
-        "data_registro":"2026-01-23T16:30:27.876",
-        "data_vencimento":"2025-12-01T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Fixo",
-        "valor":100.0,
-        "categoria":"Internet",
-        "descricao":"LinkCe"
+        "data_registro": "2026-01-23T16:30:27.876",
+        "data_vencimento": "2025-12-01",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet",
+        "descricao": "LinkCe"
     },
     {
-        "data_registro":"2026-01-23T16:33:01.907",
-        "data_vencimento":"2026-01-01T00:00:00.000",
-        "tipo":"Receita",
-        "natureza":"Fixo",
-        "valor":100.0,
-        "categoria":"Internet Pai",
-        "descricao":"LinkCe"
+        "data_registro": "2026-01-23T16:33:01.907",
+        "data_vencimento": "2026-01-01",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet Pai",
+        "descricao": "LinkCe"
     },
     {
-        "data_registro":"2026-01-23T16:35:05.531",
-        "data_vencimento":"2026-01-08T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":4500.0,
-        "categoria":"Cartão Caixa",
-        "descricao":"Elo"
+        "data_registro": "2026-01-23T16:35:05.531",
+        "data_vencimento": "2026-01-08",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 4500.0,
+        "categoria": "Cartão Caixa",
+        "descricao": "Elo"
     },
     {
-        "data_registro":"2026-01-23T16:33:57.548",
-        "data_vencimento":"2026-01-13T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":4000.0,
-        "categoria":"Cartão Nubank",
-        "descricao":"Roxinho Infeliz"
+        "data_registro": "2026-01-23T16:33:57.548",
+        "data_vencimento": "2026-01-13",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 4000.0,
+        "categoria": "Cartão Nubank",
+        "descricao": "Roxinho Infeliz"
     },
     {
-        "data_registro":"2026-01-23T16:26:39.676",
-        "data_vencimento":"2026-01-23T00:00:00.000",
-        "tipo":"Receita",
-        "natureza":"Fixo",
-        "valor":13000.0,
-        "categoria":"Salário",
-        "descricao":"Nttdata"
+        "data_registro": "2026-01-23T16:26:39.676",
+        "data_vencimento": "2026-01-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 13000.0,
+        "categoria": "Salário",
+        "descricao": "Nttdata"
     },
     {
-        "data_registro":"2026-01-23T16:26:58.853",
-        "data_vencimento":"2026-01-23T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Fixo",
-        "valor":100.0,
-        "categoria":"Internet",
-        "descricao":"LinkCe"
+        "data_registro": "2026-01-23T16:26:58.853",
+        "data_vencimento": "2026-01-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 100.0,
+        "categoria": "Internet",
+        "descricao": "LinkCe"
     },
     {
-        "data_registro":"2026-01-23T16:27:49.803",
-        "data_vencimento":"2026-01-23T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Fixo",
-        "valor":6000.0,
-        "categoria":"Cartão Itaú",
-        "descricao":"Azul"
+        "data_registro": "2026-01-23T16:27:49.803",
+        "data_vencimento": "2026-01-23",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 6000.0,
+        "categoria": "Cartão Itaú",
+        "descricao": "Azul"
     },
     {
-        "data_registro":"2026-01-23T16:38:18.756",
-        "data_vencimento":"2026-01-23T00:00:00.000",
-        "tipo":"Receita",
-        "natureza":"Fixo",
-        "valor":750.0,
-        "categoria":"Aluguél Casa 57",
-        "descricao":"Flavinha"
+        "data_registro": "2026-01-23T16:38:18.756",
+        "data_vencimento": "2026-01-23",
+        "tipo": "Receita",
+        "natureza": "Fixo",
+        "valor": 750.0,
+        "categoria": "Aluguél Casa 57",
+        "descricao": "Flavinha"
     },
     {
-        "data_registro":"2026-01-23T16:39:00.907",
-        "data_vencimento":"2026-01-23T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":1000.0,
-        "categoria":"Cartão Inter",
-        "descricao":"Laranja Mecânica"
+        "data_registro": "2026-01-23T16:39:00.907",
+        "data_vencimento": "2026-01-23",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 1000.0,
+        "categoria": "Cartão Inter",
+        "descricao": "Laranja Mecânica"
     },
     {
-        "data_registro":"2026-01-23T18:39:18.064",
-        "data_vencimento":"2026-02-19T00:00:00.000",
-        "tipo":"Despesa",
-        "natureza":"Fixo",
-        "valor":6000.0,
-        "categoria":"Cartão Azul",
-        "descricao":""
+        "data_registro": "2026-01-23T18:39:18.064",
+        "data_vencimento": "2026-02-19",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 6000.0,
+        "categoria": "Cartão Azul",
+        "descricao": ""
     },
     {
-        "data_registro":null,
-        "data_vencimento":"2026-01-26",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":10.0,
-        "categoria":"Alimentação",
-        "descricao":""
+        "data_registro": null,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 10.0,
+        "categoria": "Alimentação",
+        "descricao": ""
     },
     {
-        "data_registro":null,
-        "data_vencimento":"2026-01-26",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":20.0,
-        "categoria":"Alimentação",
-        "descricao":"Sopa"
+        "data_registro": null,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 20.0,
+        "categoria": "Alimentação",
+        "descricao": "Sopa"
     },
     {
-        "data_registro":null,
-        "data_vencimento":"2026-01-26",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":500.0,
-        "categoria":"Educação",
-        "descricao":"Curso Alura (1\/2)"
+        "data_registro": null,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 500.0,
+        "categoria": "Educação",
+        "descricao": "Curso Alura (1/2)"
     },
     {
-        "data_registro":null,
-        "data_vencimento":"2026-02-26",
-        "tipo":"Despesa",
-        "natureza":"Variável",
-        "valor":500.0,
-        "categoria":"Educação",
-        "descricao":"Curso Alura (2\/2)"
+        "data_registro": null,
+        "data_vencimento": "2026-02-26",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 500.0,
+        "categoria": "Educação",
+        "descricao": "Curso Alura (2/2)"
     },
     {
-        "data_registro":null,
-        "data_vencimento":"2026-01-26",
-        "tipo":"Despesa",
-        "natureza":"Fixo",
-        "valor":0.01,
-        "categoria":"Moradia",
-        "descricao":""
+        "data_registro": null,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 0.01,
+        "categoria": "Moradia",
+        "descricao": ""
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 300.0,
+        "categoria": "Assinaturas",
+        "descricao": "Deezer (1/2)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-02-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 300.0,
+        "categoria": "Assinaturas",
+        "descricao": "Deezer (2/2)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-01-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (1/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-02-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (2/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-03-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (3/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-04-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (4/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-05-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (5/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-06-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (6/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-07-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (7/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-08-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (8/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-09-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (9/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-10-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (10/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-11-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (11/12)"
+    },
+    {
+        "data_registro": NaN,
+        "data_vencimento": "2026-12-26",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 83.33333333333333,
+        "categoria": "Transporte",
+        "descricao": "Seguro do Carro (12/12)"
     }
 ]
