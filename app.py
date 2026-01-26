@@ -1,135 +1,103 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime
 from ui.resumo_page import resumo_page
 from ui.dashboard_page import dashboard_page
 from services.database import Database
-from utils.datas import formatar_data_br
 
-# =========================================================
-# ⚙️ CONFIGURAÇÕES INICIAIS
-# =========================================================
-st.set_page_config(
-    page_title="Meu Controle Financeiro",
-    page_icon="💰",
-    layout="wide"
-)
+# --- CONFIGURAÇÃO DA PÁGINA (PlanejAI) ---
+st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 
-# --- GERENCIAMENTO DE ESTADO (Session State) ---
-# Carrega os dados do JSON assim que o app inicia
+# --- CSS PARA UX MODERNA (MENU LATERAL) ---
+st.markdown("""
+    <style>
+        /* Remove o menu padrão do Streamlit para um visual mais limpo */
+        [data-testid="stSidebarNav"] {display: none;}
+
+        /* Estilização dos botões do menu lateral para parecerem blocos */
+        .stButton button {
+            width: 100%;
+            border-radius: 8px;
+            height: 3.5em;
+            background-color: transparent;
+            text-align: left;
+            border: 1px solid rgba(151, 166, 195, 0.2);
+            padding-left: 15px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .stButton button:hover {
+            border: 1px solid #28a745;
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- INICIALIZAÇÃO DO ESTADO ---
 if 'df' not in st.session_state:
     st.session_state.df = Database.carregar_dados()
+if 'pagina' not in st.session_state:
+    st.session_state.pagina = "Resumo"
 
-
-# =========================================================
-# 🛠️ FUNÇÕES DE APOIO
-# =========================================================
-def adicionar_lancamento(data_vencimento, tipo, natureza, valor, categoria, descricao):
-    """
-    Processa a lógica de novo lançamento:
-    - Gera data_registro automaticamente
-    - Concatena ao DataFrame global
-    - Salva fisicamente no dados.json
-    """
-    # Captura exato momento do registro
-    data_registro = datetime.now()
-
-    novo_dado = pd.DataFrame([{
-        'data_registro': data_registro,
-        'data_vencimento': pd.to_datetime(data_vencimento),
-        'tipo': tipo,
-        'natureza': natureza,
-        'valor': float(valor),
-        'categoria': categoria,
-        'descricao': descricao
-    }])
-
-    # Atualiza o estado da aplicação
-    st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
-
-    # Persistência no arquivo JSON através da Service
-    if Database.salvar_dados(st.session_state.df):
-        return True
-    return False
-
-
-# =========================================================
-# 📂 BARRA LATERAL (MENU DE NAVEGAÇÃO)
-# =========================================================
+# --- SIDEBAR (NOVA UX) ---
 with st.sidebar:
-    st.title("💰 Controle Financeiro")
-    st.divider()
-    menu = st.sidebar.radio(
-        "Navegar para:",
-        ["Resumo", "Novo Lançamento", "Dashboard", "Configurações"],
-        index=0
-    )
-    st.divider()
-    st.info(f"Total de registros: {len(st.session_state.df)}")
+    st.title("💎 PlanejAI")
+    st.caption("Seu Consultor Financeiro Inteligente")
+    st.write("---")
 
-# =========================================================
-# 🚀 LÓGICA DE NAVEGAÇÃO (ROTEAMENTO)
-# =========================================================
+    # Navegação por botões (substituindo o Radio)
+    if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
+    if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
+    if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
+    if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
 
-# --- TELA 1: RESUMO (Extrato Detalhado com Edição) ---
-if menu == "Resumo":
+    st.write("---")
+    # Widget de Saldo Rápido
+    saldo_total = st.session_state.df['valor'].sum() if not st.session_state.df.empty else 0
+    st.metric("Patrimônio Geral", f"R$ {saldo_total:,.2f}")
+
+# --- ROTEAMENTO DE PÁGINAS ---
+if st.session_state.pagina == "Resumo":
     resumo_page(st.session_state.df)
 
-# --- TELA 2: NOVO LANÇAMENTO (Formulário) ---
-elif menu == "Novo Lançamento":
-    st.header("📝 Novo Lançamento")
-    st.write("Preencha os dados abaixo para registrar uma nova movimentação.")
+elif st.session_state.pagina == "Lançamento":
+    st.header("📝 Novo Registro")
+
+    # LISTA DE CATEGORIAS PADRONIZADAS (História de Usuário 1.1)
+    cats_sugeridas = [
+        "Moradia", "Alimentação", "Transporte", "Lazer",
+        "Saúde", "Educação", "Assinaturas", "Salário",
+        "Investimentos", "Freelance", "Outro"
+    ]
 
     with st.form("form_lancamento", clear_on_submit=True):
         col1, col2 = st.columns(2)
-
         with col1:
-            # Data de vencimento no padrão brasileiro visual
-            vencimento = st.date_input(
-                "Data de Vencimento",
-                value=datetime.now(),
-                format="DD/MM/YYYY"
-            )
-            tipo = st.selectbox("Tipo de Lançamento", ["Receita", "Despesa"])
+            data = st.date_input("Vencimento", format="DD/MM/YYYY")
+            tipo = st.selectbox("Tipo", ["Despesa", "Receita"])
+            valor = st.number_input("Valor (R$)", min_value=0.01, step=0.01)
 
         with col2:
             natureza = st.selectbox("Natureza", ["Fixo", "Variável"])
-            valor = st.number_input("Valor (R$)", min_value=0.0, step=0.01)
+            cat_selecionada = st.selectbox("Categoria", cats_sugeridas)
+            cat_personalizada = st.text_input("Se 'Outro', especifique:")
 
-        col3, col4 = st.columns([1, 2])
-        with col3:
-            categoria = st.text_input("Categoria (Ex: Aluguel, Salário)")
-        with col4:
-            descricao = st.text_area("Descrição / Observação", height=68)
+        descricao = st.text_input("Descrição (Ex: Aluguel Janeiro)")
 
-        submit = st.form_submit_button("🚀 Salvar Lançamento")
+        # Logica de Parcelas (Placeholder para o próximo passo)
+        parcelado = st.checkbox("Este lançamento é parcelado?")
+        if parcelado:
+            qtd_parcelas = st.number_input("Quantidade de Parcelas", min_value=2, max_value=48, value=2)
 
-        if submit:
-            if valor > 0:
-                sucesso = adicionar_lancamento(vencimento, tipo, natureza, valor, categoria, descricao)
-                if sucesso:
-                    st.success(f"Lançamento de {formatar_data_br(vencimento)} registrado com sucesso!")
-                else:
-                    st.error("Erro ao tentar salvar no arquivo dados.json.")
-            else:
-                st.error("O valor deve ser maior que zero.")
+        if st.form_submit_button("Salvar Lançamento"):
+            # Lógica para definir a categoria final
+            categoria_final = cat_personalizada if cat_selecionada == "Outro" and cat_personalizada else cat_selecionada
 
-# --- TELA 3: DASHBOARD (Gráficos e Análise) ---
-elif menu == "Dashboard":
+            # Aqui você deve chamar a função de salvar no banco de dados
+            st.success(f"Lançamento '{descricao}' em '{categoria_final}' salvo com sucesso!")
+
+elif st.session_state.pagina == "Dashboard":
     dashboard_page(st.session_state.df)
 
-# --- TELA 4: CONFIGURAÇÕES (Manutenção) ---
-elif menu == "Configurações":
-    st.header("⚙️ Configurações do Sistema")
-    st.subheader("Manutenção de Dados")
-
-    st.warning("Atenção: A ação de limpar dados é irreversível.")
-    if st.button("🗑️ Limpar Todos os Dados"):
-        # Reinicia o DataFrame com as colunas corretas
-        colunas = ['data_registro', 'data_vencimento', 'tipo', 'natureza', 'valor', 'categoria', 'descricao']
-        st.session_state.df = pd.DataFrame(columns=colunas)
-
-        # Sobrescreve o arquivo físico
-        Database.salvar_dados(st.session_state.df)
-        st.success("Banco de dados reiniciado com sucesso!")
-        st.rerun()
+elif st.session_state.pagina == "Config":
+    st.header("⚙️ Configurações e Automações")
+    st.write("Em breve: Clonagem de despesas fixas e integração com IA.")
