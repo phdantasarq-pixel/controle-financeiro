@@ -1,6 +1,6 @@
 [
     {
-        "data_registro": "2026-01-23T16:30:27.876",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2025-12-01",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -9,7 +9,7 @@
         "descricao": "LinkCe"
     },
     {
-        "data_registro": "2026-01-23T16:33:01.907",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-01",
         "tipo": "Receita",
         "natureza": "Fixo",
@@ -18,7 +18,7 @@
         "descricao": "LinkCe"
     },
     {
-        "data_registro": "2026-01-23T16:35:05.531",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-08",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -27,7 +27,7 @@
         "descricao": "Elo"
     },
     {
-        "data_registro": "2026-01-23T16:33:57.548",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-13",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -36,7 +36,7 @@
         "descricao": "Roxinho Infeliz"
     },
     {
-        "data_registro": "2026-01-23T16:26:39.676",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-23",
         "tipo": "Receita",
         "natureza": "Fixo",
@@ -45,7 +45,7 @@
         "descricao": "Nttdata"
     },
     {
-        "data_registro": "2026-01-23T16:26:58.853",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-23",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -54,7 +54,7 @@
         "descricao": "LinkCe"
     },
     {
-        "data_registro": "2026-01-23T16:27:49.803",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-23",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -63,7 +63,7 @@
         "descricao": "Azul"
     },
     {
-        "data_registro": "2026-01-23T16:38:18.756",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-23",
         "tipo": "Receita",
         "natureza": "Fixo",
@@ -72,7 +72,7 @@
         "descricao": "Flavinha"
     },
     {
-        "data_registro": "2026-01-23T16:39:00.907",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-01-23",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -81,7 +81,7 @@
         "descricao": "Laranja Mecânica"
     },
     {
-        "data_registro": "2026-01-23T18:39:18.064",
+        "data_registro": "2026-01-23",
         "data_vencimento": "2026-02-19",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -90,7 +90,7 @@
         "descricao": ""
     },
     {
-        "data_registro": null,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -99,7 +99,7 @@
         "descricao": ""
     },
     {
-        "data_registro": null,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -108,7 +108,7 @@
         "descricao": "Sopa"
     },
     {
-        "data_registro": null,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -117,7 +117,7 @@
         "descricao": "Curso Alura (1/2)"
     },
     {
-        "data_registro": null,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-02-26",
         "tipo": "Despesa",
         "natureza": "Variável",
@@ -126,7 +126,7 @@
         "descricao": "Curso Alura (2/2)"
     },
     {
-        "data_registro": null,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -135,7 +135,7 @@
         "descricao": ""
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -144,7 +144,7 @@
         "descricao": "Deezer (1/2)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-02-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
@@ -153,111 +153,219 @@
         "descricao": "Deezer (2/2)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-01-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (1/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-02-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (2/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-03-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (3/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-04-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (4/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-05-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (5/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-06-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (6/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-07-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (7/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-08-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (8/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-09-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (9/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-10-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (10/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-11-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (11/12)"
     },
     {
-        "data_registro": NaN,
+        "data_registro": "2026-01-26",
         "data_vencimento": "2026-12-26",
         "tipo": "Despesa",
         "natureza": "Fixo",
-        "valor": 83.33333333333333,
+        "valor": 83.33,
         "categoria": "Transporte",
         "descricao": "Seguro do Carro (12/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-01-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (1/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-28",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (2/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-03-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (3/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-04-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (4/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-05-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (5/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-06-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (6/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-07-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (7/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-08-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (8/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-09-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (9/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-10-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (10/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-11-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (11/12)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-12-30",
+        "tipo": "Despesa",
+        "natureza": "Fixo",
+        "valor": 250.0,
+        "categoria": "Educação",
+        "descricao": "Faculdade (12/12)"
     }
 ]
