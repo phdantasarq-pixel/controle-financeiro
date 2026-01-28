@@ -45,13 +45,16 @@ def resumo_page(df):
         st.subheader("🗑️ Gerenciar Lançamento")
 
         # Lista formatada para o selectbox
-        df_f['selecao'] = df_f.index.astype(str) + " - " + df_f['descricao'] + " (R$ " + df_f['valor'].map(
+        df_f['selecao'] = df_f['id'] + " - " + df_f['descricao'] + " (R$ " + df_f['valor'].map(
             '{:,.2f}'.format) + ")"
-        item_para_excluir = st.selectbox("Selecione o item para remover:", options=[""] + df_f['selecao'].tolist())
+        item_para_excluir = st.selectbox(
+            "Selecione o item para remover:", options=[""] + df_f['selecao'].tolist()
+        )
 
         if item_para_excluir != "":
-            idx_escolhido = int(item_para_excluir.split(" - ")[0])
-            linha_alvo = df.loc[idx_escolhido]
+            id_escolhido = item_para_excluir.split(" - ")[0]
+            linha_alvo = df[df['id'] == id_escolhido].iloc[0]
+
             descricao_original = linha_alvo['descricao']
             is_parcela = bool(re.search(r'\(\d+/\d+\)', descricao_original))
 

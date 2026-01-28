@@ -1,3 +1,5 @@
+# services/database_mongo.py
+
 import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime
@@ -14,6 +16,7 @@ class DatabaseMongo:
     _collection = _db["lancamentos"]
 
     COLUNAS_PADRAO = [
+        "id",
         "data_vencimento",
         "data_registro",
         "tipo",
@@ -27,54 +30,66 @@ class DatabaseMongo:
     def carregar_dados() -> pd.DataFrame:
         docs = list(DatabaseMongo._collection.find())
 
+        # Se vazio, devolve DataFrame com colunas padrão
         if not docs:
             return pd.DataFrame(columns=DatabaseMongo.COLUNAS_PADRAO)
 
+        # Normaliza os documentos, trocando _id por id
         for d in docs:
-            d["_id"] = str(d["_id"])
+            d["id"] = str(d["_id"])
+            del d["_id"]
 
         df = pd.DataFrame(docs)
 
-        # Normaliza datas
-        for col in ["data_vencimento", "data_registro"]:
-            if col in df.columns:
-                df[col] = pd.to_datetime(df[col], errors="coerce")
+        # Garante colunas mesmo se algum documento estiver faltando
+        for col in DatabaseMongo.COLUNAS_PADRAO:
+            if col not in df.columns:
+                df[col] = None
 
-        return df
+        # Normaliza datas
+        df["data_vencimento"] = pd.to_datetime(df["data_vencimento"], errors="coerce")
+        df["data_registro"] = pd.to_datetime(df["data_registro"], errors="coerce")
+
+        # Normaliza valor
+        df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
+
+        # Reordena para manter contrado
+        return df[DatabaseMongo.COLUNAS_PADRAO]
 
     @staticmethod
     def salvar_dados(df: pd.DataFrame):
+        """
+        Estratégia atual: delete tudo e insere de novo.
+        Pode evoluir depois para insert/updates incrementais.
+        """
+
+        # Remove coleção atual
+        DatabaseMongo._collection.delete_many({})
+
         if df.empty:
-            DatabaseMongo._collection.delete_many({})
             return
 
         registros = df.copy()
 
-        # Remove _id do pandas
-        if "_id" in registros.columns:
-            registros.drop(columns=["_id"], inplace=True)
+        # Retira coluna id para que o Mongo gere _id novamente
+        if "id" in registros.columns:
+            registros = registros.drop(columns=["id"])
 
-        # 🔒 Blindagem TOTAL contra NaT
-        for col in ["data_vencimento", "data_registro"]:
-            if col not in registros.columns:
-                registros[col] = datetime.now()
-            else:
-                registros[col] = pd.to_datetime(registros[col], errors="coerce")
-                registros[col] = registros[col].fillna(pd.Timestamp.now())
+        # Normaliza datas para datetime nativo antes de inserir
+        registros["data_vencimento"] = pd.to_datetime(
+            registros["data_vencimento"], errors="coerce"
+        ).dt.to_pydatetime()
+        registros["data_registro"] = pd.to_datetime(
+            registros["data_registro"], errors="coerce"
+        ).dt.to_pydatetime()
 
-        # Valor sempre float
         registros["valor"] = registros["valor"].astype(float).round(2)
 
         docs = registros.to_dict(orient="records")
 
-        # Converte Timestamp → datetime nativo
+        # Adiciona created_at para histórico se quiser (opcional)
         for d in docs:
-            for campo in ["data_vencimento", "data_registro"]:
-                if isinstance(d[campo], pd.Timestamp):
-                    d[campo] = d[campo].to_pydatetime()
-
             d["created_at"] = datetime.utcnow()
 
-        # Estratégia segura (igual JSON antigo)
-        DatabaseMongo._collection.delete_many({})
+        # Insere tudo de uma vez
         DatabaseMongo._collection.insert_many(docs)

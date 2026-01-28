@@ -1,3 +1,5 @@
+# services/database.py
+
 import pandas as pd
 from services.database_mongo import DatabaseMongo
 
@@ -5,7 +7,7 @@ from services.database_mongo import DatabaseMongo
 class Database:
     """
     Fachada de persistência.
-    Permite trocar Mongo / JSON / SQLite sem impactar o app.
+    O app inteiro usa esse Database, sem saber se é JSON ou Mongo.
     """
 
     @staticmethod
