@@ -1,9 +1,6 @@
-# services/database_mongo.py
-
 import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime
-
 
 class DatabaseMongo:
     """
@@ -15,8 +12,8 @@ class DatabaseMongo:
     _db = _client["planejai"]
     _collection = _db["lancamentos"]
 
+    # Removido 'id' da lista para não poluir o DataFrame e a UI
     COLUNAS_PADRAO = [
-        "id",
         "data_vencimento",
         "data_registro",
         "tipo",
@@ -34,10 +31,10 @@ class DatabaseMongo:
         if not docs:
             return pd.DataFrame(columns=DatabaseMongo.COLUNAS_PADRAO)
 
-        # Normaliza os documentos, trocando _id por id
+        # Remove o _id do MongoDB para que o Pandas não o transforme em coluna
         for d in docs:
-            d["id"] = str(d["_id"])
-            del d["_id"]
+            if "_id" in d:
+                del d["_id"]
 
         df = pd.DataFrame(docs)
 
@@ -53,17 +50,15 @@ class DatabaseMongo:
         # Normaliza valor
         df["valor"] = pd.to_numeric(df["valor"], errors="coerce").fillna(0.0)
 
-        # Reordena para manter contrado
+        # Reordena para manter o contrato limpo
         return df[DatabaseMongo.COLUNAS_PADRAO]
 
     @staticmethod
     def salvar_dados(df: pd.DataFrame):
         """
-        Estratégia atual: delete tudo e insere de novo.
-        Pode evoluir depois para insert/updates incrementais.
+        Estratégia: delete tudo e insere de novo.
+        O MongoDB gera novos _id automaticamente a cada salvamento.
         """
-
-        # Remove coleção atual
         DatabaseMongo._collection.delete_many({})
 
         if df.empty:
@@ -71,11 +66,12 @@ class DatabaseMongo:
 
         registros = df.copy()
 
-        # Retira coluna id para que o Mongo gere _id novamente
-        if "id" in registros.columns:
-            registros = registros.drop(columns=["id"])
+        # Garante que campos de ID residuais não sejam enviados
+        for col in ["id", "_id"]:
+            if col in registros.columns:
+                registros = registros.drop(columns=[col])
 
-        # Normaliza datas para datetime nativo antes de inserir
+        # Normaliza datas para datetime nativo do Python (essencial para o Mongo)
         registros["data_vencimento"] = pd.to_datetime(
             registros["data_vencimento"], errors="coerce"
         ).dt.to_pydatetime()
@@ -87,9 +83,8 @@ class DatabaseMongo:
 
         docs = registros.to_dict(orient="records")
 
-        # Adiciona created_at para histórico se quiser (opcional)
+        # Adiciona timestamp de criação
         for d in docs:
             d["created_at"] = datetime.utcnow()
 
-        # Insere tudo de uma vez
         DatabaseMongo._collection.insert_many(docs)
