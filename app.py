@@ -106,7 +106,33 @@ elif st.session_state.pagina == "Lançamento":
                             "descricao": desc_final
                         })
 
-                    st.session_state.df = pd.concat([st.session_state.df, pd.DataFrame(novos)], ignore_index=True)
+                    df_novos = pd.DataFrame(novos)
+
+                    # Garante todas as colunas esperadas
+                    colunas = [
+                        "data_vencimento",
+                        "data_registro",
+                        "tipo",
+                        "natureza",
+                        "valor",
+                        "categoria",
+                        "descricao"
+                    ]
+
+                    for col in colunas:
+                        if col not in df_novos.columns:
+                            df_novos[col] = None
+
+                    # Tipagem explícita
+                    df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"], errors="coerce")
+                    df_novos["data_registro"] = pd.to_datetime(df_novos["data_registro"], errors="coerce")
+                    df_novos["valor"] = df_novos["valor"].astype(float)
+
+                    st.session_state.df = pd.concat(
+                        [st.session_state.df, df_novos],
+                        ignore_index=True
+                    )
+
                     Database.salvar_dados(st.session_state.df)
                 st.success(f"Lançamento concluído!")
                 st.rerun()
