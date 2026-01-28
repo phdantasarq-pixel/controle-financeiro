@@ -466,5 +466,32 @@
         "valor": 10000.0,
         "categoria": "salário",
         "descricao": "salário"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-01-30",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 200.0,
+        "categoria": "Alimentação",
+        "descricao": "Mercantil (1/3)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-02-28",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 200.0,
+        "categoria": "Alimentação",
+        "descricao": "Mercantil (2/3)"
+    },
+    {
+        "data_registro": "2026-01-26",
+        "data_vencimento": "2026-03-30",
+        "tipo": "Despesa",
+        "natureza": "Variável",
+        "valor": 200.0,
+        "categoria": "Alimentação",
+        "descricao": "Mercantil (3/3)"
     }
 ]
