@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 from ui.resumo_page import resumo_page
 from ui.dashboard_page import dashboard_page
+from ui.components import seletor_meses_inteligente
 from services.database import Database
 import os
 
@@ -30,6 +31,16 @@ if 'df' not in st.session_state:
 if 'pagina' not in st.session_state:
     st.session_state.pagina = "Resumo"
 
+# --- LÓGICA DE RESET BLINDADA ---
+if "form_version" not in st.session_state:
+    st.session_state.form_version = 0
+
+
+def resetar_formulario():
+    # Ao mudar a versão, as chaves dos widgets mudam e o Streamlit limpa tudo sozinho
+    st.session_state.form_version += 1
+
+
 # --- BARRA LATERAL (SIDEBAR) ---
 with st.sidebar:
     logo_path = "assets/logo.png"
@@ -48,7 +59,6 @@ with st.sidebar:
 
     st.write("---")
 
-    # Cálculo do Saldo Acumulado Real
     if not st.session_state.df.empty:
         df_calc = st.session_state.df.copy()
         receitas = df_calc[df_calc['tipo'] == "Receita"]['valor'].sum()
@@ -58,6 +68,7 @@ with st.sidebar:
         saldo_real = 0.0
 
     st.metric("Saldo Acumulado", f"R$ {saldo_real:,.2f}", help="Total histórico: Receitas menos Despesas.")
+
 
 def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base):
     with st.spinner("Sincronizando com MongoDB..."):
@@ -80,7 +91,6 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
             })
 
         df_novos = pd.DataFrame(novos)
-        # Sincronização e Blindagem
         colunas = ["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao"]
         for col in colunas:
             if col not in df_novos.columns: df_novos[col] = None
@@ -90,7 +100,8 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
 
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
-    st.success("Lançamento concluído!")
+    st.toast("Lançamento concluído com sucesso! ✨")
+
 
 # --- ROTEAMENTO ---
 if st.session_state.pagina == "Resumo":
@@ -98,39 +109,43 @@ if st.session_state.pagina == "Resumo":
 
 elif st.session_state.pagina == "Lançamento":
     st.header("📝 Novo Registro")
-    categorias = ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas", "Salário", "Investimentos", "Outro"]
+
+    # Versão atual para chaves dinâmicas
+    v = st.session_state.form_version
+
+    st.write("### 📅 Mês de Referência")
+    mes_ref = seletor_meses_inteligente(key_suffix="pg_lancamento")
+    data_sugerida = datetime.strptime(mes_ref, "%m/%Y")
 
     with st.container(border=True):
         c1, c2 = st.columns(2)
         with c1:
-            data_base = st.date_input("Vencimento", format="DD/MM/YYYY")
-            tipo = st.selectbox("Tipo", ["Despesa", "Receita"])
-            valor = st.number_input("Valor Total R$", min_value=0.01, step=0.01)
+            # Keys dinâmicas garantem que o formulário limpe ao mudar a versão
+            data_base = st.date_input("Vencimento", value=data_sugerida, format="DD/MM/YYYY", key=f"dt_{v}")
+            tipo = st.selectbox("Tipo", ["Despesa", "Receita"], key=f"tp_{v}")
+            valor = st.number_input("Valor Total R$", min_value=0.0, step=0.01, key=f"vl_{v}")
         with c2:
-            natureza = st.selectbox("Natureza", ["Fixo", "Variável"])
-            cat_sel = st.selectbox("Categoria", categorias)
-            cat_outra = st.text_input("Se 'Outro', qual?")
+            natureza = st.selectbox("Natureza", ["Fixo", "Variável"], key=f"nt_{v}")
+            cat_sel = st.selectbox("Categoria",
+                                   ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas",
+                                    "Salário", "Investimentos", "Outro"], key=f"ct_{v}")
+            cat_outra = st.text_input("Se 'Outro', qual?", key=f"co_{v}")
 
-        descricao = st.text_input("Descrição")
+        descricao = st.text_input("Descrição", key=f"ds_{v}")
         st.write("---")
-
-        is_parcelado = st.checkbox("Parcelar este lançamento?")
+        is_parcelado = st.checkbox("Parcelar este lançamento?", key=f"pr_{v}")
         num_parcelas = st.number_input("Qtd de Parcelas", 2, 60, 2) if is_parcelado else 1
 
-        # --- DENTRO DO ROTEAMENTO: elif st.session_state.pagina == "Lançamento": ---
-
-        # --- LOGICA DE SALVAMENTO COM TRAVA DE SEGURANÇA (H4.2) ---
-
-        # 1. Botão Principal
         if st.button("🚀 Salvar no PlanejAI", use_container_width=True):
             if not descricao:
                 st.error("Por favor, preencha a descrição.")
+            elif valor <= 0:
+                st.error("O valor deve ser maior que zero.")
             else:
                 df_atual = st.session_state.df
                 receitas = df_atual[df_atual['tipo'] == "Receita"]['valor'].sum()
                 despesas = df_atual[df_atual['tipo'] == "Despesa"]['valor'].sum()
                 saldo_atual = receitas - despesas
-
                 impacto = valor if tipo == "Despesa" else 0
                 saldo_projetado = saldo_atual - impacto
 
@@ -140,42 +155,31 @@ elif st.session_state.pagina == "Lançamento":
                         "valor": valor, "tipo": tipo, "natureza": natureza,
                         "cat_sel": cat_sel, "cat_outra": cat_outra,
                         "descricao": descricao, "num_parcelas": num_parcelas,
-                        "data_base": data_base, "saldo_atual": saldo_atual,
-                        "saldo_projetado": saldo_projetado
+                        "data_base": data_base, "saldo_projetado": saldo_projetado
                     }
-                    st.rerun()  # Força a interface a mostrar o alerta
+                    st.rerun()
                 else:
                     salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
+                    resetar_formulario()  # Limpeza segura via Key
                     st.rerun()
 
-        # 2. Área de Confirmação (Só aparece se houver pendência)
-        if st.session_state.get("aguardando_confirmacao"):
-            st.write("---")
-            dados = st.session_state.dados_pendentes
-
-            with st.container(border=True):
-                st.warning(
-                    f"⚠️ **Atenção:** Este gasto de **R$ {dados['valor']:,.2f}** deixará seu saldo real negativo (**R$ {dados['saldo_projetado']:,.2f}**).")
-
-                confirmar_check = st.checkbox("Estou ciente do impacto financeiro.")
-
-                col_conf, col_canc = st.columns(2)
-
-                if col_conf.button("✅ Confirmar Lançamento", disabled=not confirmar_check, use_container_width=True):
-                    salvar_lancamento(
-                        dados['valor'], dados['tipo'], dados['natureza'],
-                        dados['cat_sel'], dados['cat_outra'], dados['descricao'],
-                        dados['num_parcelas'], dados['data_base']
-                    )
-                    # Limpa tudo
+    # ÁREA DE CONFIRMAÇÃO
+    if st.session_state.get("aguardando_confirmacao"):
+        dados = st.session_state.dados_pendentes
+        with st.container(border=True):
+            st.warning(f"⚠️ **Alerta:** Saldo ficará negativo (**R$ {dados['saldo_projetado']:,.2f}**).")
+            confirmar_check = st.checkbox("Estou ciente do impacto.")
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("✅ Confirmar", disabled=not confirmar_check, use_container_width=True):
+                    salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
+                                      dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
                     st.session_state.aguardando_confirmacao = False
-                    st.session_state.dados_pendentes = {}
-                    st.success("Lançamento confirmado!")
+                    resetar_formulario()  # Limpeza segura via Key
                     st.rerun()
-
-                if col_canc.button("❌ Cancelar", use_container_width=True):
+            with col2:
+                if st.button("❌ Cancelar", use_container_width=True):
                     st.session_state.aguardando_confirmacao = False
-                    st.session_state.dados_pendentes = {}
                     st.rerun()
 
 elif st.session_state.pagina == "Dashboard":
@@ -183,27 +187,24 @@ elif st.session_state.pagina == "Dashboard":
 
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
+
     ia_page(st.session_state.df)
 
 elif st.session_state.pagina == "Config":
     st.header("⚙️ Configurações e Automação")
+    st.write("### 📅 Selecione o Mês Origem para Clonagem")
+    mes_origem = seletor_meses_inteligente(key_suffix="pg_config")
 
     with st.container(border=True):
         st.subheader("🚀 Clonagem de Gastos Fixos")
-        st.write("Replica os lançamentos 'Fixo' para o mês seguinte.")
-
-        from services.calendar_service import mes_ano
-        opcoes_meses = mes_ano()
-        mes_atual = datetime.now().strftime("%m/%Y")
-
-        mes_origem = st.selectbox("Clonar a partir do mês:", opcoes_meses, index=opcoes_meses.index(mes_atual))
+        st.write(f"Replica lançamentos 'Fixo' de **{mes_origem}** para o mês seguinte.")
 
         if st.button("Executar Clonagem Inteligente", use_container_width=True):
             with st.spinner("Clonando registros fixos..."):
                 df = st.session_state.df.copy()
                 df['data_vencimento'] = pd.to_datetime(df['data_vencimento'], errors='coerce')
-
                 m_origem, a_origem = map(int, mes_origem.split('/'))
+
                 mask_fixos = (df['data_vencimento'].dt.month == m_origem) & \
                              (df['data_vencimento'].dt.year == a_origem) & \
                              (df['natureza'] == "Fixo")
@@ -215,7 +216,6 @@ elif st.session_state.pagina == "Config":
                 else:
                     df_fixos['data_registro'] = datetime.now().strftime('%Y-%m-%d')
                     df_fixos['data_vencimento'] = df_fixos['data_vencimento'] + pd.DateOffset(months=1)
-
                     st.session_state.df = pd.concat([st.session_state.df, df_fixos], ignore_index=True)
                     Database.salvar_dados(st.session_state.df)
                     st.success(f"✅ Clonagem concluída!")
