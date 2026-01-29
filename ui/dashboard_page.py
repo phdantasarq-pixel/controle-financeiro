@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from services.calendar_service import mes_ano
 from datetime import datetime
+from ui.components import seletor_meses_inteligente  # Novo Componente de UX
 
 
 def dashboard_page(df):
@@ -42,7 +42,6 @@ def dashboard_page(df):
         # Progresso da Reserva
         if meta_reserva > 0:
             progresso = min(saldo_acumulado / meta_reserva, 1.0) if saldo_acumulado > 0 else 0
-            cor_progresso = "green" if progresso >= 1 else "orange" if progresso > 0.5 else "red"
 
             c3.metric("Saldo Atual vs Meta", f"{progresso * 100:.1f}%")
             st.progress(progresso)
@@ -57,11 +56,10 @@ def dashboard_page(df):
 
     st.write("---")
 
-    # --- FILTRO POR MÊS (SEU CÓDIGO ORIGINAL) ---
-    opcoes = mes_ano()
-    mes_atual = datetime.now().strftime("%m/%Y")
-    mes_sel = st.segmented_control("Meses", options=opcoes, default=mes_atual, selection_mode="single",
-                                   label_visibility="collapsed") or mes_atual
+    # --- NOVO FILTRO INTELIGENTE (H2.2) ---
+    st.write("### 📅 Filtrar por Período")
+    # Substituímos a lógica antiga pelo componente centralizado
+    mes_sel = seletor_meses_inteligente(key_suffix="dash_analitico")
 
     df_chart = df.copy()
     df_chart['data_vencimento'] = pd.to_datetime(df_chart['data_vencimento'], format='mixed')
