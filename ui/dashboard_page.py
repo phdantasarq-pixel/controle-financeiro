@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
-from ui.components import seletor_meses_inteligente  # Novo Componente de UX
+from ui.components import seletor_meses_inteligente
+from services.database import Database
 
 
 def dashboard_page(df):
@@ -15,23 +16,29 @@ def dashboard_page(df):
         st.warning("Sem dados para gerar o Dashboard.")
         return
 
-    # --- CÁLCULOS DE RESERVA DE EMERGÊNCIA (H4.3) ---
+    # --- CÁLCULOS DE RESERVA (H7.1) ---
     df_reserva = df.copy()
-    df_reserva['data_vencimento'] = pd.to_datetime(df_reserva['data_vencimento'], format='mixed')
+    df_reserva['data_vencimento'] = pd.to_datetime(df_reserva['data_vencimento'], errors='coerce')
 
-    # 1. Saldo Total Disponível (Histórico)
+    # 1. Busca saldos manuais
+    df_saldos_manuais = Database.carregar_saldos()
+    total_contas = df_saldos_manuais['valor'].sum() if not df_saldos_manuais.empty else 0
+
+    # 2. Saldo do Extrato
     receitas_totais = df_reserva[df_reserva['tipo'] == "Receita"]['valor'].sum()
     despesas_totais = df_reserva[df_reserva['tipo'] == "Despesa"]['valor'].sum()
-    saldo_acumulado = receitas_totais - despesas_totais
+    saldo_extrato = receitas_totais - despesas_totais
 
-    # 2. Custo Mensal Médio (Baseado nos meses que têm despesas)
+    # 3. RESERVA TOTAL REAL (Impactada pelos saldos manuais)
+    reserva_total_real = saldo_extrato + total_contas
+
+    # 4. Meta baseada em Gastos
     gastos_por_mes = df_reserva[df_reserva['tipo'] == "Despesa"].groupby(
         df_reserva['data_vencimento'].dt.to_period('M'))['valor'].sum()
-
     custo_medio = gastos_por_mes.mean() if not gastos_por_mes.empty else 0
-    meta_reserva = custo_medio * 6  # Padrão: 6 meses de sobrevivência
+    meta_reserva = custo_medio * 6
 
-    # 3. UI da Reserva
+    # --- UI DA RESERVA ---
     with st.container(border=True):
         st.subheader("🛡️ Saúde Financeira: Reserva de Emergência")
         c1, c2, c3 = st.columns(3)
@@ -39,32 +46,25 @@ def dashboard_page(df):
         c1.metric("Custo Médio Mensal", f"R$ {custo_medio:,.2f}")
         c2.metric("Meta de Reserva (6 meses)", f"R$ {meta_reserva:,.2f}")
 
-        # Progresso da Reserva
         if meta_reserva > 0:
-            progresso = min(saldo_acumulado / meta_reserva, 1.0) if saldo_acumulado > 0 else 0
-
-            c3.metric("Saldo Atual vs Meta", f"{progresso * 100:.1f}%")
+            progresso = min(reserva_total_real / meta_reserva, 1.0) if reserva_total_real > 0 else 0
+            c3.metric("Saldo Real p/ Reserva", f"R$ {reserva_total_real:,.2f}", delta=f"{progresso * 100:.1f}%")
             st.progress(progresso)
 
             if progresso >= 1:
                 st.success("🎯 Parabéns! Sua reserva de emergência está completa.")
-            elif progresso > 0:
-                meses_cobertos = saldo_acumulado / custo_medio if custo_medio > 0 else 0
-                st.info(f"Seu saldo atual cobre aproximadamente **{meses_cobertos:.1f} meses** de despesas.")
-        else:
-            st.info("Lance despesas para calcular sua meta de reserva.")
+            else:
+                meses_cobertos = reserva_total_real / custo_medio if custo_medio > 0 else 0
+                st.info(f"Sua reserva atual cobre aproximadamente **{meses_cobertos:.1f} meses** de despesas.")
 
     st.write("---")
 
-    # --- NOVO FILTRO INTELIGENTE (H2.2) ---
-    st.write("### 📅 Filtrar por Período")
-    # Substituímos a lógica antiga pelo componente centralizado
+    # --- FILTRO E GRÁFICOS ---
     mes_sel = seletor_meses_inteligente(key_suffix="dash_analitico")
+    mes_f, ano_f = map(int, mes_sel.split('/'))
 
     df_chart = df.copy()
-    df_chart['data_vencimento'] = pd.to_datetime(df_chart['data_vencimento'], format='mixed')
-
-    mes_f, ano_f = map(int, mes_sel.split('/'))
+    df_chart['data_vencimento'] = pd.to_datetime(df_chart['data_vencimento'], errors='coerce')
     mask = (df_chart['data_vencimento'].dt.month == mes_f) & (df_chart['data_vencimento'].dt.year == ano_f)
     df_filtrado = df_chart[mask]
 
@@ -80,5 +80,3 @@ def dashboard_page(df):
             df_evol = df_filtrado.groupby(['data_vencimento', 'tipo'])['valor'].sum().reset_index()
             fig_line = px.line(df_evol, x='data_vencimento', y='valor', color='tipo', markers=True)
             st.plotly_chart(fig_line, use_container_width=True)
-    else:
-        st.info(f"Sem dados detalhados para {mes_sel}.")
