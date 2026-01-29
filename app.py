@@ -91,6 +91,12 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
             })
 
         df_novos = pd.DataFrame(novos)
+
+        # --- INSERIR AQUI ---
+        # Garante que as datas não tenham fuso horário (evita o erro NaTType/utcoffset)
+        df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
+        # --------------------
+
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
     st.toast("Lançamento concluído com sucesso! ✨")
