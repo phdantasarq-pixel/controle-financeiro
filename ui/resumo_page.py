@@ -18,7 +18,7 @@ def resumo_page(df):
     st.write("### 📅 Filtrar por Período")
     mes_sel = seletor_meses_inteligente(key_suffix="resumo_financeiro")
 
-    # Cálculos de topo
+    # Cálculos de topo (Métricas Rápidas)
     receitas, despesas, saldo = resumo_mensal(df, mes_sel)
     c1, c2, c3 = st.columns(3)
     c1.metric("Receitas", f"R$ {receitas:,.2f}")
@@ -30,6 +30,7 @@ def resumo_page(df):
     df_p['data_vencimento'] = pd.to_datetime(df_p['data_vencimento'], errors='coerce')
 
     m, a = map(int, mes_sel.split('/'))
+    # Filtra os dados do mês selecionado
     df_f = df_p[(df_p['data_vencimento'].dt.month == m) & (df_p['data_vencimento'].dt.year == a)]
 
     if not df_f.empty:
@@ -38,46 +39,48 @@ def resumo_page(df):
 
         # --- LÓGICA DE AUTOSAVE ---
         def processar_edicao():
-            # Pega as mudanças pendentes no editor
             state = st.session_state.editor_financeiro
             if state["edited_rows"]:
-                with st.spinner("Salvando alterações..."):
+                with st.spinner("Sincronizando com o banco de dados..."):
                     for row_idx_str, changes in state["edited_rows"].items():
-                        # O Streamlit retorna o índice da linha filtrada (df_f)
                         row_idx = int(row_idx_str)
-                        # Localizamos o índice real no dataframe principal através da posição na fatia df_f
+                        # Identifica o índice real no session_state.df através da posição no dataframe filtrado
                         real_idx = df_f.index[row_idx]
 
-                        # Aplica as mudanças no dataframe global
+                        # Aplica as mudanças no estado global
                         for field, value in changes.items():
                             st.session_state.df.at[real_idx, field] = value
 
-                    # Salva no MongoDB
+                    # Persiste no MongoDB Local
                     Database.salvar_dados(st.session_state.df)
                     st.toast("Alterações salvas com sucesso!", icon="✅")
 
-        # --- EDITOR DE DADOS COM AUTOSAVE ---
+        # --- EDITOR DE DADOS COM COLUNAS TÉCNICAS OCULTAS ---
         st.data_editor(
             df_f,
             use_container_width=True,
             hide_index=True,
             column_config={
-                "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD-MM-YYYY"),
-                "data_registro": None,
+                "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
                 "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", min_value=0),
                 "tipo": st.column_config.SelectboxColumn("Tipo", options=["Receita", "Despesa"]),
                 "natureza": st.column_config.SelectboxColumn("Natureza", options=["Fixo", "Variável"]),
                 "categoria": "Categoria",
-                "descricao": "Descrição"
+                "descricao": "Descrição",
+                # OCULTANDO COLUNAS TÉCNICAS
+                "data_registro": None,
+                "created_at": None,
+                "id": None,
+                "_id": None
             },
             key="editor_financeiro",
-            on_change=processar_edicao  # Gatilho para o Autosave
+            on_change=processar_edicao
         )
 
         st.write("---")
         st.subheader("🗑️ Gerenciar Lançamento")
 
-        # Preparação para exclusão (usamos df_f pois o editor altera o session_state direto)
+        # Preparação para exclusão
         df_view = df_f.copy()
         df_view['selecao_label'] = df_view['descricao'] + " (R$ " + df_view['valor'].map('{:,.2f}'.format) + ")"
         dict_referencia = {row['selecao_label']: idx for idx, row in df_view.iterrows()}
@@ -88,6 +91,7 @@ def resumo_page(df):
         if item_selecionado != "":
             idx_alvo = dict_referencia[item_selecionado]
             descricao_original = st.session_state.df.loc[idx_alvo, 'descricao']
+            # Regex para identificar se é uma parcela ex: (1/12)
             is_parcela = bool(re.search(r'\(\d+/\d+\)', descricao_original))
 
             col_ex1, col_ex2 = st.columns(2)
@@ -101,11 +105,12 @@ def resumo_page(df):
             with col_ex2:
                 if is_parcela:
                     if st.button("🧨 Excluir TODAS as parcelas", use_container_width=True, type="primary"):
+                        # Remove a numeração (x/x) para achar as parcelas irmãs
                         nome_base = descricao_original.split(" (")[0].strip()
                         mascara = st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)
                         st.session_state.df = st.session_state.df[~mascara]
                         Database.salvar_dados(st.session_state.df)
-                        st.success("Parcelas removidas!")
+                        st.success("Todas as parcelas foram removidas!")
                         st.rerun()
     else:
         st.info(f"Nenhum lançamento encontrado para {mes_sel}.")
