@@ -21,26 +21,45 @@ class Database:
 
     @staticmethod
     def carregar_dados():
-        """Carrega os lançamentos financeiros do MongoDB."""
+        """Carrega os lançamentos e garante a presença da coluna status."""
         db = Database.conectar()
-        if db is None:
-            return pd.DataFrame()
+        if db is None: return pd.DataFrame()
 
         colecao = db["lancamentos"]
         dados = list(colecao.find())
         if not dados:
             return pd.DataFrame(
-                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao"])
+                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
+                         "status"])
 
         df = pd.DataFrame(dados)
-        if "_id" in df.columns:
-            df = df.drop(columns=["_id"])
 
-        # Garante que ao carregar, as datas sejam tratadas como datetime do Pandas
+        # Mantemos o _id para conseguir atualizar registros específicos depois
+        # Se você preferir não ver o _id na tabela, filtramos na UI, mas aqui ele é útil
+
+        if "status" not in df.columns:
+            df["status"] = "Pendente"
+        else:
+            df["status"] = df["status"].fillna("Pendente")
+
         if "data_vencimento" in df.columns:
             df["data_vencimento"] = pd.to_datetime(df["data_vencimento"], errors='coerce')
 
         return df
+
+    @staticmethod
+    def atualizar_status(doc_id, novo_status):
+        """Atualiza o status de um lançamento específico no MongoDB."""
+        db = Database.conectar()
+        if db is not None:
+            try:
+                from bson.objectid import ObjectId
+                db["lancamentos"].update_one({"_id": ObjectId(doc_id)}, {"$set": {"status": novo_status}})
+                return True
+            except Exception as e:
+                st.error(f"Erro ao atualizar status: {e}")
+        return False
+
 
     @staticmethod
     def salvar_dados(df):
