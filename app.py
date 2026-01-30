@@ -36,6 +36,9 @@ if "form_version" not in st.session_state:
 
 def resetar_formulario():
     st.session_state.form_version += 1
+    if "dados_pendentes" in st.session_state:
+        del st.session_state.dados_pendentes
+    st.session_state.aguardando_confirmacao = False
 
 
 # --- FUNÇÕES DE LÓGICA ---
@@ -61,7 +64,6 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
             })
 
         df_novos = pd.DataFrame(novos)
-        # Limpeza de fuso horário para evitar erro NaTType
         df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
 
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
@@ -70,37 +72,23 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
 
 
 def executar_clonagem(mes_referencia):
-    """Clona gastos FIXOS do mês selecionado para o mês seguinte."""
     with st.spinner("Clonando lançamentos fixos..."):
         try:
             mes_f, ano_f = map(int, mes_referencia.split('/'))
             df = st.session_state.df.copy()
-
-            if df.empty:
-                st.warning("Não há dados no sistema para clonar.")
-                return
-
+            if df.empty: return
             df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
-
-            # Filtra apenas os FIXOS do mês de origem
-            filtro = (df['data_vencimento'].dt.month == mes_f) & \
-                     (df['data_vencimento'].dt.year == ano_f) & \
-                     (df['natureza'] == "Fixo")
-
+            filtro = (df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (
+                        df['natureza'] == "Fixo")
             fixos = df[filtro].copy()
-
             if fixos.empty:
                 st.warning(f"Nenhum gasto 'Fixo' encontrado em {mes_referencia}.")
                 return
-
-            # Ajusta para o mês seguinte
             fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
             fixos['data_registro'] = datetime.now().strftime('%Y-%m-%d')
-
-            # Salva no banco e atualiza estado
             st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
             Database.salvar_dados(st.session_state.df)
-            st.success(f"✅ {len(fixos)} fixos de {mes_referencia} clonados com sucesso!")
+            st.success(f"✅ {len(fixos)} fixos clonados!")
         except Exception as e:
             st.error(f"Erro na clonagem: {e}")
 
@@ -108,25 +96,20 @@ def executar_clonagem(mes_referencia):
 # --- BARRA LATERAL (SIDEBAR) ---
 with st.sidebar:
     logo_path = "assets/logo.png"
-    if os.path.exists(logo_path):
-        st.image(logo_path, use_container_width=True)
-
+    if os.path.exists(logo_path): st.image(logo_path, use_container_width=True)
     st.title("PlanejAI")
     st.caption("Consultoria Financeira Inteligente")
     st.write("---")
-
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
     if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
-
     st.write("---")
 
     df_saldos_gerais = Database.carregar_saldos()
     total_contas_manuais = df_saldos_gerais['valor'].sum() if not df_saldos_gerais.empty else 0.0
-
     if not st.session_state.df.empty:
         df_calc = st.session_state.df.copy()
         receitas = df_calc[df_calc['tipo'] == "Receita"]['valor'].sum()
@@ -134,7 +117,6 @@ with st.sidebar:
         saldo_real = (receitas - despesas) + total_contas_manuais
     else:
         saldo_real = total_contas_manuais
-
     st.metric("Saldo Total Disponível", f"R$ {saldo_real:,.2f}")
 
 # --- ROTEAMENTO ---
@@ -160,12 +142,11 @@ elif st.session_state.pagina == "Lançamento":
             valor = st.number_input("Valor Total R$", min_value=0.0, step=0.01, key=f"vl_{v}")
         with c2:
             natureza = st.selectbox("Natureza", ["Fixo", "Variável"], key=f"nt_{v}")
-            cat_sel = st.selectbox("Categoria", [
-                "Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação",
-                "Assinaturas", "Salário", "Investimentos", "Cartão de Crédito", "Empréstimo", "Outro"
-            ], key=f"ct_{v}")
+            cat_sel = st.selectbox("Categoria",
+                                   ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas",
+                                    "Salário", "Investimentos", "Cartão de Crédito", "Empréstimo", "Outro"],
+                                   key=f"ct_{v}")
             cat_outra = st.text_input("Se 'Outro', qual?", key=f"co_{v}")
-
         descricao = st.text_input("Descrição", key=f"ds_{v}")
         st.write("---")
         is_parcelado = st.checkbox("Parcelar este lançamento?", key=f"pr_{v}")
@@ -177,9 +158,39 @@ elif st.session_state.pagina == "Lançamento":
             elif valor <= 0:
                 st.error("Valor deve ser maior que zero.")
             else:
-                salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
-                resetar_formulario()
-                st.rerun()
+                impacto = valor if tipo == "Despesa" else 0
+                saldo_projetado = saldo_real - impacto
+                if tipo == "Despesa" and saldo_projetado < 0:
+                    st.session_state.aguardando_confirmacao = True
+                    st.session_state.dados_pendentes = {
+                        "valor": valor, "tipo": tipo, "natureza": natureza, "cat_sel": cat_sel,
+                        "cat_outra": cat_outra, "descricao": descricao, "num_parcelas": num_parcelas,
+                        "data_base": data_base, "saldo_projetado": saldo_projetado
+                    }
+                    st.rerun()
+                else:
+                    salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
+                    resetar_formulario()
+                    st.rerun()
+
+    # --- BLOCO DE CONFIRMAÇÃO (O QUE ESTAVA FALTANDO) ---
+    if st.session_state.get("aguardando_confirmacao"):
+        dados = st.session_state.dados_pendentes
+        with st.container(border=True):
+            st.warning(
+                f"⚠️ **Alerta:** Este lançamento deixará o saldo negativo (**R$ {dados['saldo_projetado']:,.2f}**).")
+            confirmar_check = st.checkbox("Estou ciente do impacto financeiro.")
+            col_c1, col_c2 = st.columns(2)
+            with col_c1:
+                if st.button("✅ Confirmar Lançamento", disabled=not confirmar_check, use_container_width=True):
+                    salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
+                                      dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
+                    resetar_formulario()
+                    st.rerun()
+            with col_c2:
+                if st.button("❌ Cancelar", use_container_width=True):
+                    resetar_formulario()
+                    st.rerun()
 
 elif st.session_state.pagina == "Dashboard":
     dashboard_page(st.session_state.df)
@@ -191,7 +202,6 @@ elif st.session_state.pagina == "IA":
 
 elif st.session_state.pagina == "Config":
     st.header("⚙️ Configurações e Automação")
-
     with st.container(border=True):
         st.subheader("📥 Recuperar Dados (Excel/CSV)")
         arquivo_upload = st.file_uploader("Selecione o arquivo CSV", type="csv")
@@ -200,7 +210,6 @@ elif st.session_state.pagina == "Config":
             mes_imp = st.number_input("Mês", 1, 12, 1)
         with c2:
             ano_imp = st.number_input("Ano", 2025, 2030, 2026)
-
         if st.button("🚀 Importar CSV", use_container_width=True):
             if arquivo_upload:
                 if Database.importar_do_csv(arquivo_upload, mes_imp, ano_imp):
@@ -209,12 +218,9 @@ elif st.session_state.pagina == "Config":
                     st.rerun()
             else:
                 st.warning("Selecione um arquivo.")
-
     st.write("---")
-
     with st.container(border=True):
         st.subheader("🔄 Clonagem Inteligente")
-        st.write("Copia gastos **Fixos** para o mês seguinte.")
         mes_origem = seletor_meses_inteligente(key_suffix="pg_config")
         if st.button("🚀 Executar Clonagem", use_container_width=True):
             executar_clonagem(mes_origem)
