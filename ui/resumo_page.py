@@ -75,7 +75,6 @@ def resumo_page(df):
         f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
 
     # --- SEÇÃO [H8.1]: SALDO EM TEMPO REAL & RESERVA ---
-    # Agora inclui o Balanço do Mês dentro deste expander
     with st.expander("🏦 Saldo em Tempo Real & Reserva", expanded=True):
         st.info(f"💡 {ajuda_texto}")
         c_l1, c_l2, c_l3 = st.columns(3)
@@ -86,10 +85,6 @@ def resumo_page(df):
         with c_l3:
             cor_livre = "normal" if saldo_exibicao >= 0 else "inverse"
             st.metric(label_status, f"R$ {saldo_exibicao:,.2f}", delta=f"Impacto Acumulado", delta_color=cor_livre)
-
-        if saldo_exibicao < 0:
-            st.error(
-                f"⚠️ Atenção: Suas projeções indicam que você precisará de R$ {abs(saldo_exibicao):,.2f} da sua reserva para cobrir este período.")
 
     st.write("---")
 
@@ -113,90 +108,49 @@ def resumo_page(df):
                     Database.salvar_dados(st.session_state.df)
 
         config_colunas = {
-            "Situacao": st.column_config.SelectboxColumn(
-                "Status",
-                options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
-                width=120
-            ),
-            "data_vencimento": st.column_config.DateColumn(
-                "Vencimento",
-                format="DD/MM/YYYY",
-                width=120
-            ),
-            "tipo": st.column_config.SelectboxColumn(
-                "Tipo",
-                options=["Receita", "Despesa"],
-                width=100
-            ),
-            "categoria": st.column_config.TextColumn(
-                "Categoria",
-                width=120
-            ),
-            "valor": st.column_config.NumberColumn(
-                "Valor",
-                format="R$ %.2f",
-                width=100
-            ),
-            "descricao": st.column_config.TextColumn(
-                "Descrição",
-                width=None
-            )
+            "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
+            "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], width=120),
+            "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY", width=120),
+            "categoria": st.column_config.TextColumn("Categoria", width=120),
+            "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", width=100),
+            "descricao": st.column_config.TextColumn("Descrição", width=None)
         }
 
-        colunas_ordem = ['Situacao', 'data_vencimento', 'tipo', 'descricao', 'categoria', 'valor']
+        # REMOVIDO 'tipo' DA ORDEM DE COLUNAS VISUAIS
+        colunas_ordem_visual = ['🗑️', 'Situacao', 'data_vencimento', 'descricao', 'categoria', 'valor']
 
-        # Exibição das Tabelas
         for t, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
-            colunas_existentes = [c for c in colunas_ordem if c in df_f.columns or c == 'Situacao']
-            df_tipo = df_f[df_f['tipo'] == t][colunas_existentes]
-
-            # Valor total para o cabeçalho
+            df_tipo = df_f[df_f['tipo'] == t].copy()
             valor_total_tipo = total_receitas_mes if t == "Receita" else total_despesas_mes
 
-            # O título do expander agora informa o total resumido
             with st.expander(f"{icon} {label} do Mês — Total: R$ {valor_total_tipo:,.2f}", expanded=True):
-                # Métrica de destaque logo no início do accordion
-                st.metric(label=f"Soma Total de {label}", value=f"R$ {valor_total_tipo:,.2f}")
-
                 if not df_tipo.empty:
-                    st.data_editor(
-                        df_tipo,
+                    # Garantia de tipo booleano para o checkbox
+                    if "🗑️" in df_tipo.columns:
+                        df_tipo = df_tipo.drop(columns=["🗑️"])
+                    df_tipo.insert(0, "🗑️", False)
+                    df_tipo["🗑️"] = df_tipo["🗑️"].astype(bool)
+
+                    editor_key = f"editor_{t.lower()}"
+
+                    # Aplicando a ordem visual sem a coluna 'tipo'
+                    df_editado = st.data_editor(
+                        df_tipo[colunas_ordem_visual],
                         use_container_width=True,
                         hide_index=True,
                         column_config=config_colunas,
-                        key=f"editor_{t.lower()}",
+                        key=editor_key,
                         on_change=processar_edicao_v2,
-                        args=(f"editor_{t.lower()}", df_tipo)
+                        args=(editor_key, df_tipo)
                     )
+
+                    itens_excluir = df_editado[df_editado["🗑️"] == True]
+                    if not itens_excluir.empty:
+                        if st.button(f"🗑️ Remover {len(itens_excluir)} selecionado(s)", key=f"btn_del_{t}"):
+                            st.session_state.df = st.session_state.df.drop(itens_excluir.index)
+                            Database.salvar_dados(st.session_state.df)
+                            st.rerun()
                 else:
                     st.info(f"Nenhuma {t.lower()} registrada.")
-
-        # --- GERENCIAR / EXCLUIR ---
-        st.write("---")
-        st.subheader("🗑️ Gerenciar Lançamento")
-        df_del = df_f.copy()
-        df_del['selecao_label'] = df_del['tipo'] + ": " + df_del['descricao'] + " (R$ " + df_del['valor'].map(
-            '{:,.2f}'.format) + ")"
-        dict_referencia = {row['selecao_label']: idx for idx, row in df_del.iterrows()}
-        item_selecionado = st.selectbox("Selecione para remover:", options=[""] + list(dict_referencia.keys()),
-                                        key="select_excluir")
-
-        if item_selecionado != "":
-            idx_alvo = dict_referencia[item_selecionado]
-            desc = st.session_state.df.loc[idx_alvo, 'descricao']
-            is_parcela = bool(re.search(r'\(\d+/\d+\)', desc))
-            c_ex1, c_ex2 = st.columns(2)
-            with c_ex1:
-                if st.button("❌ Excluir Registro", use_container_width=True):
-                    st.session_state.df = st.session_state.df.drop(idx_alvo)
-                    Database.salvar_dados(st.session_state.df)
-                    st.rerun()
-            with c_ex2:
-                if is_parcela and st.button("🧨 Excluir TODAS as parcelas", use_container_width=True, type="primary"):
-                    nome_base = desc.split(" (")[0].strip()
-                    st.session_state.df = st.session_state.df[
-                        ~st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)]
-                    Database.salvar_dados(st.session_state.df)
-                    st.rerun()
     else:
         st.info(f"Nenhum lançamento encontrado para {mes_sel}.")

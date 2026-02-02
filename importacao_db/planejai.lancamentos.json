@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398c5"
+    "$oid": "6980415c2797070c4c87f1b0"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -11,11 +11,14 @@
   "valor": 6546,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398c6"
+    "$oid": "6980415c2797070c4c87f1b1"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -26,11 +29,14 @@
   "valor": 879,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398c7"
+    "$oid": "6980415c2797070c4c87f1b2"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -41,11 +47,14 @@
   "valor": 2260,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398c8"
+    "$oid": "6980415c2797070c4c87f1b3"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -56,11 +65,14 @@
   "valor": 1017,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398c9"
+    "$oid": "6980415c2797070c4c87f1b4"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -71,11 +83,14 @@
   "valor": 100,
   "categoria": "Moradia",
   "descricao": "Internet",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ca"
+    "$oid": "6980415c2797070c4c87f1b5"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -86,11 +101,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet Pai",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398cb"
+    "$oid": "6980415c2797070c4c87f1b6"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -101,11 +119,14 @@
   "valor": 270,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398cc"
+    "$oid": "6980415c2797070c4c87f1b7"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -116,11 +137,14 @@
   "valor": 145,
   "categoria": "Transporte",
   "descricao": "Seguro Avg carro",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398cd"
+    "$oid": "6980415c2797070c4c87f1b8"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -131,11 +155,14 @@
   "valor": 85,
   "categoria": "Outros",
   "descricao": "Inss  Marcos",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ce"
+    "$oid": "6980415c2797070c4c87f1b9"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -146,11 +173,14 @@
   "valor": 667,
   "categoria": "Moradia",
   "descricao": "Financ Royal Park ",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398cf"
+    "$oid": "6980415c2797070c4c87f1ba"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -161,11 +191,14 @@
   "valor": 277,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d0"
+    "$oid": "6980415c2797070c4c87f1bb"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -176,11 +209,14 @@
   "valor": 200,
   "categoria": "Moradia",
   "descricao": "Conta Energia Royal Park",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d1"
+    "$oid": "6980415c2797070c4c87f1bc"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -191,11 +227,14 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d2"
+    "$oid": "6980415c2797070c4c87f1bd"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -206,11 +245,14 @@
   "valor": 302,
   "categoria": "Educação",
   "descricao": "Faculdade ",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d3"
+    "$oid": "6980415c2797070c4c87f1be"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -221,11 +263,14 @@
   "valor": 460,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Keyliane",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d4"
+    "$oid": "6980415c2797070c4c87f1bf"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -236,11 +281,14 @@
   "valor": 7769,
   "categoria": "Empréstimo",
   "descricao": "Cheque Especial",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d5"
+    "$oid": "6980415c2797070c4c87f1c0"
   },
   "data_vencimento": {
     "$date": "2026-01-07T00:00:00.000Z"
@@ -251,11 +299,14 @@
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d6"
+    "$oid": "6980415c2797070c4c87f1c1"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -266,11 +317,14 @@
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d7"
+    "$oid": "6980415c2797070c4c87f1c2"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -281,11 +335,14 @@
   "valor": 4312,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d8"
+    "$oid": "6980415c2797070c4c87f1c3"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -296,11 +353,14 @@
   "valor": 5126,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398d9"
+    "$oid": "6980415c2797070c4c87f1c4"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -311,11 +371,14 @@
   "valor": 100,
   "categoria": "Outros",
   "descricao": "Pai Internet",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398da"
+    "$oid": "6980415c2797070c4c87f1c5"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -326,11 +389,14 @@
   "valor": 75,
   "categoria": "Outros",
   "descricao": "Marcos Inss",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398db"
+    "$oid": "6980415c2797070c4c87f1c6"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -341,11 +407,14 @@
   "valor": 750,
   "categoria": "Outros",
   "descricao": "Aluguel 57 (Passivo)",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398dc"
+    "$oid": "6980415c2797070c4c87f1c7"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -356,11 +425,14 @@
   "valor": 15000,
   "categoria": "Empréstimo",
   "descricao": "Consignado Safra",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398dd"
+    "$oid": "6980415c2797070c4c87f1c8"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -368,14 +440,17 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 5278,
+  "valor": 5391,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398de"
+    "$oid": "6980415c2797070c4c87f1c9"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -386,11 +461,14 @@
   "valor": 408,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398df"
+    "$oid": "6980415c2797070c4c87f1ca"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -401,11 +479,14 @@
   "valor": 2282,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e0"
+    "$oid": "6980415c2797070c4c87f1cb"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -416,11 +497,14 @@
   "valor": 903,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e1"
+    "$oid": "6980415c2797070c4c87f1cc"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -431,11 +515,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e2"
+    "$oid": "6980415c2797070c4c87f1cd"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -446,11 +533,14 @@
   "valor": 100,
   "categoria": "Outros",
   "descricao": "Internet Pai",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e3"
+    "$oid": "6980415c2797070c4c87f1ce"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -461,11 +551,14 @@
   "valor": 330,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e4"
+    "$oid": "6980415c2797070c4c87f1cf"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -476,11 +569,14 @@
   "valor": 145,
   "categoria": "Transporte",
   "descricao": "Seguro Avg carro",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e5"
+    "$oid": "6980415c2797070c4c87f1d0"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -491,11 +587,14 @@
   "valor": 85,
   "categoria": "Outros",
   "descricao": "Inss Marcos",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e6"
+    "$oid": "6980415c2797070c4c87f1d1"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -506,11 +605,14 @@
   "valor": 670,
   "categoria": "Moradia",
   "descricao": "Fina Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e7"
+    "$oid": "6980415c2797070c4c87f1d2"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -521,11 +623,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e8"
+    "$oid": "6980415c2797070c4c87f1d3"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -536,11 +641,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Energia Royal Park",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398e9"
+    "$oid": "6980415c2797070c4c87f1d4"
   },
   "data_vencimento": {
     "$date": "2026-02-16T00:00:00.000Z"
@@ -551,11 +659,14 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ea"
+    "$oid": "6980415c2797070c4c87f1d5"
   },
   "data_vencimento": {
     "$date": "2026-02-27T00:00:00.000Z"
@@ -566,11 +677,14 @@
   "valor": 180,
   "categoria": "Educação",
   "descricao": "Faculdade ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398eb"
+    "$oid": "6980415c2797070c4c87f1d6"
   },
   "data_vencimento": {
     "$date": "2026-02-06T00:00:00.000Z"
@@ -581,11 +695,14 @@
   "valor": 452,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Keyliane",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ec"
+    "$oid": "6980415c2797070c4c87f1d7"
   },
   "data_vencimento": {
     "$date": "2026-02-08T00:00:00.000Z"
@@ -596,11 +713,14 @@
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ed"
+    "$oid": "6980415c2797070c4c87f1d8"
   },
   "data_vencimento": {
     "$date": "2026-02-02T00:00:00.000Z"
@@ -611,11 +731,14 @@
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ee"
+    "$oid": "6980415c2797070c4c87f1d9"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -626,11 +749,14 @@
   "valor": 4138,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ef"
+    "$oid": "6980415c2797070c4c87f1da"
   },
   "data_vencimento": {
     "$date": "2026-02-15T00:00:00.000Z"
@@ -641,11 +767,14 @@
   "valor": 5126,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f0"
+    "$oid": "6980415c2797070c4c87f1db"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -656,11 +785,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Pai Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f1"
+    "$oid": "6980415c2797070c4c87f1dc"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -671,11 +803,14 @@
   "valor": 75,
   "categoria": "Outros",
   "descricao": "Marcos Inss",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f2"
+    "$oid": "6980415c2797070c4c87f1dd"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -686,11 +821,14 @@
   "valor": 750,
   "categoria": "Outros",
   "descricao": "Aluguel da 57",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f3"
+    "$oid": "6980415c2797070c4c87f1de"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -701,11 +839,14 @@
   "valor": 3392,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f4"
+    "$oid": "6980415c2797070c4c87f1df"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -716,11 +857,14 @@
   "valor": 400,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f5"
+    "$oid": "6980415c2797070c4c87f1e0"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -728,14 +872,17 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 784,
+  "valor": 779,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f6"
+    "$oid": "6980415c2797070c4c87f1e1"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -746,11 +893,14 @@
   "valor": 863,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f7"
+    "$oid": "6980415c2797070c4c87f1e2"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -761,11 +911,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f8"
+    "$oid": "6980415c2797070c4c87f1e3"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -776,11 +929,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet Pai",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398f9"
+    "$oid": "6980415c2797070c4c87f1e4"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -791,11 +947,14 @@
   "valor": 270,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398fa"
+    "$oid": "6980415c2797070c4c87f1e5"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -806,11 +965,14 @@
   "valor": 145,
   "categoria": "Transporte",
   "descricao": "Seguro Avg carro",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398fb"
+    "$oid": "6980415c2797070c4c87f1e6"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -821,11 +983,14 @@
   "valor": 85,
   "categoria": "Outros",
   "descricao": "Inss Marcos",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398fc"
+    "$oid": "6980415c2797070c4c87f1e7"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -836,11 +1001,14 @@
   "valor": 670,
   "categoria": "Moradia",
   "descricao": "Financ Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398fd"
+    "$oid": "6980415c2797070c4c87f1e8"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -851,11 +1019,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398fe"
+    "$oid": "6980415c2797070c4c87f1e9"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -866,11 +1037,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Energia Royal Park",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d6398ff"
+    "$oid": "6980415c2797070c4c87f1ea"
   },
   "data_vencimento": {
     "$date": "2026-03-17T00:00:00.000Z"
@@ -881,11 +1055,14 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639900"
+    "$oid": "6980415c2797070c4c87f1eb"
   },
   "data_vencimento": {
     "$date": "2026-03-05T00:00:00.000Z"
@@ -896,11 +1073,14 @@
   "valor": 180,
   "categoria": "Educação",
   "descricao": "Faculdade ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639901"
+    "$oid": "6980415c2797070c4c87f1ec"
   },
   "data_vencimento": {
     "$date": "2026-03-07T00:00:00.000Z"
@@ -911,11 +1091,14 @@
   "valor": 452,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Keyliane",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639902"
+    "$oid": "6980415c2797070c4c87f1ed"
   },
   "data_vencimento": {
     "$date": "2026-03-09T00:00:00.000Z"
@@ -926,11 +1109,14 @@
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639903"
+    "$oid": "6980415c2797070c4c87f1ee"
   },
   "data_vencimento": {
     "$date": "2026-03-03T00:00:00.000Z"
@@ -941,11 +1127,14 @@
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639904"
+    "$oid": "6980415c2797070c4c87f1ef"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -956,11 +1145,14 @@
   "valor": 537,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Safra",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639905"
+    "$oid": "6980415c2797070c4c87f1f0"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -971,11 +1163,14 @@
   "valor": 4267,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639906"
+    "$oid": "6980415c2797070c4c87f1f1"
   },
   "data_vencimento": {
     "$date": "2026-03-15T00:00:00.000Z"
@@ -986,11 +1181,14 @@
   "valor": 1700,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639907"
+    "$oid": "6980415c2797070c4c87f1f2"
   },
   "data_vencimento": {
     "$date": "2026-03-06T00:00:00.000Z"
@@ -1001,11 +1199,14 @@
   "valor": 15629,
   "categoria": "Férias",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639908"
+    "$oid": "6980415c2797070c4c87f1f3"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1016,11 +1217,14 @@
   "valor": 100,
   "categoria": "Outros",
   "descricao": "Pai Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639909"
+    "$oid": "6980415c2797070c4c87f1f4"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1031,11 +1235,14 @@
   "valor": 75,
   "categoria": "Outros",
   "descricao": "Marcos Inss",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990a"
+    "$oid": "6980415c2797070c4c87f1f5"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1046,11 +1253,14 @@
   "valor": 750,
   "categoria": "Outros",
   "descricao": "Aluguel 57",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990b"
+    "$oid": "6980415c2797070c4c87f1f6"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1061,11 +1271,14 @@
   "valor": 2998,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990c"
+    "$oid": "6980415c2797070c4c87f1f7"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1076,11 +1289,14 @@
   "valor": 400,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990d"
+    "$oid": "6980415c2797070c4c87f1f8"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1088,14 +1304,17 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 421,
+  "valor": 419.5,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990e"
+    "$oid": "6980415c2797070c4c87f1f9"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1106,11 +1325,14 @@
   "valor": 791,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63990f"
+    "$oid": "6980415c2797070c4c87f1fa"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1121,11 +1343,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639910"
+    "$oid": "6980415c2797070c4c87f1fb"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1136,11 +1361,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet Pai",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639911"
+    "$oid": "6980415c2797070c4c87f1fc"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1151,11 +1379,14 @@
   "valor": 270,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639912"
+    "$oid": "6980415c2797070c4c87f1fd"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1166,11 +1397,14 @@
   "valor": 145,
   "categoria": "Transporte",
   "descricao": "Seguro Avg carro",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639913"
+    "$oid": "6980415c2797070c4c87f1fe"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1181,11 +1415,14 @@
   "valor": 85,
   "categoria": "Outros",
   "descricao": "Inss  Marcos",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639914"
+    "$oid": "6980415c2797070c4c87f1ff"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1196,11 +1433,14 @@
   "valor": 670,
   "categoria": "Moradia",
   "descricao": "Financ Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639915"
+    "$oid": "6980415c2797070c4c87f200"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1211,11 +1451,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639916"
+    "$oid": "6980415c2797070c4c87f201"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1226,11 +1469,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Energia Royal Park",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639917"
+    "$oid": "6980415c2797070c4c87f202"
   },
   "data_vencimento": {
     "$date": "2026-04-18T00:00:00.000Z"
@@ -1241,11 +1487,14 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639918"
+    "$oid": "6980415c2797070c4c87f203"
   },
   "data_vencimento": {
     "$date": "2026-04-05T00:00:00.000Z"
@@ -1256,11 +1505,14 @@
   "valor": 180,
   "categoria": "Educação",
   "descricao": "Faculdade",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639919"
+    "$oid": "6980415c2797070c4c87f204"
   },
   "data_vencimento": {
     "$date": "2026-04-08T00:00:00.000Z"
@@ -1271,11 +1523,14 @@
   "valor": 452,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Keyliane",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991a"
+    "$oid": "6980415c2797070c4c87f205"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1286,11 +1541,14 @@
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991b"
+    "$oid": "6980415c2797070c4c87f206"
   },
   "data_vencimento": {
     "$date": "2026-04-04T00:00:00.000Z"
@@ -1301,11 +1559,14 @@
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991c"
+    "$oid": "6980415c2797070c4c87f207"
   },
   "data_vencimento": {
     "$date": "2026-04-02T00:00:00.000Z"
@@ -1316,11 +1577,14 @@
   "valor": 537,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Safra",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991d"
+    "$oid": "6980415c2797070c4c87f208"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -1331,11 +1595,14 @@
   "valor": 3900,
   "categoria": "Outros",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991e"
+    "$oid": "6980415c2797070c4c87f209"
   },
   "data_vencimento": {
     "$date": "2026-04-15T00:00:00.000Z"
@@ -1346,11 +1613,14 @@
   "valor": 5128,
   "categoria": "Outros",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63991f"
+    "$oid": "6980415c2797070c4c87f20a"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1361,11 +1631,14 @@
   "valor": 100,
   "categoria": "Outros",
   "descricao": "Pai Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639920"
+    "$oid": "6980415c2797070c4c87f20b"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1376,11 +1649,14 @@
   "valor": 75,
   "categoria": "Outros",
   "descricao": "Marcos Inss",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639921"
+    "$oid": "6980415c2797070c4c87f20c"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1391,11 +1667,14 @@
   "valor": 750,
   "categoria": "Outros",
   "descricao": "Aluguel 57",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639922"
+    "$oid": "6980415c2797070c4c87f20d"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1406,11 +1685,14 @@
   "valor": 2466,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639923"
+    "$oid": "6980415c2797070c4c87f20e"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1421,11 +1703,14 @@
   "valor": 400,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639924"
+    "$oid": "6980415c2797070c4c87f20f"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1433,14 +1718,17 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 294,
+  "valor": 293.49,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639925"
+    "$oid": "6980415c2797070c4c87f210"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1451,11 +1739,14 @@
   "valor": 791,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639926"
+    "$oid": "6980415c2797070c4c87f211"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1466,11 +1757,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639927"
+    "$oid": "6980415c2797070c4c87f212"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1481,11 +1775,14 @@
   "valor": 100,
   "categoria": "Outros",
   "descricao": "Internet Pai",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639928"
+    "$oid": "6980415c2797070c4c87f213"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1496,11 +1793,14 @@
   "valor": 270,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639929"
+    "$oid": "6980415c2797070c4c87f214"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1511,11 +1811,14 @@
   "valor": 145,
   "categoria": "Transporte",
   "descricao": "Seguro Avg carro",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992a"
+    "$oid": "6980415c2797070c4c87f215"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1526,11 +1829,14 @@
   "valor": 85,
   "categoria": "Outros",
   "descricao": "Inss Marcos",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992b"
+    "$oid": "6980415c2797070c4c87f216"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1541,11 +1847,14 @@
   "valor": 670,
   "categoria": "Moradia",
   "descricao": "Financ Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992c"
+    "$oid": "6980415c2797070c4c87f217"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1556,11 +1865,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992d"
+    "$oid": "6980415c2797070c4c87f218"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1571,11 +1883,14 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Energia Royal Park",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992e"
+    "$oid": "6980415c2797070c4c87f219"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -1586,11 +1901,14 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63992f"
+    "$oid": "6980415c2797070c4c87f21a"
   },
   "data_vencimento": {
     "$date": "2026-05-05T00:00:00.000Z"
@@ -1601,11 +1919,14 @@
   "valor": 180,
   "categoria": "Educação",
   "descricao": "Faculdade ",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639930"
+    "$oid": "6980415c2797070c4c87f21b"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1616,11 +1937,14 @@
   "valor": 452,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Keyliane",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639931"
+    "$oid": "6980415c2797070c4c87f21c"
   },
   "data_vencimento": {
     "$date": "2026-05-12T00:00:00.000Z"
@@ -1631,11 +1955,14 @@
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639932"
+    "$oid": "6980415c2797070c4c87f21d"
   },
   "data_vencimento": {
     "$date": "2026-05-06T00:00:00.000Z"
@@ -1646,11 +1973,14 @@
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639933"
+    "$oid": "6980415c2797070c4c87f21e"
   },
   "data_vencimento": {
     "$date": "2026-05-03T00:00:00.000Z"
@@ -1661,11 +1991,14 @@
   "valor": 537,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Safra",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639934"
+    "$oid": "6980415c2797070c4c87f21f"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -1676,11 +2009,14 @@
   "valor": 4267,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639935"
+    "$oid": "6980415c2797070c4c87f220"
   },
   "data_vencimento": {
     "$date": "2026-05-15T00:00:00.000Z"
@@ -1691,11 +2027,14 @@
   "valor": 5126,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639936"
+    "$oid": "6980415c2797070c4c87f221"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1706,11 +2045,14 @@
   "valor": 100,
   "categoria": "Internet",
   "descricao": "Pai Internet",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639937"
+    "$oid": "6980415c2797070c4c87f222"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1721,11 +2063,14 @@
   "valor": 75,
   "categoria": "Outros",
   "descricao": "Marcos Inss",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639938"
+    "$oid": "6980415c2797070c4c87f223"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -1736,11 +2081,14 @@
   "valor": 750,
   "categoria": "Outros",
   "descricao": "Aluguel 57",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d639939"
+    "$oid": "6980415c2797070c4c87f224"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -1751,11 +2099,14 @@
   "valor": 120,
   "categoria": "Transporte",
   "descricao": "IPVA do Carro (1/5)",
-  "status": "Concluído"
+  "status": "Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63993a"
+    "$oid": "6980415c2797070c4c87f225"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -1766,11 +2117,14 @@
   "valor": 120,
   "categoria": "Transporte",
   "descricao": "IPVA do Carro (2/5)",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63993b"
+    "$oid": "6980415c2797070c4c87f226"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -1781,11 +2135,14 @@
   "valor": 120,
   "categoria": "Transporte",
   "descricao": "IPVA do Carro (3/5)",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63993c"
+    "$oid": "6980415c2797070c4c87f227"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -1796,11 +2153,14 @@
   "valor": 120,
   "categoria": "Transporte",
   "descricao": "IPVA do Carro (4/5)",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 },
 {
   "_id": {
-    "$oid": "69802e5adc8a5bc14d63993d"
+    "$oid": "6980415c2797070c4c87f228"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -1811,5 +2171,524 @@
   "valor": 120,
   "categoria": "Transporte",
   "descricao": "IPVA do Carro (5/5)",
-  "status": "Pendente"
+  "status": "Pendente",
+  "🗑️": false
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f229"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1884,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22a"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 400,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Nubank",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22b"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 54.37,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Caixa",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22c"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 791,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Banco Inter",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22d"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet",
+  "descricao": "Internet",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22e"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outros",
+  "descricao": "Internet Pai",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f22f"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 270,
+  "categoria": "Moradia",
+  "descricao": "Condominio BsParc",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f230"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 145,
+  "categoria": "Transporte",
+  "descricao": "Seguro Avg carro",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f231"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 85,
+  "categoria": "Outros",
+  "descricao": "Inss Marcos",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f232"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 670,
+  "categoria": "Moradia",
+  "descricao": "Financ Royal Park ",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f233"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Condomio Royal Park ",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f234"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Energia Royal Park",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f235"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 730,
+  "categoria": "Transporte",
+  "descricao": "Consórcio Embracon",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f236"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-05T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 180,
+  "categoria": "Educação",
+  "descricao": "Faculdade ",
+  "status": "Pendente",
+  "🗑️": false
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f237"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 452,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Keyliane",
+  "status": "Pendente",
+  "🗑️": false
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f238"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 4267,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f239"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-15T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5126,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23a"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 750,
+  "categoria": "Outros",
+  "descricao": "Aluguel 57",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23b"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1500,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Caixa",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23c"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 960,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23d"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 537,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Safra",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23e"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet",
+  "descricao": "Pai Internet",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f23f"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 75,
+  "categoria": "Outros",
+  "descricao": "Marcos Inss",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f240"
+  },
+  "data_vencimento": {
+    "$date": "2026-07-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 54.37,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Caixa",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f241"
+  },
+  "data_vencimento": {
+    "$date": "2026-07-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 1112,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f242"
+  },
+  "data_vencimento": {
+    "$date": "2026-08-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 928,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f243"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 820,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f244"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 74,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "6980415c2797070c4c87f245"
+  },
+  "data_vencimento": {
+    "$date": "2026-07-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 791,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Inter",
+  "status": "Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  }
 }]
