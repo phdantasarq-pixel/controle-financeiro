@@ -3,6 +3,8 @@ from services.ia_service import IAService
 from services.database import Database
 import pandas as pd
 from datetime import datetime
+from ui.layout import page_header, section, card_container
+
 
 
 def ia_page(df_lancamentos):

@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from datetime import datetime
 from ui.components import seletor_meses_inteligente
 from services.database import Database
+from ui.layout import page_header, section, card_container
 
 
 def dashboard_page(df):

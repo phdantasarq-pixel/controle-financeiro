@@ -4,6 +4,17 @@ from pymongo import MongoClient
 from datetime import datetime
 import re
 
+"""
+Database Service
+Responsável por:
+- Conexão MongoDB
+- Persistência de lançamentos financeiros
+- Persistência de saldos
+- Persistência de preferências do usuário
+
+⚠️ Não contém lógica de UI
+⚠️ Não contém regras visuais
+"""
 
 class Database:
     @staticmethod
