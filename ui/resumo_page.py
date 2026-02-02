@@ -6,6 +6,7 @@ from services.database import Database
 from datetime import datetime
 import re
 
+
 def resumo_page(df):
     st.header("📊 Resumo Financeiro")
 
@@ -70,27 +71,25 @@ def resumo_page(df):
     c_count1, c_count2, c_count3 = st.columns(3)
     c_count1.success(f"✅ **Concluídos:** {len(df_f[df_f['status'] == 'Concluído'])}")
     c_count2.warning(f"⏳ **Pendentes:** {len(df_f[df_f['status'] != 'Concluído'])}")
-    c_count3.error(f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
+    c_count3.error(
+        f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
 
-    # --- SEÇÃO: PROJEÇÕES MENSAIS ---
-    with st.expander("📊 Projeções Mensais", expanded=True):
-        c4, c5, c6 = st.columns(3)
-        c4.metric("💰 Total Receitas", f"R$ {total_receitas_mes:,.2f}")
-        c5.metric("⚠️ Total Despesas", f"R$ {total_despesas_mes:,.2f}", delta_color="inverse")
-        c6.metric("🚀 Balanço do Mês", f"R$ {balanco_mensal:,.2f}")
-
-    # --- SEÇÃO [H8.1]: SALDO EM TEMPO REAL ---
-    with st.expander("🏦 Saldo em Tempo Real & Reserva", expanded=False):
+    # --- SEÇÃO [H8.1]: SALDO EM TEMPO REAL & RESERVA ---
+    # Agora inclui o Balanço do Mês dentro deste expander
+    with st.expander("🏦 Saldo em Tempo Real & Reserva", expanded=True):
         st.info(f"💡 {ajuda_texto}")
-        c_l1, c_l2 = st.columns(2)
+        c_l1, c_l2, c_l3 = st.columns(3)
         with c_l1:
             st.metric("💰 Saldo em Contas (Hoje)", f"R$ {saldo_atual_contas:,.2f}")
         with c_l2:
+            st.metric("🚀 Balanço do Mês", f"R$ {balanco_mensal:,.2f}")
+        with c_l3:
             cor_livre = "normal" if saldo_exibicao >= 0 else "inverse"
             st.metric(label_status, f"R$ {saldo_exibicao:,.2f}", delta=f"Impacto Acumulado", delta_color=cor_livre)
 
         if saldo_exibicao < 0:
-            st.error(f"⚠️ Atenção: Suas projeções indicam que você precisará de R$ {abs(saldo_exibicao):,.2f} da sua reserva para cobrir este período.")
+            st.error(
+                f"⚠️ Atenção: Suas projeções indicam que você precisará de R$ {abs(saldo_exibicao):,.2f} da sua reserva para cobrir este período.")
 
     st.write("---")
 
@@ -99,72 +98,88 @@ def resumo_page(df):
         def processar_edicao_v2(key_editor, dataframe_origem):
             state = st.session_state[key_editor]
             if state["edited_rows"]:
-                # Criamos uma flag para saber se algo realmente mudou
                 houve_mudanca = False
-
                 for row_idx_str, changes in state["edited_rows"].items():
                     row_idx = int(row_idx_str)
                     real_idx = dataframe_origem.index[row_idx]
-
                     for field, value in changes.items():
                         houve_mudanca = True
                         if field == 'Situacao':
-                            # Converte a bolinha de volta para o status do banco
                             novo_status = "Concluído" if "🟢" in value else "Pendente"
                             st.session_state.df.at[real_idx, 'status'] = novo_status
                         else:
                             st.session_state.df.at[real_idx, field] = value
-
                 if houve_mudanca:
-                    # Salva no MongoDB
                     Database.salvar_dados(st.session_state.df)
-                    # O Streamlit atualizará o estado automaticamente após o callback.
 
-        # AJUSTE DE COLUNAS: Larguras fixas em pixels para evitar que ocultem o Vencimento
         config_colunas = {
             "Situacao": st.column_config.SelectboxColumn(
                 "Status",
                 options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
-                width=120  # Pixels fixos
+                width=120
             ),
             "data_vencimento": st.column_config.DateColumn(
                 "Vencimento",
                 format="DD/MM/YYYY",
-                width=150  # Garante que a data apareça toda
+                width=120
+            ),
+            "tipo": st.column_config.SelectboxColumn(
+                "Tipo",
+                options=["Receita", "Despesa"],
+                width=100
+            ),
+            "categoria": st.column_config.TextColumn(
+                "Categoria",
+                width=120
             ),
             "valor": st.column_config.NumberColumn(
                 "Valor",
                 format="R$ %.2f",
-                width=120
+                width=100
             ),
             "descricao": st.column_config.TextColumn(
                 "Descrição",
-                width=None # Ao deixar None com container_width=True, ela expande no espaço que sobrar
+                width=None
             )
         }
-        colunas_ordem = ['Situacao', 'data_vencimento', 'descricao', 'valor']
 
+        colunas_ordem = ['Situacao', 'data_vencimento', 'tipo', 'descricao', 'categoria', 'valor']
+
+        # Exibição das Tabelas
         for t, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
-            df_tipo = df_f[df_f['tipo'] == t][colunas_ordem]
-            with st.expander(f"{icon} {label} do Mês", expanded=True):
+            colunas_existentes = [c for c in colunas_ordem if c in df_f.columns or c == 'Situacao']
+            df_tipo = df_f[df_f['tipo'] == t][colunas_existentes]
+
+            # Valor total para o cabeçalho
+            valor_total_tipo = total_receitas_mes if t == "Receita" else total_despesas_mes
+
+            # O título do expander agora informa o total resumido
+            with st.expander(f"{icon} {label} do Mês — Total: R$ {valor_total_tipo:,.2f}", expanded=True):
+                # Métrica de destaque logo no início do accordion
+                st.metric(label=f"Soma Total de {label}", value=f"R$ {valor_total_tipo:,.2f}")
+
                 if not df_tipo.empty:
                     st.data_editor(
                         df_tipo,
-                        use_container_width=True, # Ocupa a largura total do componente
+                        use_container_width=True,
                         hide_index=True,
                         column_config=config_colunas,
                         key=f"editor_{t.lower()}",
                         on_change=processar_edicao_v2,
                         args=(f"editor_{t.lower()}", df_tipo)
                     )
+                else:
+                    st.info(f"Nenhuma {t.lower()} registrada.")
 
         # --- GERENCIAR / EXCLUIR ---
         st.write("---")
         st.subheader("🗑️ Gerenciar Lançamento")
         df_del = df_f.copy()
-        df_del['selecao_label'] = df_del['tipo'] + ": " + df_del['descricao'] + " (R$ " + df_del['valor'].map('{:,.2f}'.format) + ")"
+        df_del['selecao_label'] = df_del['tipo'] + ": " + df_del['descricao'] + " (R$ " + df_del['valor'].map(
+            '{:,.2f}'.format) + ")"
         dict_referencia = {row['selecao_label']: idx for idx, row in df_del.iterrows()}
-        item_selecionado = st.selectbox("Selecione para remover:", options=[""] + list(dict_referencia.keys()), key="select_excluir")
+        item_selecionado = st.selectbox("Selecione para remover:", options=[""] + list(dict_referencia.keys()),
+                                        key="select_excluir")
 
         if item_selecionado != "":
             idx_alvo = dict_referencia[item_selecionado]
@@ -179,7 +194,8 @@ def resumo_page(df):
             with c_ex2:
                 if is_parcela and st.button("🧨 Excluir TODAS as parcelas", use_container_width=True, type="primary"):
                     nome_base = desc.split(" (")[0].strip()
-                    st.session_state.df = st.session_state.df[~st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)]
+                    st.session_state.df = st.session_state.df[
+                        ~st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)]
                     Database.salvar_dados(st.session_state.df)
                     st.rerun()
     else:

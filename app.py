@@ -41,26 +41,37 @@ st.markdown("""
 
 # --- 1. INICIALIZAÇÃO DE DADOS E VARIÁVEIS GLOBAIS ---
 
+# Sincroniza o DataFrame com o MongoDB
 if 'df' not in st.session_state:
     st.session_state.df = Database.carregar_dados()
+
 if 'pagina' not in st.session_state:
     st.session_state.pagina = "Resumo"
+
 if "form_version" not in st.session_state:
     st.session_state.form_version = 0
 
-# Carrega Saldos Manuais (Contas/Investimentos)
+# Carrega Saldos Manuais (Contas/Investimentos) via Database
 df_saldos_manuais = Database.carregar_saldos()
-total_contas_manuais = df_saldos_manuais['valor'].sum() if not df_saldos_manuais.empty else 0.0
+total_contas_manuais = pd.to_numeric(df_saldos_manuais['valor'],
+                                     errors='coerce').sum() if not df_saldos_manuais.empty else 0.0
 
-# Cálculo do Saldo Real e Pendências (Preparado para H8.1)
+# Cálculo do Saldo Real e Pendências (Essencial para H8.1)
 if not st.session_state.df.empty:
     df_calc = st.session_state.df.copy()
+
+    # Normalização de tipos para cálculo seguro
+    df_calc['valor'] = pd.to_numeric(df_calc['valor'], errors='coerce').fillna(0)
     if 'status' not in df_calc.columns:
         df_calc['status'] = 'Pendente'
 
+    # Lógica de Saldo em Tempo Real: Apenas o que foi "Concluído" entra no Saldo Real
     receitas_efetivadas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "Concluído")]['valor'].sum()
     despesas_efetivadas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "Concluído")]['valor'].sum()
+
     saldo_real = (receitas_efetivadas - despesas_efetivadas) + total_contas_manuais
+
+    # Pendências (O que ainda não impactou o bolso)
     pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "Concluído")]['valor'].sum()
     pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "Concluído")]['valor'].sum()
 else:
@@ -76,6 +87,7 @@ def resetar_formulario():
         del st.session_state.dados_pendentes
     st.session_state.aguardando_confirmacao = False
 
+
 def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base):
     with st.spinner("Sincronizando com MongoDB..."):
         final_cat = cat_outra if cat_sel == "Outro" else cat_sel
@@ -83,6 +95,7 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
         data_hoje = datetime.now().strftime('%Y-%m-%d')
         novos = []
         for i in range(num_parcelas):
+            # Tratamento de data para parcelamento
             venc = pd.to_datetime(data_base) + pd.DateOffset(months=i)
             desc_f = f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao
             novos.append({
@@ -90,11 +103,16 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
                 "natureza": natureza, "valor": valor_p, "categoria": final_cat,
                 "descricao": desc_f, "status": "Pendente"
             })
+
         df_novos = pd.DataFrame(novos)
+        # Limpeza de timezone para o MongoDB
         df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
+
+        # Atualiza o estado local e o banco de dados
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
     st.toast("Lançamento concluído com sucesso! ✨")
+
 
 def executar_clonagem(mes_referencia):
     with st.spinner("Clonando lançamentos fixos..."):
@@ -102,17 +120,27 @@ def executar_clonagem(mes_referencia):
             mes_f, ano_f = map(int, mes_referencia.split('/'))
             df = st.session_state.df.copy()
             if df.empty: return
+
             df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
-            filtro = (df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (df['natureza'] == "Fixo")
+            filtro = (df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (
+                        df['natureza'] == "Fixo")
             fixos = df[filtro].copy()
+
             if fixos.empty:
                 st.warning(f"Nenhum gasto 'Fixo' encontrado em {mes_referencia}.")
                 return
+
+            # Ajusta data para o próximo mês
             fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
             fixos['status'] = "Pendente"
+
+            # Remove IDs do Mongo antes de re-inserir para evitar duplicidade de chave
+            if '_id' in fixos.columns:
+                fixos = fixos.drop(columns=['_id'])
+
             st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
             Database.salvar_dados(st.session_state.df)
-            st.success(f"✅ {len(fixos)} fixos clonados!")
+            st.success(f"✅ {len(fixos)} lançamentos fixos clonados para o mês seguinte!")
         except Exception as e:
             st.error(f"Erro na clonagem: {e}")
 
@@ -125,35 +153,37 @@ with st.sidebar:
     st.caption("Consultoria Financeira Inteligente")
     st.write("---")
 
-    # MENU ATUALIZADO COM EXPORTAÇÃO [H4.4]
+    # MENU DE NAVEGAÇÃO
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
     if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
     if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
-    if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao" # NOVA ROTA
+    if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao"
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
     st.write("---")
 
+    # MÉTRICAS DE SALDO EM TEMPO REAL [H8.1]
     st.metric("Saldo Real Disponível", f"R$ {saldo_real:,.2f}")
     if pendente_pagar > 0:
-        st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
+        st.caption(f"🔴 **A Pagar (Pendente):** R$ {pendente_pagar:,.2f}")
     if pendente_receber > 0:
-        st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
+        st.caption(f"🟢 **A Receber (Pendente):** R$ {pendente_receber:,.2f}")
 
-# --- ROTEAMENTO ATUALIZADO ---
+# --- ROTEAMENTO ---
 if st.session_state.pagina == "Resumo":
     resumo_page(st.session_state.df)
 
 elif st.session_state.pagina == "Inteligencia_Financeira":
     analise_categorias_page(st.session_state.df)
 
-elif st.session_state.pagina == "Exportacao": # LÓGICA DA NOVA ROTA [H4.4]
+elif st.session_state.pagina == "Exportacao":
     exportacao_page(st.session_state.df)
 
 elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
+
     saldos_page()
 
 elif st.session_state.pagina == "Lançamento":
@@ -161,6 +191,7 @@ elif st.session_state.pagina == "Lançamento":
     v = st.session_state.form_version
     mes_ref = seletor_meses_inteligente(key_suffix="pg_lancamento")
     data_sugerida = datetime.strptime(mes_ref, "%m/%Y")
+
     with st.container(border=True):
         c1, c2 = st.columns(2)
         with c1:
@@ -178,6 +209,7 @@ elif st.session_state.pagina == "Lançamento":
         st.write("---")
         is_parcelado = st.checkbox("Parcelar este lançamento?", key=f"pr_{v}")
         num_parcelas = st.number_input("Qtd de Parcelas", 2, 60, 2) if is_parcelado else 1
+
         if st.button("🚀 Salvar no PlanejAI", use_container_width=True):
             if not descricao:
                 st.error("Preencha a descrição.")
@@ -186,6 +218,7 @@ elif st.session_state.pagina == "Lançamento":
             else:
                 impacto = valor if tipo == "Despesa" else 0
                 saldo_projetado = saldo_real - impacto
+
                 if tipo == "Despesa" and saldo_projetado < 0:
                     st.session_state.aguardando_confirmacao = True
                     st.session_state.dados_pendentes = {"valor": valor, "tipo": tipo, "natureza": natureza,
@@ -197,6 +230,8 @@ elif st.session_state.pagina == "Lançamento":
                     salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
                     resetar_formulario()
                     st.rerun()
+
+    # Modal de confirmação para saldo negativo
     if st.session_state.get("aguardando_confirmacao"):
         dados = st.session_state.dados_pendentes
         with st.container(border=True):
@@ -218,21 +253,35 @@ elif st.session_state.pagina == "Dashboard":
 
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
+
     ia_page(st.session_state.df)
 
 elif st.session_state.pagina == "Config":
     st.header("⚙️ Configurações e Automação")
     with st.container(border=True):
         st.subheader("📥 Recuperar Dados (Excel/CSV)")
+        st.info("Utilize esta opção para importar arquivos seguindo o modelo 'Janeiro-2026.csv'.")
         arquivo_upload = st.file_uploader("Selecione o arquivo CSV", type="csv")
-        if st.button("🚀 Importar CSV", use_container_width=True):
+
+        # Seletores de mês/ano para a importação
+        col_m, col_a = st.columns(2)
+        mes_imp = col_m.number_input("Mês da Importação", 1, 12, datetime.now().month)
+        ano_imp = col_a.number_input("Ano da Importação", 2024, 2030, 2026)
+
+        if st.button("🚀 Processar e Importar CSV", use_container_width=True):
             if arquivo_upload:
-                if Database.importar_do_csv(arquivo_upload, 1, 2026):
-                    st.session_state.df = Database.carregar_dados()
-                    st.rerun()
+                with st.spinner("Processando mapeamento de colunas..."):
+                    if Database.importar_do_csv(arquivo_upload, mes_imp, ano_imp):
+                        st.session_state.df = Database.carregar_dados()
+                        st.success("Importação concluída com sucesso!")
+                        st.rerun()
+            else:
+                st.error("Por favor, selecione um arquivo primeiro.")
+
     st.write("---")
     with st.container(border=True):
         st.subheader("🔄 Clonagem Inteligente")
+        st.write("Copia todos os lançamentos marcados como 'Fixo' para o mês seguinte.")
         mes_origem = seletor_meses_inteligente(key_suffix="pg_config")
         if st.button("🚀 Executar Clonagem", use_container_width=True):
             executar_clonagem(mes_origem)
