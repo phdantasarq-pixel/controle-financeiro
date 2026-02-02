@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "697ff36a936f8f4e55697276"
+  },
+  "conta": "Nubank",
+  "valor": 1608
+},
+{
+  "_id": {
+    "$oid": "697ff36a936f8f4e55697277"
+  },
+  "conta": "Inter",
+  "valor": 0
+},
+{
+  "_id": {
+    "$oid": "697ff36a936f8f4e55697278"
+  },
+  "conta": "Carteira",
+  "valor": 0
+}]
