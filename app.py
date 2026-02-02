@@ -7,6 +7,9 @@ from ui.components import seletor_meses_inteligente
 from services.database import Database
 import os
 
+# --- [H10] IMPORTAÇÃO DO GERENCIADOR DE TEMAS ---
+from utils.interface import ThemeManager
+
 # --- IMPORTAÇÃO DA PÁGINA DE EXPORTAÇÃO [H4.4] ---
 try:
     from ui.exportacao_page import exportacao_page
@@ -24,24 +27,64 @@ except ImportError:
 # --- CONFIGURAÇÃO PlanejAI ---
 st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 
-# CSS Estilizado
+# --- [H10] INICIALIZAÇÃO DO TEMA VIA MONGODB ---
+if 'theme_manager' not in st.session_state:
+    st.session_state.theme_manager = ThemeManager()
+
+if 'theme_colors' not in st.session_state:
+    cores_salvas = Database.carregar_preferencias()
+    st.session_state.theme_colors = cores_salvas if cores_salvas else ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
+
+# Aplica o CSS dinâmico (O ThemeManager agora controla as cores)
+st.markdown(st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors), unsafe_allow_html=True)
+
+# --- AJUSTE CSS: ACCORDIONS E BOTÕES ---
 st.markdown("""
     <style>
         [data-testid="stSidebarNav"] {display: none;}
-        .stButton button {
-            width: 100%; border-radius: 8px; height: 3.5em;
-            background-color: transparent; text-align: left;
-            border: 1px solid rgba(151, 166, 195, 0.2);
-            padding-left: 15px; margin-bottom: 10px;
+
+        /* Ajuste dos Botões da Sidebar */
+        [data-testid="stSidebar"] .stButton button {
+            width: 100%; 
+            border-radius: 10px; 
+            height: 3.2em;
+            text-align: left; 
+            padding-left: 15px; 
+            margin-bottom: 8px;
+            display: flex; 
+            align-items: center;
+            border: 1px solid rgba(151, 151, 151, 0.2);
+            background-color: transparent !important; /* Respeita o ThemeManager */
+            transition: all 0.3s ease;
         }
-        .stButton button:hover { border: 1px solid #28a745; background-color: rgba(40, 167, 69, 0.05); }
+
+        [data-testid="stSidebar"] .stButton button:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(151, 151, 151, 0.05) !important;
+        }
+
+        /* Ajuste dos Accordions (st.expander) */
+        .streamlit-expanderHeader {
+            border-radius: 8px !important;
+            border: 1px solid rgba(151, 151, 151, 0.2) !important;
+            padding: 10px 15px !important;
+            background-color: transparent !important;
+        }
+
+        .streamlit-expanderContent {
+            border: 1px solid rgba(151, 151, 151, 0.1) !important;
+            border-top: none !important;
+            border-radius: 0 0 8px 8px !important;
+            padding: 20px !important;
+        }
+
         [data-testid="stSidebar"] [data-testid="stImage"] { padding: 20px; }
+        .block-container { padding-top: 2rem; }
     </style>
 """, unsafe_allow_html=True)
 
 # --- 1. INICIALIZAÇÃO DE DADOS E VARIÁVEIS GLOBAIS ---
 
-# Sincroniza o DataFrame com o MongoDB
 if 'df' not in st.session_state:
     st.session_state.df = Database.carregar_dados()
 
@@ -51,27 +94,20 @@ if 'pagina' not in st.session_state:
 if "form_version" not in st.session_state:
     st.session_state.form_version = 0
 
-# Carrega Saldos Manuais (Contas/Investimentos) via Database
 df_saldos_manuais = Database.carregar_saldos()
 total_contas_manuais = pd.to_numeric(df_saldos_manuais['valor'],
                                      errors='coerce').sum() if not df_saldos_manuais.empty else 0.0
 
-# Cálculo do Saldo Real e Pendências (Essencial para H8.1)
 if not st.session_state.df.empty:
     df_calc = st.session_state.df.copy()
-
-    # Normalização de tipos para cálculo seguro
     df_calc['valor'] = pd.to_numeric(df_calc['valor'], errors='coerce').fillna(0)
     if 'status' not in df_calc.columns:
         df_calc['status'] = 'Pendente'
 
-    # Lógica de Saldo em Tempo Real: Apenas o que foi "Concluído" entra no Saldo Real
     receitas_efetivadas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "Concluído")]['valor'].sum()
     despesas_efetivadas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "Concluído")]['valor'].sum()
 
     saldo_real = (receitas_efetivadas - despesas_efetivadas) + total_contas_manuais
-
-    # Pendências (O que ainda não impactou o bolso)
     pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "Concluído")]['valor'].sum()
     pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "Concluído")]['valor'].sum()
 else:
@@ -95,7 +131,6 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
         data_hoje = datetime.now().strftime('%Y-%m-%d')
         novos = []
         for i in range(num_parcelas):
-            # Tratamento de data para parcelamento
             venc = pd.to_datetime(data_base) + pd.DateOffset(months=i)
             desc_f = f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao
             novos.append({
@@ -103,12 +138,8 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
                 "natureza": natureza, "valor": valor_p, "categoria": final_cat,
                 "descricao": desc_f, "status": "Pendente"
             })
-
         df_novos = pd.DataFrame(novos)
-        # Limpeza de timezone para o MongoDB
         df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
-
-        # Atualiza o estado local e o banco de dados
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
     st.toast("Lançamento concluído com sucesso! ✨")
@@ -120,24 +151,17 @@ def executar_clonagem(mes_referencia):
             mes_f, ano_f = map(int, mes_referencia.split('/'))
             df = st.session_state.df.copy()
             if df.empty: return
-
             df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
             filtro = (df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (
-                        df['natureza'] == "Fixo")
+                    df['natureza'] == "Fixo")
             fixos = df[filtro].copy()
-
             if fixos.empty:
                 st.warning(f"Nenhum gasto 'Fixo' encontrado em {mes_referencia}.")
                 return
-
-            # Ajusta data para o próximo mês
             fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
             fixos['status'] = "Pendente"
-
-            # Remove IDs do Mongo antes de re-inserir para evitar duplicidade de chave
             if '_id' in fixos.columns:
                 fixos = fixos.drop(columns=['_id'])
-
             st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
             Database.salvar_dados(st.session_state.df)
             st.success(f"✅ {len(fixos)} lançamentos fixos clonados para o mês seguinte!")
@@ -153,7 +177,6 @@ with st.sidebar:
     st.caption("Consultoria Financeira Inteligente")
     st.write("---")
 
-    # MENU DE NAVEGAÇÃO
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
@@ -164,7 +187,6 @@ with st.sidebar:
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
     st.write("---")
 
-    # MÉTRICAS DE SALDO EM TEMPO REAL [H8.1]
     st.metric("Saldo Real Disponível", f"R$ {saldo_real:,.2f}")
     if pendente_pagar > 0:
         st.caption(f"🔴 **A Pagar (Pendente):** R$ {pendente_pagar:,.2f}")
@@ -172,14 +194,19 @@ with st.sidebar:
         st.caption(f"🟢 **A Receber (Pendente):** R$ {pendente_receber:,.2f}")
 
 # --- ROTEAMENTO ---
+# (Aqui, passamos o DF filtrando o '_id' conforme sua necessidade de migração)
+df_display = st.session_state.df.copy()
+if '_id' in df_display.columns:
+    df_display = df_display.drop(columns=['_id'])
+
 if st.session_state.pagina == "Resumo":
-    resumo_page(st.session_state.df)
+    resumo_page(df_display)
 
 elif st.session_state.pagina == "Inteligencia_Financeira":
-    analise_categorias_page(st.session_state.df)
+    analise_categorias_page(df_display)
 
 elif st.session_state.pagina == "Exportacao":
-    exportacao_page(st.session_state.df)
+    exportacao_page(df_display)
 
 elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
@@ -218,7 +245,6 @@ elif st.session_state.pagina == "Lançamento":
             else:
                 impacto = valor if tipo == "Despesa" else 0
                 saldo_projetado = saldo_real - impacto
-
                 if tipo == "Despesa" and saldo_projetado < 0:
                     st.session_state.aguardando_confirmacao = True
                     st.session_state.dados_pendentes = {"valor": valor, "tipo": tipo, "natureza": natureza,
@@ -231,7 +257,6 @@ elif st.session_state.pagina == "Lançamento":
                     resetar_formulario()
                     st.rerun()
 
-    # Modal de confirmação para saldo negativo
     if st.session_state.get("aguardando_confirmacao"):
         dados = st.session_state.dados_pendentes
         with st.container(border=True):
@@ -249,21 +274,29 @@ elif st.session_state.pagina == "Lançamento":
                 st.rerun()
 
 elif st.session_state.pagina == "Dashboard":
-    dashboard_page(st.session_state.df)
+    dashboard_page(df_display)
 
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
 
-    ia_page(st.session_state.df)
+    ia_page(df_display)
 
 elif st.session_state.pagina == "Config":
     st.header("⚙️ Configurações e Automação")
+
+    with st.container(border=True):
+        st.subheader("🎨 Personalização do Visual")
+        novas_cores = st.session_state.theme_manager.sidebar_theme_selector()
+
+        if novas_cores != st.session_state.theme_colors:
+            st.session_state.theme_colors = novas_cores
+            Database.salvar_preferencias(novas_cores)
+            st.rerun()
+
     with st.container(border=True):
         st.subheader("📥 Recuperar Dados (Excel/CSV)")
         st.info("Utilize esta opção para importar arquivos seguindo o modelo 'Janeiro-2026.csv'.")
         arquivo_upload = st.file_uploader("Selecione o arquivo CSV", type="csv")
-
-        # Seletores de mês/ano para a importação
         col_m, col_a = st.columns(2)
         mes_imp = col_m.number_input("Mês da Importação", 1, 12, datetime.now().month)
         ano_imp = col_a.number_input("Ano da Importação", 2024, 2030, 2026)
