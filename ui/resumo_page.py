@@ -10,7 +10,7 @@ def resumo_page(df):
     st.header("📊 Resumo Financeiro")
 
     if df.empty:
-        st.warning("Nenhum dado encontrado no MongoDB.")
+        st.warning("Nenhum dado encontrado. Cadastre no menu Novo lançamento.")
         return
 
     # --- FILTRO INTELIGENTE ---
