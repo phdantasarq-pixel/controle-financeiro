@@ -4,7 +4,6 @@ from pymongo import MongoClient
 from datetime import datetime
 import re
 
-
 class Database:
     @staticmethod
     def conectar():
@@ -34,9 +33,6 @@ class Database:
 
         df = pd.DataFrame(dados)
 
-        # Mantemos o _id para conseguir atualizar registros específicos depois
-        # Se você preferir não ver o _id na tabela, filtramos na UI, mas aqui ele é útil
-
         if "status" not in df.columns:
             df["status"] = "Pendente"
         else:
@@ -60,50 +56,50 @@ class Database:
                 st.error(f"Erro ao atualizar status: {e}")
         return False
 
-
     @staticmethod
     def salvar_dados(df):
         """Salva os lançamentos financeiros com limpeza profunda de NaT e Timezones."""
         db = Database.conectar()
         if db is not None:
             colecao = db["lancamentos"]
-
             try:
                 if df.empty:
                     colecao.delete_many({})
                     return
-
                 df_para_salvar = df.copy()
-
-                # Limpeza de Datas para compatibilidade com MongoDB BSON
                 for col in df_para_salvar.columns:
                     if pd.api.types.is_datetime64_any_dtype(df_para_salvar[col]):
-                        # Remove Timezone (evita erro utcoffset)
                         if df_para_salvar[col].dt.tz is not None:
                             df_para_salvar[col] = df_para_salvar[col].dt.tz_localize(None)
-
-                        # Converte NaT (Pandas) para None (Python/Mongo)
-                        df_para_salvar[col] = df_para_salvar[col].astype(object).where(df_para_salvar[col].notnull(),
-                                                                                       None)
+                        df_para_salvar[col] = df_para_salvar[col].astype(object).where(df_para_salvar[col].notnull(), None)
 
                 registros = df_para_salvar.to_dict("records")
-
-                # Operação de sobrescrita atômica
                 colecao.delete_many({})
                 colecao.insert_many(registros)
-
             except Exception as e:
                 st.error(f"⚠️ Erro ao processar dados para o MongoDB: {e}")
 
+    # --- BLOCO DE SALDOS (H7.1 e H8.1) ---
+
     @staticmethod
     def carregar_saldos():
-        """Carrega os saldos gerais das contas (H7.1)."""
+        """Carrega os saldos gerais das contas."""
         db = Database.conectar()
         if db is None:
             return pd.DataFrame(columns=["conta", "valor"])
-
         dados = list(db["saldos_gerais"].find({}, {"_id": 0}))
         return pd.DataFrame(dados) if dados else pd.DataFrame(columns=["conta", "valor"])
+
+    @staticmethod
+    def listar_contas():
+        """Retorna os saldos no formato de lista para a resumo_page."""
+        df_saldos = Database.carregar_saldos()
+        if df_saldos.empty:
+            return []
+        # Converte para lista de dicionários renomeando 'valor' para 'saldo' se necessário
+        # para bater com o sum(conta.get('saldo', 0)) da sua UI
+        df_saldos['saldo'] = pd.to_numeric(df_saldos['valor'], errors='coerce').fillna(0)
+        return df_saldos.to_dict("records")
 
     @staticmethod
     def salvar_saldos(df_saldos):
@@ -118,36 +114,39 @@ class Database:
                 st.error(f"⚠️ Erro ao salvar saldos: {e}")
 
     @staticmethod
+    def obter_total_saldos_real():
+        """Soma o valor de todas as contas em 'saldos_gerais'."""
+        df_saldos = Database.carregar_saldos()
+        if df_saldos.empty:
+            return 0.0
+        return pd.to_numeric(df_saldos['valor'], errors='coerce').sum()
+
+    # --- IMPORTAÇÃO ---
+
+    @staticmethod
     def importar_do_csv(caminho_arquivo, mes, ano):
-        """Lê o CSV do Excel e converte para o formato PlanejAI com categorização inteligente."""
+        """Lê o CSV do Excel e converte para o formato PlanejAI."""
         try:
             df_excel = pd.read_csv(caminho_arquivo).fillna(0)
-
             novos_lancamentos = []
             for _, row in df_excel.iterrows():
                 desc = str(row.get('Descrição', ''))
-
-                # Pula linhas irrelevantes
                 if desc in ['0', '', 'Descrição', 'Pessoa', 'A Receber'] or "Devendo" in desc:
                     continue
 
-                # Tratamento numérico robusto
                 def limpar_valor(val):
                     try:
                         if isinstance(val, str):
                             val = val.replace('.', '').replace(',', '.')
                         return float(val)
-                    except:
-                        return 0.0
+                    except: return 0.0
 
                 v_divida = limpar_valor(row.get('Divida', 0))
                 v_pago = limpar_valor(row.get('Pago', 0))
                 valor_final = v_divida if v_divida > 0 else v_pago
 
-                if valor_final == 0:
-                    continue
+                if valor_final == 0: continue
 
-                # Extração do dia de vencimento via Regex
                 dia = 10
                 texto_venc = str(row.get('Venc e Quantidade', ''))
                 numeros = re.findall(r'\d+', texto_venc)
@@ -155,15 +154,11 @@ class Database:
                     dia_ext = int(numeros[0])
                     dia = dia_ext if 1 <= dia_ext <= 28 else 10
 
-                try:
-                    data_venc = datetime(ano, mes, dia)
-                except:
-                    data_venc = datetime(ano, mes, 1)
+                try: data_venc = datetime(ano, mes, dia)
+                except: data_venc = datetime(ano, mes, 1)
 
-                # --- CATEGORIZAÇÃO INTELIGENTE (NOVAS CATEGORIAS) ---
                 desc_lower = desc.lower()
                 cat_final = "Importado"
-
                 if any(x in desc_lower for x in ["cartão", "itau", "nubank", "caixa", "inter", "visa", "master"]):
                     cat_final = "Cartão de Crédito"
                 elif any(x in desc_lower for x in ["emprestimo", "financiamento", "parcela", "bradesco"]):
@@ -178,16 +173,13 @@ class Database:
                     "natureza": "Fixo" if "fixo" in texto_venc.lower() else "Variável",
                     "valor": valor_final,
                     "categoria": cat_final,
-                    "descricao": desc
+                    "descricao": desc,
+                    "status": "Pendente"
                 })
 
             if novos_lancamentos:
                 df_final = pd.DataFrame(novos_lancamentos)
                 df_atual = Database.carregar_dados()
-
-                # Opcional: Remover duplicatas do mesmo mês antes de anexar
-                # df_atual = df_atual[~((df_atual['data_vencimento'].dt.month == mes) & (df_atual['data_vencimento'].dt.year == ano))]
-
                 df_combinado = pd.concat([df_atual, df_final], ignore_index=True)
                 Database.salvar_dados(df_combinado)
                 return True

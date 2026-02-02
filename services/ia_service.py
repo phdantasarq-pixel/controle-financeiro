@@ -28,41 +28,50 @@ class IAService:
         except Exception as e:
             st.error(f"Erro ao inicializar IA: {e}")
 
-    def gerar_insight(self, contexto: dict, mes_atual: str):
+    def gerar_insight(self, contexto: dict, mes_atual: str, indicadores: dict = None):
         """
-        Recebe um dicionário com 'lancamentos' e 'saldos' e gera uma análise estratégica.
+        Gera análise estratégica baseada em lançamentos, saldos reais e indicadores calculados.
         """
         if not self.model:
             return "O cérebro da IA não está disponível no momento."
 
-        # 1. Preparação dos dados de Lançamentos
+        # Preparação dos dados
         df_l = contexto.get("lancamentos", pd.DataFrame())
         df_l_limpo = df_l.copy()
         cols_drop = [c for c in ['_id', 'id', 'data_registro'] if c in df_l_limpo.columns]
         df_l_limpo = df_l_limpo.drop(columns=cols_drop)
 
-        # 2. Preparação dos dados de Saldos Gerais (H7.1)
         df_s = contexto.get("saldos", pd.DataFrame())
         saldos_str = df_s.to_csv(index=False) if not df_s.empty else "Nenhum saldo informado."
 
-        # 3. Construção do Prompt Estratégico
+        # Injeção de indicadores calculados para precisão matemática [H8.1]
+        txt_indicadores = ""
+        if indicadores:
+            txt_indicadores = f"""
+            ### INDICADORES FINANCEIROS (VALORES REAIS CALCULADOS):
+            - Saldo Real em Contas Hoje: R$ {indicadores.get('saldo_contas', 0):,.2f}
+            - Saldo Livre Projetado (Fim do Mês): R$ {indicadores.get('saldo_projetado', 0):,.2f}
+            - Balanço Líquido do Mês Selecionado: R$ {indicadores.get('balanco', 0):,.2f}
+            """
+
         prompt = f"""
-        Você é o Consultor Estratégico do PlanejAI. Sua missão é analisar a saúde financeira do usuário.
+        Você é o Consultor Estratégico do PlanejAI. Analise a saúde financeira com foco no FLUXO DE CAIXA.
 
         DATA ATUAL DE REFERÊNCIA: {mes_atual}
 
-        ### DADOS DE SALDOS (O que o usuário POSSUI em conta/mãos):
+        {txt_indicadores}
+
+        ### DADOS DE SALDOS BANCÁRIOS:
         {saldos_str}
 
-        ### DADOS DE LANÇAMENTOS (O que o usuário MOVIMENTOU):
-        {df_l_limpo.to_csv(index=False)}
+        ### LISTA DE LANÇAMENTOS (Últimas movimentações):
+        {df_l_limpo.tail(50).to_csv(index=False)}
 
-        Sua análise deve seguir estas diretrizes:
-        1. Resuma o 'Poder de Fogo' (Total de Saldos vs Total de Despesas do mês).
-        2. Identifique se o usuário está 'no azul' ou se as reservas estão diminuindo.
-        3. Dê uma dica prática baseada na categoria onde ele mais gasta.
-        4. Seja direto, use bullet points e mantenha um tom encorajador.
-        5. Se o saldo for alto em relação aos gastos, sugira investir. Se for baixo, sugira cortes.
+        Sua análise deve:
+        1. Validar se o 'Saldo Livre Projetado' é suficiente para as despesas futuras.
+        2. Alertar se o usuário está gastando mais do que recebe no mês (Balanço Negativo).
+        3. Se o Saldo Livre for negativo, sugira onde cortar baseado nos lançamentos.
+        4. Use bullet points e seja muito direto e encorajador.
         """
 
         try:
@@ -71,31 +80,25 @@ class IAService:
         except Exception as e:
             return f"Erro na análise estratégica: {str(e)}"
 
-    # Adicione este método dentro da classe IAService
-
-    def chat(self, mensagem_usuario, contexto, historico_mensagens):
+    def chat(self, mensagem_usuario, contexto, historico_mensagens, indicadores: dict = None):
         if not self.model:
             return "IA indisponível."
 
-        # Preparamos os dados para a IA saber do que estamos falando
         df_l = contexto.get("lancamentos", pd.DataFrame())
         df_s = contexto.get("saldos", pd.DataFrame())
 
-        # Criamos a "memória" de curto prazo para este chat específico
-        instrucao_sistema = f"""
-        Você é o chat de consultoria do PlanejAI. 
-        Dados do usuário:
-        Saldos: {df_s.to_dict('records')}
-        Últimos Gastos: {df_l.tail(10).to_dict('records')}
+        info_financeira = f"Saldos: {df_s.to_dict('records')}"
+        if indicadores:
+            info_financeira += f" | Saldo Projetado Fim do Mês: R$ {indicadores.get('saldo_projetado', 0):,.2f}"
 
-        Responda de forma humana, curta e prática.
+        instrucao_sistema = f"""
+        Você é o consultor do PlanejAI. 
+        Contexto financeiro: {info_financeira}
+        Responda de forma humana, curta e prática. Sempre considere o 'Saldo Projetado' para dizer se o usuário pode ou não gastar com algo.
         """
 
         try:
-            # Iniciamos o chat com o histórico e a instrução de sistema
-            chat_session = self.model.start_chat(history=[])  # O Streamlit já gerencia o histórico
             full_prompt = f"{instrucao_sistema}\n\nUsuário: {mensagem_usuario}"
-
             response = self.model.generate_content(full_prompt)
             return response.text
         except Exception as e:
