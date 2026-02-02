@@ -7,10 +7,17 @@ from ui.components import seletor_meses_inteligente
 from services.database import Database
 import os
 
+# --- IMPORTAÇÃO DA PÁGINA DE EXPORTAÇÃO [H4.4] ---
+try:
+    from ui.exportacao_page import exportacao_page
+except ImportError:
+    def exportacao_page(df):
+        st.warning("Página de Exportação não encontrada ou em desenvolvimento...")
+
 # --- IMPORTAÇÃO DA PÁGINA DE INTELIGÊNCIA FINANCEIRA ---
 try:
     from ui.analise_page import analise_categorias_page
-except ImportError: # CORRIGIDO: Era ImportError (singular)
+except ImportError:
     def analise_categorias_page(df):
         st.warning("Página em desenvolvimento...")
 
@@ -118,15 +125,13 @@ with st.sidebar:
     st.caption("Consultoria Financeira Inteligente")
     st.write("---")
 
-    # MENU COM NOMES ATUALIZADOS
+    # MENU ATUALIZADO COM EXPORTAÇÃO [H4.4]
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
     if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
-
-    # MUDANÇA AQUI: "Inteligência de Categorias" -> "Inteligência Financeira"
     if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
-
+    if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao" # NOVA ROTA
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
     st.write("---")
@@ -141,8 +146,11 @@ with st.sidebar:
 if st.session_state.pagina == "Resumo":
     resumo_page(st.session_state.df)
 
-elif st.session_state.pagina == "Inteligencia_Financeira": # Nome da rota atualizado
+elif st.session_state.pagina == "Inteligencia_Financeira":
     analise_categorias_page(st.session_state.df)
+
+elif st.session_state.pagina == "Exportacao": # LÓGICA DA NOVA ROTA [H4.4]
+    exportacao_page(st.session_state.df)
 
 elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
