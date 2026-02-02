@@ -6,7 +6,6 @@ from services.database import Database
 from datetime import datetime
 import re
 
-
 def resumo_page(df):
     st.header("📊 Resumo Financeiro")
 
@@ -24,10 +23,7 @@ def resumo_page(df):
     # --- 2. TRATAMENTO DE DATAS E ORDENAÇÃO [H8.1] ---
     df_p = df.copy()
     df_p['data_vencimento'] = pd.to_datetime(df_p['data_vencimento'], errors='coerce')
-
-    # ORDENAÇÃO: Garante que as datas mais próximas venham primeiro
     df_p = df_p.sort_values(by='data_vencimento', ascending=True)
-
     hoje = datetime.now()
 
     # --- 3. CÁLCULO DO SALDO ACUMULADO (CASCATA) ---
@@ -36,7 +32,6 @@ def resumo_page(df):
 
     rec_pend_atual = df_atual[(df_atual['tipo'] == "Receita") & (df_atual['status'] != "Concluído")]['valor'].sum()
     desp_pend_atual = df_atual[(df_atual['tipo'] == "Despesa") & (df_atual['status'] != "Concluído")]['valor'].sum()
-
     saldo_fechamento_atual = saldo_atual_contas + rec_pend_atual - desp_pend_atual
 
     # --- 4. FILTRAGEM E CÁLCULOS DO MÊS SELECIONADO ---
@@ -70,14 +65,12 @@ def resumo_page(df):
             return "🟡 Pendente"
 
     df_f['Situacao'] = df_f.apply(obter_situacao, axis=1)
-    df_f['descricao_curta'] = df_f['descricao'].apply(lambda x: (str(x)[:17] + '...') if len(str(x)) > 20 else str(x))
 
     # --- EXIBIÇÃO: KPIs RÁPIDOS ---
     c_count1, c_count2, c_count3 = st.columns(3)
     c_count1.success(f"✅ **Concluídos:** {len(df_f[df_f['status'] == 'Concluído'])}")
     c_count2.warning(f"⏳ **Pendentes:** {len(df_f[df_f['status'] != 'Concluído'])}")
-    c_count3.error(
-        f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
+    c_count3.error(f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
 
     # --- SEÇÃO: PROJEÇÕES MENSAIS ---
     with st.expander("📊 Projeções Mensais", expanded=True):
@@ -94,58 +87,70 @@ def resumo_page(df):
             st.metric("💰 Saldo em Contas (Hoje)", f"R$ {saldo_atual_contas:,.2f}")
         with c_l2:
             cor_livre = "normal" if saldo_exibicao >= 0 else "inverse"
-            st.metric(
-                label_status,
-                f"R$ {saldo_exibicao:,.2f}",
-                delta=f"Impacto Acumulado",
-                delta_color=cor_livre
-            )
+            st.metric(label_status, f"R$ {saldo_exibicao:,.2f}", delta=f"Impacto Acumulado", delta_color=cor_livre)
 
         if saldo_exibicao < 0:
-            st.error(
-                f"⚠️ Atenção: Suas projeções indicam que você precisará de R$ {abs(saldo_exibicao):,.2f} da sua reserva para cobrir este período.")
+            st.error(f"⚠️ Atenção: Suas projeções indicam que você precisará de R$ {abs(saldo_exibicao):,.2f} da sua reserva para cobrir este período.")
 
     st.write("---")
 
     # --- SEÇÃO DE TABELAS E EDIÇÃO ---
     if not df_f.empty:
-
         def processar_edicao_v2(key_editor, dataframe_origem):
             state = st.session_state[key_editor]
             if state["edited_rows"]:
+                # Criamos uma flag para saber se algo realmente mudou
+                houve_mudanca = False
+
                 for row_idx_str, changes in state["edited_rows"].items():
                     row_idx = int(row_idx_str)
                     real_idx = dataframe_origem.index[row_idx]
 
                     for field, value in changes.items():
+                        houve_mudanca = True
                         if field == 'Situacao':
+                            # Converte a bolinha de volta para o status do banco
                             novo_status = "Concluído" if "🟢" in value else "Pendente"
                             st.session_state.df.at[real_idx, 'status'] = novo_status
-                        elif field == 'descricao_curta':
-                            st.session_state.df.at[real_idx, 'descricao'] = value
                         else:
                             st.session_state.df.at[real_idx, field] = value
 
-                Database.salvar_dados(st.session_state.df)
-                # O rerun automático do callback cuidará da atualização da UI
+                if houve_mudanca:
+                    # Salva no MongoDB
+                    Database.salvar_dados(st.session_state.df)
+                    # O Streamlit atualizará o estado automaticamente após o callback.
 
+        # AJUSTE DE COLUNAS: Larguras fixas em pixels para evitar que ocultem o Vencimento
         config_colunas = {
-            "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
-                                                         width="small"),
-            "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
-            "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
-            "descricao_curta": st.column_config.TextColumn("Descrição", width=200)
+            "Situacao": st.column_config.SelectboxColumn(
+                "Status",
+                options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
+                width=120  # Pixels fixos
+            ),
+            "data_vencimento": st.column_config.DateColumn(
+                "Vencimento",
+                format="DD/MM/YYYY",
+                width=150  # Garante que a data apareça toda
+            ),
+            "valor": st.column_config.NumberColumn(
+                "Valor",
+                format="R$ %.2f",
+                width=120
+            ),
+            "descricao": st.column_config.TextColumn(
+                "Descrição",
+                width=None # Ao deixar None com container_width=True, ela expande no espaço que sobrar
+            )
         }
-        colunas_ordem = ['Situacao', 'data_vencimento', 'descricao_curta', 'valor']
+        colunas_ordem = ['Situacao', 'data_vencimento', 'descricao', 'valor']
 
-        # Listagem de Receitas e Despesas (Já ordenadas por data devido ao df_p.sort_values)
         for t, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
             df_tipo = df_f[df_f['tipo'] == t][colunas_ordem]
             with st.expander(f"{icon} {label} do Mês", expanded=True):
                 if not df_tipo.empty:
                     st.data_editor(
                         df_tipo,
-                        use_container_width=True,
+                        use_container_width=True, # Ocupa a largura total do componente
                         hide_index=True,
                         column_config=config_colunas,
                         key=f"editor_{t.lower()}",
@@ -153,14 +158,13 @@ def resumo_page(df):
                         args=(f"editor_{t.lower()}", df_tipo)
                     )
 
+        # --- GERENCIAR / EXCLUIR ---
         st.write("---")
         st.subheader("🗑️ Gerenciar Lançamento")
         df_del = df_f.copy()
-        df_del['selecao_label'] = df_del['tipo'] + ": " + df_del['descricao'] + " (R$ " + df_del['valor'].map(
-            '{:,.2f}'.format) + ")"
+        df_del['selecao_label'] = df_del['tipo'] + ": " + df_del['descricao'] + " (R$ " + df_del['valor'].map('{:,.2f}'.format) + ")"
         dict_referencia = {row['selecao_label']: idx for idx, row in df_del.iterrows()}
-        item_selecionado = st.selectbox("Selecione para remover:", options=[""] + list(dict_referencia.keys()),
-                                        key="select_excluir")
+        item_selecionado = st.selectbox("Selecione para remover:", options=[""] + list(dict_referencia.keys()), key="select_excluir")
 
         if item_selecionado != "":
             idx_alvo = dict_referencia[item_selecionado]
@@ -175,8 +179,7 @@ def resumo_page(df):
             with c_ex2:
                 if is_parcela and st.button("🧨 Excluir TODAS as parcelas", use_container_width=True, type="primary"):
                     nome_base = desc.split(" (")[0].strip()
-                    st.session_state.df = st.session_state.df[
-                        ~st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)]
+                    st.session_state.df = st.session_state.df[~st.session_state.df['descricao'].str.contains(re.escape(nome_base), na=False)]
                     Database.salvar_dados(st.session_state.df)
                     st.rerun()
     else:
