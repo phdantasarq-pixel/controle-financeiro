@@ -1,171 +1,31 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import os
+
+# --- [H10] IMPORTAÇÃO DO GERENCIADOR DE TEMAS E SERVIÇOS ---
+from utils.theme_manager import ThemeManager
+from services.database import Database
 from ui.resumo_page import resumo_page
 from ui.dashboard_page import dashboard_page
 from ui.components import seletor_meses_inteligente
-from services.database import Database
-import os
 
-# =====================================================
-# CSS GLOBAL – FORMULÁRIOS LEGÍVEIS (FIX DEFINITIVO)
-# =====================================================
-st.markdown("""
-<style>
-
-/* Fundo geral */
-.stApp {
-    background-color: #f8fafc;
-    color: #0f172a;
-}
-
-/* Containers */
-section[data-testid="stSidebar"],
-div[data-testid="stExpander"] {
-    background-color: #ffffff;
-    border-radius: 12px;
-}
-
-/* Inputs padrão */
-div[data-baseweb="input"] input,
-div[data-baseweb="select"] > div,
-div[data-baseweb="textarea"] textarea {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 10px !important;
-}
-
-/* Placeholder */
-div[data-baseweb="input"] input::placeholder,
-div[data-baseweb="textarea"] textarea::placeholder {
-    color: #64748b !important;
-}
-
-/* Select (texto interno) */
-div[data-baseweb="select"] span {
-    color: #0f172a !important;
-}
-
-/* Date picker */
-[data-baseweb="calendar"] {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-}
-
-/* Labels */
-label {
-    color: #334155 !important;
-    font-weight: 600;
-}
-
-/* Checkbox */
-input[type="checkbox"] {
-    accent-color: #2563eb;
-}
-
-/* Botões */
-.stButton > button {
-    background-color: #2563eb;
-    color: #ffffff;
-    border-radius: 10px;
-    font-weight: 600;
-    border: none;
-}
-
-.stButton > button:hover {
-    background-color: #1d4ed8;
-}
-
-/* Divider */
-hr {
-    border-color: #e2e8f0;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-# =====================================================
-# FIX VISUAL — SELETOR DE MÊS / ANO
-# =====================================================
-st.markdown("""
-<style>
-
-/* ===== SEGMENTED CONTROL — FIX FINAL ===== */
-
-/* Grupo */
-div[role="radiogroup"] {
-    gap: 6px;
-}
-
-/* Botão base */
-div[role="radiogroup"] > button {
-    background-color: #0f172a !important;
-    border: 1px solid #334155 !important;
-    border-radius: 10px !important;
-    padding: 6px 10px !important;
-    min-height: 34px !important;
-}
-
-/* TEXTO NORMAL */
-div[role="radiogroup"] > button span {
-    color: #cbd5f5 !important;   /* cinza claro visível */
-    font-size: 0.75rem !important;
-    font-weight: 500;
-}
-
-/* Hover */
-div[role="radiogroup"] > button:hover {
-    background-color: #1e293b !important;
-}
-div[role="radiogroup"] > button:hover span {
-    color: #ffffff !important;
-}
-
-/* SELECIONADO */
-div[role="radiogroup"] > button[aria-checked="true"] {
-    background-color: #ef4444 !important;
-    border-color: #ef4444 !important;
-}
-div[role="radiogroup"] > button[aria-checked="true"] span {
-    color: #ffffff !important;
-    font-weight: 700;
-}
-
-/* Remove foco azul */
-div[role="radiogroup"] > button:focus-visible {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-
-
-
-
-
-# --- [H10] IMPORTAÇÃO DO GERENCIADOR DE TEMAS ---
-from utils.theme_manager  import ThemeManager
-
-# --- IMPORTAÇÃO DA PÁGINA DE EXPORTAÇÃO [H4.4] ---
+# --- IMPORTAÇÃO DE PÁGINAS COM FALLBACK ---
 try:
     from ui.exportacao_page import exportacao_page
 except ImportError:
     def exportacao_page(df):
-        st.warning("Página de Exportação não encontrada ou em desenvolvimento...")
+        st.warning("Página de Exportação não encontrada.")
 
-# --- IMPORTAÇÃO DA PÁGINA DE INTELIGÊNCIA FINANCEIRA ---
 try:
     from ui.analise_page import analise_categorias_page
 except ImportError:
     def analise_categorias_page(df):
-        st.warning("Página em desenvolvimento...")
+        st.warning("Página de Inteligência não encontrada.")
 
-# --- CONFIGURAÇÃO PlanejAI ---
+# =====================================================
+# CONFIGURAÇÃO PlanejAI
+# =====================================================
 st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 
 # --- [H10] INICIALIZAÇÃO DO TEMA VIA MONGODB ---
@@ -174,61 +34,30 @@ if 'theme_manager' not in st.session_state:
 
 if 'theme_colors' not in st.session_state:
     cores_salvas = Database.carregar_preferencias()
-    st.session_state.theme_colors = (
-        cores_salvas if cores_salvas else ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
-    )
+    # Padrão caso não exista no banco
+    st.session_state.theme_colors = cores_salvas if cores_salvas else ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
 
-# Aplica o CSS dinâmico
+# APLICAÇÃO DO CSS DINÂMICO (Substitui todo o CSS removido)
 st.markdown(
     st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
     unsafe_allow_html=True
 )
 
-# --- AJUSTE CSS: ACCORDIONS E BOTÕES ---
+# Ajustes estruturais mínimos de layout (sem cores fixas)
 st.markdown("""
 <style>
-[data-testid="stSidebarNav"] {display: none;}
-
-[data-testid="stSidebar"] .stButton button {
-    width: 100%;
-    border-radius: 10px;
-    height: 3.2em;
-    text-align: left;
-    padding-left: 15px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(151, 151, 151, 0.2);
-    background-color: transparent !important;
-    transition: all 0.3s ease;
-}
-
-[data-testid="stSidebar"] .stButton button:hover {
-    border-color: var(--primary-color);
-    background-color: rgba(151, 151, 151, 0.05) !important;
-}
-
-.streamlit-expanderHeader {
-    border-radius: 8px !important;
-    border: 1px solid rgba(151, 151, 151, 0.2) !important;
-    padding: 10px 15px !important;
-    background-color: transparent !important;
-}
-
-.streamlit-expanderContent {
-    border: 1px solid rgba(151, 151, 151, 0.1) !important;
-    border-top: none !important;
-    border-radius: 0 0 8px 8px !important;
-    padding: 20px !important;
-}
-
-[data-testid="stSidebar"] [data-testid="stImage"] { padding: 20px; }
-.block-container { padding-top: 2rem; }
+    [data-testid="stSidebarNav"] {display: none;}
+    #MainMenu, footer, [data-testid="stHeader"] { visibility: hidden; }
+    .block-container { padding-top: 2rem; }
+    [data-testid="stSidebar"] .stButton button {
+        width: 100%; border-radius: 10px; height: 3.2em; text-align: left;
+        padding-left: 15px; margin-bottom: 8px; display: flex; align-items: center;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # =====================================================
-# 1. INICIALIZAÇÃO DE DADOS E ESTADO GLOBAL
+# 1. ESTADO GLOBAL E DADOS
 # =====================================================
 if 'df' not in st.session_state:
     st.session_state.df = Database.carregar_dados()
@@ -239,138 +68,87 @@ if 'pagina' not in st.session_state:
 if "form_version" not in st.session_state:
     st.session_state.form_version = 0
 
-# --- BUGFIX DE ESTADO (evita checkbox/lixeira pré-marcados) ---
-if "lixeira_selecionada" not in st.session_state:
-    st.session_state.lixeira_selecionada = False
+if "aguardando_confirmacao" not in st.session_state:
+    st.session_state.aguardando_confirmacao = False
 
 # =====================================================
-# 2. CÁLCULOS GLOBAIS
+# 2. CÁLCULOS GLOBAIS [H8.1 Saldo em Tempo Real]
 # =====================================================
 df_saldos_manuais = Database.carregar_saldos()
-total_contas_manuais = (
-    pd.to_numeric(df_saldos_manuais['valor'], errors='coerce').sum()
-    if not df_saldos_manuais.empty else 0.0
-)
+total_contas_manuais = pd.to_numeric(df_saldos_manuais['valor'],
+                                     errors='coerce').sum() if not df_saldos_manuais.empty else 0.0
 
 if not st.session_state.df.empty:
     df_calc = st.session_state.df.copy()
     df_calc['valor'] = pd.to_numeric(df_calc['valor'], errors='coerce').fillna(0)
+    if 'status' not in df_calc.columns: df_calc['status'] = 'Pendente'
 
-    if 'status' not in df_calc.columns:
-        df_calc['status'] = 'Pendente'
-
-    receitas_efetivadas = df_calc[
-        (df_calc['tipo'] == "Receita") & (df_calc['status'] == "Concluído")
-    ]['valor'].sum()
-
-    despesas_efetivadas = df_calc[
-        (df_calc['tipo'] == "Despesa") & (df_calc['status'] == "Concluído")
-    ]['valor'].sum()
+    receitas_efetivadas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "Concluído")]['valor'].sum()
+    despesas_efetivadas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "Concluído")]['valor'].sum()
 
     saldo_real = (receitas_efetivadas - despesas_efetivadas) + total_contas_manuais
-    pendente_pagar = df_calc[
-        (df_calc['tipo'] == "Despesa") & (df_calc['status'] != "Concluído")
-    ]['valor'].sum()
-
-    pendente_receber = df_calc[
-        (df_calc['tipo'] == "Receita") & (df_calc['status'] != "Concluído")
-    ]['valor'].sum()
+    pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "Concluído")]['valor'].sum()
+    pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "Concluído")]['valor'].sum()
 else:
-    saldo_real = total_contas_manuais
-    pendente_pagar = 0.0
-    pendente_receber = 0.0
+    saldo_real, pendente_pagar, pendente_receber = total_contas_manuais, 0.0, 0.0
+
 
 # =====================================================
-# 3. FUNÇÕES DE LÓGICA (INALTERADAS)
+# 3. FUNÇÕES DE LÓGICA (VALIDADAS)
 # =====================================================
 def resetar_formulario():
     st.session_state.form_version += 1
-    if "dados_pendentes" in st.session_state:
-        del st.session_state.dados_pendentes
+    if "dados_pendentes" in st.session_state: del st.session_state.dados_pendentes
     st.session_state.aguardando_confirmacao = False
 
 
 def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base):
-    with st.spinner("Sincronizando com MongoDB..."):
+    with st.spinner("Sincronizando..."):
         final_cat = cat_outra if cat_sel == "Outro" else cat_sel
         valor_p = round(valor / num_parcelas, 2)
-        data_hoje = datetime.now().strftime('%Y-%m-%d')
-
         novos = []
         for i in range(num_parcelas):
             venc = pd.to_datetime(data_base) + pd.DateOffset(months=i)
-            desc_f = f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao
             novos.append({
                 "data_vencimento": venc,
-                "data_registro": data_hoje,
-                "tipo": tipo,
-                "natureza": natureza,
-                "valor": valor_p,
+                "data_registro": datetime.now().strftime('%Y-%m-%d'),
+                "tipo": tipo, "natureza": natureza, "valor": valor_p,
                 "categoria": final_cat,
-                "descricao": desc_f,
+                "descricao": f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao,
                 "status": "Pendente"
             })
-
         df_novos = pd.DataFrame(novos)
-        df_novos["data_vencimento"] = pd.to_datetime(
-            df_novos["data_vencimento"]
-        ).dt.tz_localize(None)
-
-        st.session_state.df = pd.concat(
-            [st.session_state.df, df_novos], ignore_index=True
-        )
+        df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
+        st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
-
-    st.toast("Lançamento concluído com sucesso! ✨")
+    st.toast("Sucesso! ✨")
 
 
 def executar_clonagem(mes_referencia):
-    with st.spinner("Clonando lançamentos fixos..."):
-        try:
-            mes_f, ano_f = map(int, mes_referencia.split('/'))
-            df = st.session_state.df.copy()
-            if df.empty:
-                return
-
-            df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
-
-            filtro = (
-                (df['data_vencimento'].dt.month == mes_f) &
-                (df['data_vencimento'].dt.year == ano_f) &
-                (df['natureza'] == "Fixo")
-            )
-
-            fixos = df[filtro].copy()
-
-            if fixos.empty:
-                st.warning(f"Nenhum gasto 'Fixo' encontrado em {mes_referencia}.")
-                return
-
+    try:
+        mes_f, ano_f = map(int, mes_referencia.split('/'))
+        df = st.session_state.df.copy()
+        df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
+        fixos = df[(df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (
+                    df['natureza'] == "Fixo")].copy()
+        if not fixos.empty:
             fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
             fixos['status'] = "Pendente"
-
-            if '_id' in fixos.columns:
-                fixos = fixos.drop(columns=['_id'])
-
-            st.session_state.df = pd.concat(
-                [st.session_state.df, fixos], ignore_index=True
-            )
+            if '_id' in fixos.columns: fixos.drop(columns=['_id'], inplace=True)
+            st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
             Database.salvar_dados(st.session_state.df)
+            st.success(f"✅ {len(fixos)} itens clonados!")
+    except Exception as e:
+        st.error(f"Erro: {e}")
 
-            st.success(f"✅ {len(fixos)} lançamentos fixos clonados para o mês seguinte!")
-        except Exception as e:
-            st.error(f"Erro na clonagem: {e}")
 
 # =====================================================
 # 4. SIDEBAR
 # =====================================================
 with st.sidebar:
     logo_path = "assets/logo.png"
-    if os.path.exists(logo_path):
-        st.image(logo_path, use_container_width=True)
-
+    if os.path.exists(logo_path): st.image(logo_path, use_container_width=True)
     st.title("PlanejAI")
-    st.caption("Consultoria Financeira Inteligente")
     st.write("---")
 
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
@@ -384,206 +162,103 @@ with st.sidebar:
 
     st.write("---")
     st.metric("Saldo Real Disponível", f"R$ {saldo_real:,.2f}")
-
-    if pendente_pagar > 0:
-        st.caption(f"🔴 **A Pagar (Pendente):** R$ {pendente_pagar:,.2f}")
-    if pendente_receber > 0:
-        st.caption(f"🟢 **A Receber (Pendente):** R$ {pendente_receber:,.2f}")
+    if pendente_pagar > 0: st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
+    if pendente_receber > 0: st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
 
 # =====================================================
-# 5. ROTEAMENTO FINAL
+# 5. ROTEAMENTO
 # =====================================================
 df_display = st.session_state.df.copy()
-if '_id' in df_display.columns:
-    df_display = df_display.drop(columns=['_id'])
+if '_id' in df_display.columns: df_display = df_display.drop(columns=['_id'])
 
-# =========================
-# RESUMO
-# =========================
 if st.session_state.pagina == "Resumo":
     resumo_page(df_display)
 
-# =========================
-# INTELIGÊNCIA FINANCEIRA
-# =========================
-elif st.session_state.pagina == "Inteligencia_Financeira":
-    analise_categorias_page(df_display)
-
-# =========================
-# EXPORTAÇÃO
-# =========================
-elif st.session_state.pagina == "Exportacao":
-    exportacao_page(df_display)
-
-# =========================
-# SALDOS
-# =========================
 elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
+
     saldos_page()
 
-# =========================
-# LANÇAMENTOS
-# =========================
 elif st.session_state.pagina == "Lançamento":
     st.header("📝 Novo Registro")
-
     v = st.session_state.form_version
-    mes_ref = seletor_meses_inteligente(key_suffix="pg_lancamento")
+    mes_ref = seletor_meses_inteligente(key_suffix="pg_lanc")
     data_sugerida = datetime.strptime(mes_ref, "%m/%Y")
 
     with st.container(border=True):
         c1, c2 = st.columns(2)
-
         with c1:
-            data_base = st.date_input(
-                "Vencimento",
-                value=data_sugerida,
-                format="DD/MM/YYYY",
-                key=f"dt_{v}"
-            )
+            data_base = st.date_input("Vencimento", value=data_sugerida, format="DD/MM/YYYY", key=f"dt_{v}")
             tipo = st.selectbox("Tipo", ["Despesa", "Receita"], key=f"tp_{v}")
-            valor = st.number_input(
-                "Valor Total R$",
-                min_value=0.0,
-                step=0.01,
-                key=f"vl_{v}"
-            )
-
+            valor = st.number_input("Valor R$", min_value=0.0, step=0.01, key=f"vl_{v}")
         with c2:
             natureza = st.selectbox("Natureza", ["Fixo", "Variável"], key=f"nt_{v}")
-            cat_sel = st.selectbox(
-                "Categoria",
-                [
-                    "Moradia", "Alimentação", "Transporte", "Lazer", "Saúde",
-                    "Educação", "Assinaturas", "Salário", "Investimentos",
-                    "Cartão de Crédito", "Empréstimo", "Outro"
-                ],
-                key=f"ct_{v}"
-            )
+            cat_sel = st.selectbox("Categoria",
+                                   ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas",
+                                    "Salário", "Investimentos", "Cartão de Crédito", "Empréstimo", "Outro"],
+                                   key=f"ct_{v}")
             cat_outra = st.text_input("Se 'Outro', qual?", key=f"co_{v}")
 
         descricao = st.text_input("Descrição", key=f"ds_{v}")
-        st.write("---")
+        is_parcelado = st.checkbox("Parcelar?", key=f"pr_{v}")
+        num_parcelas = st.number_input("Qtd", 2, 60, 2) if is_parcelado else 1
 
-        is_parcelado = st.checkbox("Parcelar este lançamento?", key=f"pr_{v}")
-        num_parcelas = (
-            st.number_input("Qtd de Parcelas", 2, 60, 2)
-            if is_parcelado else 1
-        )
-
-        if st.button("🚀 Salvar no PlanejAI", use_container_width=True):
-            if not descricao:
-                st.error("Preencha a descrição.")
-            elif valor <= 0:
-                st.error("Valor deve ser maior que zero.")
+        if st.button("🚀 Salvar", use_container_width=True):
+            if not descricao or valor <= 0:
+                st.error("Campos obrigatórios ausentes.")
             else:
-                impacto = valor if tipo == "Despesa" else 0
-                saldo_projetado = saldo_real - impacto
-
-                if tipo == "Despesa" and saldo_projetado < 0:
+                saldo_p = saldo_real - (valor if tipo == "Despesa" else 0)
+                if tipo == "Despesa" and saldo_p < 0:
                     st.session_state.aguardando_confirmacao = True
                     st.session_state.dados_pendentes = {
-                        "valor": valor,
-                        "tipo": tipo,
-                        "natureza": natureza,
-                        "cat_sel": cat_sel,
-                        "cat_outra": cat_outra,
-                        "descricao": descricao,
-                        "num_parcelas": num_parcelas,
-                        "data_base": data_base,
-                        "saldo_projetado": saldo_projetado
+                        "valor": valor, "tipo": tipo, "natureza": natureza, "cat_sel": cat_sel,
+                        "cat_outra": cat_outra, "descricao": descricao, "num_parcelas": num_parcelas,
+                        "data_base": data_base, "saldo_projetado": saldo_p
                     }
                     st.rerun()
                 else:
-                    salvar_lancamento(
-                        valor, tipo, natureza, cat_sel,
-                        cat_outra, descricao, num_parcelas, data_base
-                    )
+                    salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
                     resetar_formulario()
                     st.rerun()
 
-    # CONFIRMAÇÃO DE SALDO NEGATIVO
     if st.session_state.get("aguardando_confirmacao"):
         dados = st.session_state.dados_pendentes
-
         with st.container(border=True):
-            st.warning(
-                f"⚠️ Este lançamento deixará o saldo negativo "
-                f"(R$ {dados['saldo_projetado']:,.2f})."
-            )
-
-            confirmar_check = st.checkbox("Estou ciente do impacto financeiro.")
-
-            c1, c2 = st.columns(2)
-
-            if c1.button("✅ Confirmar", disabled=not confirmar_check, use_container_width=True):
-                salvar_lancamento(
-                    dados['valor'], dados['tipo'], dados['natureza'],
-                    dados['cat_sel'], dados['cat_outra'],
-                    dados['descricao'], dados['num_parcelas'],
-                    dados['data_base']
-                )
+            st.warning(f"⚠️ Saldo ficará negativo (R$ {dados['saldo_projetado']:,.2f}).")
+            if st.button("✅ Confirmar"):
+                salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
+                                  dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
+                resetar_formulario()
+                st.rerun()
+            if st.button("❌ Cancelar"):
                 resetar_formulario()
                 st.rerun()
 
-            if c2.button("❌ Cancelar", use_container_width=True):
-                resetar_formulario()
-                st.rerun()
-
-# =========================
-# DASHBOARD
-# =========================
 elif st.session_state.pagina == "Dashboard":
     dashboard_page(df_display)
 
-# =========================
-# IA
-# =========================
+elif st.session_state.pagina == "Inteligencia_Financeira":
+    analise_categorias_page(df_display)
+
+elif st.session_state.pagina == "Exportacao":
+    exportacao_page(df_display)
+
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
+
     ia_page(df_display)
 
-# =========================
-# CONFIGURAÇÕES
-# =========================
 elif st.session_state.pagina == "Config":
-    st.header("⚙️ Configurações e Automação")
-
+    st.header("⚙️ Configurações")
     with st.container(border=True):
         novas_cores = st.session_state.theme_manager.sidebar_theme_selector()
-
         if novas_cores != st.session_state.theme_colors:
             st.session_state.theme_colors = novas_cores
             Database.salvar_preferencias(novas_cores)
             st.rerun()
-
-    # with st.container(border=True):
-    #     st.subheader("📥 Recuperar Dados (Excel/CSV)")
-    #     st.info("Utilize esta opção para importar arquivos no padrão 'Janeiro-2026.csv'.")
-    #     arquivo_upload = st.file_uploader("Selecione o arquivo CSV", type="csv")
-    #
-    #     col_m, col_a = st.columns(2)
-    #     mes_imp = col_m.number_input("Mês da Importação", 1, 12, datetime.now().month)
-    #     ano_imp = col_a.number_input("Ano da Importação", 2024, 2030, 2026)
-    #
-    #     if st.button("🚀 Processar e Importar CSV", use_container_width=True):
-    #         if arquivo_upload:
-    #             with st.spinner("Processando mapeamento de colunas..."):
-    #                 if Database.importar_do_csv(arquivo_upload, mes_imp, ano_imp):
-    #                     st.session_state.df = Database.carregar_dados()
-    #                     st.success("Importação concluída com sucesso!")
-    #                     st.rerun()
-    #         else:
-    #             st.error("Por favor, selecione um arquivo primeiro.")
-
-    st.write("---")
-
     with st.container(border=True):
-        st.subheader("🔄 Clonagem Inteligente")
-        st.write("Copia todos os lançamentos marcados como 'Fixo' para o mês seguinte.")
-        mes_origem = seletor_meses_inteligente(key_suffix="pg_config")
-        if st.button("🚀 Executar Clonagem", use_container_width=True):
+        st.subheader("🔄 Clonagem")
+        mes_origem = seletor_meses_inteligente(key_suffix="cfg")
+        if st.button("🚀 Executar Clonagem"):
             executar_clonagem(mes_origem)
             st.rerun()
-
