@@ -177,9 +177,17 @@ def executar_clonagem(mes_referencia):
 # 4. SIDEBAR
 # =====================================================
 with st.sidebar:
-    logo_path = "assets/logo.png"
-    if os.path.exists(logo_path): st.image(logo_path, use_container_width=True)
-    st.title("PlanejAI")
+    # Exemplo de lógica para troca de logo
+    logo_escuro = "assets/logo_dark.png"  # A original que você me enviou
+    logo_claro = "assets/logo_light.png"  # Esta nova que acabei de gerar
+
+    # Se você estiver usando o seletor de temas que homologamos
+    tema_atual = st.session_state.get("tema", "padrão")
+
+    if tema_atual == "padrão":
+        st.sidebar.image(logo_claro, use_container_width=True)
+    else:
+        st.sidebar.image(logo_escuro, use_container_width=True)
     st.write("---")
 
     if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"

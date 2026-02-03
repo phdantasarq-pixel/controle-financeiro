@@ -120,6 +120,8 @@ def resumo_page(df: pd.DataFrame):
     for tipo, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
         df_tipo = df_f[df_f["tipo"] == tipo].copy()
 
+        # ... (dentro do loop for tipo, label, icon)
+
         with st.expander(f"{icon} {label} — Total: R$ {df_tipo['valor'].sum():,.2f}", expanded=True):
             if df_tipo.empty:
                 st.info(f"Nenhuma {tipo.lower()} registrada.")
@@ -128,9 +130,10 @@ def resumo_page(df: pd.DataFrame):
             df_tipo["original_index"] = df_tipo.index
             df_tipo["🗑️"] = False
 
-            cols_view = ["🗑️", "Situacao", "data_vencimento", "descricao", "categoria", "valor"]
+            # Definimos as colunas de visualização com a lixeira no final
+            cols_view = ["Situacao", "data_vencimento", "descricao", "categoria", "valor", "🗑️"]
 
-            # O segredo está na key dinâmica por mês para não conflitar estados do Streamlit
+            # 1. Renderiza o editor primeiro
             df_editado = st.data_editor(
                 df_tipo[cols_view + ["original_index"]],
                 hide_index=True,
@@ -139,20 +142,25 @@ def resumo_page(df: pd.DataFrame):
                 key=f"editor_{tipo.lower()}_{m_sel}_{a_sel}"
             )
 
-            # --- LOGICA DE EXCLUSÃO (PRECEDE O SALVAMENTO) ---
-            itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+            # 2. Inicializa itens_excluir como lista vazia (Evita o UnboundLocalError)
+            itens_excluir = []
 
+            # 3. Verifica se houve edição/exclusão
+            if df_editado is not None:
+                itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+
+            # --- LOGICA DE EXCLUSÃO ---
             if itens_excluir:
-                # Se houver itens marcados, mostra o botão e PARA o autosave
                 if st.button(f"🗑️ Confirmar Exclusão ({len(itens_excluir)})", key=f"btn_del_{tipo}_{m_sel}"):
                     st.session_state.df = st.session_state.df.drop(itens_excluir)
                     Database.salvar_dados(st.session_state.df)
                     st.rerun()
 
-            # --- LOGICA DE AUTOSAVE (SÓ SE NÃO HOUVER EXCLUSÃO PENDENTE) ---
+            # --- LOGICA DE AUTOSAVE ---
             else:
-                # Comparamos apenas as colunas de dados, ignorando a lixeira
-                if not df_editado[cols_view[1:]].equals(df_tipo[cols_view[1:]]):
+                # Comparamos ignorando a coluna de lixeira e o original_index
+                colunas_dados = ["Situacao", "data_vencimento", "descricao", "categoria", "valor"]
+                if not df_editado[colunas_dados].equals(df_tipo[colunas_dados]):
                     for _, row in df_editado.iterrows():
                         idx_orig = row["original_index"]
                         st.session_state.df.at[idx_orig, "status"] = row["Situacao"]
