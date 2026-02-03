@@ -30,10 +30,10 @@ class ThemeManager:
         primary, background, text, sidebar = theme_colors
         is_light = background.upper() in ["#FFFFFF", "#F8FAFC", "#F0F2F6", "#F1F5F9"]
 
-        # Configurações de elevação e bordas
-        card_shadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" if is_light else "none"
-        # Borda um pouco mais visível no modo claro para definir o accordion
-        border_color = "#E2E8F0" if is_light else f"{primary}44"
+        input_bg = "#FFFFFF" if is_light else "rgba(255, 255, 255, 0.05)"
+        input_border = "#CBD5E1" if is_light else f"{primary}44"
+        sec_button_bg = "#F1F5F9" if is_light else "rgba(255, 255, 255, 0.08)"
+        card_shadow = "0 2px 4px rgba(0,0,0,0.05)" if is_light else "none"
 
         return f"""
         <style>
@@ -41,86 +41,94 @@ class ThemeManager:
                 --primary-color: {primary};
                 --bg-color: {background};
                 --text-color: {text};
-                --sidebar-color: {sidebar};
             }}
 
-            /* 1. FUNDO E TEXTO GLOBAL */
+            /* 1. RESET GLOBAL */
             .stApp {{
                 background-color: var(--bg-color) !important;
                 color: var(--text-color) !important;
             }}
 
-            .stApp p, .stApp span, .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stMarkdown, .stApp div {{
+            /* 2. ENTRADAS DE DADOS (INPUTS E SELECTBOX) */
+            div[data-baseweb="input"], 
+            div[data-baseweb="select"] > div, 
+            div[data-baseweb="textarea"] textarea,
+            div[data-testid="stNumberInputContainer"],
+            div[data-baseweb="base-input"] {{
+                background-color: {input_bg} !important;
+                border: 1px solid {input_border} !important;
+                border-radius: 8px !important;
+            }}
+
+            /* --- CORREÇÃO DEFINITIVA DO COMBOBOX (TEXTO SELECIONADO) --- */
+            /* Ataca o texto interno que o Streamlit teima em deixar branco */
+            div[data-baseweb="select"] [data-testid="stMarkdownContainer"] p,
+            div[data-baseweb="select"] div[role="button"],
+            div[data-baseweb="select"] div[aria-selected="true"],
+            .stSelectbox div[data-baseweb="select"] {{
+                color: var(--text-color) !important;
+                -webkit-text-fill-color: var(--text-color) !important;
+            }}
+
+            /* Isso ataca o valor que aparece após selecionar */
+            div[data-baseweb="select"] div {{
                 color: var(--text-color) !important;
             }}
 
-            /* 2. REFINAMENTO DOS ACCORDIONS (EXPANDERS) */
+            /* Forçar cor em inputs de texto e número */
+            input, select, textarea {{
+                color: var(--text-color) !important;
+                -webkit-text-fill-color: var(--text-color) !important;
+            }}
+
+            /* 3. ACCORDIONS (MANTIDOS) */
             div[data-testid="stExpander"] {{
-                background-color: {"#FFFFFF" if is_light else "rgba(255,255,255,0.03)"} !important;
-                border: 1px solid {border_color} !important;
+                background-color: {input_bg} !important;
+                border: 1px solid {input_border} !important;
                 border-radius: 12px !important;
                 box-shadow: {card_shadow};
-                margin-bottom: 1rem !important;
-                transition: transform 0.2s ease, border-color 0.2s ease !important;
             }}
 
-            /* Efeito ao passar o mouse no accordion */
-            div[data-testid="stExpander"]:hover {{
-                border-color: var(--primary-color) !important;
-            }}
-
-            /* Título do Accordion (Summary) */
             div[data-testid="stExpander"] summary {{
-                padding: 0.5rem 1rem !important;
                 color: var(--text-color) !important;
+                background-color: {"#F8FAFC" if is_light else "transparent"} !important;
             }}
 
             div[data-testid="stExpander"] summary p {{
+                color: var(--text-color) !important;
                 font-weight: 600 !important;
-                font-size: 1.05rem !important;
-                color: var(--text-color) !important;
             }}
 
-            /* Cor do ícone (seta) do accordion */
-            div[data-testid="stExpander"] summary svg {{
-                fill: var(--text-color) !important;
-                transform: scale(1.2) !important;
-            }}
-
-            /* 3. INPUTS E SELECTS */
-            div[data-baseweb="input"], div[data-baseweb="select"] > div {{
-                background-color: {"#FFFFFF" if is_light else "rgba(255,255,255,0.05)"} !important;
-                border: 1px solid {border_color} !important;
-                border-radius: 8px !important;
-                color: var(--text-color) !important;
-            }}
-
-            /* 4. BOTÕES (Primários e Secundários) */
-            button[kind="primary"] {{
+            /* 4. BOTÕES */
+            button[kind="primary"], button[kind="primaryFormSubmit"] {{
                 background-color: var(--primary-color) !important;
                 color: white !important;
+                border: none !important;
+                padding: 0.5rem 2rem !important;
                 border-radius: 8px !important;
                 font-weight: 600 !important;
+                width: 100%;
             }}
 
             button[kind="secondary"] {{
-                background-color: {"#F1F5F9" if is_light else "rgba(255,255,255,0.05)"} !important;
+                background-color: {sec_button_bg} !important;
                 color: var(--text-color) !important;
-                border: 1px solid {border_color} !important;
+                border: 1px solid {input_border} !important;
                 border-radius: 8px !important;
             }}
 
             /* 5. SIDEBAR */
             section[data-testid="stSidebar"] {{
-                background-color: var(--sidebar-color) !important;
-                border-right: 1px solid {border_color} !important;
+                background-color: {sidebar} !important;
+                border-right: 1px solid {input_border} !important;
             }}
 
-            /* 6. MÉTRICAS */
-            div[data-testid="stMetricValue"] {{
-                color: var(--primary-color) !important;
-                font-weight: 700 !important;
+            /* 6. TEXTOS GERAIS */
+            .stMarkdown p, .stApp label, div[data-testid="stMarkdownContainer"] p {{
+                color: var(--text-color) !important;
             }}
+
+            div[data-testid="stMetricValue"] {{ color: var(--primary-color) !important; font-weight: 800 !important; }}
 
             #MainMenu, footer, [data-testid="stHeader"] {{ visibility: hidden; }}
         </style>
