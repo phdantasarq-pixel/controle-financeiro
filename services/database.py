@@ -4,6 +4,17 @@ from pymongo import MongoClient
 from datetime import datetime
 import re
 
+"""
+Database Service
+Responsável por:
+- Conexão MongoDB
+- Persistência de lançamentos financeiros
+- Persistência de saldos
+- Persistência de preferências do usuário
+
+⚠️ Não contém lógica de UI
+⚠️ Não contém regras visuais
+"""
 
 class Database:
     @staticmethod
@@ -216,3 +227,29 @@ class Database:
         except Exception as e:
             st.error(f"Erro na importação: {e}")
             return False
+
+    # --- BLOCO DE PREFERÊNCIAS (NOVO - H10) ---
+
+    @staticmethod
+    def salvar_preferencias(cores):
+        """Salva as cores do tema na coleção 'configuracoes' do MongoDB."""
+        db = Database.conectar()
+        if db is not None:
+            try:
+                db["configuracoes"].update_one(
+                    {"_id": "tema_usuario"},
+                    {"$set": {"cores": list(cores)}},
+                    upsert=True
+                )
+            except Exception as e:
+                st.error(f"Erro ao salvar preferências no banco: {e}")
+
+    @staticmethod
+    def carregar_preferencias():
+        """Carrega as cores salvas. Retorna None se não houver configuração."""
+        db = Database.conectar()
+        if db is not None:
+            config = db["configuracoes"].find_one({"_id": "tema_usuario"})
+            if config and "cores" in config:
+                return tuple(config["cores"])
+        return None

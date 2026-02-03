@@ -1,156 +1,165 @@
 import streamlit as st
 import pandas as pd
-from domain.resumo import resumo_mensal
 from ui.components import seletor_meses_inteligente
 from services.database import Database
 from datetime import datetime
-import re
 
 
-def resumo_page(df):
+def resumo_page(df: pd.DataFrame):
     st.header("📊 Resumo Financeiro")
 
     if df.empty:
         st.warning("Nenhum dado encontrado. Cadastre no menu Novo lançamento.")
         return
 
-    # --- FILTRO INTELIGENTE ---
+    # =====================================================
+    # ESTADOS GLOBAIS
+    # =====================================================
+    if "lixeira_estado" not in st.session_state:
+        st.session_state.lixeira_estado = {}
+
+    # =====================================================
+    # FILTRO INTELIGENTE
+    # =====================================================
     mes_sel = seletor_meses_inteligente(key_suffix="resumo_financeiro")
-    m_sel, a_sel = map(int, mes_sel.split('/'))
-
-    # --- 1. BUSCAR SALDO REAL ATUAL EM CONTA ---
-    saldo_atual_contas = Database.obter_total_saldos_real()
-
-    # --- 2. TRATAMENTO DE DATAS E ORDENAÇÃO [H8.1] ---
-    df_p = df.copy()
-    df_p['data_vencimento'] = pd.to_datetime(df_p['data_vencimento'], errors='coerce')
-    df_p = df_p.sort_values(by='data_vencimento', ascending=True)
+    m_sel, a_sel = map(int, mes_sel.split("/"))
     hoje = datetime.now()
 
-    # --- 3. CÁLCULO DO SALDO ACUMULADO (CASCATA) ---
-    df_atual = df_p[(df_p['data_vencimento'].dt.month == hoje.month) &
-                    (df_p['data_vencimento'].dt.year == hoje.year)].copy()
+    # =====================================================
+    # SALDO REAL ATUAL EM CONTAS [H8.1]
+    # =====================================================
+    saldo_atual_contas = Database.obter_total_saldos_real()
 
-    rec_pend_atual = df_atual[(df_atual['tipo'] == "Receita") & (df_atual['status'] != "Concluído")]['valor'].sum()
-    desp_pend_atual = df_atual[(df_atual['tipo'] == "Despesa") & (df_atual['status'] != "Concluído")]['valor'].sum()
+    # =====================================================
+    # PREPARAÇÃO DOS DADOS
+    # =====================================================
+    df_p = df.copy()
+    df_p["data_vencimento"] = pd.to_datetime(df_p["data_vencimento"], errors="coerce")
+
+    if "status" not in df_p.columns:
+        df_p["status"] = "🟡 Pendente"
+
+    def limpa_status(s):
+        s = str(s)
+        if "Concluído" in s: return "Concluído"
+        if "Atrasado" in s: return "Atrasado"
+        return "Pendente"
+
+    # =====================================================
+    # LÓGICA DE SALDO PROJETADO [H8.1]
+    # =====================================================
+    df_mes_atual = df_p[
+        (df_p["data_vencimento"].dt.month == hoje.month) &
+        (df_p["data_vencimento"].dt.year == hoje.year)
+        ].copy()
+
+    rec_pend_atual = df_mes_atual[
+        (df_mes_atual["tipo"] == "Receita") & (~df_mes_atual["status"].str.contains("Concluído", na=False))
+        ]["valor"].sum()
+
+    desp_pend_atual = df_mes_atual[
+        (df_mes_atual["tipo"] == "Despesa") & (~df_mes_atual["status"].str.contains("Concluído", na=False))
+        ]["valor"].sum()
+
     saldo_fechamento_atual = saldo_atual_contas + rec_pend_atual - desp_pend_atual
 
-    # --- 4. FILTRAGEM E CÁLCULOS DO MÊS SELECIONADO ---
-    df_f = df_p[(df_p['data_vencimento'].dt.month == m_sel) & (df_p['data_vencimento'].dt.year == a_sel)].copy()
+    # =====================================================
+    # FILTRO DO MÊS SELECIONADO PARA EXIBIÇÃO
+    # =====================================================
+    mask = (df_p["data_vencimento"].dt.month == m_sel) & (df_p["data_vencimento"].dt.year == a_sel)
+    df_f = df_p[mask].copy()
 
-    if 'status' not in df_f.columns:
-        df_f['status'] = 'Pendente'
-
-    total_receitas_mes = df_f[df_f['tipo'] == "Receita"]['valor'].sum()
-    total_despesas_mes = df_f[df_f['tipo'] == "Despesa"]['valor'].sum()
+    total_receitas_mes = df_f[df_f["tipo"] == "Receita"]["valor"].sum()
+    total_despesas_mes = df_f[df_f["tipo"] == "Despesa"]["valor"].sum()
     balanco_mensal = total_receitas_mes - total_despesas_mes
 
     if m_sel == hoje.month and a_sel == hoje.year:
         saldo_exibicao = saldo_fechamento_atual
         label_status = "Saldo Livre (Fim do Mês)"
-        ajuda_texto = "Saldo atual + receitas pendentes - despesas pendentes deste mês."
+        ajuda_texto = "Saldo atual em conta + receitas pendentes - despesas pendentes do mês."
     else:
         saldo_exibicao = saldo_fechamento_atual + balanco_mensal
         label_status = f"Saldo Projetado ({mes_sel})"
-        ajuda_texto = f"Resultado acumulado desde hoje até o fim de {mes_sel}."
+        ajuda_texto = f"Previsão de saldo considerando o fechamento de hoje e o balanço de {mes_sel}."
 
-    # --- 5. LÓGICA DE SITUAÇÃO (BOLINHAS) ---
-    def obter_situacao(row):
-        hoje_pd = pd.Timestamp(datetime.now().date())
-        vencimento = row['data_vencimento']
-        if row['status'] == "Concluído":
-            return "🟢 Concluído"
-        elif pd.notnull(vencimento) and vencimento < hoje_pd:
-            return "🔴 Atrasado"
-        else:
-            return "🟡 Pendente"
+    hoje_pd = pd.Timestamp(hoje.date())
 
-    df_f['Situacao'] = df_f.apply(obter_situacao, axis=1)
+    def aplicar_emoji(row):
+        st_limpo = limpa_status(row["status"])
+        if st_limpo == "Concluído": return "🟢 Concluído"
+        if pd.notnull(row["data_vencimento"]) and row["data_vencimento"] < hoje_pd: return "🔴 Atrasado"
+        return "🟡 Pendente"
 
-    # --- EXIBIÇÃO: KPIs RÁPIDOS ---
-    c_count1, c_count2, c_count3 = st.columns(3)
-    c_count1.success(f"✅ **Concluídos:** {len(df_f[df_f['status'] == 'Concluído'])}")
-    c_count2.warning(f"⏳ **Pendentes:** {len(df_f[df_f['status'] != 'Concluído'])}")
-    c_count3.error(
-        f"💸 **Falta Pagar:** R$ {df_f[(df_f['tipo'] == 'Despesa') & (df_f['status'] != 'Concluído')]['valor'].sum():,.2f}")
+    df_f["Situacao"] = df_f.apply(aplicar_emoji, axis=1)
 
-    # --- SEÇÃO [H8.1]: SALDO EM TEMPO REAL & RESERVA ---
+    # =====================================================
+    # RENDERIZAÇÃO DE KPIs E ACORDION
+    # =====================================================
     with st.expander("🏦 Saldo em Tempo Real & Reserva", expanded=True):
-        st.info(f"💡 {ajuda_texto}")
         c_l1, c_l2, c_l3 = st.columns(3)
-        with c_l1:
-            st.metric("💰 Saldo em Contas (Hoje)", f"R$ {saldo_atual_contas:,.2f}")
-        with c_l2:
-            st.metric("🚀 Balanço do Mês", f"R$ {balanco_mensal:,.2f}")
-        with c_l3:
-            cor_livre = "normal" if saldo_exibicao >= 0 else "inverse"
-            st.metric(label_status, f"R$ {saldo_exibicao:,.2f}", delta=f"Impacto Acumulado", delta_color=cor_livre)
+        c_l1.metric("💰 Saldo em Contas (Hoje)", f"R$ {saldo_atual_contas:,.2f}")
+        c_l2.metric("📊 Balanço do Mês", f"R$ {balanco_mensal:,.2f}")
+        c_l3.metric(label_status, f"R$ {saldo_exibicao:,.2f}",
+                    delta_color="normal" if saldo_exibicao >= 0 else "inverse")
+        st.caption(f"💡 {ajuda_texto}")
 
-    st.write("---")
+    st.divider()
 
-    # --- SEÇÃO DE TABELAS E EDIÇÃO ---
-    if not df_f.empty:
-        def processar_edicao_v2(key_editor, dataframe_origem):
-            state = st.session_state[key_editor]
-            if state["edited_rows"]:
-                houve_mudanca = False
-                for row_idx_str, changes in state["edited_rows"].items():
-                    row_idx = int(row_idx_str)
-                    real_idx = dataframe_origem.index[row_idx]
-                    for field, value in changes.items():
-                        houve_mudanca = True
-                        if field == 'Situacao':
-                            novo_status = "Concluído" if "🟢" in value else "Pendente"
-                            st.session_state.df.at[real_idx, 'status'] = novo_status
-                        else:
-                            st.session_state.df.at[real_idx, field] = value
-                if houve_mudanca:
+    # =====================================================
+    # TABELAS COM EDITOR (SALVAMENTO REATIVO + EXCLUSÃO)
+    # =====================================================
+    config_colunas = {
+        "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
+        "Situacao": st.column_config.SelectboxColumn(
+            "Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], width=130
+        ),
+        "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
+        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
+    }
+
+    for tipo, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
+        df_tipo = df_f[df_f["tipo"] == tipo].copy()
+
+        with st.expander(f"{icon} {label} — Total: R$ {df_tipo['valor'].sum():,.2f}", expanded=True):
+            if df_tipo.empty:
+                st.info(f"Nenhuma {tipo.lower()} registrada.")
+                continue
+
+            df_tipo["original_index"] = df_tipo.index
+            df_tipo["🗑️"] = False
+
+            cols_view = ["🗑️", "Situacao", "data_vencimento", "descricao", "categoria", "valor"]
+
+            # O segredo está na key dinâmica por mês para não conflitar estados do Streamlit
+            df_editado = st.data_editor(
+                df_tipo[cols_view + ["original_index"]],
+                hide_index=True,
+                use_container_width=True,
+                column_config={**config_colunas, "original_index": None},
+                key=f"editor_{tipo.lower()}_{m_sel}_{a_sel}"
+            )
+
+            # --- LOGICA DE EXCLUSÃO (PRECEDE O SALVAMENTO) ---
+            itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+
+            if itens_excluir:
+                # Se houver itens marcados, mostra o botão e PARA o autosave
+                if st.button(f"🗑️ Confirmar Exclusão ({len(itens_excluir)})", key=f"btn_del_{tipo}_{m_sel}"):
+                    st.session_state.df = st.session_state.df.drop(itens_excluir)
                     Database.salvar_dados(st.session_state.df)
+                    st.rerun()
 
-        config_colunas = {
-            "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
-            "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], width=120),
-            "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY", width=120),
-            "categoria": st.column_config.TextColumn("Categoria", width=120),
-            "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", width=100),
-            "descricao": st.column_config.TextColumn("Descrição", width=None)
-        }
+            # --- LOGICA DE AUTOSAVE (SÓ SE NÃO HOUVER EXCLUSÃO PENDENTE) ---
+            else:
+                # Comparamos apenas as colunas de dados, ignorando a lixeira
+                if not df_editado[cols_view[1:]].equals(df_tipo[cols_view[1:]]):
+                    for _, row in df_editado.iterrows():
+                        idx_orig = row["original_index"]
+                        st.session_state.df.at[idx_orig, "status"] = row["Situacao"]
+                        st.session_state.df.at[idx_orig, "valor"] = row["valor"]
+                        st.session_state.df.at[idx_orig, "data_vencimento"] = row["data_vencimento"]
+                        st.session_state.df.at[idx_orig, "descricao"] = row["descricao"]
+                        st.session_state.df.at[idx_orig, "categoria"] = row["categoria"]
 
-        # REMOVIDO 'tipo' DA ORDEM DE COLUNAS VISUAIS
-        colunas_ordem_visual = ['🗑️', 'Situacao', 'data_vencimento', 'descricao', 'categoria', 'valor']
-
-        for t, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
-            df_tipo = df_f[df_f['tipo'] == t].copy()
-            valor_total_tipo = total_receitas_mes if t == "Receita" else total_despesas_mes
-
-            with st.expander(f"{icon} {label} do Mês — Total: R$ {valor_total_tipo:,.2f}", expanded=True):
-                if not df_tipo.empty:
-                    # Garantia de tipo booleano para o checkbox
-                    if "🗑️" in df_tipo.columns:
-                        df_tipo = df_tipo.drop(columns=["🗑️"])
-                    df_tipo.insert(0, "🗑️", False)
-                    df_tipo["🗑️"] = df_tipo["🗑️"].astype(bool)
-
-                    editor_key = f"editor_{t.lower()}"
-
-                    # Aplicando a ordem visual sem a coluna 'tipo'
-                    df_editado = st.data_editor(
-                        df_tipo[colunas_ordem_visual],
-                        use_container_width=True,
-                        hide_index=True,
-                        column_config=config_colunas,
-                        key=editor_key,
-                        on_change=processar_edicao_v2,
-                        args=(editor_key, df_tipo)
-                    )
-
-                    itens_excluir = df_editado[df_editado["🗑️"] == True]
-                    if not itens_excluir.empty:
-                        if st.button(f"🗑️ Remover {len(itens_excluir)} selecionado(s)", key=f"btn_del_{t}"):
-                            st.session_state.df = st.session_state.df.drop(itens_excluir.index)
-                            Database.salvar_dados(st.session_state.df)
-                            st.rerun()
-                else:
-                    st.info(f"Nenhuma {t.lower()} registrada.")
-    else:
-        st.info(f"Nenhum lançamento encontrado para {mes_sel}.")
+                    Database.salvar_dados(st.session_state.df)
+                    st.rerun()
