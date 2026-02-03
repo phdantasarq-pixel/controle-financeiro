@@ -30,107 +30,70 @@ class ThemeManager:
         primary, background, text, sidebar = theme_colors
         is_light = background.upper() in ["#FFFFFF", "#F8FAFC", "#F0F2F6", "#F1F5F9"]
 
-        input_bg = "#FFFFFF" if is_light else "rgba(255, 255, 255, 0.05)"
-        input_border = "#CBD5E1" if is_light else f"{primary}44"
-        sec_button_bg = "#F1F5F9" if is_light else "rgba(255, 255, 255, 0.08)"
-        card_shadow = "0 2px 4px rgba(0,0,0,0.05)" if is_light else "none"
+        scheme = "light" if is_light else "dark"
+        # No Dark, o fundo do botão deve ser escuro e a borda visível
+        button_bg = "#FFFFFF" if is_light else "rgba(255, 255, 255, 0.05)"
+        border_color = "#E2E8F0" if is_light else f"{primary}88"  # Aumentei a opacidade da borda
 
         return f"""
         <style>
-            :root {{
-                --primary-color: {primary};
-                --bg-color: {background};
-                --text-color: {text};
+            /* 1. RESET DE ESQUEMA DO NAVEGADOR */
+            :root, html, body, .stApp {{
+                color-scheme: {scheme} !important;
+                background-color: {background} !important;
             }}
 
-            /* 1. RESET GLOBAL */
-            .stApp {{
-                background-color: var(--bg-color) !important;
-                color: var(--text-color) !important;
-            }}
-
-            /* 2. ENTRADAS DE DADOS (INPUTS E SELECTBOX) */
-            div[data-baseweb="input"], 
-            div[data-baseweb="select"] > div, 
-            div[data-baseweb="textarea"] textarea,
-            div[data-testid="stNumberInputContainer"],
-            div[data-baseweb="base-input"] {{
-                background-color: {input_bg} !important;
-                border: 1px solid {input_border} !important;
-                border-radius: 8px !important;
-            }}
-
-            /* --- CORREÇÃO DEFINITIVA DO COMBOBOX (TEXTO SELECIONADO) --- */
-            /* Ataca o texto interno que o Streamlit teima em deixar branco */
-            div[data-baseweb="select"] [data-testid="stMarkdownContainer"] p,
-            div[data-baseweb="select"] div[role="button"],
-            div[data-baseweb="select"] div[aria-selected="true"],
-            .stSelectbox div[data-baseweb="select"] {{
-                color: var(--text-color) !important;
-                -webkit-text-fill-color: var(--text-color) !important;
-            }}
-
-            /* Isso ataca o valor que aparece após selecionar */
-            div[data-baseweb="select"] div {{
-                color: var(--text-color) !important;
-            }}
-
-            /* Forçar cor em inputs de texto e número */
-            input, select, textarea {{
-                color: var(--text-color) !important;
-                -webkit-text-fill-color: var(--text-color) !important;
-            }}
-
-            /* 3. ACCORDIONS (MANTIDOS) */
-            div[data-testid="stExpander"] {{
-                background-color: {input_bg} !important;
-                border: 1px solid {input_border} !important;
-                border-radius: 12px !important;
-                box-shadow: {card_shadow};
-            }}
-
-            div[data-testid="stExpander"] summary {{
-                color: var(--text-color) !important;
-                background-color: {"#F8FAFC" if is_light else "transparent"} !important;
-            }}
-
-            div[data-testid="stExpander"] summary p {{
-                color: var(--text-color) !important;
-                font-weight: 600 !important;
-            }}
-
-            /* 4. BOTÕES */
-            button[kind="primary"], button[kind="primaryFormSubmit"] {{
-                background-color: var(--primary-color) !important;
-                color: white !important;
-                border: none !important;
-                padding: 0.5rem 2rem !important;
-                border-radius: 8px !important;
-                font-weight: 600 !important;
-                width: 100%;
-            }}
-
+            /* 2. O ALVO DO SEU LOG: BOTÕES SECUNDÁRIOS (ex: "Jul") */
+            /* Usamos o seletor de atributo para ser mais forte que o emotion-cache */
             button[kind="secondary"] {{
-                background-color: {sec_button_bg} !important;
-                color: var(--text-color) !important;
-                border: 1px solid {input_border} !important;
+                background-color: {button_bg} !important;
+                color: {text} !important;
+                border: 1px solid {border_color} !important;
                 border-radius: 8px !important;
+            }}
+
+            button[kind="secondary"]:hover {{
+                border-color: {primary} !important;
+                color: {primary} !important;
+                background-color: rgba(255, 255, 255, 0.1) !important;
+            }}
+
+            /* 3. EXPANDERS E CONTAINERS (O que vimos antes) */
+            div[data-testid="stExpander"], 
+            div[data-testid="stExpander"] summary,
+            div[role="button"] {{
+                background-color: {button_bg} !important;
+                color: {text} !important;
+                border: 1px solid {border_color} !important;
+            }}
+
+            /* 4. FORÇAR COR DO TEXTO EM TUDO */
+            /* Isso garante que o texto dentro dos botões e markdowns siga o tema */
+            .stApp *, [data-testid="stMarkdownContainer"] p {{
+                color: {text} !important;
             }}
 
             /* 5. SIDEBAR */
-            section[data-testid="stSidebar"] {{
+            [data-testid="stSidebar"], [data-testid="stSidebar"] > div {{
                 background-color: {sidebar} !important;
-                border-right: 1px solid {input_border} !important;
+                border-right: 1px solid {border_color} !important;
             }}
 
-            /* 6. TEXTOS GERAIS */
-            .stMarkdown p, .stApp label, div[data-testid="stMarkdownContainer"] p {{
-                color: var(--text-color) !important;
+            /* 6. INPUTS E CAMPOS DE SELEÇÃO */
+            div[data-baseweb="input"], div[data-baseweb="select"] > div {{
+                background-color: {button_bg} !important;
+                border: 1px solid {border_color} !important;
             }}
 
-            div[data-testid="stMetricValue"] {{ color: var(--primary-color) !important; font-weight: 800 !important; }}
+            /* 7. REMOVER O HEADER DO STREAMLIT QUE PODE ESTAR BRANCO */
+            header[data-testid="stHeader"] {{
+                background-color: rgba(0,0,0,0) !important;
+            }}
 
-            #MainMenu, footer, [data-testid="stHeader"] {{ visibility: hidden; }}
+            /* Ajuste específico para ícones dentro de botões */
+            [data-testid="stIconMaterial"] {{
+                color: inherit !important;
+            }}
         </style>
         """
 
