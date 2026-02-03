@@ -34,24 +34,44 @@ if 'theme_manager' not in st.session_state:
 
 if 'theme_colors' not in st.session_state:
     cores_salvas = Database.carregar_preferencias()
-    # Padrão caso não exista no banco
+    # Padrão: Luxury (Conforme homologado)
     st.session_state.theme_colors = cores_salvas if cores_salvas else ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
 
-# APLICAÇÃO DO CSS DINÂMICO (Substitui todo o CSS removido)
+# APLICAÇÃO DO CSS DINÂMICO
 st.markdown(
     st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
     unsafe_allow_html=True
 )
 
-# Ajustes estruturais mínimos de layout (sem cores fixas)
 st.markdown("""
 <style>
+    /* Oculta a navegação padrão mas mantém o botão de fechar/abrir visível */
     [data-testid="stSidebarNav"] {display: none;}
-    #MainMenu, footer, [data-testid="stHeader"] { visibility: hidden; }
+    #MainMenu, footer { visibility: hidden; }
+
+    /* Ajuste para o Header */
+    [data-testid="stHeader"] {
+        background: rgba(0,0,0,0) !important;
+        color: inherit !important;
+    }
+
     .block-container { padding-top: 2rem; }
-    [data-testid="stSidebar"] .stButton button {
-        width: 100%; border-radius: 10px; height: 3.2em; text-align: left;
-        padding-left: 15px; margin-bottom: 8px; display: flex; align-items: center;
+
+    /* Estilização dos botões da Sidebar */
+    [data-testid="stSidebarContent"] .stButton button {
+        width: 100%; 
+        border-radius: 10px; 
+        height: 3.2em; 
+        text-align: left;
+        padding-left: 15px; 
+        margin-bottom: 8px; 
+        display: flex; 
+        align-items: center;
+        opacity: 1 !important;
+    }
+
+    [data-testid="stSidebarContent"] .stButton p {
+        font-weight: 500 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -74,27 +94,33 @@ if "aguardando_confirmacao" not in st.session_state:
 # =====================================================
 # 2. CÁLCULOS GLOBAIS [H8.1 Saldo em Tempo Real]
 # =====================================================
-df_saldos_manuais = Database.carregar_saldos()
-total_contas_manuais = pd.to_numeric(df_saldos_manuais['valor'],
-                                     errors='coerce').sum() if not df_saldos_manuais.empty else 0.0
+# Busca saldo inicial das contas (Bancos/Carteira)
+saldo_atual_contas = Database.obter_total_saldos_real()
 
 if not st.session_state.df.empty:
     df_calc = st.session_state.df.copy()
     df_calc['valor'] = pd.to_numeric(df_calc['valor'], errors='coerce').fillna(0)
-    if 'status' not in df_calc.columns: df_calc['status'] = 'Pendente'
 
-    receitas_efetivadas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "Concluído")]['valor'].sum()
-    despesas_efetivadas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "Concluído")]['valor'].sum()
+    # Garantir coluna status (essencial para a resumo_page)
+    if 'status' not in df_calc.columns:
+        df_calc['status'] = '🟡 Pendente'
 
-    saldo_real = (receitas_efetivadas - despesas_efetivadas) + total_contas_manuais
-    pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "Concluído")]['valor'].sum()
-    pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "Concluído")]['valor'].sum()
+    # Saldo Real Disponível = Saldo Inicial das Contas + Receitas Concluídas - Despesas Concluídas
+    # Nota: A lógica considera o saldo em conta como o ponto de partida absoluto
+    rec_concluidas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "🟢 Concluído")]['valor'].sum()
+    desp_concluidas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "🟢 Concluído")]['valor'].sum()
+
+    saldo_disponivel = saldo_atual_contas  # Se o saldo em conta já reflete o real, usamos direto.
+
+    # Pendentes para o Dashboard/Sidebar
+    pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "🟢 Concluído")]['valor'].sum()
+    pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "🟢 Concluído")]['valor'].sum()
 else:
-    saldo_real, pendente_pagar, pendente_receber = total_contas_manuais, 0.0, 0.0
+    saldo_disponivel, pendente_pagar, pendente_receber = saldo_atual_contas, 0.0, 0.0
 
 
 # =====================================================
-# 3. FUNÇÕES DE LÓGICA (VALIDADAS)
+# 3. FUNÇÕES DE LÓGICA
 # =====================================================
 def resetar_formulario():
     st.session_state.form_version += 1
@@ -103,7 +129,7 @@ def resetar_formulario():
 
 
 def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base):
-    with st.spinner("Sincronizando..."):
+    with st.spinner("Sincronizando com MongoDB..."):
         final_cat = cat_outra if cat_sel == "Outro" else cat_sel
         valor_p = round(valor / num_parcelas, 2)
         novos = []
@@ -112,13 +138,14 @@ def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_
             novos.append({
                 "data_vencimento": venc,
                 "data_registro": datetime.now().strftime('%Y-%m-%d'),
-                "tipo": tipo, "natureza": natureza, "valor": valor_p,
+                "tipo": tipo,
+                "natureza": natureza,
+                "valor": valor_p,
                 "categoria": final_cat,
                 "descricao": f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao,
-                "status": "Pendente"
+                "status": "🟡 Pendente"
             })
         df_novos = pd.DataFrame(novos)
-        df_novos["data_vencimento"] = pd.to_datetime(df_novos["data_vencimento"]).dt.tz_localize(None)
         st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
         Database.salvar_dados(st.session_state.df)
     st.toast("Sucesso! ✨")
@@ -129,17 +156,21 @@ def executar_clonagem(mes_referencia):
         mes_f, ano_f = map(int, mes_referencia.split('/'))
         df = st.session_state.df.copy()
         df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
-        fixos = df[(df['data_vencimento'].dt.month == mes_f) & (df['data_vencimento'].dt.year == ano_f) & (
-                    df['natureza'] == "Fixo")].copy()
+        fixos = df[(df['data_vencimento'].dt.month == mes_f) &
+                   (df['data_vencimento'].dt.year == ano_f) &
+                   (df['natureza'] == "Fixo")].copy()
+
         if not fixos.empty:
             fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
-            fixos['status'] = "Pendente"
+            fixos['status'] = "🟡 Pendente"
             if '_id' in fixos.columns: fixos.drop(columns=['_id'], inplace=True)
+
             st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
             Database.salvar_dados(st.session_state.df)
             st.success(f"✅ {len(fixos)} itens clonados!")
+            st.rerun()
     except Exception as e:
-        st.error(f"Erro: {e}")
+        st.error(f"Erro na clonagem: {e}")
 
 
 # =====================================================
@@ -161,18 +192,19 @@ with st.sidebar:
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
 
     st.write("---")
-    st.metric("Saldo Real Disponível", f"R$ {saldo_real:,.2f}")
+    st.metric("Saldo em Contas", f"R$ {saldo_disponivel:,.2f}")
     if pendente_pagar > 0: st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
     if pendente_receber > 0: st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
 
 # =====================================================
 # 5. ROTEAMENTO
 # =====================================================
+# Remove o _id técnico do Mongo para as páginas de visualização (requisito de memória)
 df_display = st.session_state.df.copy()
 if '_id' in df_display.columns: df_display = df_display.drop(columns=['_id'])
 
 if st.session_state.pagina == "Resumo":
-    resumo_page(df_display)
+    resumo_page(st.session_state.df)
 
 elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
@@ -207,7 +239,7 @@ elif st.session_state.pagina == "Lançamento":
             if not descricao or valor <= 0:
                 st.error("Campos obrigatórios ausentes.")
             else:
-                saldo_p = saldo_real - (valor if tipo == "Despesa" else 0)
+                saldo_p = saldo_disponivel - (valor if tipo == "Despesa" else 0)
                 if tipo == "Despesa" and saldo_p < 0:
                     st.session_state.aguardando_confirmacao = True
                     st.session_state.dados_pendentes = {
@@ -225,14 +257,17 @@ elif st.session_state.pagina == "Lançamento":
         dados = st.session_state.dados_pendentes
         with st.container(border=True):
             st.warning(f"⚠️ Saldo ficará negativo (R$ {dados['saldo_projetado']:,.2f}).")
-            if st.button("✅ Confirmar"):
-                salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
-                                  dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
-                resetar_formulario()
-                st.rerun()
-            if st.button("❌ Cancelar"):
-                resetar_formulario()
-                st.rerun()
+            col_c1, col_c2 = st.columns(2)
+            with col_c1:
+                if st.button("✅ Confirmar", use_container_width=True):
+                    salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
+                                      dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
+                    resetar_formulario()
+                    st.rerun()
+            with col_c2:
+                if st.button("❌ Cancelar", use_container_width=True):
+                    resetar_formulario()
+                    st.rerun()
 
 elif st.session_state.pagina == "Dashboard":
     dashboard_page(df_display)
@@ -258,7 +293,7 @@ elif st.session_state.pagina == "Config":
             st.rerun()
     with st.container(border=True):
         st.subheader("🔄 Clonagem")
+        st.write("Clonar gastos FIXOS para o mês seguinte.")
         mes_origem = seletor_meses_inteligente(key_suffix="cfg")
-        if st.button("🚀 Executar Clonagem"):
+        if st.button("🚀 Executar Clonagem", use_container_width=True):
             executar_clonagem(mes_origem)
-            st.rerun()

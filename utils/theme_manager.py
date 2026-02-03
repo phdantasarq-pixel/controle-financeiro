@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 class ThemeManager:
     """Classe responsável por gerenciar e aplicar a identidade visual do PlanejAI."""
 
@@ -31,68 +30,101 @@ class ThemeManager:
         is_light = background.upper() in ["#FFFFFF", "#F8FAFC", "#F0F2F6", "#F1F5F9"]
 
         scheme = "light" if is_light else "dark"
-        # No Dark, o fundo do botão deve ser escuro e a borda visível
-        button_bg = "#FFFFFF" if is_light else "rgba(255, 255, 255, 0.05)"
-        border_color = "#E2E8F0" if is_light else f"{primary}88"  # Aumentei a opacidade da borda
+        field_bg = "#FFFFFF" if is_light else "#262730"
+        border_color = "#E2E8F0" if is_light else f"{primary}66"
 
         return f"""
         <style>
-            /* 1. RESET DE ESQUEMA DO NAVEGADOR */
             :root, html, body, .stApp {{
                 color-scheme: {scheme} !important;
                 background-color: {background} !important;
             }}
 
-            /* 2. O ALVO DO SEU LOG: BOTÕES SECUNDÁRIOS (ex: "Jul") */
-            /* Usamos o seletor de atributo para ser mais forte que o emotion-cache */
-            button[kind="secondary"] {{
-                background-color: {button_bg} !important;
-                color: {text} !important;
+            /* COMBOBOX / SELECTBOX */
+            div[data-baseweb="popover"], 
+            div[role="listbox"], 
+            ul[role="listbox"] {{
+                background-color: {field_bg} !important;
                 border: 1px solid {border_color} !important;
-                border-radius: 8px !important;
             }}
 
-            button[kind="secondary"]:hover {{
-                border-color: {primary} !important;
-                color: {primary} !important;
-                background-color: rgba(255, 255, 255, 0.1) !important;
+            /* Itens da lista */
+            li[role="option"] {{
+                color: {text} !important;
             }}
 
-            /* 3. EXPANDERS E CONTAINERS (O que vimos antes) */
+            li[role="option"] [data-testid="stTooltipHoverTarget"] div {{
+                color: {text} !important;
+                -webkit-text-fill-color: {text} !important;
+            }}
+
+            /* Item selecionado */
+            li[role="option"][aria-selected="true"] {{
+                background-color: {primary}33 !important;
+                color: {text} !important;
+                font-weight: 600 !important;
+            }}
+
+            /* Hover */
+            li[role="option"]:hover {{
+                background-color: {primary} !important;
+                color: #FFFFFF !important;
+            }}
+
+            li[role="option"]:hover [data-testid="stTooltipHoverTarget"] div {{
+                color: #FFFFFF !important;
+                -webkit-text-fill-color: #FFFFFF !important;
+            }}
+
+            /* Texto exibido dentro do campo do select */
+            div[data-baseweb="select"] div[role="combobox"] {{
+                color: {text} !important;
+                -webkit-text-fill-color: {text} !important;
+            }}
+
+            div[data-baseweb="select"] div[role="combobox"] * {{
+                color: {text} !important;
+                -webkit-text-fill-color: {text} !important;
+            }}
+
+            /* INPUTS */
+            div[data-baseweb="input"], 
+            div[data-baseweb="base-input"], 
+            div[data-baseweb="select"] > div {{
+                background-color: {field_bg} !important;
+                border: 1px solid {border_color} !important;
+            }}
+
+            input, textarea {{
+                color: {text} !important;
+                -webkit-text-fill-color: {text} !important;
+            }}
+
+            /* BOTÕES E EXPANDERS */
+            button[kind="secondary"], 
             div[data-testid="stExpander"], 
-            div[data-testid="stExpander"] summary,
-            div[role="button"] {{
-                background-color: {button_bg} !important;
+            div[data-testid="stExpander"] summary {{
+                background-color: {field_bg} !important;
                 color: {text} !important;
                 border: 1px solid {border_color} !important;
             }}
 
-            /* 4. FORÇAR COR DO TEXTO EM TUDO */
-            /* Isso garante que o texto dentro dos botões e markdowns siga o tema */
-            .stApp *, [data-testid="stMarkdownContainer"] p {{
+            /* TEXTO UNIVERSAL */
+            .stApp *, 
+            [data-testid="stMarkdownContainer"] p, 
+            label,
+            div[data-testid="stTooltipHoverTarget"] div {{
                 color: {text} !important;
+                -webkit-text-fill-color: {text} !important;
             }}
 
-            /* 5. SIDEBAR */
-            [data-testid="stSidebar"], [data-testid="stSidebar"] > div {{
+            /* SIDEBAR */
+            [data-testid="stSidebar"] {{
                 background-color: {sidebar} !important;
-                border-right: 1px solid {border_color} !important;
             }}
 
-            /* 6. INPUTS E CAMPOS DE SELEÇÃO */
-            div[data-baseweb="input"], div[data-baseweb="select"] > div {{
-                background-color: {button_bg} !important;
-                border: 1px solid {border_color} !important;
-            }}
-
-            /* 7. REMOVER O HEADER DO STREAMLIT QUE PODE ESTAR BRANCO */
-            header[data-testid="stHeader"] {{
-                background-color: rgba(0,0,0,0) !important;
-            }}
-
-            /* Ajuste específico para ícones dentro de botões */
-            [data-testid="stIconMaterial"] {{
-                color: inherit !important;
+            [data-testid="stSidebar"] * {{
+                color: {text} !important;
             }}
         </style>
         """
