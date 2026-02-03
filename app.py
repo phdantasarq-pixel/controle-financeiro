@@ -9,6 +9,7 @@ from services.database import Database
 from ui.resumo_page import resumo_page
 from ui.dashboard_page import dashboard_page
 from ui.components import seletor_meses_inteligente
+from ui.lancamentos_page import lancamentos_page
 
 # --- IMPORTAÇÃO DE PÁGINAS COM FALLBACK ---
 try:
@@ -220,62 +221,8 @@ elif st.session_state.pagina == "Saldos":
     saldos_page()
 
 elif st.session_state.pagina == "Lançamento":
-    st.header("📝 Novo Registro")
-    v = st.session_state.form_version
-    mes_ref = seletor_meses_inteligente(key_suffix="pg_lanc")
-    data_sugerida = datetime.strptime(mes_ref, "%m/%Y")
-
-    with st.container(border=True):
-        c1, c2 = st.columns(2)
-        with c1:
-            data_base = st.date_input("Vencimento", value=data_sugerida, format="DD/MM/YYYY", key=f"dt_{v}")
-            tipo = st.selectbox("Tipo", ["Despesa", "Receita"], key=f"tp_{v}")
-            valor = st.number_input("Valor R$", min_value=0.0, step=0.01, key=f"vl_{v}")
-        with c2:
-            natureza = st.selectbox("Natureza", ["Fixo", "Variável"], key=f"nt_{v}")
-            cat_sel = st.selectbox("Categoria",
-                                   ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação", "Assinaturas",
-                                    "Salário", "Investimentos", "Cartão de Crédito", "Empréstimo", "Outro"],
-                                   key=f"ct_{v}")
-            cat_outra = st.text_input("Se 'Outro', qual?", key=f"co_{v}")
-
-        descricao = st.text_input("Descrição", key=f"ds_{v}")
-        is_parcelado = st.checkbox("Parcelar?", key=f"pr_{v}")
-        num_parcelas = st.number_input("Qtd", 2, 60, 2) if is_parcelado else 1
-
-        if st.button("🚀 Salvar", use_container_width=True):
-            if not descricao or valor <= 0:
-                st.error("Campos obrigatórios ausentes.")
-            else:
-                saldo_p = saldo_disponivel - (valor if tipo == "Despesa" else 0)
-                if tipo == "Despesa" and saldo_p < 0:
-                    st.session_state.aguardando_confirmacao = True
-                    st.session_state.dados_pendentes = {
-                        "valor": valor, "tipo": tipo, "natureza": natureza, "cat_sel": cat_sel,
-                        "cat_outra": cat_outra, "descricao": descricao, "num_parcelas": num_parcelas,
-                        "data_base": data_base, "saldo_projetado": saldo_p
-                    }
-                    st.rerun()
-                else:
-                    salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base)
-                    resetar_formulario()
-                    st.rerun()
-
-    if st.session_state.get("aguardando_confirmacao"):
-        dados = st.session_state.dados_pendentes
-        with st.container(border=True):
-            st.warning(f"⚠️ Saldo ficará negativo (R$ {dados['saldo_projetado']:,.2f}).")
-            col_c1, col_c2 = st.columns(2)
-            with col_c1:
-                if st.button("✅ Confirmar", use_container_width=True):
-                    salvar_lancamento(dados['valor'], dados['tipo'], dados['natureza'], dados['cat_sel'],
-                                      dados['cat_outra'], dados['descricao'], dados['num_parcelas'], dados['data_base'])
-                    resetar_formulario()
-                    st.rerun()
-            with col_c2:
-                if st.button("❌ Cancelar", use_container_width=True):
-                    resetar_formulario()
-                    st.rerun()
+    from ui.lancamentos_page import lancamentos_page
+    lancamentos_page(st.session_state.df)
 
 elif st.session_state.pagina == "Dashboard":
     dashboard_page(df_display)
