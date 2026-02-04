@@ -170,8 +170,8 @@ def lancamentos_page(df_atual):
 
     tab_despesas, tab_receitas = st.tabs(["💸 Despesas", "💰 Receitas"])
 
-    for aba, tipo in zip([tab_despesas, tab_receitas], ["Despesa", "Receita"]):
-        with aba:
+    for aba_tipo, tipo in zip([tab_despesas, tab_receitas], ["Despesa", "Receita"]):
+        with aba_tipo:
             df_tipo = df_mes[df_mes["tipo"] == tipo].copy()
             st.metric(f"Total {tipo}s", f"R$ {df_tipo['valor'].sum():,.2f}")
 
@@ -185,123 +185,80 @@ def lancamentos_page(df_atual):
             df_tipo["original_index"] = df_tipo.index
             df_tipo["🗑️"] = False
 
-            # Editor Principal
-            df_editado = st.data_editor(
-                df_tipo[["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor", "🗑️",
-                         "original_index"]],
-                hide_index=True,
-                use_container_width=True,
-                column_config={**config_colunas, "original_index": None},
-                key=f"editor_principal_{tipo}_{mes_ref}"
-            )
-
-            # Processamento de exclusão/edição da tabela principal
-            if df_editado is not None:
-                itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
-                if itens_excluir:
-                    if st.button(f"🗑️ Confirmar Exclusão ({len(itens_excluir)})", key=f"del_btn_{tipo}_{mes_ref}"):
+            with st.form(key=f"form_main_{tipo}_{mes_ref}"):
+                df_editado = st.data_editor(
+                    df_tipo[["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor", "🗑️",
+                             "original_index"]],
+                    hide_index=True,
+                    use_container_width=True,
+                    column_config={**config_colunas, "original_index": None},
+                    key=f"editor_widget_{tipo}_{mes_ref}"
+                )
+                if st.form_submit_button(f"💾 Salvar Alterações em {tipo}s", use_container_width=True, type="primary"):
+                    itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+                    if itens_excluir:
                         st.session_state.df = st.session_state.df.drop(itens_excluir)
-                        Database.salvar_dados(st.session_state.df)
-                        st.rerun()
-                else:
-                    cols_comp = ["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor"]
-                    if not df_editado[cols_comp].equals(df_tipo[cols_comp]):
-                        for _, row in df_editado.iterrows():
-                            idx = row["original_index"]
+
+                    for _, row in df_editado.iterrows():
+                        idx = row["original_index"]
+                        if idx not in itens_excluir:
                             st.session_state.df.loc[
                                 idx, ["status", "data_vencimento", "descricao", "categoria", "natureza", "valor"]] = \
-                                [row["Situacao"], row["data_vencimento"], row["descricao"], row["categoria"],
-                                 row["natureza"], row["valor"]]
-                        Database.salvar_dados(st.session_state.df)
+                                [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["descricao"],
+                                 row["categoria"], row["natureza"], row["valor"]]
 
-            # --- [DETALHAMENTO IA] ---
-            # INDENTAÇÃO CORRIGIDA: Fora do bloco 'if df_editado is not None'
-            # --- [DETALHAMENTO IA] ---
+                    Database.salvar_dados(st.session_state.df)
+                    st.rerun()
+
+            # --- [DETALHAMENTO IA EM ABAS] ---
             if tipo == "Despesa":
                 df_ia = df_tipo[df_tipo['detalhes'].notna() & (df_tipo['detalhes'] != "")]
                 if not df_ia.empty:
                     st.markdown("---")
                     st.subheader("🔍 Detalhamento de Itens das Faturas (IA)")
 
-                    abas_faturas = st.tabs([f"📄 {row['descricao'][:20]}" for _, row in df_ia.iterrows()])
+                    # Transformando os expanders em ABAS novamente
+                    nomes_abas = [f"📄 {row['descricao'][:20]}" for _, row in df_ia.iterrows()]
+                    abas_faturas = st.tabs(nomes_abas)
 
                     for i, (idx_orig, row_f) in enumerate(df_ia.iterrows()):
                         with abas_faturas[i]:
-                            edit_mode_key = f"edit_mode_{idx_orig}"
-                            editor_key = f"editor_ia_widget_{idx_orig}"
-
-                            if edit_mode_key not in st.session_state:
-                                st.session_state[edit_mode_key] = False
-
-                            c_info, c_edit, c_del = st.columns([3, 1, 1])
-                            with c_info:
-                                st.write(f"**Origem:** {row_f['descricao']}")
-
-                            with c_edit:
-                                if not st.session_state[edit_mode_key]:
-                                    # Botão alterado para deixar claro o objetivo
-                                    if st.button("✏️ Ajustar Categorias", key=f"btn_edit_{idx_orig}",
-                                                 use_container_width=True):
-                                        st.session_state[edit_mode_key] = True
-                                        st.rerun()
-                                else:
-                                    if st.button("💾 Salvar Alterações", key=f"btn_save_{idx_orig}", type="primary",
-                                                 use_container_width=True):
-                                        if editor_key in st.session_state:
-                                            edits = st.session_state[editor_key]
-                                            if edits and "edited_rows" in edits:
-                                                dado_json = st.session_state.df.at[idx_orig, "detalhes"]
-                                                df_itens = pd.DataFrame(
-                                                    json.loads(dado_json) if isinstance(dado_json, str) else dado_json)
-
-                                                for r_idx, changes in edits["edited_rows"].items():
-                                                    for col, val in changes.items():
-                                                        df_itens.at[int(r_idx), col] = val
-
-                                                st.session_state.df.at[idx_orig, "detalhes"] = json.dumps(
-                                                    df_itens.to_dict('records'))
-
-                                        st.session_state[edit_mode_key] = False
-                                        Database.salvar_dados(st.session_state.df)
-                                        st.toast("✅ Categorias atualizadas!", icon="💾")
-                                        st.rerun()
-
-                            with c_del:
-                                if st.button("🗑️ Apagar Fatura", key=f"btn_del_ia_{idx_orig}",
-                                             use_container_width=True):
-                                    st.session_state.df = st.session_state.df.drop(idx_orig)
-                                    Database.salvar_dados(st.session_state.df)
-                                    st.rerun()
-
-                            # Recuperação e Exibição com Colunas Travadas
                             dado_atual = st.session_state.df.at[idx_orig, "detalhes"]
                             df_itens_ia = pd.DataFrame(
                                 json.loads(dado_atual) if isinstance(dado_atual, str) else dado_atual)
                             if "parcela" not in df_itens_ia.columns: df_itens_ia["parcela"] = ""
 
-                            # Configuração de colunas: Apenas 'categoria' fica editável
-                            config_travada = {
-                                "valor": st.column_config.NumberColumn("Valor", disabled=True, format="R$ %.2f"),
-                                "descricao": st.column_config.TextColumn("Item", disabled=True),
-                                "parcela": st.column_config.TextColumn("Parcela", disabled=True),
-                                "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS,
-                                                                              required=True)
-                            }
+                            with st.form(key=f"form_ia_aba_{idx_orig}"):
+                                st.write(f"**Fatura:** {row_f['descricao']} | **Total:** R$ {row_f['valor']:,.2f}")
 
-                            if st.session_state[edit_mode_key]:
-                                st.data_editor(
+                                ed_ia = st.data_editor(
                                     df_itens_ia,
                                     hide_index=True,
                                     use_container_width=True,
-                                    key=editor_key,
                                     column_order=["descricao", "valor", "parcela", "categoria"],
-                                    column_config=config_travada
+                                    column_config={
+                                        "valor": st.column_config.NumberColumn("Valor", disabled=True,
+                                                                               format="R$ %.2f"),
+                                        "descricao": st.column_config.TextColumn("Item", disabled=True),
+                                        "parcela": st.column_config.TextColumn("Parcela", disabled=True),
+                                        "categoria": st.column_config.SelectboxColumn("Categoria",
+                                                                                      options=LISTA_CATEGORIAS,
+                                                                                      required=True)
+                                    },
+                                    key=f"widget_ia_tab_editor_{idx_orig}"
                                 )
-                                st.info("💡 Somente a coluna **Categoria** está liberada para edição.")
-                            else:
-                                st.dataframe(
-                                    df_itens_ia,
-                                    hide_index=True,
-                                    use_container_width=True,
-                                    column_order=["descricao", "valor", "parcela", "categoria"]
-                                )
+
+                                c_save_ia, c_del_ia = st.columns([1, 1])
+                                with c_save_ia:
+                                    if st.form_submit_button("💾 Salvar Itens", use_container_width=True,
+                                                             type="primary"):
+                                        st.session_state.df.at[idx_orig, "detalhes"] = json.dumps(
+                                            ed_ia.to_dict('records'))
+                                        Database.salvar_dados(st.session_state.df)
+                                        st.toast(f"✅ Itens de {row_f['descricao']} salvos!")
+                                        st.rerun()
+                                with c_del_ia:
+                                    if st.form_submit_button("🗑️ Apagar Fatura", use_container_width=True):
+                                        st.session_state.df = st.session_state.df.drop(idx_orig)
+                                        Database.salvar_dados(st.session_state.df)
+                                        st.rerun()
