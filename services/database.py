@@ -253,3 +253,25 @@ class Database:
             if config and "cores" in config:
                 return tuple(config["cores"])
         return None
+
+
+    @staticmethod
+    def inserir_muitos(lista_registros):
+        """
+        Adiciona vários registros de uma vez sem apagar o que já existe.
+        Ideal para clonagem e importações.
+        """
+        db = Database.conectar()
+        if db is not None and lista_registros:
+            try:
+                colecao = db["lancamentos"]
+                # Converte datas de datetime para string ou trata NaT para não quebrar o Mongo
+                for reg in lista_registros:
+                    if isinstance(reg.get('data_vencimento'), pd.Timestamp):
+                        reg['data_vencimento'] = reg['data_vencimento'].to_pydatetime()
+
+                colecao.insert_many(lista_registros)
+                return True
+            except Exception as e:
+                st.error(f"⚠️ Erro ao inserir novos registros: {e}")
+        return False

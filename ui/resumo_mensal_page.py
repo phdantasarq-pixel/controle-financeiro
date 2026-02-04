@@ -7,9 +7,40 @@ from services.database import Database
 from ui.layout import page_header
 
 
-# Alterado o nome da função para refletir a nova nomenclatura do menu
+def processar_dados_detalhados_resumo(df_despesas):
+    """
+    Função interna para expandir itens de detalhes (IA)
+    apenas para a visão de Categoria e Top 5.
+    """
+    registros = []
+    for _, row in df_despesas.iterrows():
+        detalhes = row.get('detalhes')
+        try:
+            # Tenta decodificar os sub-itens da IA
+            itens = json.loads(detalhes) if isinstance(detalhes, str) else detalhes
+            if isinstance(itens, list) and len(itens) > 0:
+                for it in itens:
+                    registros.append({
+                        "valor": float(it.get('valor', 0)),
+                        "categoria": it.get('categoria', 'Outro'),
+                        "descricao": it.get('descricao', it.get('item', row['descricao']))
+                        # Garante a descrição do item
+                    })
+                continue  # Pula a inserção do registro "pai" (total da fatura)
+        except:
+            pass
+
+        # Se não houver detalhes ou falhar, usa o registro normal
+        registros.append({
+            "valor": row['valor'],
+            "categoria": row['categoria'],
+            "descricao": row['descricao']
+        })
+
+    return pd.DataFrame(registros) if registros else pd.DataFrame(columns=["valor", "categoria", "descricao"])
+
+
 def resumo_mensal_page(df):
-    # Alterado o título da tela no header
     page_header("🏠 Resumo Mensal", "Cockpit de Gestão PlanejAI")
 
     if df.empty:
@@ -25,7 +56,7 @@ def resumo_mensal_page(df):
     df_mes = df_proc[
         (df_proc['data_vencimento'].dt.month == mes_f) & (df_proc['data_vencimento'].dt.year == ano_f)].copy()
 
-    # --- 2. CÁLCULOS ---
+    # --- 2. CÁLCULOS (MANTIDOS INTEGRALMENTE) ---
     receitas_mes = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
     df_despesas_mes = df_mes[df_mes['tipo'] == "Despesa"].copy()
     total_despesas_mes = df_despesas_mes['valor'].sum()
@@ -37,38 +68,31 @@ def resumo_mensal_page(df):
     saldo_atual_contas = Database.obter_total_saldos_real()
     sobra_liquida_final = saldo_atual_contas + resultado_mes
 
-    # --- SEÇÃO 1: MÉTRICAS (8 TOTALIZADORES) ---
+    # --- SEÇÃO 1: MÉTRICAS (MANTIDAS) ---
     with st.container(border=True):
         st.subheader(f"📊 Performance de {mes_sel}")
-
         c1, c2, c3 = st.columns(3)
         c1.metric("Saldo em Contas (Hoje) 🏦", f"R$ {saldo_atual_contas:,.2f}")
         c2.metric("Entradas (Mês)", f"R$ {receitas_mes:,.2f}")
         c3.metric("Total Despesas (Mês)", f"R$ {total_despesas_mes:,.2f}",
                   delta=f"-{total_despesas_mes:,.2f}", delta_color="inverse")
-
         st.divider()
-
         c4, c5, c6 = st.columns(3)
         c4.metric("Resultado Mensal", f"R$ {resultado_mes:,.2f}",
                   delta="Superavit" if resultado_mes >= 0 else "Deficit")
-
         cor_sobra = "normal" if sobra_liquida_final >= 0 else "inverse"
         c5.metric("Sobra Projetada (Fim do Mês)", f"R$ {sobra_liquida_final:,.2f}",
                   delta="Disponível", delta_color=cor_sobra)
-
         comprometimento = (total_despesas_mes / receitas_mes * 100) if receitas_mes > 0 else 0
         c6.metric("Comprometimento", f"{comprometimento:.1f}%",
                   delta="Cuidado!" if comprometimento > 70 else "Saudável",
                   delta_color="inverse" if comprometimento > 70 else "normal")
-
         st.divider()
-
         _, c7, c8, _ = st.columns([0.5, 1, 1, 0.5])
         c7.metric("Total Gastos Fixos 📌", f"R$ {custos_fixos:,.2f}")
         c8.metric("Total Gastos Variáveis 💸", f"R$ {custos_variaveis:,.2f}")
 
-    # --- SEÇÃO 2: TENDÊNCIA E NATUREZA ---
+    # --- SEÇÃO 2: TENDÊNCIA E NATUREZA (MANTIDAS) ---
     col_t, col_n = st.columns([2, 1])
     with col_t:
         with st.container(border=True):
@@ -90,26 +114,14 @@ def resumo_mensal_page(df):
             fig_b.update_layout(height=220, showlegend=False, margin=dict(t=5, b=5, l=5, r=5))
             st.plotly_chart(fig_b, use_container_width=True)
 
-    # --- SEÇÃO 3: DETALHAMENTO ---
+    # --- SEÇÃO 3: DETALHAMENTO (APLICADA A INTELIGÊNCIA DE IA) ---
     st.markdown("---")
     st.subheader("🔍 Detalhamento de Gastos")
 
     if not df_despesas_mes.empty:
-        registros = []
-        for _, row in df_despesas_mes.iterrows():
-            detalhes = row.get('detalhes')
-            try:
-                itens = json.loads(detalhes) if isinstance(detalhes, str) else detalhes
-                if isinstance(itens, list):
-                    for it in itens:
-                        registros.append({"valor": float(it.get('valor', 0)), "categoria": it.get('categoria', 'Outro'),
-                                          "descricao": it.get('item', row['descricao'])})
-                    continue
-            except:
-                pass
-            registros.append({"valor": row['valor'], "categoria": row['categoria'], "descricao": row['descricao']})
+        # Aplicamos o processamento detalhado apenas para os gráficos abaixo
+        df_analise = processar_dados_detalhados_resumo(df_despesas_mes)
 
-        df_analise = pd.DataFrame(registros)
         col_pizza, col_top = st.columns([1.4, 1])
 
         with col_pizza:
@@ -128,6 +140,7 @@ def resumo_mensal_page(df):
         with col_top:
             with st.container(border=True, height=455):
                 st.markdown("**🏆 Top 5 Desembolsos**")
+                # Agora o Top 5 considera os itens individuais dentro da fatura!
                 top5 = df_analise.sort_values(by='valor', ascending=False).head(5)
                 for i, (_, row) in enumerate(top5.iterrows(), 1):
                     st.markdown(
