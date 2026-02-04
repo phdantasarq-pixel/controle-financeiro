@@ -4,10 +4,8 @@ import pandas as pd
 import json
 import os
 
-
 class IAService:
     def __init__(self):
-        # Tenta pegar dos secrets, se não existir, usa a chave fornecida
         self.api_key = st.secrets.get("GEMINI_API_KEY")
         self.model = None
 
@@ -17,12 +15,7 @@ class IAService:
 
         try:
             genai.configure(api_key=self.api_key)
-
-            # Lista modelos disponíveis para garantir o uso de um funcional
-            available_models = [m.name for m in genai.list_models() if
-                                'generateContent' in m.supported_generation_methods]
-
-            # Prioridade para o 1.5-flash (mais rápido e barato para faturas)
+            available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
             preferencia = ['models/gemini-1.5-flash', 'models/gemini-1.5-pro', 'models/gemini-pro']
             modelo_escolhido = next((p for p in preferencia if p in available_models),
                                     available_models[0] if available_models else None)
@@ -35,52 +28,50 @@ class IAService:
             st.error(f"Erro ao inicializar IA: {e}")
 
     def processar_fatura(self, arquivo):
-        """
-        Extrai dados de faturas, identifica o EMISSOR, a DATA DE VENCIMENTO e sanitiza os itens.
-        """
         if not self.model:
             st.error("Modelo de IA não carregado.")
             return {"emissor": "Cartão", "vencimento": None, "itens": []}
 
         try:
-            # Preparação dos dados do arquivo
             arquivo_bytes = arquivo.read()
             mime_type = arquivo.type
-
-            # Reinicia o ponteiro do arquivo
             arquivo.seek(0)
 
+            # PROMPT ATUALIZADO PARA CAPTURAR PARCELAS
             prompt = """
-            Você é um especialista em análise de faturas do sistema PlanejAI.
-            Analise o documento e extraia as informações seguindo estas regras:
+                        Você é um especialista em contabilidade e análise de faturas do sistema PlanejAI.
+                        Analise o documento e extraia TODOS os gastos para garantir que a soma final seja idêntica ao total da fatura.
 
-            1. IDENTIFIQUE O EMISSOR: Nome do banco ou instituição (ex: Nubank, Inter, Itaú, Santander).
-            2. DATA DE VENCIMENTO: Localize a data de vencimento da fatura (formato YYYY-MM-DD). Se não encontrar o ano, use 2026.
-            3. SANITIZAÇÃO: Remova códigos e números de parcelas (ex: 'UBER *TRIP 123' -> 'Uber').
-            4. CATEGORIZAÇÃO: Use EXATAMENTE uma destas: [Moradia, Alimentação, Transporte, Lazer, Saúde, Educação, Assinaturas, Cartão de Crédito, Outro].
-            5. VALORES: Extraia apenas compras. Ignore pagamentos de fatura ou créditos.
-            6. FORMATO NUMÉRICO: O valor deve ter apenas 2 casas decimais.
+                        REGRAS DE EXTRAÇÃO:
+                        1. IDENTIFIQUE O EMISSOR: Nome do banco ou instituição.
+                        2. DATA DE VENCIMENTO: Localize a data de vencimento (YYYY-MM-DD). Se não houver ano, use 2026.
+                        3. ITENS E VALORES: Extraia TODAS as linhas de débito, incluindo compras, taxas, IOF, juros e anuidades. Ignore apenas pagamentos de fatura e créditos.
+                        4. DESCRIÇÃO E PARCELAS: 
+                           - Mantenha a descrição legível.
+                           - Se houver indicação de parcelamento (ex: "01/10", "1 de 5", "x3") no texto original, extraia EXATAMENTE esse texto para o campo "parcela".
+                           - Se não houver menção de parcela no item, deixe o campo "parcela" vazio ("").
+                        5. CATEGORIZAÇÃO: Use EXATAMENTE: [Moradia, Alimentação, Transporte, Lazer, Saúde, Educação, Assinaturas, Cartão de Crédito, Outro].
+                        6. PRECISÃO: Não arredonde valores antes da soma. O valor deve ser o número real com 2 casas decimais.
 
-            RETORNO OBRIGATÓRIO (JSON PURO, SEM MARKDOWN):
-            {
-                "emissor": "Nome do Banco",
-                "vencimento": "YYYY-MM-DD",
-                "itens": [
-                    {"descricao": "Nome Limpo", "valor": 12.50, "categoria": "Categoria", "data": "2026-02-03"},
-                    ...
-                ]
-            }
-            """
+                        RETORNO OBRIGATÓRIO (JSON PURO, SEM MARKDOWN):
+                        {
+                            "emissor": "Nome do Banco",
+                            "vencimento": "YYYY-MM-DD",
+                            "itens": [
+                                {
+                                    "descricao": "Nome do Estabelecimento ou Taxa", 
+                                    "valor": 12.50, 
+                                    "categoria": "Categoria", 
+                                    "parcela": "1/10", 
+                                    "data": "2026-02-03"
+                                }
+                            ]
+                        }
+                        """
 
-            # Chamada para o modelo Gemini
-            conteudo = [
-                {"mime_type": mime_type, "data": arquivo_bytes},
-                prompt
-            ]
-
+            conteudo = [{"mime_type": mime_type, "data": arquivo_bytes}, prompt]
             response = self.model.generate_content(conteudo)
 
-            # Limpeza do texto para garantir JSON válido
             json_text = response.text.strip()
             if "```" in json_text:
                 json_text = json_text.split("```")[1]
@@ -89,10 +80,12 @@ class IAService:
 
             dados_extraidos = json.loads(json_text)
 
-            # Garantia rigorosa de 2 casas decimais nos itens
             if "itens" in dados_extraidos:
                 for item in dados_extraidos["itens"]:
                     item["valor"] = round(float(item["valor"]), 2)
+                    # Garante que o campo parcela exista mesmo se vazio
+                    if "parcela" not in item:
+                        item["parcela"] = ""
 
             return dados_extraidos
 
