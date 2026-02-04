@@ -15,19 +15,23 @@ except Exception as e:
 def lancamentos_page(df_atual):
     st.header("➕ Gerenciar Lançamentos")
 
+    LISTA_CATEGORIAS = ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação",
+                        "Assinaturas", "Salário", "Investimentos", "Cartão de Crédito",
+                        "Empréstimo", "Internet", "Outro"]
+
     # --- [H10] SELETOR DE MÊS ---
     mes_ref = seletor_meses_inteligente(key_suffix="pg_lanc_ia")
-    data_selecionada = datetime.strptime(mes_ref, "%m/%Y")
+    m_sel, a_sel = map(int, mes_ref.split("/"))
+    data_selecionada = datetime(a_sel, m_sel, 1)
 
     try:
         ia = IAService()
     except:
         ia = None
 
-    # --- ABAS ---
+    # --- ABAS DE ENTRADA (MANTIDAS INTEGRALMENTE) ---
     tab_manual, tab_ia = st.tabs(["📝 Lançamento Manual", "🤖 Importar Fatura (IA)"])
 
-    # --- ABA 1: MANUAL (MANTIDA) ---
     with tab_manual:
         with st.container(border=True):
             c1, c2 = st.columns(2)
@@ -37,9 +41,7 @@ def lancamentos_page(df_atual):
                 valor = st.number_input("Valor R$", min_value=0.0, step=0.01, format="%.2f")
             with c2:
                 natureza = st.selectbox("Natureza", ["Fixo", "Variável"])
-                categoria = st.selectbox("Categoria",
-                                         ["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde", "Educação",
-                                          "Assinaturas", "Salário", "Investimentos", "Cartão de Crédito", "Outro"])
+                categoria = st.selectbox("Categoria", options=LISTA_CATEGORIAS)
 
             descricao = st.text_input("Descrição")
 
@@ -56,14 +58,13 @@ def lancamentos_page(df_atual):
                         "categoria": categoria,
                         "descricao": descricao,
                         "status": "🟡 Pendente",
-                        "detalhes": None  # Importante inicializar vazio
+                        "detalhes": None
                     }])
                     st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
                     Database.salvar_dados(st.session_state.df)
                     st.success("Salvo com sucesso!")
                     st.rerun()
 
-    # --- ABA 2: IMPORTAÇÃO IA ---
     with tab_ia:
         st.subheader("🤖 Importação Gemini")
         if ia is None:
@@ -81,8 +82,6 @@ def lancamentos_page(df_atual):
                 dados_ia = st.session_state.preview_fatura
                 emissor = dados_ia.get("emissor", "Cartão")
                 itens = dados_ia.get("itens", [])
-
-                # Lógica de data
                 venc_ia = dados_ia.get("vencimento")
                 data_final_vencimento = pd.to_datetime(venc_ia) if venc_ia else pd.to_datetime(data_selecionada)
 
@@ -92,7 +91,6 @@ def lancamentos_page(df_atual):
 
                 with st.container(border=True):
                     st.markdown(f"#### {nome_f}")
-                    st.write(f"🏦 Banco: **{emissor}** | 📅 Vencimento: **{data_final_vencimento.strftime('%d/%m/%Y')}**")
                     st.metric("Total", f"R$ {total_f:,.2f}")
 
                 if st.button("📥 Confirmar e Gerar Fatura", use_container_width=True, type="primary"):
@@ -105,62 +103,127 @@ def lancamentos_page(df_atual):
                         "categoria": "Cartão de Crédito",
                         "descricao": nome_f,
                         "status": "🟡 Pendente",
-                        "detalhes": json.dumps(itens)  # Salvando como String JSON
+                        "detalhes": json.dumps(itens)
                     }])
                     st.session_state.df = pd.concat([st.session_state.df, novo_reg], ignore_index=True)
                     Database.salvar_dados(st.session_state.df)
                     del st.session_state.preview_fatura
                     st.rerun()
 
-    # --- LISTAGEM (O CORAÇÃO DO PROBLEMA) ---
+    # =====================================================
+    # SEÇÃO DE LISTAGEM: ACORDIONS + TABELAS (HOMOLOGADO)
+    # =====================================================
     st.divider()
     st.subheader(f"📋 Lançamentos de {mes_ref}")
 
-    if not df_atual.empty:
-        df_temp = df_atual.copy()
-        df_temp['data_vencimento'] = pd.to_datetime(df_temp['data_vencimento'])
+    if df_atual.empty:
+        st.info("Nenhum dado cadastrado.")
+        return
 
-        mask = (df_temp['data_vencimento'].dt.month == data_selecionada.month) & \
-               (df_temp['data_vencimento'].dt.year == data_selecionada.year)
-        df_mes = df_temp[mask].iloc[::-1]
+    df_temp = df_atual.copy()
+    df_temp['data_vencimento'] = pd.to_datetime(df_temp['data_vencimento'], errors='coerce')
 
-        for idx, row in df_mes.iterrows():
-            # --- TRATAMENTO ULTRA-ROBUSTO DO CAMPO DETALHES ---
-            detalhes_brutos = row.get('detalhes', None)
-            lista_itens = []
+    if "status" not in df_temp.columns: df_temp["status"] = "🟡 Pendente"
+    if "natureza" not in df_temp.columns: df_temp["natureza"] = "Variável"
 
-            # 1. Checa se não é nulo/nan
-            if pd.notna(detalhes_brutos) and detalhes_brutos:
-                try:
-                    # 2. Se for string, descompacta o JSON
-                    if isinstance(detalhes_brutos, str):
-                        lista_itens = json.loads(detalhes_brutos)
-                    # 3. Se já for uma lista (vinda direto do MongoDB como objeto)
-                    elif isinstance(detalhes_brutos, list):
-                        lista_itens = detalhes_brutos
-                except:
-                    lista_itens = []
+    mask = (df_temp['data_vencimento'].dt.month == m_sel) & (df_temp['data_vencimento'].dt.year == a_sel)
+    df_mes = df_temp[mask].copy()
 
-            with st.container(border=True):
-                c = st.columns([3, 2, 2, 0.5])
+    hoje_pd = pd.Timestamp(datetime.now().date())
 
-                # Se identificou itens, mostra o robô
-                nome_exibicao = f"🤖 {row['descricao']}" if len(lista_itens) > 0 else row['descricao']
+    config_colunas = {
+        "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
+        "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], width=130),
+        "natureza": st.column_config.SelectboxColumn("Natureza", options=["Fixo", "Variável"], width=110),
+        "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
+        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
+        "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS)
+    }
 
-                c[0].write(f"**{nome_exibicao}**")
-                c[1].write(f"R$ {float(row['valor']):,.2f}")
-                c[2].write(f"{row['status']}")
+    for tipo, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
+        df_tipo = df_mes[df_mes["tipo"] == tipo].copy()
 
-                if c[3].button("🗑️", key=f"del_{idx}"):
-                    st.session_state.df = st.session_state.df.drop(idx)
-                    Database.salvar_dados(st.session_state.df)
-                    st.rerun()
+        with st.expander(f"{icon} {label} — Total: R$ {df_tipo['valor'].sum():,.2f}", expanded=True):
+            if df_tipo.empty:
+                st.info(f"Nenhuma {tipo.lower()} no mês.")
+                continue
 
-                # --- O EXPANSOR ---
-                if len(lista_itens) > 0:
-                    with st.expander("🔍 Ver itens detalhados"):
-                        # Formata a tabelinha interna
-                        df_detalhes = pd.DataFrame(lista_itens)
-                        st.dataframe(df_detalhes, use_container_width=True, hide_index=True)
-    else:
-        st.info("Nenhum dado.")
+            def aplicar_emoji(row):
+                st_bruto = str(row["status"])
+                if "Concluído" in st_bruto: return "🟢 Concluído"
+                if pd.notnull(row["data_vencimento"]) and row["data_vencimento"] < hoje_pd: return "🔴 Atrasado"
+                return "🟡 Pendente"
+
+            df_tipo["Situacao"] = df_tipo.apply(aplicar_emoji, axis=1)
+            df_tipo["original_index"] = df_tipo.index
+            df_tipo["🗑️"] = False
+
+            cols_view = ["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor", "🗑️"]
+
+            df_editado = st.data_editor(
+                df_tipo[cols_view + ["original_index"]],
+                hide_index=True,
+                use_container_width=True,
+                column_config={**config_colunas, "original_index": None},
+                key=f"editor_lanc_{tipo}_{mes_ref}"
+            )
+
+            if df_editado is not None:
+                itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+                if itens_excluir:
+                    if st.button(f"🗑️ Confirmar Exclusão ({len(itens_excluir)})", key=f"btn_del_{tipo}_{mes_ref}"):
+                        st.session_state.df = st.session_state.df.drop(itens_excluir)
+                        Database.salvar_dados(st.session_state.df)
+                        st.rerun()
+                else:
+                    colunas_comp = ["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor"]
+                    if not df_editado[colunas_comp].equals(df_tipo[colunas_comp]):
+                        for _, row_ed in df_editado.iterrows():
+                            idx_orig = row_ed["original_index"]
+                            st.session_state.df.at[idx_orig, "status"] = row_ed["Situacao"]
+                            st.session_state.df.at[idx_orig, "valor"] = row_ed["valor"]
+                            st.session_state.df.at[idx_orig, "data_vencimento"] = row_ed["data_vencimento"]
+                            st.session_state.df.at[idx_orig, "descricao"] = row_ed["descricao"]
+                            st.session_state.df.at[idx_orig, "categoria"] = row_ed["categoria"]
+                            st.session_state.df.at[idx_orig, "natureza"] = row_ed["natureza"]
+                        Database.salvar_dados(st.session_state.df)
+                        st.rerun()
+
+            # --- [H8.1] EDIÇÃO DOS DETALHES DE IA (EXPANDER INTERNO CORRIGIDO) ---
+            df_com_detalhes = df_tipo[df_tipo['detalhes'].notna()]
+            if not df_com_detalhes.empty:
+                with st.expander("🔍 Detalhes das Faturas (Itens da IA)"):
+                    st.info("Ajuste abaixo as categorias caso a IA não tenha identificado corretamente.")
+                    for idx_fatura, row_det in df_com_detalhes.iterrows():
+                        try:
+                            itens_ia = json.loads(row_det['detalhes']) if isinstance(row_det['detalhes'], str) else row_det['detalhes']
+                            if itens_ia:
+                                st.markdown(f"**📍 {row_det['descricao']}**")
+                                df_itens_ia = pd.DataFrame(itens_ia)
+
+                                # Editor focado: bloqueia tudo, libera apenas Categoria
+                                df_itens_editado = st.data_editor(
+                                    df_itens_ia,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    key=f"edit_ia_{idx_fatura}_{mes_ref}",
+                                    column_config={
+                                        "valor": st.column_config.NumberColumn("Valor", disabled=True, format="R$ %.2f"),
+                                        "descricao": st.column_config.TextColumn("Descrição", disabled=True),
+                                        "item": st.column_config.TextColumn("Item", disabled=True),
+                                        "categoria": st.column_config.SelectboxColumn(
+                                            "Categoria",
+                                            options=LISTA_CATEGORIAS,
+                                            required=True
+                                        )
+                                    }
+                                )
+
+                                # Se houver mudança na categoria interna, salva no JSON da fatura pai
+                                if not df_itens_editado.equals(df_itens_ia):
+                                    novos_detalhes = df_itens_editado.to_dict(orient='records')
+                                    st.session_state.df.at[idx_fatura, "detalhes"] = json.dumps(novos_detalhes)
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.rerun()
+                        except:
+                            continue
