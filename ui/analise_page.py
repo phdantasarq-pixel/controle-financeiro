@@ -10,10 +10,6 @@ from domain.analise import (
 
 
 def processar_dados_detalhados(df_original):
-    """
-    Expande itens de 'detalhes' (IA) para categorias reais
-    e remove o 'Cartão de Crédito' totalizador para evitar duplicidade.
-    """
     if df_original.empty:
         return df_original
 
@@ -22,15 +18,15 @@ def processar_dados_detalhados(df_original):
     indices_para_remover = []
 
     for idx, row in df_analise.iterrows():
-        # Se for Cartão de Crédito e tiver detalhes da IA
-        if pd.notnull(row.get('detalhes')) and row['detalhes'] != "":
+        # Lógica inteligente: Se a categoria for Cartão de Crédito,
+        # tentamos expandir. Se expandir com sucesso, removemos o 'Pai'.
+        tem_detalhes = pd.notnull(row.get('detalhes')) and row['detalhes'] != ""
+
+        if tem_detalhes:
             try:
                 itens = json.loads(row['detalhes']) if isinstance(row['detalhes'], str) else row['detalhes']
                 if itens:
-                    # Removemos o lançamento "Pai" (o total da fatura) da visão de categorias
                     indices_para_remover.append(idx)
-
-                    # Adicionamos os filhos (itens individuais)
                     for item in itens:
                         registros_expandidos.append({
                             "data_vencimento": row['data_vencimento'],
@@ -43,7 +39,11 @@ def processar_dados_detalhados(df_original):
             except:
                 continue
 
-    # Remove os registros pai e anexa os filhos expandidos
+        # REMOÇÃO ESTRATÉGICA: Se ainda for "Cartão de Crédito" e não conseguimos expandir,
+        # removemos do gráfico para não poluir a análise de finalidade de gasto.
+        elif row['categoria'] == "Cartão de Crédito":
+            indices_para_remover.append(idx)
+
     df_analise = df_analise.drop(indices_para_remover)
     if registros_expandidos:
         df_analise = pd.concat([df_analise, pd.DataFrame(registros_expandidos)], ignore_index=True)

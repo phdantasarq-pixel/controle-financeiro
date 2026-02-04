@@ -41,7 +41,7 @@ def lancamentos_page(df_atual):
                 valor = st.number_input("Valor R$", min_value=0.0, step=0.01, format="%.2f")
             with c2:
                 natureza = st.selectbox("Natureza", ["Fixo", "Variável"])
-                categoria = st.selectbox("Categoria",options=LISTA_CATEGORIAS)
+                categoria = st.selectbox("Categoria", options=LISTA_CATEGORIAS)
 
             descricao = st.text_input("Descrição")
 
@@ -120,15 +120,12 @@ def lancamentos_page(df_atual):
         st.info("Nenhum dado cadastrado.")
         return
 
-    # Preparação robusta para os editores
     df_temp = df_atual.copy()
     df_temp['data_vencimento'] = pd.to_datetime(df_temp['data_vencimento'], errors='coerce')
 
-    # Garante colunas mínimas
     if "status" not in df_temp.columns: df_temp["status"] = "🟡 Pendente"
     if "natureza" not in df_temp.columns: df_temp["natureza"] = "Variável"
 
-    # Filtro do mês
     mask = (df_temp['data_vencimento'].dt.month == m_sel) & (df_temp['data_vencimento'].dt.year == a_sel)
     df_mes = df_temp[mask].copy()
 
@@ -136,28 +133,21 @@ def lancamentos_page(df_atual):
 
     config_colunas = {
         "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
-        "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
-                                                     width=130),
+        "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], width=130),
         "natureza": st.column_config.SelectboxColumn("Natureza", options=["Fixo", "Variável"], width=110),
         "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
         "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
-        "categoria": st.column_config.SelectboxColumn("Categoria",
-                                                      options=["Moradia", "Alimentação", "Transporte", "Lazer", "Saúde",
-                                                               "Educação", "Assinaturas", "Salário", "Investimentos",
-                                                               "Cartão de Crédito", "Empréstimo", "Internet", "Outro"])
-
+        "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS)
     }
 
     for tipo, label, icon in [("Receita", "Receitas", "💰"), ("Despesa", "Despesas", "💸")]:
         df_tipo = df_mes[df_mes["tipo"] == tipo].copy()
 
-        # Accordion com Totalizador Homologado
         with st.expander(f"{icon} {label} — Total: R$ {df_tipo['valor'].sum():,.2f}", expanded=True):
             if df_tipo.empty:
                 st.info(f"Nenhuma {tipo.lower()} no mês.")
                 continue
 
-            # Mapeamento visual de Status
             def aplicar_emoji(row):
                 st_bruto = str(row["status"])
                 if "Concluído" in st_bruto: return "🟢 Concluído"
@@ -168,10 +158,8 @@ def lancamentos_page(df_atual):
             df_tipo["original_index"] = df_tipo.index
             df_tipo["🗑️"] = False
 
-            # Colunas para visualização (natureza incluída)
             cols_view = ["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor", "🗑️"]
 
-            # 1. Editor de Dados
             df_editado = st.data_editor(
                 df_tipo[cols_view + ["original_index"]],
                 hide_index=True,
@@ -180,17 +168,13 @@ def lancamentos_page(df_atual):
                 key=f"editor_lanc_{tipo}_{mes_ref}"
             )
 
-            # 2. Lógica de Exclusão (Botão de confirmação aparece se houver checkbox marcado)
             if df_editado is not None:
                 itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
-
                 if itens_excluir:
                     if st.button(f"🗑️ Confirmar Exclusão ({len(itens_excluir)})", key=f"btn_del_{tipo}_{mes_ref}"):
                         st.session_state.df = st.session_state.df.drop(itens_excluir)
                         Database.salvar_dados(st.session_state.df)
                         st.rerun()
-
-                # 3. Lógica de Autosave (detecta mudanças e salva no banco/session)
                 else:
                     colunas_comp = ["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor"]
                     if not df_editado[colunas_comp].equals(df_tipo[colunas_comp]):
@@ -202,21 +186,44 @@ def lancamentos_page(df_atual):
                             st.session_state.df.at[idx_orig, "descricao"] = row_ed["descricao"]
                             st.session_state.df.at[idx_orig, "categoria"] = row_ed["categoria"]
                             st.session_state.df.at[idx_orig, "natureza"] = row_ed["natureza"]
-
                         Database.salvar_dados(st.session_state.df)
                         st.rerun()
 
-            # --- PRESERVAÇÃO DOS DETALHES DE IA (EXPANDER INTERNO) ---
-            # Caso a linha seja uma fatura importada, mostramos os itens detalhados abaixo da tabela
+            # --- [H8.1] EDIÇÃO DOS DETALHES DE IA (EXPANDER INTERNO CORRIGIDO) ---
             df_com_detalhes = df_tipo[df_tipo['detalhes'].notna()]
             if not df_com_detalhes.empty:
                 with st.expander("🔍 Detalhes das Faturas (Itens da IA)"):
-                    for _, row_det in df_com_detalhes.iterrows():
+                    st.info("Ajuste abaixo as categorias caso a IA não tenha identificado corretamente.")
+                    for idx_fatura, row_det in df_com_detalhes.iterrows():
                         try:
-                            itens_ia = json.loads(row_det['detalhes']) if isinstance(row_det['detalhes'], str) else \
-                            row_det['detalhes']
+                            itens_ia = json.loads(row_det['detalhes']) if isinstance(row_det['detalhes'], str) else row_det['detalhes']
                             if itens_ia:
-                                st.markdown(f"**{row_det['descricao']}**")
-                                st.table(pd.DataFrame(itens_ia))
+                                st.markdown(f"**📍 {row_det['descricao']}**")
+                                df_itens_ia = pd.DataFrame(itens_ia)
+
+                                # Editor focado: bloqueia tudo, libera apenas Categoria
+                                df_itens_editado = st.data_editor(
+                                    df_itens_ia,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    key=f"edit_ia_{idx_fatura}_{mes_ref}",
+                                    column_config={
+                                        "valor": st.column_config.NumberColumn("Valor", disabled=True, format="R$ %.2f"),
+                                        "descricao": st.column_config.TextColumn("Descrição", disabled=True),
+                                        "item": st.column_config.TextColumn("Item", disabled=True),
+                                        "categoria": st.column_config.SelectboxColumn(
+                                            "Categoria",
+                                            options=LISTA_CATEGORIAS,
+                                            required=True
+                                        )
+                                    }
+                                )
+
+                                # Se houver mudança na categoria interna, salva no JSON da fatura pai
+                                if not df_itens_editado.equals(df_itens_ia):
+                                    novos_detalhes = df_itens_editado.to_dict(orient='records')
+                                    st.session_state.df.at[idx_fatura, "detalhes"] = json.dumps(novos_detalhes)
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.rerun()
                         except:
                             continue

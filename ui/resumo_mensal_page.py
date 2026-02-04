@@ -8,15 +8,12 @@ from ui.layout import page_header
 
 
 def processar_dados_detalhados_resumo(df_despesas):
-    """
-    Função interna para expandir itens de detalhes (IA)
-    apenas para a visão de Categoria e Top 5.
-    """
     registros = []
     for _, row in df_despesas.iterrows():
         detalhes = row.get('detalhes')
+        sucesso_expansao = False
+
         try:
-            # Tenta decodificar os sub-itens da IA
             itens = json.loads(detalhes) if isinstance(detalhes, str) else detalhes
             if isinstance(itens, list) and len(itens) > 0:
                 for it in itens:
@@ -24,18 +21,20 @@ def processar_dados_detalhados_resumo(df_despesas):
                         "valor": float(it.get('valor', 0)),
                         "categoria": it.get('categoria', 'Outro'),
                         "descricao": it.get('descricao', it.get('item', row['descricao']))
-                        # Garante a descrição do item
                     })
-                continue  # Pula a inserção do registro "pai" (total da fatura)
+                sucesso_expansao = True
         except:
             pass
 
-        # Se não houver detalhes ou falhar, usa o registro normal
-        registros.append({
-            "valor": row['valor'],
-            "categoria": row['categoria'],
-            "descricao": row['descricao']
-        })
+        # Só adicionamos o registro original se:
+        # 1. Não foi expandido pela IA
+        # 2. NÃO for da categoria "Cartão de Crédito" (para limpar o gráfico)
+        if not sucesso_expansao and row['categoria'] != "Cartão de Crédito":
+            registros.append({
+                "valor": row['valor'],
+                "categoria": row['categoria'],
+                "descricao": row['descricao']
+            })
 
     return pd.DataFrame(registros) if registros else pd.DataFrame(columns=["valor", "categoria", "descricao"])
 

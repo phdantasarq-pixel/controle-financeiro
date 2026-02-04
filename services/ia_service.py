@@ -8,7 +8,7 @@ import os
 class IAService:
     def __init__(self):
         # Tenta pegar dos secrets, se não existir, usa a chave fornecida
-        self.api_key = st.secrets.get("GEMINI_API_KEY") or "AIzaSyCQs5I9EcncBWQrQFknYSd50LIXjSDsAGs"
+        self.api_key = st.secrets.get("GEMINI_API_KEY")
         self.model = None
 
         if not self.api_key:
