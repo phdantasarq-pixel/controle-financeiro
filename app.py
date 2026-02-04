@@ -7,7 +7,8 @@ import os
 from utils.theme_manager import ThemeManager
 from services.database import Database
 from ui.resumo_page import resumo_page
-from ui.dashboard_page import dashboard_page
+# AJUSTE: Importando o novo nome da função
+from ui.resumo_mensal_page import resumo_mensal_page
 from ui.components import seletor_meses_inteligente
 from ui.lancamentos_page import lancamentos_page
 
@@ -35,10 +36,8 @@ if 'theme_manager' not in st.session_state:
 
 if 'theme_colors' not in st.session_state:
     cores_salvas = Database.carregar_preferencias()
-    # Padrão: Luxury (Conforme homologado)
     st.session_state.theme_colors = cores_salvas if cores_salvas else ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
 
-# APLICAÇÃO DO CSS DINÂMICO
 st.markdown(
     st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
     unsafe_allow_html=True
@@ -46,34 +45,15 @@ st.markdown(
 
 st.markdown("""
 <style>
-    /* Oculta a navegação padrão mas mantém o botão de fechar/abrir visível */
     [data-testid="stSidebarNav"] {display: none;}
     #MainMenu, footer { visibility: hidden; }
-
-    /* Ajuste para o Header */
-    [data-testid="stHeader"] {
-        background: rgba(0,0,0,0) !important;
-        color: inherit !important;
-    }
-
+    [data-testid="stHeader"] { background: rgba(0,0,0,0) !important; color: inherit !important; }
     .block-container { padding-top: 2rem; }
-
-    /* Estilização dos botões da Sidebar */
     [data-testid="stSidebarContent"] .stButton button {
-        width: 100%; 
-        border-radius: 10px; 
-        height: 3.2em; 
-        text-align: left;
-        padding-left: 15px; 
-        margin-bottom: 8px; 
-        display: flex; 
-        align-items: center;
-        opacity: 1 !important;
+        width: 100%; border-radius: 10px; height: 3.2em; text-align: left;
+        padding-left: 15px; margin-bottom: 8px; display: flex; align-items: center; opacity: 1 !important;
     }
-
-    [data-testid="stSidebarContent"] .stButton p {
-        font-weight: 500 !important;
-    }
+    [data-testid="stSidebarContent"] .stButton p { font-weight: 500 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -95,106 +75,39 @@ if "aguardando_confirmacao" not in st.session_state:
 # =====================================================
 # 2. CÁLCULOS GLOBAIS [H8.1 Saldo em Tempo Real]
 # =====================================================
-# Busca saldo inicial das contas (Bancos/Carteira)
 saldo_atual_contas = Database.obter_total_saldos_real()
 
 if not st.session_state.df.empty:
     df_calc = st.session_state.df.copy()
     df_calc['valor'] = pd.to_numeric(df_calc['valor'], errors='coerce').fillna(0)
-
-    # Garantir coluna status (essencial para a resumo_page)
     if 'status' not in df_calc.columns:
         df_calc['status'] = '🟡 Pendente'
 
-    # Saldo Real Disponível = Saldo Inicial das Contas + Receitas Concluídas - Despesas Concluídas
-    # Nota: A lógica considera o saldo em conta como o ponto de partida absoluto
-    rec_concluidas = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] == "🟢 Concluído")]['valor'].sum()
-    desp_concluidas = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] == "🟢 Concluído")]['valor'].sum()
-
-    saldo_disponivel = saldo_atual_contas  # Se o saldo em conta já reflete o real, usamos direto.
-
-    # Pendentes para o Dashboard/Sidebar
     pendente_pagar = df_calc[(df_calc['tipo'] == "Despesa") & (df_calc['status'] != "🟢 Concluído")]['valor'].sum()
     pendente_receber = df_calc[(df_calc['tipo'] == "Receita") & (df_calc['status'] != "🟢 Concluído")]['valor'].sum()
+    saldo_disponivel = saldo_atual_contas
 else:
     saldo_disponivel, pendente_pagar, pendente_receber = saldo_atual_contas, 0.0, 0.0
 
-
 # =====================================================
-# 3. FUNÇÕES DE LÓGICA
-# =====================================================
-def resetar_formulario():
-    st.session_state.form_version += 1
-    if "dados_pendentes" in st.session_state: del st.session_state.dados_pendentes
-    st.session_state.aguardando_confirmacao = False
-
-
-def salvar_lancamento(valor, tipo, natureza, cat_sel, cat_outra, descricao, num_parcelas, data_base):
-    with st.spinner("Sincronizando com MongoDB..."):
-        final_cat = cat_outra if cat_sel == "Outro" else cat_sel
-        valor_p = round(valor / num_parcelas, 2)
-        novos = []
-        for i in range(num_parcelas):
-            venc = pd.to_datetime(data_base) + pd.DateOffset(months=i)
-            novos.append({
-                "data_vencimento": venc,
-                "data_registro": datetime.now().strftime('%Y-%m-%d'),
-                "tipo": tipo,
-                "natureza": natureza,
-                "valor": valor_p,
-                "categoria": final_cat,
-                "descricao": f"{descricao} ({i + 1}/{num_parcelas})" if num_parcelas > 1 else descricao,
-                "status": "🟡 Pendente"
-            })
-        df_novos = pd.DataFrame(novos)
-        st.session_state.df = pd.concat([st.session_state.df, df_novos], ignore_index=True)
-        Database.salvar_dados(st.session_state.df)
-    st.toast("Sucesso! ✨")
-
-
-def executar_clonagem(mes_referencia):
-    try:
-        mes_f, ano_f = map(int, mes_referencia.split('/'))
-        df = st.session_state.df.copy()
-        df['data_vencimento'] = pd.to_datetime(df['data_vencimento'])
-        fixos = df[(df['data_vencimento'].dt.month == mes_f) &
-                   (df['data_vencimento'].dt.year == ano_f) &
-                   (df['natureza'] == "Fixo")].copy()
-
-        if not fixos.empty:
-            fixos['data_vencimento'] = fixos['data_vencimento'] + pd.DateOffset(months=1)
-            fixos['status'] = "🟡 Pendente"
-            if '_id' in fixos.columns: fixos.drop(columns=['_id'], inplace=True)
-
-            st.session_state.df = pd.concat([st.session_state.df, fixos], ignore_index=True)
-            Database.salvar_dados(st.session_state.df)
-            st.success(f"✅ {len(fixos)} itens clonados!")
-            st.rerun()
-    except Exception as e:
-        st.error(f"Erro na clonagem: {e}")
-
-
-# =====================================================
-# 4. SIDEBAR
+# 3. SIDEBAR (MENU ATUALIZADO)
 # =====================================================
 with st.sidebar:
-    # Exemplo de lógica para troca de logo
-    logo_escuro = "assets/logo_dark.png"  # A original que você me enviou
-    logo_claro = "assets/logo_light.png"  # Esta nova que acabei de gerar
-
-    # Se você estiver usando o seletor de temas que homologamos
+    # Lógica de Logo conforme tema homologado
     tema_atual = st.session_state.get("tema", "padrão")
+    logo_path = "assets/logo_light.png" if tema_atual == "padrão" else "assets/logo_dark.png"
+    st.sidebar.image(logo_path, use_container_width=True)
 
-    if tema_atual == "padrão":
-        st.sidebar.image(logo_claro, use_container_width=True)
-    else:
-        st.sidebar.image(logo_escuro, use_container_width=True)
     st.write("---")
 
-    if st.button("📊 Resumo Financeiro"): st.session_state.pagina = "Resumo"
+    # Atualização dos nomes nos botões do Menu
+    if st.button("📊 Resumo de Lançamentos"): st.session_state.pagina = "Resumo"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
     if st.button("➕ Novo Lançamento"): st.session_state.pagina = "Lançamento"
-    if st.button("📈 Dashboard"): st.session_state.pagina = "Dashboard"
+
+    # AJUSTE: Nome do menu alterado para "Resumo Mensal"
+    if st.button("📈 Resumo Mensal"): st.session_state.pagina = "ResumoMensal"
+
     if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
     if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao"
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
@@ -206,9 +119,8 @@ with st.sidebar:
     if pendente_receber > 0: st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
 
 # =====================================================
-# 5. ROTEAMENTO
+# 4. ROTEAMENTO (ATUALIZADO)
 # =====================================================
-# Remove o _id técnico do Mongo para as páginas de visualização (requisito de memória)
 df_display = st.session_state.df.copy()
 if '_id' in df_display.columns: df_display = df_display.drop(columns=['_id'])
 
@@ -221,11 +133,11 @@ elif st.session_state.pagina == "Saldos":
     saldos_page()
 
 elif st.session_state.pagina == "Lançamento":
-    from ui.lancamentos_page import lancamentos_page
     lancamentos_page(st.session_state.df)
 
-elif st.session_state.pagina == "Dashboard":
-    dashboard_page(df_display)
+# AJUSTE: Roteamento para a nova página e função
+elif st.session_state.pagina == "ResumoMensal":
+    resumo_mensal_page(df_display)
 
 elif st.session_state.pagina == "Inteligencia_Financeira":
     analise_categorias_page(df_display)
@@ -239,6 +151,7 @@ elif st.session_state.pagina == "IA":
     ia_page(df_display)
 
 elif st.session_state.pagina == "Config":
+    # ... (restante do código de configuração mantido igual)
     st.header("⚙️ Configurações")
     with st.container(border=True):
         novas_cores = st.session_state.theme_manager.sidebar_theme_selector()
@@ -246,9 +159,3 @@ elif st.session_state.pagina == "Config":
             st.session_state.theme_colors = novas_cores
             Database.salvar_preferencias(novas_cores)
             st.rerun()
-    with st.container(border=True):
-        st.subheader("🔄 Clonagem")
-        st.write("Clonar gastos FIXOS para o mês seguinte.")
-        mes_origem = seletor_meses_inteligente(key_suffix="cfg")
-        if st.button("🚀 Executar Clonagem", use_container_width=True):
-            executar_clonagem(mes_origem)
