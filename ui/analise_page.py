@@ -82,14 +82,19 @@ def analise_categorias_page(df):
     st.divider()
 
     # --- SEÇÃO 2: STATUS DE PAGAMENTOS (MANTIDO) ---
+    # --- SEÇÃO 2: STATUS DE PAGAMENTOS (CORRIGIDO) ---
     st.subheader("🕒 Saúde do Fluxo de Caixa")
-    df_status = calcular_performance_pagamentos(df)  # Aqui mantemos o original para ver a fatura como um todo
+    df_status = calcular_performance_pagamentos(df)
 
     if df_status is not None and not df_status.empty:
-        df_status['status_norm'] = df_status['status'].str.lower().str.strip()
-        pago = df_status[df_status['status_norm'] == 'pago']['valor'].sum()
-        pendente = df_status[df_status['status_norm'] == 'pendente']['valor'].sum()
-        atrasado = df_status[df_status['status_norm'] == 'atrasado']['valor'].sum()
+        # Ajuste para reconhecer seus emojis de status
+        pago = df_status[df_status['status'].str.contains('Concluído|Pago', case=False, na=False)]['valor'].sum()
+        atrasado = df_status[df_status['status'].str.contains('Atrasado|Vencido', case=False, na=False)]['valor'].sum()
+
+        # Pendente é tudo que não é pago nem atrasado
+        total_geral = df_status['valor'].sum()
+        pendente = total_geral - pago - atrasado
+
         total_despesas = pago + pendente + atrasado
 
         col1, col2, col3 = st.columns(3)
@@ -105,18 +110,25 @@ def analise_categorias_page(df):
 
         st.write("**Progresso de Quitação Mensal:**")
         w_pago, w_pend, w_atra = max(pago, 0.01), max(pendente, 0.01), max(atrasado, 0.01)
-        cols_barra = st.columns([w_pago, w_pend, w_atra])
-        with cols_barra[0]:
-            st.markdown(f'<div title="Pago" style="height:12px; background-color:#28a745; border-radius:5px;"></div>',
-                        unsafe_allow_html=True)
-        with cols_barra[1]:
-            st.markdown(
-                f'<div title="Pendente" style="height:12px; background-color:#ffc107; border-radius:5px;"></div>',
-                unsafe_allow_html=True)
-        with cols_barra[2]:
-            st.markdown(
-                f'<div title="Atrasado" style="height:12px; background-color:#dc3545; border-radius:5px;"></div>',
-                unsafe_allow_html=True)
+        # Substitua os cols_barra por isso para uma visão única:
+        st.write("**Distribuição do Fluxo:**")
+        if total_despesas > 0:
+            pct_pago = (pago / total_despesas) * 100
+            pct_pend = (pendente / total_despesas) * 100
+            pct_atra = (atrasado / total_despesas) * 100
+
+            st.markdown(f"""
+                <div style="display: flex; width: 100%; height: 20px; border-radius: 10px; overflow: hidden;">
+                    <div style="width: {pct_pago}%; background-color: #28a745;" title="Pago"></div>
+                    <div style="width: {pct_pend}%; background-color: #ffc107;" title="Pendente"></div>
+                    <div style="width: {pct_atra}%; background-color: #dc3545;" title="Atrasado"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 5px;">
+                    <span>Concluído: {pct_pago:.1f}%</span>
+                    <span>Pendente: {pct_pend:.1f}%</span>
+                    <span>Atrasado: {pct_atra:.1f}%</span>
+                </div>
+            """, unsafe_allow_html=True)
 
     # --- SEÇÃO 3: ANÁLISE DE PARETO (USANDO DADOS EXPANDIDOS) ---
     st.subheader("📊 Onde está o seu dinheiro? (Pareto)")
