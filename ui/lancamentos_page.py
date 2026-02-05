@@ -67,28 +67,69 @@ def lancamentos_page(df_atual):
                     st.rerun()
 
     with tab_ia:
-        st.subheader("🤖 Importação Gemini")
+        # Usando o subheader que você homologou na memória
+        st.subheader("🔍 Detalhamento de Itens das Faturas (IA)")
+
         if ia is None:
             st.warning("IA não configurada.")
         else:
             if "uploader_key" not in st.session_state:
                 st.session_state.uploader_key = 0
 
+            # Adicionado 'csv' aos tipos permitidos
             arquivo = st.file_uploader(
-                "Subir Fatura",
-                type=["pdf", "png", "jpg", "jpeg"],
+                "Subir Fatura (Imagem/PDF) ou Arquivo CSV",
+                type=["pdf", "png", "jpg", "jpeg", "csv"],
                 key=f"fatura_uploader_{st.session_state.uploader_key}"
             )
 
-            if arquivo and st.button("✨ Analisar Fatura com Gemini"):
-                with st.spinner("Analisando..."):
-                    resultado = ia.processar_fatura(arquivo)
-                    if resultado and resultado.get("itens"):
-                        for item in resultado["itens"]:
-                            item["excluir"] = False
-                        st.session_state.preview_fatura = resultado
-                        st.rerun()
+            if arquivo:
+                # Caso 1: O arquivo é um CSV
+                # Dentro do if arquivo:
+                if arquivo.name.lower().endswith('.csv'):
+                    if st.button("✨ Analisar CSV com IA"):
+                        with st.spinner("IA lendo e organizando CSV..."):
+                            try:
+                                # Lê o conteúdo do CSV como texto
+                                conteudo_csv = arquivo.getvalue().decode("utf-8")
 
+                                # Criamos um prompt específico para CSV
+                                prompt_csv = f"""
+                                        Analise os dados deste CSV de fatura e extraia os gastos:
+                                        1. Ignore pagamentos de fatura ou créditos (valores que reduzem a conta).
+                                        2. Retorne um JSON com:
+                                           - "emissor": nome do banco (se encontrar).
+                                           - "vencimento": data de vencimento (se encontrar).
+                                           - "itens": lista de objetos com "descricao", "valor" (número) e "categoria".
+
+                                        Conteúdo do CSV:
+                                        {conteudo_csv}
+                                        """
+
+                                # Chamamos o Gemini (usando o seu método existente)
+                                # Nota: Se o seu método 'processar_fatura' só aceita arquivos,
+                                # podemos usar o 'ia.client.models.generate_content' diretamente.
+                                resultado = ia.processar_texto(prompt_csv)
+
+                                if resultado and resultado.get("itens"):
+                                    for item in resultado["itens"]:
+                                        item["excluir"] = False
+                                    st.session_state.preview_fatura = resultado
+                                    st.rerun()
+                            except Exception as e:
+                                st.error(f"Erro ao processar CSV com IA: {e}")
+
+                # Caso 2: O arquivo é Imagem/PDF (Lógica Gemini original)
+                elif st.button("✨ Analisar Fatura com Gemini"):
+                    with st.spinner("Analisando com IA..."):
+                        resultado = ia.processar_fatura(arquivo)
+                        if resultado and resultado.get("itens"):
+                            for item in resultado["itens"]:
+                                item["excluir"] = False
+                            st.session_state.preview_fatura = resultado
+                            st.rerun()
+
+            # --- BLOCO DE CONFERÊNCIA (HOMOLOGADO) ---
             if "preview_fatura" in st.session_state:
                 dados_ia = st.session_state.preview_fatura
                 emissor = dados_ia.get("emissor", "Cartão")
@@ -101,7 +142,7 @@ def lancamentos_page(df_atual):
                 if "excluir" not in df_p.columns: df_p["excluir"] = False
 
                 with st.container(border=True):
-                    st.markdown(f"#### 🔍 Conferência: Fatura {emissor}")
+                    st.markdown(f"#### 🔍 Conferência: {emissor}")
                     df_editavel = st.data_editor(
                         df_p,
                         column_order=["excluir", "descricao", "valor", "categoria", "parcela"],
@@ -134,10 +175,13 @@ def lancamentos_page(df_atual):
                                 "status": "🟡 Pendente", "detalhes": json.dumps(df_para_salvar.to_dict('records')),
                                 "parcela": ""
                             }])
+                            # Forçando atualização do state e persistência
                             st.session_state.df = pd.concat([st.session_state.df, novo_reg], ignore_index=True)
                             Database.salvar_dados(st.session_state.df)
+
                             del st.session_state.preview_fatura
                             st.session_state.uploader_key += 1
+                            st.success("Fatura importada com sucesso!")
                             st.rerun()
                     with c2:
                         if st.button("❌ Cancelar", use_container_width=True):
@@ -162,6 +206,7 @@ def lancamentos_page(df_atual):
         "🗑️": st.column_config.CheckboxColumn("Excluir", default=False),
         "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"],
                                                      width=130),
+        "tipo": st.column_config.SelectboxColumn("Tipo", options=["Despesa", "Receita"], width=100),  # Agora editável
         "natureza": st.column_config.SelectboxColumn("Natureza", options=["Fixo", "Variável"], width=110),
         "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
         "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
@@ -186,8 +231,9 @@ def lancamentos_page(df_atual):
             df_tipo["🗑️"] = False
 
             with st.form(key=f"form_main_{tipo}_{mes_ref}"):
+                # Adicionado "tipo" na lista de colunas abaixo
                 df_editado = st.data_editor(
-                    df_tipo[["Situacao", "data_vencimento", "descricao", "categoria", "natureza", "valor", "🗑️",
+                    df_tipo[["Situacao", "data_vencimento", "tipo", "descricao", "categoria", "natureza", "valor", "🗑️",
                              "original_index"]],
                     hide_index=True,
                     use_container_width=True,
@@ -202,9 +248,11 @@ def lancamentos_page(df_atual):
                     for _, row in df_editado.iterrows():
                         idx = row["original_index"]
                         if idx not in itens_excluir:
+                            # ADICIONADO "tipo" NA LISTA ABAIXO PARA SALVAR NO DATAFRAME
                             st.session_state.df.loc[
-                                idx, ["status", "data_vencimento", "descricao", "categoria", "natureza", "valor"]] = \
-                                [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["descricao"],
+                                idx, ["status", "data_vencimento", "tipo", "descricao", "categoria", "natureza",
+                                      "valor"]] = \
+                                [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["tipo"], row["descricao"],
                                  row["categoria"], row["natureza"], row["valor"]]
 
                     Database.salvar_dados(st.session_state.df)
