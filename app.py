@@ -86,7 +86,13 @@ else:
 # 3. SIDEBAR (MENU)
 # =====================================================
 with st.sidebar:
-    st.title("💎 PlanejAI")
+    tema_atual = st.session_state.get("tema", "padrão")
+    logo_path = "assets/logo_light.png" if tema_atual == "padrão" else "assets/logo_dark.png"
+    if os.path.exists(logo_path):
+        st.image(logo_path, use_container_width=True)
+    else:
+        st.title("💎 PlanejAI")
+
     st.write("---")
     if st.button("📈 Resumo Mensal"): st.session_state.pagina = "Resumo"
     if st.button("➕ Gerenciar Lançamentos"): st.session_state.pagina = "Lançamento"
