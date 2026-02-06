@@ -12,7 +12,6 @@ def processar_dados_detalhados_resumo(df_despesas):
     for _, row in df_despesas.iterrows():
         detalhes = row.get('detalhes')
         sucesso_expansao = False
-
         try:
             itens = json.loads(detalhes) if isinstance(detalhes, str) else detalhes
             if isinstance(itens, list) and len(itens) > 0:
@@ -25,136 +24,209 @@ def processar_dados_detalhados_resumo(df_despesas):
                 sucesso_expansao = True
         except:
             pass
-
-        # Só adicionamos o registro original se:
-        # 1. Não foi expandido pela IA
-        # 2. NÃO for da categoria "Cartão de Crédito" (para limpar o gráfico)
         if not sucesso_expansao and row['categoria'] != "Cartão de Crédito":
-            registros.append({
-                "valor": row['valor'],
-                "categoria": row['categoria'],
-                "descricao": row['descricao']
-            })
-
+            registros.append({"valor": row['valor'], "categoria": row['categoria'], "descricao": row['descricao']})
     return pd.DataFrame(registros) if registros else pd.DataFrame(columns=["valor", "categoria", "descricao"])
 
 
 def resumo_mensal_page(df):
-    page_header("🏠 Resumo Mensal", "Cockpit de Gestão PlanejAI")
+    # --- CABEÇALHO MODERNIZADO (LUXURY STYLE) ---
+    st.markdown("""
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
 
-    if df.empty:
-        st.warning("Sem dados para gerar o resumo.")
-        return
+            .main-header {
+                font-family: 'Inter', sans-serif;
+                padding: 20px 0 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                margin-bottom: 30px;
+            }
 
-    # --- 1. SELETOR E FILTRO ---
+            .title-main {
+                font-size: 2.2rem;
+                font-weight: 800;
+                letter-spacing: -1px;
+                background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 0px;
+                text-transform: uppercase;
+            }
+
+            .subtitle-main {
+                font-size: 0.85rem;
+                font-weight: 300;
+                color: #3498db;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                opacity: 0.9;
+            }
+
+            .accent-line {
+                width: 50px;
+                height: 4px;
+                background: #3498db;
+                border-radius: 10px;
+                margin-top: 15px;
+            }
+        </style>
+
+        <div class="main-header">
+            <div class="subtitle-main">Cockpit de Gestão</div>
+            <div class="title-main">Resumo Mensal</div>
+            <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
+                PlanejAI <span style="color: #3498db; font-weight: bold;">v8.1</span>
+            </div>
+            <div class="accent-line"></div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # --- STYLE ENGINE: GLASSMORPHISM + ANIMATION ---
+    st.markdown("""
+    <style>
+        .dashboard-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+        .card-modern {
+            flex: 1; min-width: 220px; padding: 20px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            margin-bottom: 15px; color: white;
+            transition: all 0.3s ease-in-out; cursor: pointer;
+        }
+        /* Efeito Hover restaurado */
+        .card-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
+        .value { font-size: 1.6rem; font-weight: 800; margin: 5px 0; }
+        .status { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 50px; display: inline-block; }
+
+        .bg-saldo { background: linear-gradient(135deg, rgba(41, 128, 185, 0.2), rgba(44, 62, 80, 0.4)); border-top: 4px solid #3498db; }
+        .bg-receita { background: linear-gradient(135deg, rgba(39, 174, 96, 0.2), rgba(22, 160, 133, 0.4)); border-top: 4px solid #2ecc71; }
+        .bg-despesa { background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(142, 68, 173, 0.4)); border-top: 4px solid #e74c3c; }
+        .bg-resultado { background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(243, 156, 18, 0.3)); border-top: 4px solid #f1c40f; }
+        .bg-comprometimento { background: linear-gradient(135deg, rgba(52, 73, 94, 0.4), rgba(0, 0, 0, 0.6)); border-top: 4px solid #95a5a6; }
+
+        .status-ok { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .status-alert { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # --- LÓGICA DE DADOS ---
     mes_sel = seletor_meses_inteligente(key_suffix="resumo_geral")
     mes_f, ano_f = map(int, mes_sel.split('/'))
+    df_mes = df[(pd.to_datetime(df['data_vencimento']).dt.month == mes_f) & (
+                pd.to_datetime(df['data_vencimento']).dt.year == ano_f)].copy()
 
-    df_proc = df.copy()
-    df_proc['data_vencimento'] = pd.to_datetime(df_proc['data_vencimento'], errors='coerce')
-    df_mes = df_proc[
-        (df_proc['data_vencimento'].dt.month == mes_f) & (df_proc['data_vencimento'].dt.year == ano_f)].copy()
-
-    # --- 2. CÁLCULOS (MANTIDOS INTEGRALMENTE) ---
     receitas_mes = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
-    df_despesas_mes = df_mes[df_mes['tipo'] == "Despesa"].copy()
-    total_despesas_mes = df_despesas_mes['valor'].sum()
-
-    custos_fixos = df_despesas_mes[df_despesas_mes['natureza'] == "Fixo"]['valor'].sum()
-    custos_variaveis = df_despesas_mes[df_despesas_mes['natureza'] == "Variável"]['valor'].sum()
-
+    total_despesas_mes = df_mes[df_mes['tipo'] == "Despesa"]['valor'].sum()
     resultado_mes = receitas_mes - total_despesas_mes
-    saldo_atual_contas = Database.obter_total_saldos_real()
-    sobra_liquida_final = saldo_atual_contas + resultado_mes
+    saldo_atual = Database.obter_total_saldos_real()
+    fixos = df_mes[(df_mes['tipo'] == "Despesa") & (df_mes['natureza'] == "Fixo")]['valor'].sum()
+    variaveis = df_mes[(df_mes['tipo'] == "Despesa") & (df_mes['natureza'] == "Variável")]['valor'].sum()
+    comprometimento = (total_despesas_mes / receitas_mes * 100) if receitas_mes > 0 else 0
 
-    # --- SEÇÃO 1: MÉTRICAS (MANTIDAS) ---
-    with st.container(border=True):
-        st.subheader(f"📊 Performance de {mes_sel}")
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Saldo em Contas (Hoje) 🏦", f"R$ {saldo_atual_contas:,.2f}")
-        c2.metric("Entradas (Mês)", f"R$ {receitas_mes:,.2f}")
-        c3.metric("Total Despesas (Mês)", f"R$ {total_despesas_mes:,.2f}",
-                  delta=f"-{total_despesas_mes:,.2f}", delta_color="inverse")
-        st.divider()
-        c4, c5, c6 = st.columns(3)
-        c4.metric("Resultado Mensal", f"R$ {resultado_mes:,.2f}",
-                  delta="Superavit" if resultado_mes >= 0 else "Deficit")
-        cor_sobra = "normal" if sobra_liquida_final >= 0 else "inverse"
-        c5.metric("Sobra Projetada (Fim do Mês)", f"R$ {sobra_liquida_final:,.2f}",
-                  delta="Disponível", delta_color=cor_sobra)
-        comprometimento = (total_despesas_mes / receitas_mes * 100) if receitas_mes > 0 else 0
-        c6.metric("Comprometimento", f"{comprometimento:.1f}%",
-                  delta="Cuidado!" if comprometimento > 70 else "Saudável",
-                  delta_color="inverse" if comprometimento > 70 else "normal")
-        st.divider()
-        _, c7, c8, _ = st.columns([0.5, 1, 1, 0.5])
-        c7.metric("Total Gastos Fixos 📌", f"R$ {custos_fixos:,.2f}")
-        c8.metric("Total Gastos Variáveis 💸", f"R$ {custos_variaveis:,.2f}")
+    # --- LINHA 1: MÉTRICAS ---
+    st.markdown(f"""
+    <div class="dashboard-container">
+        <div class="card-modern bg-saldo">
+            <div class="label">Saldo em Contas 🏦</div>
+            <div class="value">R$ {saldo_atual:,.2f}</div>
+            <div class="status status-ok">Disponível Real</div>
+        </div>
+        <div class="card-modern bg-receita">
+            <div class="label">Entradas (Mês) 📈</div>
+            <div class="value">R$ {receitas_mes:,.2f}</div>
+            <div class="status status-ok">Total Créditos</div>
+        </div>
+        <div class="card-modern bg-despesa">
+            <div class="label">Saídas (Mês) 📉</div>
+            <div class="value">R$ {total_despesas_mes:,.2f}</div>
+            <div class="status status-alert">Total Débitos</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    # --- SEÇÃO 2: TENDÊNCIA E NATUREZA (MANTIDAS) ---
-    col_t, col_n = st.columns([2, 1])
-    with col_t:
+    # --- LINHA 2: PERFORMANCE ---
+    st.markdown(f"""
+    <div class="dashboard-container">
+        <div class="card-modern bg-resultado">
+            <div class="label">Resultado Mensal ⚖️</div>
+            <div class="value">R$ {resultado_mes:,.2f}</div>
+            <div class="status {'status-ok' if resultado_mes >= 0 else 'status-alert'}">
+                {'🟢 Superavit' if resultado_mes >= 0 else '🔴 Deficit'}
+            </div>
+        </div>
+        <div class="card-modern bg-comprometimento">
+            <div class="label">Comprometimento 🚨</div>
+            <div class="value">{comprometimento:.1f}%</div>
+            <div class="status {'status-ok' if comprometimento < 70 else 'status-alert'}">
+                {'Saudável' if comprometimento < 70 else 'Cuidado!'}
+            </div>
+        </div>
+        <div class="card-modern" style="background: rgba(255,255,255,0.05); border-top: 4px solid #9b59b6;">
+            <div class="label">Divisão de Custos 📊</div>
+            <div style="margin-top:10px; font-size: 0.9rem;">
+                📌 Fixos: <b>R$ {fixos:,.2f}</b><br>
+                💸 Var: <b>R$ {variaveis:,.2f}</b>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # --- LINHA 3: GRÁFICOS (PIZZA E ÁREA) ---
+    col_pizza, col_area = st.columns(2)
+
+    with col_pizza:
         with st.container(border=True):
-            st.markdown("**📅 Fluxo de Despesas**")
-            if not df_despesas_mes.empty:
-                df_daily = df_despesas_mes.groupby(df_despesas_mes['data_vencimento'].dt.day)[
-                    'valor'].sum().reset_index()
-                fig_l = px.line(df_daily, x='data_vencimento', y='valor', markers=True,
-                                color_discrete_sequence=['#FF4B4B'])
-                fig_l.update_layout(height=220, margin=dict(t=5, b=5, l=5, r=5))
-                st.plotly_chart(fig_l, use_container_width=True)
+            st.markdown("**🍕 Despesas por Categoria**")
+            df_analise = processar_dados_detalhados_resumo(df_mes[df_mes['tipo'] == "Despesa"])
+            if not df_analise.empty:
+                fig_pizza = px.pie(df_analise, values='valor', names='categoria', hole=0.4,
+                                   color_discrete_sequence=px.colors.qualitative.Pastel)
+                fig_pizza.update_layout(height=300, showlegend=False, margin=dict(t=0, b=0, l=0, r=0),
+                                        paper_bgcolor='rgba(0,0,0,0)')
+                st.plotly_chart(fig_pizza, use_container_width=True)
 
-    with col_n:
+    with col_area:
         with st.container(border=True):
-            st.markdown("**⚖️ Proporção Fixos/Var.**")
-            df_nat = pd.DataFrame({'Nat': ['Fixo', 'Var'], 'Total': [custos_fixos, custos_variaveis]})
-            fig_b = px.bar(df_nat, x='Nat', y='Total', color='Nat',
-                           color_discrete_map={'Fixo': '#1f77b4', 'Var': '#ff7f0e'})
-            fig_b.update_layout(height=220, showlegend=False, margin=dict(t=5, b=5, l=5, r=5))
-            st.plotly_chart(fig_b, use_container_width=True)
+            st.markdown("**📅 Fluxo de Caixa Diário**")
+            df_daily = df_mes[df_mes['tipo'] == "Despesa"].groupby(pd.to_datetime(df_mes['data_vencimento']).dt.day)[
+                'valor'].sum().reset_index()
+            fig_area = px.area(df_daily, x='data_vencimento', y='valor', color_discrete_sequence=['#e74c3c'])
+            fig_area.update_layout(height=300, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+                                   margin=dict(t=10, l=10, r=10, b=10))
+            st.plotly_chart(fig_area, use_container_width=True)
 
-    # --- SEÇÃO 3: DETALHAMENTO (APLICADA A INTELIGÊNCIA DE IA) ---
-    st.markdown("---")
-    st.subheader("🔍 Detalhamento de Gastos")
+    # --- LINHA 4: Desembolsos Detalhados ---
+    st.markdown("**🏆 Top 5 Desembolsos Detalhados**")
+    if not df_analise.empty:
+        top5 = df_analise.sort_values(by='valor', ascending=False).head(5)
 
-    if not df_despesas_mes.empty:
-        # Aplicamos o processamento detalhado apenas para os gráficos abaixo
-        df_analise = processar_dados_detalhados_resumo(df_despesas_mes)
-
-        col_pizza, col_top = st.columns([1.4, 1])
-
-        with col_pizza:
-            with st.container(border=True):
-                st.markdown("**Gastos por Categoria**")
-                df_p = df_analise.groupby('categoria')['valor'].sum().reset_index()
-                fig_p = px.pie(df_p, values='valor', names='categoria', hole=0.5)
-                fig_p.update_layout(
-                    height=400,
-                    margin=dict(t=30, b=30, l=10, r=10),
-                    showlegend=True,
-                    legend=dict(orientation="v", yanchor="middle", y=0.5, xanchor="left", x=1.05)
-                )
-                st.plotly_chart(fig_p, use_container_width=True)
-
-        with col_top:
-            with st.container(border=True, height=455):
-                st.markdown("**🏆 Top 5 Desembolsos**")
-                # Agora o Top 5 considera os itens individuais dentro da fatura!
-                top5 = df_analise.sort_values(by='valor', ascending=False).head(5)
-                for i, (_, row) in enumerate(top5.iterrows(), 1):
-                    st.markdown(
-                        f"""
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding: 12px 0;">
-                            <div>
-                                <div style="font-weight: bold; font-size: 0.9rem;">{i}º {row['descricao'][:20]}</div>
-                                <div style="font-size: 0.75rem; color: #888;">{row['categoria']}</div>
-                            </div>
-                            <div style="font-weight: bold; font-size: 1rem; color: #ff4b4b; text-align: right; min-width: 110px;">
+        # Criamos um container para agrupar a lista vertical
+        with st.container():
+            for _, row in top5.iterrows():
+                st.markdown(f"""
+                    <div class="card-modern" style="
+                        display: flex; 
+                        justify-content: space-between; 
+                        align-items: center; 
+                        padding: 12px 20px; 
+                        margin-bottom: 8px; 
+                        border-left: 4px solid #e74c3c; 
+                        border-bottom: none;
+                        min-width: 100%;
+                    ">
+                        <div style="flex: 2;">
+                            <div style="font-size: 0.7rem; opacity: 0.6; text-transform: uppercase;">{row['categoria']}</div>
+                            <div style="font-size: 1rem; font-weight: bold;">{row['descricao']}</div>
+                        </div>
+                        <div style="flex: 1; text-align: right;">
+                            <div style="color: #ff4b4b; font-weight: 800; font-size: 1.1rem;">
                                 R$ {row['valor']:,.2f}
                             </div>
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+                    </div>
+                """, unsafe_allow_html=True)
     else:
-        st.info("Nenhuma despesa registrada para este período.")
+        st.info("Nenhum dado detalhado disponível para este período.")
