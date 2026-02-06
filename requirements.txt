@@ -5,3 +5,5 @@ pymongo
 google-generativeai
 fpdf
 xlsxwriter
+fpdf2
+matplotlib
