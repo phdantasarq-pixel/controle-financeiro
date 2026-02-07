@@ -68,20 +68,15 @@ def exportacao_page(df):
         return
 
     # --- AJUSTE DE COLUNAS (REMOÇÃO DE INTERFACE E LIXO TÉCNICO) ---
-    # Adicionado 'lixeira' e 'excluir' conforme solicitado
     colunas_ocultas = [
         '_id', 'id', 'id_parcelamento', 'parcela',
         'detalhes', 'lixeira', 'excluir', 'editar'
     ]
 
-    # Criamos o DF de exportação limpo
     df_export = df_mes.drop(columns=[c for c in colunas_ocultas if c in df_mes.columns])
 
-    # Criamos o DF Visual para o Preview (Data padrão BR e sem lixo)
     df_visual = df_export.copy()
     df_visual['data_vencimento'] = df_visual['data_vencimento'].dt.strftime('%d/%m/%Y')
-
-    # Removemos linhas que estejam totalmente vazias
     df_visual = df_visual.dropna(how='all')
 
     # Cálculos para Insights
@@ -130,10 +125,13 @@ def exportacao_page(df):
         st.markdown('<div class="export-box">', unsafe_allow_html=True)
         st.write("📄 **PDF Executivo**")
         try:
-            pdf_data = ExportService.gerar_pdf(df_export, mes_sel, insights_texto)
+            # AJUSTE LOCAL: Garantindo bytes para evitar Erro de 'bytearray'
+            pdf_raw = ExportService.gerar_pdf(df_export, mes_sel, insights_texto)
+            pdf_bytes = bytes(pdf_raw)
+
             st.download_button(
                 label="Baixar Relatório PDF",
-                data=pdf_data,
+                data=pdf_bytes,
                 file_name=f"Relatorio_PlanejAI_{m}_{a}.pdf",
                 mime="application/pdf",
                 use_container_width=True,

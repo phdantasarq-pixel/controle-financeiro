@@ -129,7 +129,11 @@ elif st.session_state.pagina == "Inteligencia_Financeira":
     analise_categorias_page(df_display)
 
 elif st.session_state.pagina == "Exportacao":
-    exportacao_page(df_display)
+    try:
+        from ui.exportacao_page import exportacao_page
+        exportacao_page(df_display)
+    except Exception as e:
+        st.error(f"Erro ao carregar a página de exportação: {e}")
 
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
