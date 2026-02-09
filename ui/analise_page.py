@@ -13,7 +13,6 @@ try:
 except Exception:
     seletor_meses_inteligente = None
 
-
 def processar_dados_detalhados(df_original):
     """Mantém a lógica de expansão de itens de IA para análise precisa"""
     if df_original.empty:
@@ -23,6 +22,7 @@ def processar_dados_detalhados(df_original):
     indices_para_remover = []
 
     for idx, row in df_analise.iterrows():
+        # Verificação de detalhes da IA conforme alteração de subheader solicitada
         tem_detalhes = pd.notnull(row.get('detalhes')) and row['detalhes'] != ""
         if tem_detalhes:
             try:
@@ -48,9 +48,8 @@ def processar_dados_detalhados(df_original):
         df_analise = pd.concat([df_analise, pd.DataFrame(registros_expandidos)], ignore_index=True)
     return df_analise
 
-
 def analise_categorias_page(df, df_saldos=None):
-    # --- STYLE ENGINE: GLASSMORPHISM LUXURY (Sincronizado com Resumo Mensal) ---
+    # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
     st.markdown("""
     <style>
         .dashboard-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; margin-bottom: 20px; }
@@ -67,21 +66,17 @@ def analise_categorias_page(df, df_saldos=None):
         .label-modern { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1.5px; font-weight: 600; }
         .value-modern { font-size: 1.6rem; font-weight: 800; margin: 8px 0; }
         .sub-value-modern { font-size: 0.8rem; opacity: 0.6; }
-
-        /* Cores de Borda e Background */
         .bg-blue { background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(44, 62, 80, 0.4)); border-top: 4px solid #3498db; }
         .bg-green { background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #2ecc71; }
         .bg-red { background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #e74c3c; }
         .bg-yellow { background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #f1c40f; }
         .bg-dark { background: rgba(255, 255, 255, 0.05); border-top: 4px solid #95a5a6; }
-
         .status-badge-modern { font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-top: 5px; }
         .badge-alert { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
         .badge-ok { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
     </style>
     """, unsafe_allow_html=True)
 
-    # Header Modernizado
     st.markdown("""
         <div style="margin-bottom: 30px;">
             <div style="font-size: 0.85rem; font-weight: 300; color: #3498db; letter-spacing: 3px; text-transform: uppercase;">Insights & Performance</div>
@@ -94,7 +89,7 @@ def analise_categorias_page(df, df_saldos=None):
         st.warning("Sem dados suficientes para análise.")
         return
 
-    # --- 1. CONFIGURAÇÃO DE TEMPO E SELETOR ---
+    # --- 1. CONFIGURAÇÃO DE TEMPO ---
     if seletor_meses_inteligente:
         mes_selecionado = seletor_meses_inteligente(key_suffix="analise_ia_v8_modern")
     else:
@@ -112,15 +107,15 @@ def analise_categorias_page(df, df_saldos=None):
         return
 
     # --- 2. CÁLCULO DE SALDO E PERFORMANCE (H8.1) ---
-    saldo_total = df_saldos['valor'].sum() if df_saldos is not None else 0.0
+    saldo_atual_real = df_saldos['valor'].sum() if (df_saldos is not None and not df_saldos.empty) else 0.0
     receita_total = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
     despesa_total_mes = df_mes[df_mes['tipo'] == "Despesa"]['valor'].sum()
-    sobra_liquida = receita_total - despesa_total_mes
+    sobra_do_mes = receita_total - despesa_total_mes
+    saldo_projetado = saldo_atual_real + sobra_do_mes
     eficiencia = (despesa_total_mes / receita_total * 100) if receita_total > 0 else 0
 
     st.markdown(f"### 🛡️ Potencial de Reserva {mes_selecionado}")
 
-    # Alerta Crítico (IA Style)
     if eficiencia > 90:
         st.markdown(f"""
             <div style="padding: 15px; background: rgba(231, 76, 60, 0.1); border-left: 5px solid #e74c3c; border-radius: 10px; margin-bottom: 20px; color: #ff4d4d;">
@@ -128,13 +123,13 @@ def analise_categorias_page(df, df_saldos=None):
             </div>
         """, unsafe_allow_html=True)
 
-    # LINHA 1: CARDS DE PERFORMANCE (GLASSMORPHISM)
+    # LINHA 1: CARDS DE PERFORMANCE
     st.markdown(f"""
     <div class="dashboard-container">
         <div class="card-modern bg-blue">
-            <div class="label-modern">Sobra Estimada</div>
-            <div class="value-modern">R$ {sobra_liquida:,.2f}</div>
-            <div class="sub-value-modern">Saldo em Conta: R$ {saldo_total:,.2f}</div>
+            <div class="label-modern">Saldo Projetado Final</div>
+            <div class="value-modern">R$ {saldo_projetado:,.2f}</div>
+            <div class="sub-value-modern">Saldo Atual em Conta: R$ {saldo_atual_real:,.2f}</div>
         </div>
         <div class="card-modern {'bg-red' if eficiencia > 90 else 'bg-green'}">
             <div class="label-modern">Margem de Aporte</div>
@@ -151,26 +146,20 @@ def analise_categorias_page(df, df_saldos=None):
     </div>
     """, unsafe_allow_html=True)
 
-    # Barra de progresso integrada
     st.progress(max(0.0, min(eficiencia / 100, 1.0)))
     st.markdown("<br>", unsafe_allow_html=True)
 
     # --- 3. SAÚDE DO FLUXO DE CAIXA ---
-    # --- 3. SAÚDE DO FLUXO DE CAIXA ---
     st.subheader("🕒 Dinâmica de Pagamentos")
     despesas_contexto = df_mes[df_mes['tipo'] == "Despesa"].copy()
-
-    mask_pago = despesas_contexto['status'].str.contains('Concluído|Pago', case=False, na=False)
-    mask_atrasado = (
-            (despesas_contexto['status'].str.contains('Atrasado|Vencido', case=False, na=False)) |
-            ((despesas_contexto['data_vencimento'] < hoje) & (~mask_pago))
-    )
+    mask_pago = despesas_contexto['status'].str.contains('Concluído|Pago|🟢', case=False, na=False)
+    mask_atrasado = (despesas_contexto['status'].str.contains('Atrasado|Vencido|🔴', case=False, na=False)) | \
+                    ((despesas_contexto['data_vencimento'] < hoje) & (~mask_pago))
 
     pago = despesas_contexto[mask_pago]['valor'].sum()
     atrasado = despesas_contexto[mask_atrasado]['valor'].sum()
     pendente = despesa_total_mes - pago - atrasado
 
-    # LINHA 2: CARDS DE FLUXO (GLASSMORPHISM)
     st.markdown(f"""
         <div class="dashboard-container">
             <div class="card-modern bg-green">
@@ -191,7 +180,7 @@ def analise_categorias_page(df, df_saldos=None):
         </div>
         """, unsafe_allow_html=True)
 
-    # --- BARRA DE DISTRIBUIÇÃO VISUAL (RESTAURADA) ---
+    # BARRA DE DISTRIBUIÇÃO VISUAL (RESTAURADA)
     if despesa_total_mes > 0:
         p_pago = (pago / despesa_total_mes * 100)
         p_pend = (pendente / despesa_total_mes * 100)
@@ -231,10 +220,7 @@ def analise_categorias_page(df, df_saldos=None):
 
             with st.expander("💡 Como otimizar?"):
                 st.caption("""
-                                    **Como ler este gráfico:**
-                                    As barras mostram o gasto total por categoria. A linha vermelha 
-                                    representa o impacto acumulado. 
-
-                                    💡 **Dica:** Foque em reduzir os primeiros itens da lista (os vilões), 
-                                    pois eles representam ~80% do seu custo mensal.
-                                """)
+                    **Como ler este gráfico:**
+                    As barras mostram o gasto total por categoria. A linha vermelha representa o impacto acumulado. 
+                    💡 **Dica:** Foque em reduzir os primeiros itens da lista, pois representam a maior parte do seu custo.
+                """)

@@ -126,7 +126,11 @@ elif st.session_state.pagina == "Saldos":
     saldos_page()
 
 elif st.session_state.pagina == "Inteligencia_Financeira":
-    analise_categorias_page(df_display)
+    # 1. Carregamos os saldos reais do banco antes de chamar a página
+    df_saldos_reais = Database.carregar_saldos()
+
+    # 2. Passamos os dois DataFrames para a função
+    analise_categorias_page(df_display, df_saldos_reais)
 
 elif st.session_state.pagina == "Exportacao":
     try:
