@@ -125,7 +125,8 @@ def lancamentos_page(df_atual):
                         if resultado and resultado.get("itens"):
                             for item in resultado["itens"]:
                                 item["excluir"] = False
-                                if "natureza" not in item: item["natureza"] = "Variável"
+                                if not item.get("natureza"): item["natureza"] = "Variável"
+                                if not item.get("categoria"): item["categoria"] = "Outro"
                             st.session_state.preview_fatura = resultado
                             st.rerun()
 
@@ -135,13 +136,21 @@ def lancamentos_page(df_atual):
                 emissor = dados_ia.get("emissor", "Cartão")
                 st.write(f"### Conferência: {emissor}")
 
+                # Limpeza e Ordenação: Natureza e Categoria editáveis, Excluir por último
+                df_ia_display = pd.DataFrame(dados_ia["itens"]).fillna("")
+                cols = [c for c in df_ia_display.columns if c != 'excluir'] + ['excluir']
+                df_ia_display = df_ia_display[cols]
+
                 df_editavel = st.data_editor(
-                    pd.DataFrame(dados_ia["itens"]),
+                    df_ia_display,
                     column_config={
-                        "excluir": st.column_config.CheckboxColumn("🗑️", default=False),
-                        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
-                        "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS),
-                        "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA)
+                        "descricao": st.column_config.TextColumn("Descrição", disabled=True),
+                        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", disabled=True),
+                        "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS,
+                                                                      required=True),
+                        "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA,
+                                                                     required=True),
+                        "excluir": st.column_config.CheckboxColumn("🗑️", default=False)
                     },
                     hide_index=True, use_container_width=True, key="editor_ia_main"
                 )
@@ -200,23 +209,28 @@ def lancamentos_page(df_atual):
             with st.form(key=f"form_v8_{tipo}"):
                 df_editado = st.data_editor(
                     df_tipo[["Situacao", "data_vencimento", "descricao", "natureza", "categoria", "valor", "🗑️",
-                             "original_index"]],
+                             "original_index"]].fillna(""),
                     hide_index=True, use_container_width=True,
                     column_config={
-                        "🗑️": st.column_config.CheckboxColumn("🗑️", default=False),
                         "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente",
                                                                                         "🔴 Atrasado"]),
                         "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
                         "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA),
                         "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
                         "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS),
+                        "🗑️": st.column_config.CheckboxColumn("🗑️", default=False),
                         "original_index": None
                     },
                     key=f"editor_{tipo}"
                 )
-                if st.form_submit_button("💾 Salvar Alterações", use_container_width=True, type="primary"):
+
+                salvar = st.form_submit_button("💾 Salvar Alterações na Lista", use_container_width=True, type="primary")
+
+                if salvar:
                     itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
-                    if itens_excluir: st.session_state.df = st.session_state.df.drop(itens_excluir)
+                    if itens_excluir:
+                        st.session_state.df = st.session_state.df.drop(itens_excluir)
+
                     for _, row in df_editado.iterrows():
                         idx = row["original_index"]
                         if idx not in itens_excluir:
@@ -224,15 +238,16 @@ def lancamentos_page(df_atual):
                                 idx, ["status", "data_vencimento", "descricao", "natureza", "categoria", "valor"]] = \
                                 [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["descricao"],
                                  row["natureza"], row["categoria"], row["valor"]]
+
                     Database.salvar_dados(st.session_state.df)
                     st.rerun()
 
-            # --- DETALHAMENTO IA EM ABAS (RESTAURADO) ---
             if tipo == "Despesa":
                 df_ia = df_tipo[df_tipo['detalhes'].notna() & (df_tipo['detalhes'] != "")]
                 if not df_ia.empty:
-                    st.markdown("---")
-                    st.markdown('🔍 **Detalhamento de Itens das Faturas (IA)**')
+                    st.write("")
+                    st.markdown('### 🔍 Detalhamento de Itens das Faturas (IA)')
+
                     titulos_abas = [f"📦 {row['descricao']}" for _, row in df_ia.iterrows()]
                     abas_faturas = st.tabs(titulos_abas)
 
@@ -240,19 +255,30 @@ def lancamentos_page(df_atual):
                         with abas_faturas[i]:
                             dado_atual = st.session_state.df.at[idx_orig, "detalhes"]
                             df_itens_ia = pd.DataFrame(
-                                json.loads(dado_atual) if isinstance(dado_atual, str) else dado_atual)
+                                json.loads(dado_atual) if isinstance(dado_atual, str) else dado_atual).fillna("")
 
                             ed_ia = st.data_editor(
                                 df_itens_ia, hide_index=True, use_container_width=True,
                                 key=f"ed_ia_{idx_orig}",
                                 column_config={
-                                    "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
+                                    "descricao": st.column_config.TextColumn("Descrição", disabled=True),
+                                    "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", disabled=True),
                                     "categoria": st.column_config.SelectboxColumn("Categoria",
                                                                                   options=LISTA_CATEGORIAS),
                                     "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA)
                                 }
                             )
-                            if st.button(f"Atualizar {row_f['descricao']}", key=f"btn_ia_{idx_orig}"):
-                                st.session_state.df.at[idx_orig, "detalhes"] = json.dumps(ed_ia.to_dict('records'))
-                                Database.salvar_dados(st.session_state.df)
-                                st.rerun()
+
+                            col_btn_1, col_btn_2, _ = st.columns([1.5, 1.2, 2])
+                            with col_btn_1:
+                                if st.button(f"💾 Atualizar Fatura", key=f"btn_ia_{idx_orig}", type="primary",
+                                             use_container_width=True):
+                                    st.session_state.df.at[idx_orig, "detalhes"] = json.dumps(ed_ia.to_dict('records'))
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.toast("Fatura atualizada!")
+                                    st.rerun()
+                            with col_btn_2:
+                                if st.button(f"🗑️ Excluir Fatura", key=f"del_fat_{idx_orig}", use_container_width=True):
+                                    st.session_state.df = st.session_state.df.drop(idx_orig)
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.rerun()
