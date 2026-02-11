@@ -95,9 +95,9 @@ with st.sidebar:
 
     st.write("---")
     if st.button("📈 Resumo Mensal"): st.session_state.pagina = "Resumo"
+    if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
     if st.button("➕ Gerenciar Lançamentos"): st.session_state.pagina = "Lançamento"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
-    if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
     if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao"
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
@@ -117,6 +117,13 @@ if '_id' in df_display.columns:
 if st.session_state.pagina == "Resumo":
     resumo_mensal_page(df_display)
 
+elif st.session_state.pagina == "Inteligencia_Financeira":
+    # 1. Carregamos os saldos reais do banco antes de chamar a página
+    df_saldos_reais = Database.carregar_saldos()
+
+    # 2. Passamos os dois DataFrames para a função
+    analise_categorias_page(df_display, df_saldos_reais)
+
 elif st.session_state.pagina == "Lançamento":
     lancamentos_page(st.session_state.df)
 
@@ -124,13 +131,6 @@ elif st.session_state.pagina == "Saldos":
     from ui.saldos_page import saldos_page
 
     saldos_page()
-
-elif st.session_state.pagina == "Inteligencia_Financeira":
-    # 1. Carregamos os saldos reais do banco antes de chamar a página
-    df_saldos_reais = Database.carregar_saldos()
-
-    # 2. Passamos os dois DataFrames para a função
-    analise_categorias_page(df_display, df_saldos_reais)
 
 elif st.session_state.pagina == "Exportacao":
     try:
