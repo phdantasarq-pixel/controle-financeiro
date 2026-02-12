@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "6984e8997956bf828da0639b"
+    "$oid": "698e4716dca75337003ab423"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -25,7 +25,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0639c"
+    "$oid": "698e4716dca75337003ab424"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -50,7 +50,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0639d"
+    "$oid": "698e4716dca75337003ab425"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -75,7 +75,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0639e"
+    "$oid": "698e4716dca75337003ab426"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -100,7 +100,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0639f"
+    "$oid": "698e4716dca75337003ab427"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -125,7 +125,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a0"
+    "$oid": "698e4716dca75337003ab428"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -150,7 +150,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a1"
+    "$oid": "698e4716dca75337003ab429"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -175,7 +175,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a2"
+    "$oid": "698e4716dca75337003ab42a"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -200,7 +200,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a3"
+    "$oid": "698e4716dca75337003ab42b"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -225,7 +225,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a4"
+    "$oid": "698e4716dca75337003ab42c"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -250,7 +250,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a5"
+    "$oid": "698e4716dca75337003ab42d"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -275,7 +275,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a6"
+    "$oid": "698e4716dca75337003ab42e"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -300,7 +300,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a7"
+    "$oid": "698e4716dca75337003ab42f"
   },
   "data_vencimento": {
     "$date": "2026-01-07T00:00:00.000Z"
@@ -325,7 +325,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a8"
+    "$oid": "698e4716dca75337003ab430"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -350,7 +350,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063a9"
+    "$oid": "698e4716dca75337003ab431"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -375,7 +375,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063aa"
+    "$oid": "698e4716dca75337003ab432"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -400,7 +400,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ab"
+    "$oid": "698e4716dca75337003ab433"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -425,7 +425,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ac"
+    "$oid": "698e4716dca75337003ab434"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -450,7 +450,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ad"
+    "$oid": "698e4716dca75337003ab435"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -475,7 +475,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ae"
+    "$oid": "698e4716dca75337003ab436"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -500,7 +500,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063af"
+    "$oid": "698e4716dca75337003ab437"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -508,7 +508,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 5577,
+  "valor": 6178,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -525,7 +525,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b0"
+    "$oid": "698e4716dca75337003ab438"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -533,32 +533,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 2282,
-  "categoria": "Cartão de Crédito",
-  "descricao": "Cartão Caixa",
-  "status": "🟡 Pendente",
-  "🗑️": false,
-  "detalhes": {
-    "$numberDouble": "NaN"
-  },
-  "parcela": {
-    "$numberDouble": "NaN"
-  },
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "6984e8997956bf828da063b1"
-  },
-  "data_vencimento": {
-    "$date": "2026-02-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-02",
-  "tipo": "Despesa",
-  "natureza": "Variável",
-  "valor": 903,
+  "valor": 934,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Banco Inter",
   "status": "🟡 Pendente",
@@ -575,7 +550,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b2"
+    "$oid": "698e4716dca75337003ab439"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -600,7 +575,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b3"
+    "$oid": "698e4716dca75337003ab43a"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -625,7 +600,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b4"
+    "$oid": "698e4716dca75337003ab43b"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -636,7 +611,7 @@
   "valor": 330,
   "categoria": "Moradia",
   "descricao": "Condominio BsParc",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -650,7 +625,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b5"
+    "$oid": "698e4716dca75337003ab43c"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -675,7 +650,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b6"
+    "$oid": "698e4716dca75337003ab43d"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -686,7 +661,7 @@
   "valor": 85,
   "categoria": "Outro",
   "descricao": "Inss Marcos",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -700,7 +675,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b7"
+    "$oid": "698e4716dca75337003ab43e"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -708,10 +683,10 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 670,
+  "valor": 685,
   "categoria": "Moradia",
   "descricao": "Fina Royal Park ",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -725,7 +700,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b8"
+    "$oid": "698e4716dca75337003ab43f"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -750,7 +725,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063b9"
+    "$oid": "698e4716dca75337003ab440"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -758,10 +733,10 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 250,
+  "valor": 222,
   "categoria": "Moradia",
   "descricao": "Energia Royal Park",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -775,7 +750,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ba"
+    "$oid": "698e4716dca75337003ab441"
   },
   "data_vencimento": {
     "$date": "2026-02-16T00:00:00.000Z"
@@ -800,7 +775,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063bb"
+    "$oid": "698e4716dca75337003ab442"
   },
   "data_vencimento": {
     "$date": "2026-02-27T00:00:00.000Z"
@@ -808,7 +783,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 180,
+  "valor": 212,
   "categoria": "Educação",
   "descricao": "Faculdade ",
   "status": "🟡 Pendente",
@@ -825,7 +800,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063bc"
+    "$oid": "698e4716dca75337003ab443"
   },
   "data_vencimento": {
     "$date": "2026-02-06T00:00:00.000Z"
@@ -850,7 +825,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063bd"
+    "$oid": "698e4716dca75337003ab444"
   },
   "data_vencimento": {
     "$date": "2026-02-08T00:00:00.000Z"
@@ -875,7 +850,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063be"
+    "$oid": "698e4716dca75337003ab445"
   },
   "data_vencimento": {
     "$date": "2026-02-02T00:00:00.000Z"
@@ -900,7 +875,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063bf"
+    "$oid": "698e4716dca75337003ab446"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -925,7 +900,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c0"
+    "$oid": "698e4716dca75337003ab447"
   },
   "data_vencimento": {
     "$date": "2026-02-15T00:00:00.000Z"
@@ -950,7 +925,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c1"
+    "$oid": "698e4716dca75337003ab448"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -961,7 +936,7 @@
   "valor": 100,
   "categoria": "Outro",
   "descricao": "Pai Internet",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -975,15 +950,15 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c2"
+    "$oid": "698e4716dca75337003ab449"
   },
   "data_vencimento": {
-    "$date": "2026-02-10T00:00:00.000Z"
+    "$date": "2026-02-20T00:00:00.000Z"
   },
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -1000,7 +975,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c3"
+    "$oid": "698e4716dca75337003ab44a"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -1011,7 +986,7 @@
   "valor": 750,
   "categoria": "Outro",
   "descricao": "Aluguel da 57",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -1025,7 +1000,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c4"
+    "$oid": "698e4716dca75337003ab44b"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1033,7 +1008,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 3392,
+  "valor": 3639,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -1052,7 +1027,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c5"
+    "$oid": "698e4716dca75337003ab44c"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1060,7 +1035,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 400,
+  "valor": 526,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
   "status": "🟡 Pendente",
@@ -1079,7 +1054,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c6"
+    "$oid": "698e4716dca75337003ab44d"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1087,7 +1062,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 779,
+  "valor": 900,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
   "status": "🟡 Pendente",
@@ -1106,7 +1081,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c7"
+    "$oid": "698e4716dca75337003ab44e"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1133,7 +1108,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c8"
+    "$oid": "698e4716dca75337003ab44f"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1160,7 +1135,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063c9"
+    "$oid": "698e4716dca75337003ab450"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1187,7 +1162,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ca"
+    "$oid": "698e4716dca75337003ab451"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1214,7 +1189,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063cb"
+    "$oid": "698e4716dca75337003ab452"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1241,7 +1216,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063cc"
+    "$oid": "698e4716dca75337003ab453"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1268,7 +1243,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063cd"
+    "$oid": "698e4716dca75337003ab454"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1295,7 +1270,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ce"
+    "$oid": "698e4716dca75337003ab455"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1322,7 +1297,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063cf"
+    "$oid": "698e4716dca75337003ab456"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1349,7 +1324,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d0"
+    "$oid": "698e4716dca75337003ab457"
   },
   "data_vencimento": {
     "$date": "2026-03-17T00:00:00.000Z"
@@ -1376,7 +1351,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d1"
+    "$oid": "698e4716dca75337003ab458"
   },
   "data_vencimento": {
     "$date": "2026-03-05T00:00:00.000Z"
@@ -1403,7 +1378,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d2"
+    "$oid": "698e4716dca75337003ab459"
   },
   "data_vencimento": {
     "$date": "2026-03-07T00:00:00.000Z"
@@ -1430,14 +1405,14 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d3"
+    "$oid": "698e4716dca75337003ab45a"
   },
   "data_vencimento": {
     "$date": "2026-03-09T00:00:00.000Z"
   },
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
-  "natureza": "Variável",
+  "natureza": "Fixo",
   "valor": 1500,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Caixa",
@@ -1457,14 +1432,14 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d4"
+    "$oid": "698e4716dca75337003ab45b"
   },
   "data_vencimento": {
     "$date": "2026-03-03T00:00:00.000Z"
   },
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
-  "natureza": "Variável",
+  "natureza": "Fixo",
   "valor": 960,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Itaú",
@@ -1484,14 +1459,14 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d5"
+    "$oid": "698e4716dca75337003ab45c"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
   },
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
-  "natureza": "Variável",
+  "natureza": "Fixo",
   "valor": 537,
   "categoria": "Empréstimo",
   "descricao": "Emprestimo Safra",
@@ -1511,7 +1486,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d6"
+    "$oid": "698e4716dca75337003ab45d"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -1538,7 +1513,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d7"
+    "$oid": "698e4716dca75337003ab45e"
   },
   "data_vencimento": {
     "$date": "2026-03-15T00:00:00.000Z"
@@ -1565,7 +1540,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d8"
+    "$oid": "698e4716dca75337003ab45f"
   },
   "data_vencimento": {
     "$date": "2026-03-06T00:00:00.000Z"
@@ -1592,7 +1567,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063d9"
+    "$oid": "698e4716dca75337003ab460"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1619,7 +1594,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063da"
+    "$oid": "698e4716dca75337003ab461"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1646,7 +1621,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063db"
+    "$oid": "698e4716dca75337003ab462"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1654,7 +1629,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 2998,
+  "valor": 3245,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -1673,7 +1648,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063dc"
+    "$oid": "698e4716dca75337003ab463"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1681,7 +1656,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 400,
+  "valor": 526,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Nubank",
   "status": "🟡 Pendente",
@@ -1700,7 +1675,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063dd"
+    "$oid": "698e4716dca75337003ab464"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1727,7 +1702,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063de"
+    "$oid": "698e4716dca75337003ab465"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1754,7 +1729,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063df"
+    "$oid": "698e4716dca75337003ab466"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1781,7 +1756,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e0"
+    "$oid": "698e4716dca75337003ab467"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1808,7 +1783,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e1"
+    "$oid": "698e4716dca75337003ab468"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1835,7 +1810,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e2"
+    "$oid": "698e4716dca75337003ab469"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1862,7 +1837,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e3"
+    "$oid": "698e4716dca75337003ab46a"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1889,7 +1864,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e4"
+    "$oid": "698e4716dca75337003ab46b"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1916,7 +1891,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e5"
+    "$oid": "698e4716dca75337003ab46c"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1943,7 +1918,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e6"
+    "$oid": "698e4716dca75337003ab46d"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1970,7 +1945,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e7"
+    "$oid": "698e4716dca75337003ab46e"
   },
   "data_vencimento": {
     "$date": "2026-04-18T00:00:00.000Z"
@@ -1997,7 +1972,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e8"
+    "$oid": "698e4716dca75337003ab46f"
   },
   "data_vencimento": {
     "$date": "2026-04-05T00:00:00.000Z"
@@ -2024,7 +1999,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063e9"
+    "$oid": "698e4716dca75337003ab470"
   },
   "data_vencimento": {
     "$date": "2026-04-08T00:00:00.000Z"
@@ -2051,7 +2026,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ea"
+    "$oid": "698e4716dca75337003ab471"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2078,7 +2053,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063eb"
+    "$oid": "698e4716dca75337003ab472"
   },
   "data_vencimento": {
     "$date": "2026-04-04T00:00:00.000Z"
@@ -2105,7 +2080,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ec"
+    "$oid": "698e4716dca75337003ab473"
   },
   "data_vencimento": {
     "$date": "2026-04-02T00:00:00.000Z"
@@ -2132,7 +2107,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ed"
+    "$oid": "698e4716dca75337003ab474"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -2159,7 +2134,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ee"
+    "$oid": "698e4716dca75337003ab475"
   },
   "data_vencimento": {
     "$date": "2026-04-15T00:00:00.000Z"
@@ -2186,7 +2161,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ef"
+    "$oid": "698e4716dca75337003ab476"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2213,7 +2188,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f0"
+    "$oid": "698e4716dca75337003ab477"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2221,7 +2196,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -2240,7 +2215,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f1"
+    "$oid": "698e4716dca75337003ab478"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2267,7 +2242,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f2"
+    "$oid": "698e4716dca75337003ab479"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2275,7 +2250,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 2466,
+  "valor": 2550,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -2294,7 +2269,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f3"
+    "$oid": "698e4716dca75337003ab47a"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2321,7 +2296,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f4"
+    "$oid": "698e4716dca75337003ab47b"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2348,7 +2323,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f5"
+    "$oid": "698e4716dca75337003ab47c"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2375,7 +2350,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f6"
+    "$oid": "698e4716dca75337003ab47d"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2402,7 +2377,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f7"
+    "$oid": "698e4716dca75337003ab47e"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2429,7 +2404,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f8"
+    "$oid": "698e4716dca75337003ab47f"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2456,7 +2431,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063f9"
+    "$oid": "698e4716dca75337003ab480"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2483,7 +2458,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063fa"
+    "$oid": "698e4716dca75337003ab481"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2510,7 +2485,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063fb"
+    "$oid": "698e4716dca75337003ab482"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2537,7 +2512,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063fc"
+    "$oid": "698e4716dca75337003ab483"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2564,7 +2539,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063fd"
+    "$oid": "698e4716dca75337003ab484"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2591,7 +2566,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063fe"
+    "$oid": "698e4716dca75337003ab485"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2618,7 +2593,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da063ff"
+    "$oid": "698e4716dca75337003ab486"
   },
   "data_vencimento": {
     "$date": "2026-05-05T00:00:00.000Z"
@@ -2645,7 +2620,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06400"
+    "$oid": "698e4716dca75337003ab487"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2672,7 +2647,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06401"
+    "$oid": "698e4716dca75337003ab488"
   },
   "data_vencimento": {
     "$date": "2026-05-12T00:00:00.000Z"
@@ -2699,7 +2674,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06402"
+    "$oid": "698e4716dca75337003ab489"
   },
   "data_vencimento": {
     "$date": "2026-05-06T00:00:00.000Z"
@@ -2726,7 +2701,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06403"
+    "$oid": "698e4716dca75337003ab48a"
   },
   "data_vencimento": {
     "$date": "2026-05-03T00:00:00.000Z"
@@ -2753,7 +2728,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06404"
+    "$oid": "698e4716dca75337003ab48b"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -2780,7 +2755,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06405"
+    "$oid": "698e4716dca75337003ab48c"
   },
   "data_vencimento": {
     "$date": "2026-05-15T00:00:00.000Z"
@@ -2807,7 +2782,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06406"
+    "$oid": "698e4716dca75337003ab48d"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2834,7 +2809,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06407"
+    "$oid": "698e4716dca75337003ab48e"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2842,7 +2817,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -2861,7 +2836,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06408"
+    "$oid": "698e4716dca75337003ab48f"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2888,7 +2863,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06409"
+    "$oid": "698e4716dca75337003ab490"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -2913,7 +2888,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640a"
+    "$oid": "698e4716dca75337003ab491"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -2940,7 +2915,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640b"
+    "$oid": "698e4716dca75337003ab492"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -2967,7 +2942,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640c"
+    "$oid": "698e4716dca75337003ab493"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -2994,7 +2969,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640d"
+    "$oid": "698e4716dca75337003ab494"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3019,7 +2994,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640e"
+    "$oid": "698e4716dca75337003ab495"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3027,7 +3002,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 1884,
+  "valor": 1967,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -3046,7 +3021,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0640f"
+    "$oid": "698e4716dca75337003ab496"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3073,7 +3048,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06410"
+    "$oid": "698e4716dca75337003ab497"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3100,7 +3075,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06411"
+    "$oid": "698e4716dca75337003ab498"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3127,7 +3102,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06412"
+    "$oid": "698e4716dca75337003ab499"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3154,7 +3129,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06413"
+    "$oid": "698e4716dca75337003ab49a"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3181,7 +3156,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06414"
+    "$oid": "698e4716dca75337003ab49b"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3208,7 +3183,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06415"
+    "$oid": "698e4716dca75337003ab49c"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3235,7 +3210,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06416"
+    "$oid": "698e4716dca75337003ab49d"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3262,7 +3237,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06417"
+    "$oid": "698e4716dca75337003ab49e"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3289,7 +3264,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06418"
+    "$oid": "698e4716dca75337003ab49f"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3316,7 +3291,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06419"
+    "$oid": "698e4716dca75337003ab4a0"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3343,7 +3318,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641a"
+    "$oid": "698e4716dca75337003ab4a1"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3370,7 +3345,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641b"
+    "$oid": "698e4716dca75337003ab4a2"
   },
   "data_vencimento": {
     "$date": "2026-06-05T00:00:00.000Z"
@@ -3395,7 +3370,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641c"
+    "$oid": "698e4716dca75337003ab4a3"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3420,7 +3395,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641d"
+    "$oid": "698e4716dca75337003ab4a4"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3447,7 +3422,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641e"
+    "$oid": "698e4716dca75337003ab4a5"
   },
   "data_vencimento": {
     "$date": "2026-06-15T00:00:00.000Z"
@@ -3474,7 +3449,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0641f"
+    "$oid": "698e4716dca75337003ab4a6"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3501,7 +3476,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06420"
+    "$oid": "698e4716dca75337003ab4a7"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3528,7 +3503,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06421"
+    "$oid": "698e4716dca75337003ab4a8"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3555,7 +3530,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06422"
+    "$oid": "698e4716dca75337003ab4a9"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3582,7 +3557,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06423"
+    "$oid": "698e4716dca75337003ab4aa"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3609,7 +3584,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06424"
+    "$oid": "698e4716dca75337003ab4ab"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3617,7 +3592,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -3636,7 +3611,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06425"
+    "$oid": "698e4716dca75337003ab4ac"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3663,7 +3638,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06426"
+    "$oid": "698e4716dca75337003ab4ad"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3671,7 +3646,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 1112,
+  "valor": 1196,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -3690,7 +3665,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06427"
+    "$oid": "698e4716dca75337003ab4ae"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -3698,7 +3673,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 928,
+  "valor": 1012,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -3717,18 +3692,18 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06428"
+    "$oid": "698e4716dca75337003ab4af"
   },
   "data_vencimento": {
-    "$date": "2026-09-01T00:00:00.000Z"
+    "$date": "2026-09-20T00:00:00.000Z"
   },
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 820,
+  "valor": 904,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente",
+  "status": "🟡 Pendente",
   "🗑️": {
     "$numberDouble": "NaN"
   },
@@ -3744,7 +3719,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06429"
+    "$oid": "698e4716dca75337003ab4b0"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -3752,10 +3727,10 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 74,
+  "valor": 157,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
-  "status": "Pendente",
+  "status": "🟡 Pendente",
   "🗑️": {
     "$numberDouble": "NaN"
   },
@@ -3771,7 +3746,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642a"
+    "$oid": "698e4716dca75337003ab4b1"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3798,7 +3773,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642b"
+    "$oid": "698e4716dca75337003ab4b2"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -3806,7 +3781,7 @@
   "data_registro": "2026-02-04",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Inss Marco",
   "status": "🟡 Pendente",
@@ -3823,7 +3798,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642c"
+    "$oid": "698e4716dca75337003ab4b3"
   },
   "data_vencimento": {
     "$date": "2026-01-21T00:00:00.000Z"
@@ -3846,7 +3821,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642d"
+    "$oid": "698e4716dca75337003ab4b4"
   },
   "data_vencimento": {
     "$date": "2026-01-23T00:00:00.000Z"
@@ -3869,7 +3844,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642e"
+    "$oid": "698e4716dca75337003ab4b5"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -3892,7 +3867,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0642f"
+    "$oid": "698e4716dca75337003ab4b6"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -3915,7 +3890,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06430"
+    "$oid": "698e4716dca75337003ab4b7"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3942,7 +3917,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06431"
+    "$oid": "698e4716dca75337003ab4b8"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -3969,7 +3944,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06432"
+    "$oid": "698e4716dca75337003ab4b9"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -3996,7 +3971,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06433"
+    "$oid": "698e4716dca75337003ab4ba"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4023,7 +3998,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06434"
+    "$oid": "698e4716dca75337003ab4bb"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4050,7 +4025,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06435"
+    "$oid": "698e4716dca75337003ab4bc"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4077,7 +4052,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06436"
+    "$oid": "698e4716dca75337003ab4bd"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4104,7 +4079,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06437"
+    "$oid": "698e4716dca75337003ab4be"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4131,7 +4106,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06438"
+    "$oid": "698e4716dca75337003ab4bf"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4158,7 +4133,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06439"
+    "$oid": "698e4716dca75337003ab4c0"
   },
   "data_vencimento": {
     "$date": "2026-07-05T00:00:00.000Z"
@@ -4183,7 +4158,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643a"
+    "$oid": "698e4716dca75337003ab4c1"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4208,7 +4183,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643b"
+    "$oid": "698e4716dca75337003ab4c2"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4235,7 +4210,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643c"
+    "$oid": "698e4716dca75337003ab4c3"
   },
   "data_vencimento": {
     "$date": "2026-07-15T00:00:00.000Z"
@@ -4262,7 +4237,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643d"
+    "$oid": "698e4716dca75337003ab4c4"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4289,7 +4264,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643e"
+    "$oid": "698e4716dca75337003ab4c5"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4316,7 +4291,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0643f"
+    "$oid": "698e4716dca75337003ab4c6"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4343,7 +4318,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06440"
+    "$oid": "698e4716dca75337003ab4c7"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4370,7 +4345,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06441"
+    "$oid": "698e4716dca75337003ab4c8"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4397,7 +4372,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06442"
+    "$oid": "698e4716dca75337003ab4c9"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4405,7 +4380,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -4424,61 +4399,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06443"
-  },
-  "data_vencimento": {
-    "$date": "2026-08-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-02",
-  "tipo": "Despesa",
-  "natureza": "Variável",
-  "valor": 54.37,
-  "categoria": "Cartão de Crédito",
-  "descricao": "Cartão Caixa",
-  "status": "🟡 Pendente",
-  "🗑️": {
-    "$numberDouble": "NaN"
-  },
-  "detalhes": {
-    "$numberDouble": "NaN"
-  },
-  "parcela": {
-    "$numberDouble": "NaN"
-  },
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "6984e8997956bf828da06444"
-  },
-  "data_vencimento": {
-    "$date": "2026-08-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-02",
-  "tipo": "Despesa",
-  "natureza": "Variável",
-  "valor": 791,
-  "categoria": "Cartão de Crédito",
-  "descricao": "Cartão Inter",
-  "status": "🟡 Pendente",
-  "🗑️": {
-    "$numberDouble": "NaN"
-  },
-  "detalhes": {
-    "$numberDouble": "NaN"
-  },
-  "parcela": {
-    "$numberDouble": "NaN"
-  },
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "6984e8997956bf828da06445"
+    "$oid": "698e4716dca75337003ab4ca"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4505,7 +4426,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06446"
+    "$oid": "698e4716dca75337003ab4cb"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4532,7 +4453,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06447"
+    "$oid": "698e4716dca75337003ab4cc"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4559,7 +4480,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06448"
+    "$oid": "698e4716dca75337003ab4cd"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4586,7 +4507,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06449"
+    "$oid": "698e4716dca75337003ab4ce"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4613,7 +4534,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644a"
+    "$oid": "698e4716dca75337003ab4cf"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4640,7 +4561,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644b"
+    "$oid": "698e4716dca75337003ab4d0"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4667,7 +4588,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644c"
+    "$oid": "698e4716dca75337003ab4d1"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4694,7 +4615,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644d"
+    "$oid": "698e4716dca75337003ab4d2"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4721,7 +4642,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644e"
+    "$oid": "698e4716dca75337003ab4d3"
   },
   "data_vencimento": {
     "$date": "2026-08-05T00:00:00.000Z"
@@ -4746,7 +4667,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da0644f"
+    "$oid": "698e4716dca75337003ab4d4"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4771,7 +4692,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06450"
+    "$oid": "698e4716dca75337003ab4d5"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4798,7 +4719,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06451"
+    "$oid": "698e4716dca75337003ab4d6"
   },
   "data_vencimento": {
     "$date": "2026-08-15T00:00:00.000Z"
@@ -4825,7 +4746,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06452"
+    "$oid": "698e4716dca75337003ab4d7"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4852,7 +4773,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06453"
+    "$oid": "698e4716dca75337003ab4d8"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4879,7 +4800,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06454"
+    "$oid": "698e4716dca75337003ab4d9"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4906,7 +4827,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06455"
+    "$oid": "698e4716dca75337003ab4da"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4933,7 +4854,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06456"
+    "$oid": "698e4716dca75337003ab4db"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4960,7 +4881,7 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06457"
+    "$oid": "698e4716dca75337003ab4dc"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4968,7 +4889,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 75,
+  "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
   "status": "🟡 Pendente",
@@ -4987,22 +4908,2779 @@
 },
 {
   "_id": {
-    "$oid": "6984e8997956bf828da06458"
+    "$oid": "698e4716dca75337003ab4dd"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet/TV",
+  "descricao": "Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4de"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Internet Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4df"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 270,
+  "categoria": "Moradia",
+  "descricao": "Condominio BsParc",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e0"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 145,
+  "categoria": "Transporte",
+  "descricao": "Seguro Avg carro",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e1"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 85,
+  "categoria": "Outro",
+  "descricao": "Inss Marcos",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e2"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 670,
+  "categoria": "Moradia",
+  "descricao": "Financ Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e3"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Condomio Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e4"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Energia Royal Park",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e5"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 730,
+  "categoria": "Transporte",
+  "descricao": "Consórcio Embracon",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e6"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-05T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 180,
+  "categoria": "Educação",
+  "descricao": "Faculdade ",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e7"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 452,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Keyliane",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e8"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 4267,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4e9"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-15T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5126,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ea"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 750,
+  "categoria": "Outro",
+  "descricao": "Aluguel 57",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4eb"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1500,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Caixa",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ec"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 960,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ed"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 537,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Safra",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ee"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Pai Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ef"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 86,
+  "categoria": "Outro",
+  "descricao": "Marcos Inss",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f0"
+  },
+  "data_vencimento": {
+    "$date": "2026-03-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-09",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 5000,
+  "categoria": "Empréstimo",
+  "descricao": "Cheque especial",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f1"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
   },
-  "data_registro": "2026-02-05",
+  "data_registro": "2026-02-10",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 407.47,
+  "valor": 564.97,
   "categoria": "Cartão de Crédito",
-  "descricao": "Fatura Nubank - 02/26",
+  "descricao": "Fatura Nubank",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": "[{\"descricao\": \"MUNICIPIO DE MARACANAU\", \"valor\": 125.36, \"categoria\": \"Moradia\", \"parcela\": \"1/3\", \"data\": \"2026-02-10\", \"natureza\": \"Fixo\"}, {\"descricao\": \"58171357 Yan da Silva Coutinho\", \"valor\": 32.14, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-06\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Uber\", \"valor\": 7.47, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-19\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Dantas Estilo\", \"valor\": 400.0, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"6/10\", \"data\": \"2026-01-16\", \"natureza\": \"Fixo\"}]",
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f2"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 350,
+  "categoria": "Outro",
+  "descricao": "Alisson Doc casa",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f3"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet/TV",
+  "descricao": "Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f4"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Internet Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f5"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 270,
+  "categoria": "Moradia",
+  "descricao": "Condominio BsParc",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f6"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 145,
+  "categoria": "Transporte",
+  "descricao": "Seguro Avg carro",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f7"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 85,
+  "categoria": "Outro",
+  "descricao": "Inss Marcos",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f8"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 670,
+  "categoria": "Moradia",
+  "descricao": "Financ Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4f9"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Condomio Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4fa"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Energia Royal Park",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4fb"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 730,
+  "categoria": "Transporte",
+  "descricao": "Consórcio Embracon",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4fc"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-05T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 180,
+  "categoria": "Educação",
+  "descricao": "Faculdade ",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4fd"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 452,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Keyliane",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4fe"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 4267,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab4ff"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-15T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5126,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab500"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 750,
+  "categoria": "Outro",
+  "descricao": "Aluguel 57",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab501"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1500,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Caixa",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab502"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 960,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab503"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 537,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Safra",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab504"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Pai Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab505"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 86,
+  "categoria": "Outro",
+  "descricao": "Marcos Inss",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab506"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 83,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab507"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet/TV",
+  "descricao": "Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab508"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Internet Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab509"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 270,
+  "categoria": "Moradia",
+  "descricao": "Condominio BsParc",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50a"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 145,
+  "categoria": "Transporte",
+  "descricao": "Seguro Avg carro",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50b"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 85,
+  "categoria": "Outro",
+  "descricao": "Inss Marcos",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50c"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 670,
+  "categoria": "Moradia",
+  "descricao": "Financ Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50d"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Condomio Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50e"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Energia Royal Park",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab50f"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 730,
+  "categoria": "Transporte",
+  "descricao": "Consórcio Embracon",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab510"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-05T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 180,
+  "categoria": "Educação",
+  "descricao": "Faculdade ",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab511"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 452,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Keyliane",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab512"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 4267,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab513"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-15T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5126,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab514"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 750,
+  "categoria": "Outro",
+  "descricao": "Aluguel 57",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab515"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1500,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Caixa",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab516"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 960,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab517"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 537,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Safra",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab518"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Pai Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab519"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 86,
+  "categoria": "Outro",
+  "descricao": "Marcos Inss",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51a"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 83,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Cartão Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51b"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Internet/TV",
+  "descricao": "Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51c"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Internet Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51d"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 270,
+  "categoria": "Moradia",
+  "descricao": "Condominio BsParc",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51e"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 145,
+  "categoria": "Transporte",
+  "descricao": "Seguro Avg carro",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab51f"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 85,
+  "categoria": "Outro",
+  "descricao": "Inss Marcos",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab520"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 670,
+  "categoria": "Moradia",
+  "descricao": "Financ Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab521"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Condomio Royal Park ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab522"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 250,
+  "categoria": "Moradia",
+  "descricao": "Energia Royal Park",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab523"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 730,
+  "categoria": "Transporte",
+  "descricao": "Consórcio Embracon",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab524"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-05T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 180,
+  "categoria": "Educação",
+  "descricao": "Faculdade ",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab525"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 452,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Keyliane",
+  "status": "🟡 Pendente",
+  "🗑️": false,
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab526"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 4267,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab527"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-15T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5126,
+  "categoria": "Salário",
+  "descricao": "NTT DATA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab528"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 750,
+  "categoria": "Outro",
+  "descricao": "Aluguel 57",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab529"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 1500,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Caixa",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52a"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 960,
+  "categoria": "Empréstimo",
+  "descricao": "Empréstimo Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52b"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 537,
+  "categoria": "Empréstimo",
+  "descricao": "Emprestimo Safra",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52c"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 100,
+  "categoria": "Outro",
+  "descricao": "Pai Internet",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52d"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-10T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-02",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 86,
+  "categoria": "Outro",
+  "descricao": "Marcos Inss",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": {
+    "$numberDouble": "NaN"
+  },
+  "parcela": {
+    "$numberDouble": "NaN"
+  },
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52e"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 3110,
+  "categoria": "Salário",
+  "descricao": "13 salário segunda parcela",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab52f"
+  },
+  "data_vencimento": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
   "status": "🟢 Concluído",
   "🗑️": {
     "$numberDouble": "NaN"
   },
-  "detalhes": "[{\"descricao\": \"Uber - NuPay\", \"valor\": 7.47, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-19\"}, {\"descricao\": \"Dantas Estilo\", \"valor\": 400.0, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"6/10\", \"data\": \"2026-01-16\"}]",
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab530"
+  },
+  "data_vencimento": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟢 Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab531"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟢 Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab532"
+  },
+  "data_vencimento": {
+    "$date": "2026-03-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab533"
+  },
+  "data_vencimento": {
+    "$date": "2026-04-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab534"
+  },
+  "data_vencimento": {
+    "$date": "2026-05-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab535"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab536"
+  },
+  "data_vencimento": {
+    "$date": "2026-07-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab537"
+  },
+  "data_vencimento": {
+    "$date": "2026-08-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab538"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab539"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53a"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Ajuda Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53b"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 600,
+  "categoria": "Alimentação",
+  "descricao": "Vale Alimentação Pai",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53c"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟢 Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53d"
+  },
+  "data_vencimento": {
+    "$date": "2026-03-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53e"
+  },
+  "data_vencimento": {
+    "$date": "2026-04-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab53f"
+  },
+  "data_vencimento": {
+    "$date": "2026-05-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab540"
+  },
+  "data_vencimento": {
+    "$date": "2026-06-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab541"
+  },
+  "data_vencimento": {
+    "$date": "2026-07-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab542"
+  },
+  "data_vencimento": {
+    "$date": "2026-08-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab543"
+  },
+  "data_vencimento": {
+    "$date": "2026-09-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab544"
+  },
+  "data_vencimento": {
+    "$date": "2026-10-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab545"
+  },
+  "data_vencimento": {
+    "$date": "2026-11-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab546"
+  },
+  "data_vencimento": {
+    "$date": "2026-12-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 930,
+  "categoria": "Salário",
+  "descricao": "Vale Alimentação",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab547"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-11",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 2372,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Fatura cartões CAIXA",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": "[{\"descricao\": \"50212515 EDNALDO DE SO\", \"valor\": 102.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-10\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"LARANJUNIOR MA\", \"valor\": 31.5, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-10\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"PRECO UNICO\", \"valor\": 52.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-10\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMECADO NIDOBOX\", \"valor\": 67.94, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-11\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"POSTO JP\", \"valor\": 13.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-11\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"GALETERIA FRANGO CIA MA\", \"valor\": 23.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-11\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Franciscomardonio\", \"valor\": 71.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-12\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"58171357YanDa\", \"valor\": 33.8, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-14\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SABOR DO ORIENTE\", \"valor\": 71.5, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-14\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMERCADO BENCAO DE\", \"valor\": 73.78, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-15\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Franciscomardonio\", \"valor\": 32.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-15\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"PostoGN\", \"valor\": 200.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-15\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"514MATEUS SUPERMERCADO\", \"valor\": 488.06, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-18\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"WS RACOES\", \"valor\": 42.21, \"categoria\": \"Pet\", \"parcela\": \"\", \"data\": \"2026-02-09\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Elane Dantas de Sousa\", \"valor\": 224.88, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"09 DE 10\", \"data\": \"2025-05-21\", \"natureza\": \"Fixo\"}, {\"descricao\": \"\\u0397\\u039dA OBOTICARIO\", \"valor\": 19.87, \"categoria\": \"Beleza/Est\\u00e9tica\", \"parcela\": \"05 DE 10\", \"data\": \"2025-09-13\", \"natureza\": \"Fixo\"}, {\"descricao\": \"PAGUE MENOS\", \"valor\": 52.64, \"categoria\": \"Sa\\u00fade\", \"parcela\": \"02 DE 02\", \"data\": \"2025-12-13\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CASAS GIRAO 0012\", \"valor\": 99.99, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"02 DE 02\", \"data\": \"2025-12-31\", \"natureza\": \"Fixo\"}, {\"descricao\": \"HAVAIANAS SHOP MARAC\", \"valor\": 35.0, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"02 DE 03\", \"data\": \"2026-01-04\", \"natureza\": \"Fixo\"}, {\"descricao\": \"ARAUJO CABRAL E ALVES\", \"valor\": 126.01, \"categoria\": \"Moradia\", \"parcela\": \"01 DE 03\", \"data\": \"2026-01-10\", \"natureza\": \"Fixo\"}, {\"descricao\": \"JF VARIEDADES\", \"valor\": 100.0, \"categoria\": \"Outro\", \"parcela\": \"01 DE 02\", \"data\": \"2026-01-10\", \"natureza\": \"Fixo\"}, {\"descricao\": \"AUTO PE AS MA MA\", \"valor\": 65.0, \"categoria\": \"Transporte\", \"parcela\": \"01 DE 02\", \"data\": \"2026-02-09\", \"natureza\": \"Fixo\"}, {\"descricao\": \"ECOMMERCE OL Olympikus\", \"valor\": 18.48, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"10 DE 10\", \"data\": \"2025-05-02\", \"natureza\": \"Fixo\"}, {\"descricao\": \"EC SAMSUNG\", \"valor\": 239.12, \"categoria\": \"Educa\\u00e7\\u00e3o\", \"parcela\": \"09 DE 12\", \"data\": \"2025-05-10\", \"natureza\": \"Fixo\"}, {\"descricao\": \"ZP DOSS CON57499\", \"valor\": 72.4, \"categoria\": \"Outro\", \"parcela\": \"05 DE 05\", \"data\": \"2025-09-13\", \"natureza\": \"Fixo\"}]",
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "698e4716dca75337003ab548"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-20T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-12",
+  "tipo": "Receita",
+  "natureza": "Fixo",
+  "valor": 5000,
+  "categoria": "Empréstimo",
+  "descricao": "Cheque Especial Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
   "parcela": "",
   "id_parcelamento": {
     "$numberDouble": "NaN"

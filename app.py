@@ -103,9 +103,34 @@ with st.sidebar:
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
 
     st.write("---")
+
+    # --- MÉTRICAS DE SALDO ---
     st.metric("Saldo em Contas", f"R$ {saldo_disponivel:,.2f}")
-    if pendente_pagar > 0: st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
-    if pendente_receber > 0: st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
+
+    if pendente_pagar > 0:
+        st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
+    if pendente_receber > 0:
+        st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
+
+    # --- KPI: MÉDIA DISPONÍVEL ANUAL ---
+    hoje = datetime.now()
+    meses_restantes = 12 - hoje.month + 1
+
+    try:
+        media_disponivel_mes = (pendente_receber - pendente_pagar) / meses_restantes
+    except ZeroDivisionError:
+        media_disponivel_mes = 0
+
+    if media_disponivel_mes != 0:
+        st.write("")  # Espaçador
+        cor_kpi = "💰" if media_disponivel_mes > 0 else "⚠️"
+        st.caption(f"{cor_kpi} **Média disponível mensal:**")
+        st.markdown(f"**R$ {media_disponivel_mes:,.2f}** <small>/ mês</small>", unsafe_allow_html=True)
+
+        # Explicação técnica sem usar st.help (que causou o erro)
+        with st.expander("ℹ️ Info Cálculo"):
+            st.write(
+                f"Projeção baseada em R$ {pendente_receber - pendente_pagar:,.2f} divididos pelos {meses_restantes} meses restantes de {hoje.year}.")
 
 # =====================================================
 # 4. ROTEAMENTO

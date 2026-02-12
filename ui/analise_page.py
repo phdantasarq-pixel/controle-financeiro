@@ -52,6 +52,43 @@ def analise_categorias_page(df, df_saldos=None):
     # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
     st.markdown("""
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
+
+        .main-header {
+            font-family: 'Inter', sans-serif;
+            padding: 20px 0 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .title-main {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0px;
+            text-transform: uppercase; /* Força Caixa Alta */
+        }
+
+        .subtitle-main {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: #3498db;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .accent-line {
+            width: 50px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
         .dashboard-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; margin-bottom: 20px; }
         .card-modern {
             flex: 1; min-width: 250px; padding: 22px; border-radius: 20px;
@@ -75,14 +112,15 @@ def analise_categorias_page(df, df_saldos=None):
         .badge-alert { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
         .badge-ok { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
     </style>
-    """, unsafe_allow_html=True)
 
-    st.markdown("""
-        <div style="margin-bottom: 30px;">
-            <div style="font-size: 0.85rem; font-weight: 300; color: #3498db; letter-spacing: 3px; text-transform: uppercase;">Insights & Performance</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: white; letter-spacing: -1px;">Inteligência Financeira</div>
-            <div style="width: 50px; height: 4px; background: #3498db; border-radius: 10px; margin-top: 15px;"></div>
+    <div class="main-header">
+        <div class="subtitle-main">Insights & Performance</div>
+        <div class="title-main">Inteligência Financeira</div>
+        <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
+            PlanejAI <span style="color: #3498db; font-weight: bold;">v8.1</span>
         </div>
+        <div class="accent-line"></div>
+    </div>
     """, unsafe_allow_html=True)
 
     if df.empty:

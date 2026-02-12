@@ -168,7 +168,7 @@ def resumo_mensal_page(df):
             <div class="label">Divisão de Custos 📊</div>
             <div style="margin-top:10px; font-size: 0.9rem;">
                 📌 Fixos: <b>R$ {fixos:,.2f}</b><br>
-                💸 Var: <b>R$ {variaveis:,.2f}</b>
+                💸 Variáveis: <b>R$ {variaveis:,.2f}</b>
             </div>
         </div>
     </div>

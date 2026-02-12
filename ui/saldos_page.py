@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from services.database import Database
 
+
 def saldos_page():
     # --- CABEÇALHO MODERNIZADO (PADRÃO COCKPIT RESUMO) ---
     st.markdown("""
@@ -90,38 +91,51 @@ def saldos_page():
     col_lista, col_add = st.columns([1.6, 1.4], gap="large")
 
     with col_lista:
-        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem;">🏦 Portfólio de Contas</p>', unsafe_allow_html=True)
+        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem;">🏦 Portfólio de Contas</p>',
+                    unsafe_allow_html=True)
         if not df_saldos.empty:
+            # Adicionando índice original para garantir exclusão precisa
+            df_saldos["original_index"] = df_saldos.index
             df_saldos["🗑️"] = False
-            df_editado = st.data_editor(
-                df_saldos,
-                use_container_width=True,
-                hide_index=True,
-                column_config={
-                    "🗑️": st.column_config.CheckboxColumn("Excluir", width="small"),
-                    "conta": st.column_config.TextColumn("Instituição / Ativo"),
-                    "valor": st.column_config.NumberColumn("Valor (R$)", format="R$ %.2f")
-                },
-                key="editor_saldos_luxury_v8"
-            )
 
-            # Lógica de Salvamento/Exclusão
-            if not df_editado.drop(columns=["🗑️"]).equals(st.session_state.df_saldos):
-                if df_editado["🗑️"].any():
-                    if st.button("Confirmar Exclusão de Ativos", type="primary", use_container_width=True):
-                        st.session_state.df_saldos = df_editado[df_editado["🗑️"] == False].drop(columns=["🗑️"])
-                        Database.salvar_saldos(st.session_state.df_saldos)
-                        st.rerun()
-                else:
-                    st.session_state.df_saldos = df_editado.drop(columns=["🗑️"])
+            # --- FORMULÁRIO DE GESTÃO (PADRÃO LANÇAMENTOS) ---
+            with st.form(key="form_saldos_v8"):
+                df_editado = st.data_editor(
+                    df_saldos[["conta", "valor", "🗑️", "original_index"]],
+                    use_container_width=True,
+                    hide_index=True,
+                    column_config={
+                        "🗑️": st.column_config.CheckboxColumn("🗑️", width="small", default=False),
+                        "conta": st.column_config.TextColumn("Instituição / Ativo"),
+                        "valor": st.column_config.NumberColumn("Valor (R$)", format="R$ %.2f"),
+                        "original_index": None  # Esconde o índice técnico
+                    },
+                    key="editor_saldos_luxury_v8"
+                )
+
+                if st.form_submit_button("💾 Salvar Alterações no Patrimônio", use_container_width=True, type="primary"):
+                    # 1. Identificar itens para exclusão
+                    indices_para_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+
+                    # 2. Atualizar o DataFrame do session_state
+                    novo_df = df_editado[df_editado["🗑️"] == False].drop(columns=["🗑️", "original_index"])
+
+                    st.session_state.df_saldos = novo_df
                     Database.salvar_saldos(st.session_state.df_saldos)
-                    st.toast("Patrimônio atualizado!", icon="💰")
+
+                    if indices_para_excluir:
+                        st.toast(f"{len(indices_para_excluir)} ativo(s) removido(s)!", icon="🗑️")
+                    else:
+                        st.toast("Patrimônio atualizado!", icon="💰")
+
                     st.rerun()
         else:
             st.info("Nenhuma conta registrada no cockpit.")
 
     with col_add:
-        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #3498db;">➕ Novo Registro</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #3498db;">➕ Novo Registro</p>',
+            unsafe_allow_html=True)
         with st.container(border=True):
             n_conta = st.text_input("Instituição / Ativo", placeholder="Ex: Bitcoin, Nubank...")
             n_valor = st.number_input("Saldo Atual", min_value=0.0, step=100.0, format="%.2f")
@@ -133,3 +147,5 @@ def saldos_page():
                     Database.salvar_saldos(st.session_state.df_saldos)
                     st.toast(f"{n_conta} integrado com sucesso!")
                     st.rerun()
+                else:
+                    st.error("Informe o nome da instituição ou ativo.")
