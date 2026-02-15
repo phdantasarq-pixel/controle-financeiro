@@ -1,43 +1,44 @@
 import streamlit as st
 
+
 class ThemeManager:
-    """Classe responsável por gerenciar e aplicar a identidade visual do PlanejAI."""
+    """Classe responsável por gerenciar e aplicar a identidade visual do PlanejAI (Somente Temas Escuros)."""
 
     def __init__(self):
+        # Removido o tema 'Padrão'. Luxury agora é o líder.
         self.themes = {
-            "Padrão": {
-                "primary": "#4CAF50",
-                "background": "#FFFFFF",
-                "text": "#1E293B",
-                "sidebar": "#F8FAFC"
+            "Luxury": {
+                "primary": "#4facfe",  # Azul Ciano Luxury
+                "background": "#050608",  # Deep Space
+                "text": "#FFFFFF",  # Branco Nítido
+                "sidebar": "#0d1b2a"  # Azul Marinho Profundo
             },
             "Dark": {
-                "primary": "#00FFAA",
-                "background": "#0E1117",
-                "text": "#FAFAFA",
-                "sidebar": "#161B22"
-            },
-            "Luxury": {
-                "primary": "#D4AF37",
-                "background": "#121212",
-                "text": "#E5E7EB",
-                "sidebar": "#1C1C1C"
+                "primary": "#00FFAA",  # Verde Neon
+                "background": "#0E1117",  # Grafite Streamlit
+                "text": "#FAFAFA",  # Off-white
+                "sidebar": "#161B22"  # Cinza Escuro
             }
         }
 
     def get_theme_css(self, theme_colors):
         primary, background, text, sidebar = theme_colors
-        is_light = background.upper() in ["#FFFFFF", "#F8FAFC", "#F0F2F6", "#F1F5F9"]
 
-        scheme = "light" if is_light else "dark"
-        field_bg = "#FFFFFF" if is_light else "#262730"
-        border_color = "#E2E8F0" if is_light else f"{primary}66"
+        # Como removemos o claro, forçamos sempre o esquema dark
+        scheme = "dark"
+        field_bg = "#1a1c24"  # Fundo dos inputs mais suave
+        border_color = f"{primary}66"  # Borda com transparência da cor primária
 
         return f"""
         <style>
             :root, html, body, .stApp {{
                 color-scheme: {scheme} !important;
                 background-color: {background} !important;
+            }}
+
+            /* --- MELHORIA DE NITIDEZ PLANEJAI --- */
+            [data-testid="stMarkdownContainer"] p, label, span {{
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             }}
 
             /* COMBOBOX / SELECTBOX */
@@ -53,11 +54,6 @@ class ThemeManager:
                 color: {text} !important;
             }}
 
-            li[role="option"] [data-testid="stTooltipHoverTarget"] div {{
-                color: {text} !important;
-                -webkit-text-fill-color: {text} !important;
-            }}
-
             /* Item selecionado */
             li[role="option"][aria-selected="true"] {{
                 background-color: {primary}33 !important;
@@ -65,34 +61,19 @@ class ThemeManager:
                 font-weight: 600 !important;
             }}
 
-            /* Hover */
+            /* Hover nos itens do Select */
             li[role="option"]:hover {{
                 background-color: {primary} !important;
-                color: #FFFFFF !important;
+                color: #000000 !important; /* Texto preto no hover para contraste */
             }}
 
-            li[role="option"]:hover [data-testid="stTooltipHoverTarget"] div {{
-                color: #FFFFFF !important;
-                -webkit-text-fill-color: #FFFFFF !important;
-            }}
-
-            /* Texto exibido dentro do campo do select */
-            div[data-baseweb="select"] div[role="combobox"] {{
-                color: {text} !important;
-                -webkit-text-fill-color: {text} !important;
-            }}
-
-            div[data-baseweb="select"] div[role="combobox"] * {{
-                color: {text} !important;
-                -webkit-text-fill-color: {text} !important;
-            }}
-
-            /* INPUTS */
+            /* INPUTS E CAMPOS */
             div[data-baseweb="input"], 
             div[data-baseweb="base-input"], 
             div[data-baseweb="select"] > div {{
                 background-color: {field_bg} !important;
                 border: 1px solid {border_color} !important;
+                border-radius: 8px !important;
             }}
 
             input, textarea {{
@@ -100,44 +81,55 @@ class ThemeManager:
                 -webkit-text-fill-color: {text} !important;
             }}
 
-            /* BOTÕES E EXPANDERS */
+            /* BOTÕES SECUNDÁRIOS E EXPANDERS */
             button[kind="secondary"], 
             div[data-testid="stExpander"], 
             div[data-testid="stExpander"] summary {{
-                background-color: {field_bg} !important;
+                background-color: rgba(255,255,255,0.05) !important;
                 color: {text} !important;
                 border: 1px solid {border_color} !important;
             }}
 
-            /* TEXTO UNIVERSAL */
-            .stApp *, 
-            [data-testid="stMarkdownContainer"] p, 
-            label,
-            div[data-testid="stTooltipHoverTarget"] div {{
-                color: {text} !important;
-                -webkit-text-fill-color: {text} !important;
-            }}
-
-            /* SIDEBAR */
+            /* SIDEBAR PERSONALIZADA */
             [data-testid="stSidebar"] {{
                 background-color: {sidebar} !important;
+                border-right: 1px solid rgba(255,255,255,0.05);
             }}
 
-            [data-testid="stSidebar"] * {{
+            [data-testid="stSidebarContent"] * {{
                 color: {text} !important;
+            }}
+
+            /* Ajuste de scrollbar para modo Dark */
+            ::-webkit-scrollbar {{
+                width: 8px;
+            }}
+            ::-webkit-scrollbar-track {{
+                background: {background};
+            }}
+            ::-webkit-scrollbar-thumb {{
+                background: {primary}44;
+                border-radius: 10px;
             }}
         </style>
         """
 
     def sidebar_theme_selector(self):
-        st.subheader("🎨 Customização Visual")
+        # Interface simplificada: apenas o que é bom
         theme_options = list(self.themes.keys())
-        theme_name = st.selectbox("Selecione o Tema", theme_options)
+
+        # Encontra o índice atual para não resetar o selectbox ao carregar
+        current_bg = st.session_state.get('theme_colors', [None, None, ""])[2]
+        idx = 1 if current_bg == "#0E1117" else 0
+
+        theme_name = st.selectbox("Identidade Visual", theme_options, index=idx)
         s = self.themes[theme_name]
-        with st.expander("Ajuste Fino (Opcional)"):
+
+        with st.expander("Ajuste Fino do Especialista"):
             c1, c2 = st.columns(2)
-            p = c1.color_picker("Cor Primária", s["primary"])
-            b = c2.color_picker("Cor de Fundo", s["background"])
-            t = c1.color_picker("Cor do Texto", s["text"])
-            si = c2.color_picker("Cor da Sidebar", s["sidebar"])
+            p = c1.color_picker("Destaque (Primária)", s["primary"])
+            b = c2.color_picker("Fundo (Background)", s["background"])
+            t = c1.color_picker("Leitura (Texto)", s["text"])
+            si = c2.color_picker("Painel (Sidebar)", s["sidebar"])
+
         return (p, b, t, si)

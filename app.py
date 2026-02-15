@@ -54,11 +54,12 @@ else:
 
     if 'theme_colors' not in st.session_state:
         cores_salvas = Database.carregar_preferencias()
-        # Se não houver cores, o padrão é o homologado
+        # Fallback agora é o Luxury (Ciano/Preto/Deep Sea)
         if cores_salvas:
             st.session_state.theme_colors = cores_salvas
         else:
-            st.session_state.theme_colors = ("#4CAF50", "#FFFFFF", "#31333F", "#F0F2F6")
+            # Cores do Luxury homologadas:
+            st.session_state.theme_colors = ("#4facfe", "#FFFFFF", "#050608", "#0d1b2a")
 
     # Aplicação do CSS do tema ANTES de qualquer outro elemento de UI
     st.markdown(
