@@ -6,3 +6,4 @@ google-generativeai
 xlsxwriter
 fpdf2
 matplotlib
+streamlit-cookies-manager
