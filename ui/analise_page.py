@@ -144,12 +144,20 @@ def analise_categorias_page(df, df_saldos=None):
         st.info(f"Nenhum lançamento encontrado para {mes_selecionado}.")
         return
 
-    # --- 2. CÁLCULO DE SALDO E PERFORMANCE (H8.1) ---
+    # --- 2. CÁLCULO DE SALDO E PERFORMANCE (H8.1 - CORRIGIDO) ---
     saldo_atual_real = df_saldos['valor'].sum() if (df_saldos is not None and not df_saldos.empty) else 0.0
+
+    # Filtramos apenas o que ainda NÃO foi concluído no mês
+    pendente_receber = df_mes[(df_mes['tipo'] == "Receita") & (df_mes['status'] != "🟢 Concluído")]['valor'].sum()
+    pendente_pagar = df_mes[(df_mes['tipo'] == "Despesa") & (df_mes['status'] != "🟢 Concluído")]['valor'].sum()
+
+    # O saldo projetado agora é o Real + o que vai entrar - o que vai sair
+    sobra_pendente = pendente_receber - pendente_pagar
+    saldo_projetado = saldo_atual_real + sobra_pendente
+
+    # Para a Eficiência, mantemos o cálculo sobre o total do mês (planejado vs realizado)
     receita_total = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
     despesa_total_mes = df_mes[df_mes['tipo'] == "Despesa"]['valor'].sum()
-    sobra_do_mes = receita_total - despesa_total_mes
-    saldo_projetado = saldo_atual_real + sobra_do_mes
     eficiencia = (despesa_total_mes / receita_total * 100) if receita_total > 0 else 0
 
     st.markdown(f"### 🛡️ Potencial de Reserva {mes_selecionado}")

@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "698e4716dca75337003ab423"
+    "$oid": "699129b61eab8f8e32e50930"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -25,7 +25,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab424"
+    "$oid": "699129b61eab8f8e32e50931"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -50,7 +50,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab425"
+    "$oid": "699129b61eab8f8e32e50932"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -75,7 +75,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab426"
+    "$oid": "699129b61eab8f8e32e50933"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -100,7 +100,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab427"
+    "$oid": "699129b61eab8f8e32e50934"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -125,7 +125,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab428"
+    "$oid": "699129b61eab8f8e32e50935"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -150,7 +150,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab429"
+    "$oid": "699129b61eab8f8e32e50936"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -175,7 +175,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42a"
+    "$oid": "699129b61eab8f8e32e50937"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -200,7 +200,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42b"
+    "$oid": "699129b61eab8f8e32e50938"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -225,7 +225,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42c"
+    "$oid": "699129b61eab8f8e32e50939"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -250,7 +250,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42d"
+    "$oid": "699129b61eab8f8e32e5093a"
   },
   "data_vencimento": {
     "$date": "2026-01-05T00:00:00.000Z"
@@ -275,7 +275,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42e"
+    "$oid": "699129b61eab8f8e32e5093b"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -300,7 +300,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab42f"
+    "$oid": "699129b61eab8f8e32e5093c"
   },
   "data_vencimento": {
     "$date": "2026-01-07T00:00:00.000Z"
@@ -325,7 +325,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab430"
+    "$oid": "699129b61eab8f8e32e5093d"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -350,7 +350,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab431"
+    "$oid": "699129b61eab8f8e32e5093e"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -375,7 +375,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab432"
+    "$oid": "699129b61eab8f8e32e5093f"
   },
   "data_vencimento": {
     "$date": "2026-01-15T00:00:00.000Z"
@@ -400,7 +400,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab433"
+    "$oid": "699129b61eab8f8e32e50940"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -425,7 +425,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab434"
+    "$oid": "699129b61eab8f8e32e50941"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -450,7 +450,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab435"
+    "$oid": "699129b61eab8f8e32e50942"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -475,7 +475,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab436"
+    "$oid": "699129b61eab8f8e32e50943"
   },
   "data_vencimento": {
     "$date": "2026-01-10T00:00:00.000Z"
@@ -500,57 +500,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab437"
-  },
-  "data_vencimento": {
-    "$date": "2026-02-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-02",
-  "tipo": "Despesa",
-  "natureza": "Variável",
-  "valor": 6178,
-  "categoria": "Cartão de Crédito",
-  "descricao": "Cartão Itaú",
-  "status": "🟡 Pendente",
-  "🗑️": false,
-  "detalhes": {
-    "$numberDouble": "NaN"
-  },
-  "parcela": {
-    "$numberDouble": "NaN"
-  },
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "698e4716dca75337003ab438"
-  },
-  "data_vencimento": {
-    "$date": "2026-02-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-02",
-  "tipo": "Despesa",
-  "natureza": "Variável",
-  "valor": 934,
-  "categoria": "Cartão de Crédito",
-  "descricao": "Cartão Banco Inter",
-  "status": "🟡 Pendente",
-  "🗑️": false,
-  "detalhes": {
-    "$numberDouble": "NaN"
-  },
-  "parcela": {
-    "$numberDouble": "NaN"
-  },
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "698e4716dca75337003ab439"
+    "$oid": "699129b61eab8f8e32e50944"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -559,7 +509,7 @@
   "tipo": "Despesa",
   "natureza": "Fixo",
   "valor": 100,
-  "categoria": "Outro",
+  "categoria": "Internet/TV",
   "descricao": "Internet",
   "status": "🟡 Pendente",
   "🗑️": false,
@@ -575,7 +525,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43a"
+    "$oid": "699129b61eab8f8e32e50945"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -600,7 +550,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43b"
+    "$oid": "699129b61eab8f8e32e50946"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -625,7 +575,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43c"
+    "$oid": "699129b61eab8f8e32e50947"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -650,7 +600,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43d"
+    "$oid": "699129b61eab8f8e32e50948"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -675,7 +625,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43e"
+    "$oid": "699129b61eab8f8e32e50949"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -700,7 +650,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab43f"
+    "$oid": "699129b61eab8f8e32e5094a"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -711,7 +661,7 @@
   "valor": 250,
   "categoria": "Moradia",
   "descricao": "Condomio Royal Park ",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -725,7 +675,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab440"
+    "$oid": "699129b61eab8f8e32e5094b"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -750,7 +700,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab441"
+    "$oid": "699129b61eab8f8e32e5094c"
   },
   "data_vencimento": {
     "$date": "2026-02-16T00:00:00.000Z"
@@ -761,7 +711,7 @@
   "valor": 730,
   "categoria": "Transporte",
   "descricao": "Consórcio Embracon",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -775,7 +725,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab442"
+    "$oid": "699129b61eab8f8e32e5094d"
   },
   "data_vencimento": {
     "$date": "2026-02-27T00:00:00.000Z"
@@ -786,7 +736,7 @@
   "valor": 212,
   "categoria": "Educação",
   "descricao": "Faculdade ",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -800,7 +750,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab443"
+    "$oid": "699129b61eab8f8e32e5094e"
   },
   "data_vencimento": {
     "$date": "2026-02-06T00:00:00.000Z"
@@ -825,7 +775,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab444"
+    "$oid": "699129b61eab8f8e32e5094f"
   },
   "data_vencimento": {
     "$date": "2026-02-08T00:00:00.000Z"
@@ -850,7 +800,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab445"
+    "$oid": "699129b61eab8f8e32e50950"
   },
   "data_vencimento": {
     "$date": "2026-02-02T00:00:00.000Z"
@@ -875,7 +825,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab446"
+    "$oid": "699129b61eab8f8e32e50951"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -900,7 +850,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab447"
+    "$oid": "699129b61eab8f8e32e50952"
   },
   "data_vencimento": {
     "$date": "2026-02-15T00:00:00.000Z"
@@ -911,7 +861,7 @@
   "valor": 5126,
   "categoria": "Salário",
   "descricao": "NTT DATA",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -925,7 +875,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab448"
+    "$oid": "699129b61eab8f8e32e50953"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -950,7 +900,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab449"
+    "$oid": "699129b61eab8f8e32e50954"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -961,7 +911,7 @@
   "valor": 86,
   "categoria": "Outro",
   "descricao": "Marcos Inss",
-  "status": "🟡 Pendente",
+  "status": "🟢 Concluído",
   "🗑️": false,
   "detalhes": {
     "$numberDouble": "NaN"
@@ -975,7 +925,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44a"
+    "$oid": "699129b61eab8f8e32e50955"
   },
   "data_vencimento": {
     "$date": "2026-02-10T00:00:00.000Z"
@@ -1000,7 +950,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44b"
+    "$oid": "699129b61eab8f8e32e50956"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1008,7 +958,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 3639,
+  "valor": 3701,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Itaú",
   "status": "🟡 Pendente",
@@ -1027,7 +977,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44c"
+    "$oid": "699129b61eab8f8e32e50957"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1054,7 +1004,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44d"
+    "$oid": "699129b61eab8f8e32e50958"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1062,7 +1012,7 @@
   "data_registro": "2026-02-02",
   "tipo": "Despesa",
   "natureza": "Variável",
-  "valor": 900,
+  "valor": 1445,
   "categoria": "Cartão de Crédito",
   "descricao": "Cartão Caixa",
   "status": "🟡 Pendente",
@@ -1081,7 +1031,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44e"
+    "$oid": "699129b61eab8f8e32e50959"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1108,7 +1058,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab44f"
+    "$oid": "699129b61eab8f8e32e5095a"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1135,7 +1085,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab450"
+    "$oid": "699129b61eab8f8e32e5095b"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1162,7 +1112,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab451"
+    "$oid": "699129b61eab8f8e32e5095c"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1189,7 +1139,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab452"
+    "$oid": "699129b61eab8f8e32e5095d"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1216,7 +1166,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab453"
+    "$oid": "699129b61eab8f8e32e5095e"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1243,7 +1193,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab454"
+    "$oid": "699129b61eab8f8e32e5095f"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1270,7 +1220,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab455"
+    "$oid": "699129b61eab8f8e32e50960"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1297,7 +1247,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab456"
+    "$oid": "699129b61eab8f8e32e50961"
   },
   "data_vencimento": {
     "$date": "2026-03-20T00:00:00.000Z"
@@ -1324,7 +1274,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab457"
+    "$oid": "699129b61eab8f8e32e50962"
   },
   "data_vencimento": {
     "$date": "2026-03-17T00:00:00.000Z"
@@ -1351,7 +1301,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab458"
+    "$oid": "699129b61eab8f8e32e50963"
   },
   "data_vencimento": {
     "$date": "2026-03-05T00:00:00.000Z"
@@ -1378,7 +1328,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab459"
+    "$oid": "699129b61eab8f8e32e50964"
   },
   "data_vencimento": {
     "$date": "2026-03-07T00:00:00.000Z"
@@ -1405,7 +1355,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45a"
+    "$oid": "699129b61eab8f8e32e50965"
   },
   "data_vencimento": {
     "$date": "2026-03-09T00:00:00.000Z"
@@ -1432,7 +1382,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45b"
+    "$oid": "699129b61eab8f8e32e50966"
   },
   "data_vencimento": {
     "$date": "2026-03-03T00:00:00.000Z"
@@ -1459,7 +1409,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45c"
+    "$oid": "699129b61eab8f8e32e50967"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -1486,7 +1436,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45d"
+    "$oid": "699129b61eab8f8e32e50968"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -1513,7 +1463,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45e"
+    "$oid": "699129b61eab8f8e32e50969"
   },
   "data_vencimento": {
     "$date": "2026-03-15T00:00:00.000Z"
@@ -1540,7 +1490,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab45f"
+    "$oid": "699129b61eab8f8e32e5096a"
   },
   "data_vencimento": {
     "$date": "2026-03-06T00:00:00.000Z"
@@ -1567,7 +1517,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab460"
+    "$oid": "699129b61eab8f8e32e5096b"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1594,7 +1544,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab461"
+    "$oid": "699129b61eab8f8e32e5096c"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -1621,7 +1571,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab462"
+    "$oid": "699129b61eab8f8e32e5096d"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1648,7 +1598,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab463"
+    "$oid": "699129b61eab8f8e32e5096e"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1675,7 +1625,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab464"
+    "$oid": "699129b61eab8f8e32e5096f"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1702,7 +1652,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab465"
+    "$oid": "699129b61eab8f8e32e50970"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1729,7 +1679,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab466"
+    "$oid": "699129b61eab8f8e32e50971"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1756,7 +1706,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab467"
+    "$oid": "699129b61eab8f8e32e50972"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1783,7 +1733,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab468"
+    "$oid": "699129b61eab8f8e32e50973"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1810,7 +1760,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab469"
+    "$oid": "699129b61eab8f8e32e50974"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1837,7 +1787,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46a"
+    "$oid": "699129b61eab8f8e32e50975"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1864,7 +1814,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46b"
+    "$oid": "699129b61eab8f8e32e50976"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -1891,7 +1841,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46c"
+    "$oid": "699129b61eab8f8e32e50977"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1918,7 +1868,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46d"
+    "$oid": "699129b61eab8f8e32e50978"
   },
   "data_vencimento": {
     "$date": "2026-04-20T00:00:00.000Z"
@@ -1945,7 +1895,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46e"
+    "$oid": "699129b61eab8f8e32e50979"
   },
   "data_vencimento": {
     "$date": "2026-04-18T00:00:00.000Z"
@@ -1972,7 +1922,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab46f"
+    "$oid": "699129b61eab8f8e32e5097a"
   },
   "data_vencimento": {
     "$date": "2026-04-05T00:00:00.000Z"
@@ -1999,7 +1949,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab470"
+    "$oid": "699129b61eab8f8e32e5097b"
   },
   "data_vencimento": {
     "$date": "2026-04-08T00:00:00.000Z"
@@ -2026,7 +1976,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab471"
+    "$oid": "699129b61eab8f8e32e5097c"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2053,7 +2003,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab472"
+    "$oid": "699129b61eab8f8e32e5097d"
   },
   "data_vencimento": {
     "$date": "2026-04-04T00:00:00.000Z"
@@ -2080,7 +2030,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab473"
+    "$oid": "699129b61eab8f8e32e5097e"
   },
   "data_vencimento": {
     "$date": "2026-04-02T00:00:00.000Z"
@@ -2107,7 +2057,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab474"
+    "$oid": "699129b61eab8f8e32e5097f"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -2134,7 +2084,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab475"
+    "$oid": "699129b61eab8f8e32e50980"
   },
   "data_vencimento": {
     "$date": "2026-04-15T00:00:00.000Z"
@@ -2161,7 +2111,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab476"
+    "$oid": "699129b61eab8f8e32e50981"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2188,7 +2138,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab477"
+    "$oid": "699129b61eab8f8e32e50982"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2215,7 +2165,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab478"
+    "$oid": "699129b61eab8f8e32e50983"
   },
   "data_vencimento": {
     "$date": "2026-04-10T00:00:00.000Z"
@@ -2242,7 +2192,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab479"
+    "$oid": "699129b61eab8f8e32e50984"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2269,7 +2219,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47a"
+    "$oid": "699129b61eab8f8e32e50985"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2296,7 +2246,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47b"
+    "$oid": "699129b61eab8f8e32e50986"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2323,7 +2273,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47c"
+    "$oid": "699129b61eab8f8e32e50987"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2350,7 +2300,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47d"
+    "$oid": "699129b61eab8f8e32e50988"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2377,7 +2327,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47e"
+    "$oid": "699129b61eab8f8e32e50989"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2404,7 +2354,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab47f"
+    "$oid": "699129b61eab8f8e32e5098a"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2431,7 +2381,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab480"
+    "$oid": "699129b61eab8f8e32e5098b"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2458,7 +2408,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab481"
+    "$oid": "699129b61eab8f8e32e5098c"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2485,7 +2435,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab482"
+    "$oid": "699129b61eab8f8e32e5098d"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2512,7 +2462,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab483"
+    "$oid": "699129b61eab8f8e32e5098e"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2539,7 +2489,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab484"
+    "$oid": "699129b61eab8f8e32e5098f"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2566,7 +2516,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab485"
+    "$oid": "699129b61eab8f8e32e50990"
   },
   "data_vencimento": {
     "$date": "2026-05-20T00:00:00.000Z"
@@ -2593,7 +2543,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab486"
+    "$oid": "699129b61eab8f8e32e50991"
   },
   "data_vencimento": {
     "$date": "2026-05-05T00:00:00.000Z"
@@ -2620,7 +2570,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab487"
+    "$oid": "699129b61eab8f8e32e50992"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2647,7 +2597,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab488"
+    "$oid": "699129b61eab8f8e32e50993"
   },
   "data_vencimento": {
     "$date": "2026-05-12T00:00:00.000Z"
@@ -2674,7 +2624,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab489"
+    "$oid": "699129b61eab8f8e32e50994"
   },
   "data_vencimento": {
     "$date": "2026-05-06T00:00:00.000Z"
@@ -2701,7 +2651,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48a"
+    "$oid": "699129b61eab8f8e32e50995"
   },
   "data_vencimento": {
     "$date": "2026-05-03T00:00:00.000Z"
@@ -2728,7 +2678,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48b"
+    "$oid": "699129b61eab8f8e32e50996"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -2755,7 +2705,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48c"
+    "$oid": "699129b61eab8f8e32e50997"
   },
   "data_vencimento": {
     "$date": "2026-05-15T00:00:00.000Z"
@@ -2782,7 +2732,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48d"
+    "$oid": "699129b61eab8f8e32e50998"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2809,7 +2759,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48e"
+    "$oid": "699129b61eab8f8e32e50999"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2836,7 +2786,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab48f"
+    "$oid": "699129b61eab8f8e32e5099a"
   },
   "data_vencimento": {
     "$date": "2026-05-10T00:00:00.000Z"
@@ -2863,7 +2813,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab490"
+    "$oid": "699129b61eab8f8e32e5099b"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -2888,7 +2838,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab491"
+    "$oid": "699129b61eab8f8e32e5099c"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -2915,7 +2865,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab492"
+    "$oid": "699129b61eab8f8e32e5099d"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -2942,7 +2892,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab493"
+    "$oid": "699129b61eab8f8e32e5099e"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -2969,7 +2919,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab494"
+    "$oid": "699129b61eab8f8e32e5099f"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -2994,7 +2944,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab495"
+    "$oid": "699129b61eab8f8e32e509a0"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3021,7 +2971,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab496"
+    "$oid": "699129b61eab8f8e32e509a1"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3048,7 +2998,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab497"
+    "$oid": "699129b61eab8f8e32e509a2"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3075,7 +3025,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab498"
+    "$oid": "699129b61eab8f8e32e509a3"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3102,7 +3052,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab499"
+    "$oid": "699129b61eab8f8e32e509a4"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3129,7 +3079,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49a"
+    "$oid": "699129b61eab8f8e32e509a5"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3156,7 +3106,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49b"
+    "$oid": "699129b61eab8f8e32e509a6"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3183,7 +3133,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49c"
+    "$oid": "699129b61eab8f8e32e509a7"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3210,7 +3160,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49d"
+    "$oid": "699129b61eab8f8e32e509a8"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3237,7 +3187,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49e"
+    "$oid": "699129b61eab8f8e32e509a9"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3264,7 +3214,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab49f"
+    "$oid": "699129b61eab8f8e32e509aa"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3291,7 +3241,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a0"
+    "$oid": "699129b61eab8f8e32e509ab"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3318,7 +3268,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a1"
+    "$oid": "699129b61eab8f8e32e509ac"
   },
   "data_vencimento": {
     "$date": "2026-06-20T00:00:00.000Z"
@@ -3345,7 +3295,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a2"
+    "$oid": "699129b61eab8f8e32e509ad"
   },
   "data_vencimento": {
     "$date": "2026-06-05T00:00:00.000Z"
@@ -3370,7 +3320,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a3"
+    "$oid": "699129b61eab8f8e32e509ae"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3395,7 +3345,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a4"
+    "$oid": "699129b61eab8f8e32e509af"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3422,7 +3372,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a5"
+    "$oid": "699129b61eab8f8e32e509b0"
   },
   "data_vencimento": {
     "$date": "2026-06-15T00:00:00.000Z"
@@ -3449,7 +3399,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a6"
+    "$oid": "699129b61eab8f8e32e509b1"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3476,7 +3426,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a7"
+    "$oid": "699129b61eab8f8e32e509b2"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3503,7 +3453,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a8"
+    "$oid": "699129b61eab8f8e32e509b3"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3530,7 +3480,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4a9"
+    "$oid": "699129b61eab8f8e32e509b4"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -3557,7 +3507,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4aa"
+    "$oid": "699129b61eab8f8e32e509b5"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3584,7 +3534,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ab"
+    "$oid": "699129b61eab8f8e32e509b6"
   },
   "data_vencimento": {
     "$date": "2026-06-10T00:00:00.000Z"
@@ -3611,7 +3561,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ac"
+    "$oid": "699129b61eab8f8e32e509b7"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3638,7 +3588,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ad"
+    "$oid": "699129b61eab8f8e32e509b8"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3665,7 +3615,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ae"
+    "$oid": "699129b61eab8f8e32e509b9"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -3692,7 +3642,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4af"
+    "$oid": "699129b61eab8f8e32e509ba"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -3719,7 +3669,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b0"
+    "$oid": "699129b61eab8f8e32e509bb"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -3746,7 +3696,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b1"
+    "$oid": "699129b61eab8f8e32e509bc"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3773,7 +3723,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b2"
+    "$oid": "699129b61eab8f8e32e509bd"
   },
   "data_vencimento": {
     "$date": "2026-03-10T00:00:00.000Z"
@@ -3798,7 +3748,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b3"
+    "$oid": "699129b61eab8f8e32e509be"
   },
   "data_vencimento": {
     "$date": "2026-01-21T00:00:00.000Z"
@@ -3821,7 +3771,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b4"
+    "$oid": "699129b61eab8f8e32e509bf"
   },
   "data_vencimento": {
     "$date": "2026-01-23T00:00:00.000Z"
@@ -3844,7 +3794,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b5"
+    "$oid": "699129b61eab8f8e32e509c0"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -3867,7 +3817,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b6"
+    "$oid": "699129b61eab8f8e32e509c1"
   },
   "data_vencimento": {
     "$date": "2026-01-20T00:00:00.000Z"
@@ -3890,7 +3840,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b7"
+    "$oid": "699129b61eab8f8e32e509c2"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3917,7 +3867,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b8"
+    "$oid": "699129b61eab8f8e32e509c3"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -3944,7 +3894,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4b9"
+    "$oid": "699129b61eab8f8e32e509c4"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -3971,7 +3921,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ba"
+    "$oid": "699129b61eab8f8e32e509c5"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -3998,7 +3948,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4bb"
+    "$oid": "699129b61eab8f8e32e509c6"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4025,7 +3975,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4bc"
+    "$oid": "699129b61eab8f8e32e509c7"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4052,7 +4002,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4bd"
+    "$oid": "699129b61eab8f8e32e509c8"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4079,7 +4029,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4be"
+    "$oid": "699129b61eab8f8e32e509c9"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4106,7 +4056,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4bf"
+    "$oid": "699129b61eab8f8e32e509ca"
   },
   "data_vencimento": {
     "$date": "2026-07-20T00:00:00.000Z"
@@ -4133,7 +4083,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c0"
+    "$oid": "699129b61eab8f8e32e509cb"
   },
   "data_vencimento": {
     "$date": "2026-07-05T00:00:00.000Z"
@@ -4158,7 +4108,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c1"
+    "$oid": "699129b61eab8f8e32e509cc"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4183,7 +4133,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c2"
+    "$oid": "699129b61eab8f8e32e509cd"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4210,7 +4160,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c3"
+    "$oid": "699129b61eab8f8e32e509ce"
   },
   "data_vencimento": {
     "$date": "2026-07-15T00:00:00.000Z"
@@ -4237,7 +4187,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c4"
+    "$oid": "699129b61eab8f8e32e509cf"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4264,7 +4214,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c5"
+    "$oid": "699129b61eab8f8e32e509d0"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4291,7 +4241,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c6"
+    "$oid": "699129b61eab8f8e32e509d1"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4318,7 +4268,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c7"
+    "$oid": "699129b61eab8f8e32e509d2"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -4345,7 +4295,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c8"
+    "$oid": "699129b61eab8f8e32e509d3"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4372,7 +4322,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4c9"
+    "$oid": "699129b61eab8f8e32e509d4"
   },
   "data_vencimento": {
     "$date": "2026-07-10T00:00:00.000Z"
@@ -4399,7 +4349,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ca"
+    "$oid": "699129b61eab8f8e32e509d5"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4426,7 +4376,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4cb"
+    "$oid": "699129b61eab8f8e32e509d6"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4453,7 +4403,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4cc"
+    "$oid": "699129b61eab8f8e32e509d7"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4480,7 +4430,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4cd"
+    "$oid": "699129b61eab8f8e32e509d8"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4507,7 +4457,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ce"
+    "$oid": "699129b61eab8f8e32e509d9"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4534,7 +4484,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4cf"
+    "$oid": "699129b61eab8f8e32e509da"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4561,7 +4511,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d0"
+    "$oid": "699129b61eab8f8e32e509db"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4588,7 +4538,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d1"
+    "$oid": "699129b61eab8f8e32e509dc"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4615,7 +4565,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d2"
+    "$oid": "699129b61eab8f8e32e509dd"
   },
   "data_vencimento": {
     "$date": "2026-08-20T00:00:00.000Z"
@@ -4642,7 +4592,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d3"
+    "$oid": "699129b61eab8f8e32e509de"
   },
   "data_vencimento": {
     "$date": "2026-08-05T00:00:00.000Z"
@@ -4667,7 +4617,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d4"
+    "$oid": "699129b61eab8f8e32e509df"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4692,7 +4642,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d5"
+    "$oid": "699129b61eab8f8e32e509e0"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4719,7 +4669,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d6"
+    "$oid": "699129b61eab8f8e32e509e1"
   },
   "data_vencimento": {
     "$date": "2026-08-15T00:00:00.000Z"
@@ -4746,7 +4696,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d7"
+    "$oid": "699129b61eab8f8e32e509e2"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4773,7 +4723,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d8"
+    "$oid": "699129b61eab8f8e32e509e3"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4800,7 +4750,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4d9"
+    "$oid": "699129b61eab8f8e32e509e4"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4827,7 +4777,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4da"
+    "$oid": "699129b61eab8f8e32e509e5"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -4854,7 +4804,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4db"
+    "$oid": "699129b61eab8f8e32e509e6"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4881,7 +4831,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4dc"
+    "$oid": "699129b61eab8f8e32e509e7"
   },
   "data_vencimento": {
     "$date": "2026-08-10T00:00:00.000Z"
@@ -4908,7 +4858,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4dd"
+    "$oid": "699129b61eab8f8e32e509e8"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -4935,7 +4885,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4de"
+    "$oid": "699129b61eab8f8e32e509e9"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -4962,7 +4912,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4df"
+    "$oid": "699129b61eab8f8e32e509ea"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -4989,7 +4939,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e0"
+    "$oid": "699129b61eab8f8e32e509eb"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -5016,7 +4966,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e1"
+    "$oid": "699129b61eab8f8e32e509ec"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -5043,7 +4993,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e2"
+    "$oid": "699129b61eab8f8e32e509ed"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -5070,7 +5020,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e3"
+    "$oid": "699129b61eab8f8e32e509ee"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -5097,7 +5047,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e4"
+    "$oid": "699129b61eab8f8e32e509ef"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -5124,7 +5074,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e5"
+    "$oid": "699129b61eab8f8e32e509f0"
   },
   "data_vencimento": {
     "$date": "2026-09-20T00:00:00.000Z"
@@ -5151,7 +5101,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e6"
+    "$oid": "699129b61eab8f8e32e509f1"
   },
   "data_vencimento": {
     "$date": "2026-09-05T00:00:00.000Z"
@@ -5176,7 +5126,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e7"
+    "$oid": "699129b61eab8f8e32e509f2"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -5201,7 +5151,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e8"
+    "$oid": "699129b61eab8f8e32e509f3"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -5228,7 +5178,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4e9"
+    "$oid": "699129b61eab8f8e32e509f4"
   },
   "data_vencimento": {
     "$date": "2026-09-15T00:00:00.000Z"
@@ -5255,7 +5205,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ea"
+    "$oid": "699129b61eab8f8e32e509f5"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -5282,7 +5232,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4eb"
+    "$oid": "699129b61eab8f8e32e509f6"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -5309,7 +5259,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ec"
+    "$oid": "699129b61eab8f8e32e509f7"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -5336,7 +5286,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ed"
+    "$oid": "699129b61eab8f8e32e509f8"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -5363,7 +5313,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ee"
+    "$oid": "699129b61eab8f8e32e509f9"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -5390,7 +5340,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ef"
+    "$oid": "699129b61eab8f8e32e509fa"
   },
   "data_vencimento": {
     "$date": "2026-09-10T00:00:00.000Z"
@@ -5417,7 +5367,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f0"
+    "$oid": "699129b61eab8f8e32e509fb"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -5425,7 +5375,7 @@
   "data_registro": "2026-02-09",
   "tipo": "Despesa",
   "natureza": "Fixo",
-  "valor": 5000,
+  "valor": 6500,
   "categoria": "Empréstimo",
   "descricao": "Cheque especial",
   "status": "🟡 Pendente",
@@ -5440,7 +5390,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f1"
+    "$oid": "699129b61eab8f8e32e509fc"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -5463,30 +5413,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f2"
-  },
-  "data_vencimento": {
-    "$date": "2026-02-20T00:00:00.000Z"
-  },
-  "data_registro": "2026-02-11",
-  "tipo": "Receita",
-  "natureza": "Fixo",
-  "valor": 350,
-  "categoria": "Outro",
-  "descricao": "Alisson Doc casa",
-  "status": "🟡 Pendente",
-  "🗑️": {
-    "$numberDouble": "NaN"
-  },
-  "detalhes": null,
-  "parcela": "",
-  "id_parcelamento": {
-    "$numberDouble": "NaN"
-  }
-},
-{
-  "_id": {
-    "$oid": "698e4716dca75337003ab4f3"
+    "$oid": "699129b61eab8f8e32e509fd"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5513,7 +5440,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f4"
+    "$oid": "699129b61eab8f8e32e509fe"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5540,7 +5467,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f5"
+    "$oid": "699129b61eab8f8e32e509ff"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5567,7 +5494,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f6"
+    "$oid": "699129b61eab8f8e32e50a00"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5594,7 +5521,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f7"
+    "$oid": "699129b61eab8f8e32e50a01"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5621,7 +5548,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f8"
+    "$oid": "699129b61eab8f8e32e50a02"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5648,7 +5575,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4f9"
+    "$oid": "699129b61eab8f8e32e50a03"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5675,7 +5602,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4fa"
+    "$oid": "699129b61eab8f8e32e50a04"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5702,7 +5629,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4fb"
+    "$oid": "699129b61eab8f8e32e50a05"
   },
   "data_vencimento": {
     "$date": "2026-10-20T00:00:00.000Z"
@@ -5729,7 +5656,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4fc"
+    "$oid": "699129b61eab8f8e32e50a06"
   },
   "data_vencimento": {
     "$date": "2026-10-05T00:00:00.000Z"
@@ -5754,7 +5681,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4fd"
+    "$oid": "699129b61eab8f8e32e50a07"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5779,7 +5706,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4fe"
+    "$oid": "699129b61eab8f8e32e50a08"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -5806,7 +5733,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab4ff"
+    "$oid": "699129b61eab8f8e32e50a09"
   },
   "data_vencimento": {
     "$date": "2026-10-15T00:00:00.000Z"
@@ -5833,7 +5760,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab500"
+    "$oid": "699129b61eab8f8e32e50a0a"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5860,7 +5787,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab501"
+    "$oid": "699129b61eab8f8e32e50a0b"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -5887,7 +5814,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab502"
+    "$oid": "699129b61eab8f8e32e50a0c"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -5914,7 +5841,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab503"
+    "$oid": "699129b61eab8f8e32e50a0d"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -5941,7 +5868,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab504"
+    "$oid": "699129b61eab8f8e32e50a0e"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5968,7 +5895,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab505"
+    "$oid": "699129b61eab8f8e32e50a0f"
   },
   "data_vencimento": {
     "$date": "2026-10-10T00:00:00.000Z"
@@ -5995,7 +5922,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab506"
+    "$oid": "699129b61eab8f8e32e50a10"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -6022,7 +5949,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab507"
+    "$oid": "699129b61eab8f8e32e50a11"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6049,7 +5976,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab508"
+    "$oid": "699129b61eab8f8e32e50a12"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6076,7 +6003,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab509"
+    "$oid": "699129b61eab8f8e32e50a13"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6103,7 +6030,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50a"
+    "$oid": "699129b61eab8f8e32e50a14"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6130,7 +6057,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50b"
+    "$oid": "699129b61eab8f8e32e50a15"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6157,7 +6084,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50c"
+    "$oid": "699129b61eab8f8e32e50a16"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6184,7 +6111,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50d"
+    "$oid": "699129b61eab8f8e32e50a17"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6211,7 +6138,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50e"
+    "$oid": "699129b61eab8f8e32e50a18"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6238,7 +6165,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab50f"
+    "$oid": "699129b61eab8f8e32e50a19"
   },
   "data_vencimento": {
     "$date": "2026-11-20T00:00:00.000Z"
@@ -6265,7 +6192,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab510"
+    "$oid": "699129b61eab8f8e32e50a1a"
   },
   "data_vencimento": {
     "$date": "2026-11-05T00:00:00.000Z"
@@ -6290,7 +6217,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab511"
+    "$oid": "699129b61eab8f8e32e50a1b"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6315,7 +6242,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab512"
+    "$oid": "699129b61eab8f8e32e50a1c"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -6342,7 +6269,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab513"
+    "$oid": "699129b61eab8f8e32e50a1d"
   },
   "data_vencimento": {
     "$date": "2026-11-15T00:00:00.000Z"
@@ -6369,7 +6296,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab514"
+    "$oid": "699129b61eab8f8e32e50a1e"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6396,7 +6323,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab515"
+    "$oid": "699129b61eab8f8e32e50a1f"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -6423,7 +6350,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab516"
+    "$oid": "699129b61eab8f8e32e50a20"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -6450,7 +6377,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab517"
+    "$oid": "699129b61eab8f8e32e50a21"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -6477,7 +6404,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab518"
+    "$oid": "699129b61eab8f8e32e50a22"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6504,7 +6431,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab519"
+    "$oid": "699129b61eab8f8e32e50a23"
   },
   "data_vencimento": {
     "$date": "2026-11-10T00:00:00.000Z"
@@ -6531,7 +6458,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51a"
+    "$oid": "699129b61eab8f8e32e50a24"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -6558,7 +6485,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51b"
+    "$oid": "699129b61eab8f8e32e50a25"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6585,7 +6512,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51c"
+    "$oid": "699129b61eab8f8e32e50a26"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -6612,7 +6539,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51d"
+    "$oid": "699129b61eab8f8e32e50a27"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -6639,7 +6566,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51e"
+    "$oid": "699129b61eab8f8e32e50a28"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6666,7 +6593,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab51f"
+    "$oid": "699129b61eab8f8e32e50a29"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6693,7 +6620,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab520"
+    "$oid": "699129b61eab8f8e32e50a2a"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -6720,7 +6647,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab521"
+    "$oid": "699129b61eab8f8e32e50a2b"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6747,7 +6674,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab522"
+    "$oid": "699129b61eab8f8e32e50a2c"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6774,7 +6701,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab523"
+    "$oid": "699129b61eab8f8e32e50a2d"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -6801,7 +6728,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab524"
+    "$oid": "699129b61eab8f8e32e50a2e"
   },
   "data_vencimento": {
     "$date": "2026-12-05T00:00:00.000Z"
@@ -6826,7 +6753,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab525"
+    "$oid": "699129b61eab8f8e32e50a2f"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -6851,7 +6778,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab526"
+    "$oid": "699129b61eab8f8e32e50a30"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -6878,7 +6805,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab527"
+    "$oid": "699129b61eab8f8e32e50a31"
   },
   "data_vencimento": {
     "$date": "2026-12-15T00:00:00.000Z"
@@ -6905,7 +6832,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab528"
+    "$oid": "699129b61eab8f8e32e50a32"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -6932,7 +6859,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab529"
+    "$oid": "699129b61eab8f8e32e50a33"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -6959,7 +6886,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52a"
+    "$oid": "699129b61eab8f8e32e50a34"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -6986,7 +6913,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52b"
+    "$oid": "699129b61eab8f8e32e50a35"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -7013,7 +6940,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52c"
+    "$oid": "699129b61eab8f8e32e50a36"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -7040,7 +6967,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52d"
+    "$oid": "699129b61eab8f8e32e50a37"
   },
   "data_vencimento": {
     "$date": "2026-12-10T00:00:00.000Z"
@@ -7067,7 +6994,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52e"
+    "$oid": "699129b61eab8f8e32e50a38"
   },
   "data_vencimento": {
     "$date": "2026-12-20T00:00:00.000Z"
@@ -7090,7 +7017,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab52f"
+    "$oid": "699129b61eab8f8e32e50a39"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -7113,7 +7040,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab530"
+    "$oid": "699129b61eab8f8e32e50a3a"
   },
   "data_vencimento": {
     "$date": "2026-01-01T00:00:00.000Z"
@@ -7136,7 +7063,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab531"
+    "$oid": "699129b61eab8f8e32e50a3b"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -7159,7 +7086,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab532"
+    "$oid": "699129b61eab8f8e32e50a3c"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -7182,7 +7109,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab533"
+    "$oid": "699129b61eab8f8e32e50a3d"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -7205,7 +7132,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab534"
+    "$oid": "699129b61eab8f8e32e50a3e"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -7228,7 +7155,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab535"
+    "$oid": "699129b61eab8f8e32e50a3f"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -7251,7 +7178,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab536"
+    "$oid": "699129b61eab8f8e32e50a40"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -7274,7 +7201,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab537"
+    "$oid": "699129b61eab8f8e32e50a41"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -7297,7 +7224,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab538"
+    "$oid": "699129b61eab8f8e32e50a42"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -7320,7 +7247,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab539"
+    "$oid": "699129b61eab8f8e32e50a43"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -7343,7 +7270,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53a"
+    "$oid": "699129b61eab8f8e32e50a44"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -7366,7 +7293,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53b"
+    "$oid": "699129b61eab8f8e32e50a45"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -7389,7 +7316,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53c"
+    "$oid": "699129b61eab8f8e32e50a46"
   },
   "data_vencimento": {
     "$date": "2026-02-01T00:00:00.000Z"
@@ -7412,7 +7339,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53d"
+    "$oid": "699129b61eab8f8e32e50a47"
   },
   "data_vencimento": {
     "$date": "2026-03-01T00:00:00.000Z"
@@ -7435,7 +7362,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53e"
+    "$oid": "699129b61eab8f8e32e50a48"
   },
   "data_vencimento": {
     "$date": "2026-04-01T00:00:00.000Z"
@@ -7458,7 +7385,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab53f"
+    "$oid": "699129b61eab8f8e32e50a49"
   },
   "data_vencimento": {
     "$date": "2026-05-01T00:00:00.000Z"
@@ -7481,7 +7408,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab540"
+    "$oid": "699129b61eab8f8e32e50a4a"
   },
   "data_vencimento": {
     "$date": "2026-06-01T00:00:00.000Z"
@@ -7504,7 +7431,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab541"
+    "$oid": "699129b61eab8f8e32e50a4b"
   },
   "data_vencimento": {
     "$date": "2026-07-01T00:00:00.000Z"
@@ -7527,7 +7454,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab542"
+    "$oid": "699129b61eab8f8e32e50a4c"
   },
   "data_vencimento": {
     "$date": "2026-08-01T00:00:00.000Z"
@@ -7550,7 +7477,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab543"
+    "$oid": "699129b61eab8f8e32e50a4d"
   },
   "data_vencimento": {
     "$date": "2026-09-01T00:00:00.000Z"
@@ -7573,7 +7500,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab544"
+    "$oid": "699129b61eab8f8e32e50a4e"
   },
   "data_vencimento": {
     "$date": "2026-10-01T00:00:00.000Z"
@@ -7596,7 +7523,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab545"
+    "$oid": "699129b61eab8f8e32e50a4f"
   },
   "data_vencimento": {
     "$date": "2026-11-01T00:00:00.000Z"
@@ -7619,7 +7546,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab546"
+    "$oid": "699129b61eab8f8e32e50a50"
   },
   "data_vencimento": {
     "$date": "2026-12-01T00:00:00.000Z"
@@ -7642,7 +7569,7 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab547"
+    "$oid": "699129b61eab8f8e32e50a51"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
@@ -7665,15 +7592,107 @@
 },
 {
   "_id": {
-    "$oid": "698e4716dca75337003ab548"
+    "$oid": "699129b61eab8f8e32e50a52"
   },
   "data_vencimento": {
     "$date": "2026-02-20T00:00:00.000Z"
   },
-  "data_registro": "2026-02-12",
+  "data_registro": "2026-02-14",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 933.84,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Fatura inter",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": "[{\"descricao\": \"DANTAS ESTILO\", \"valor\": 791.67, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"Parcela 07 de 12\", \"data\": \"2025-07-21\", \"natureza\": \"Fixo\"}, {\"descricao\": \"Apoena\", \"valor\": 72.19, \"categoria\": \"Educa\\u00e7\\u00e3o\", \"parcela\": \"Parcela 11 de 12\", \"data\": \"2025-03-17\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CLARO FLEX\", \"valor\": 39.99, \"categoria\": \"Internet/TV\", \"parcela\": \"\", \"data\": \"2026-01-13\", \"natureza\": \"Fixo\"}, {\"descricao\": \"Google Planner 5D AI\", \"valor\": 29.99, \"categoria\": \"Assinaturas\", \"parcela\": \"\", \"data\": \"2026-02-10\", \"natureza\": \"Vari\\u00e1vel\"}]",
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "699129b61eab8f8e32e50a53"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-23T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-14",
+  "tipo": "Despesa",
+  "natureza": "Variável",
+  "valor": 6178.4,
+  "categoria": "Cartão de Crédito",
+  "descricao": "Fatura Itaú",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": "[{\"descricao\": \"ELANE MOURA\", \"valor\": 307.5, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"07/10\", \"data\": \"2025-08-11\", \"natureza\": \"Fixo\"}, {\"descricao\": \"DANTAS ESTIL\", \"valor\": 331.8, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"06/10\", \"data\": \"2025-08-21\", \"natureza\": \"Fixo\"}, {\"descricao\": \"DANTAS ESTIL\", \"valor\": 364.99, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"06/10\", \"data\": \"2025-08-28\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CENTRAL DOS\", \"valor\": 199.35, \"categoria\": \"Transporte\", \"parcela\": \"05/06\", \"data\": \"2025-09-18\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CIA TERNO-LE\", \"valor\": 133.86, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"05/10\", \"data\": \"2025-09-20\", \"natureza\": \"Fixo\"}, {\"descricao\": \"DEMOCRATA KE\", \"valor\": 76.95, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"05/06\", \"data\": \"2025-09-20\", \"natureza\": \"Fixo\"}, {\"descricao\": \"DANTAS ESTIL\", \"valor\": 746.58, \"categoria\": \"Empr\\u00e9stimo\", \"parcela\": \"05/12\", \"data\": \"2025-10-01\", \"natureza\": \"Fixo\"}, {\"descricao\": \"AMAZON BR\", \"valor\": 74.16, \"categoria\": \"Presentes\", \"parcela\": \"04/12\", \"data\": \"2025-10-31\", \"natureza\": \"Fixo\"}, {\"descricao\": \"D3jMusic\", \"valor\": 46.0, \"categoria\": \"Assinaturas\", \"parcela\": \"03/04\", \"data\": \"2025-11-15\", \"natureza\": \"Fixo\"}, {\"descricao\": \"GOLD BRAND E\", \"valor\": 46.65, \"categoria\": \"Outro\", \"parcela\": \"03/06\", \"data\": \"2025-11-22\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CROLIM\", \"valor\": 63.28, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"03/03\", \"data\": \"2025-12-05\", \"natureza\": \"Fixo\"}, {\"descricao\": \"VIVER SEMPRE\", \"valor\": 113.34, \"categoria\": \"Outro\", \"parcela\": \"03/03\", \"data\": \"2025-12-06\", \"natureza\": \"Fixo\"}, {\"descricao\": \"EXPRESSO GUA\", \"valor\": 108.06, \"categoria\": \"Viagem\", \"parcela\": \"03/09\", \"data\": \"2025-12-09\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CentralFarmPAC\", \"valor\": 38.46, \"categoria\": \"Sa\\u00fade\", \"parcela\": \"02/03\", \"data\": \"2025-12-15\", \"natureza\": \"Fixo\"}, {\"descricao\": \"C ROLIMMARACAN\", \"valor\": 49.95, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"02/02\", \"data\": \"2025-12-15\", \"natureza\": \"Fixo\"}, {\"descricao\": \"EA9 MODASSAO P\", \"valor\": 33.33, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"02/03\", \"data\": \"2025-12-15\", \"natureza\": \"Fixo\"}, {\"descricao\": \"MLP*NetshoesSA\", \"valor\": 74.99, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"02/06\", \"data\": \"2025-12-22\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CASAS GIRAO 00\", \"valor\": 155.48, \"categoria\": \"Moradia\", \"parcela\": \"02/04\", \"data\": \"2025-12-23\", \"natureza\": \"Fixo\"}, {\"descricao\": \"AUTO PECAS MAR\", \"valor\": 110.0, \"categoria\": \"Transporte\", \"parcela\": \"02/02\", \"data\": \"2025-12-31\", \"natureza\": \"Fixo\"}, {\"descricao\": \"RAINHA DOS PNE\", \"valor\": 172.5, \"categoria\": \"Transporte\", \"parcela\": \"02/04\", \"data\": \"2026-01-08\", \"natureza\": \"Fixo\"}, {\"descricao\": \"MAXWELL CARLOS\", \"valor\": 228.35, \"categoria\": \"Beleza/Est\\u00e9tica\", \"parcela\": \"02/05\", \"data\": \"2026-01-11\", \"natureza\": \"Fixo\"}, {\"descricao\": \"SUPERMERCADO COMETAMARA\", \"valor\": 60.42, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"ARAUJO CABRAL E ALVESMA\", \"valor\": 34.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SABOR DE PANI LTDA MEM\\u0391\", \"valor\": 65.69, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SABOR DE PANI LTDA MEM\\u0391\", \"valor\": 2.95, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"PAGUE MENOS 076\", \"valor\": 32.99, \"categoria\": \"Sa\\u00fade\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"52146264MariaEuzaPACATU\", \"valor\": 15.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"42 430 328 IRAPUAN CARN\", \"valor\": 54.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-17\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CEA MNU 689 ECPCMARACAN\", \"valor\": 115.98, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"\", \"data\": \"2026-01-18\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Antonio AnildoDaMARACANA\", \"valor\": 33.5, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-21\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPER MERCADINHOS SAOMA\", \"valor\": 182.74, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-21\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"JIM.COM KI ACAI NORDEST\", \"valor\": 9.33, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-21\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"REDE TETRAMARACANAUBR\", \"valor\": 200.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-21\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMERCADO LACERDAMAR\", \"valor\": 26.11, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-24\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Antonio AnildoDaMARACANA\", \"valor\": 33.5, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-24\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Supermercado AnaliMARANG\", \"valor\": 30.46, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-24\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"Supermercado AnaliMARANG\", \"valor\": 51.51, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-24\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"RIACHUELO 258M\", \"valor\": 86.66, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"01/03\", \"data\": \"2026-01-24\", \"natureza\": \"Fixo\"}, {\"descricao\": \"CEA MNU 689 EC\", \"valor\": 116.65, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"01/03\", \"data\": \"2026-01-24\", \"natureza\": \"Fixo\"}, {\"descricao\": \"BEBELU SANDUICHESMARACA\", \"valor\": 25.9, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-24\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMECADO NIDOBOXMARA\", \"valor\": 165.77, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-25\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMECADO NIDOBOXMARA\", \"valor\": 6.49, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-25\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"52146264MariaEuzaPACATU\", \"valor\": 23.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-26\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"AMAZONMKTPLC*A\", \"valor\": 50.04, \"categoria\": \"Presentes\", \"parcela\": \"01/06\", \"data\": \"2026-01-26\", \"natureza\": \"Fixo\"}, {\"descricao\": \"SERVICO E TREINAMENTOFO\", \"valor\": 59.0, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-01-27\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CenterParkMARACANAUBR\", \"valor\": 6.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-28\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"POSTO RJMARACANAUBR\", \"valor\": 200.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-28\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPER UNICOMPRAPACATUBA\", \"valor\": 76.75, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-30\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"VANVAN GRILL & DELICIA\", \"valor\": 45.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-01-31\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CenterParkMARACANAUBR\", \"valor\": 6.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-01-31\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"MP*BURGUERMARACANAUBR\", \"valor\": 52.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-01\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"MP*SIRICASCUDOOSASCOBR\", \"valor\": 14.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-01\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"52146264MariaEuzaPACATU\", \"valor\": 34.75, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-01\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"AnaliSupermercadoMARACA\", \"valor\": 124.93, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-01\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMERCADO BENCAO DEM\", \"valor\": 9.59, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-01\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"FARMACIAS PA*2\", \"valor\": 51.33, \"categoria\": \"Sa\\u00fade\", \"parcela\": \"01/03\", \"data\": \"2026-02-03\", \"natureza\": \"Fixo\"}, {\"descricao\": \"REDE TETRAMARACANAUBR\", \"valor\": 200.0, \"categoria\": \"Transporte\", \"parcela\": \"\", \"data\": \"2026-02-07\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CASA DE PETISCOSMARACAN\", \"valor\": 24.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-07\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CEA MNU 689 EC\", \"valor\": 112.65, \"categoria\": \"Vestu\\u00e1rio\", \"parcela\": \"01/03\", \"data\": \"2026-02-07\", \"natureza\": \"Fixo\"}, {\"descricao\": \"MK MARACANAUMARACANAUBR\", \"valor\": 15.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-07\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"BEBELU SANDUICHESMARACA\", \"valor\": 17.9, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-07\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"LOJAS AMERICANAS 270MAR\", \"valor\": 58.98, \"categoria\": \"Outro\", \"parcela\": \"\", \"data\": \"2026-02-07\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SANDUICHE MANIA GREGOFO\", \"valor\": 27.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CASQUINHA DA VILLAFORTA\", \"valor\": 15.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SANDUICHE MANIA GREGOFO\", \"valor\": 7.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMECADO NIDOBOXMARA\", \"valor\": 22.76, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"58171357YanDaMARACANAUB\", \"valor\": 7.0, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"SUPERMECADO NIDOBOXMARA\", \"valor\": 9.99, \"categoria\": \"Alimenta\\u00e7\\u00e3o\", \"parcela\": \"\", \"data\": \"2026-02-08\", \"natureza\": \"Vari\\u00e1vel\"}, {\"descricao\": \"CONSELHO REG D\", \"valor\": 83.5, \"categoria\": \"Educa\\u00e7\\u00e3o\", \"parcela\": \"01/11\", \"data\": \"2026-02-11\", \"natureza\": \"Fixo\"}]",
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "699129b61eab8f8e32e50a54"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-16T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-14",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 420,
+  "categoria": "Moradia",
+  "descricao": "Restante Pagamento Frazão ",
+  "status": "🟡 Pendente",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "699129b61eab8f8e32e50a55"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-16T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-14",
+  "tipo": "Despesa",
+  "natureza": "Fixo",
+  "valor": 350,
+  "categoria": "Moradia",
+  "descricao": "Pagamento Frazão ",
+  "status": "🟢 Concluído",
+  "🗑️": {
+    "$numberDouble": "NaN"
+  },
+  "detalhes": null,
+  "parcela": "",
+  "id_parcelamento": {
+    "$numberDouble": "NaN"
+  }
+},
+{
+  "_id": {
+    "$oid": "699129b61eab8f8e32e50a56"
+  },
+  "data_vencimento": {
+    "$date": "2026-02-01T00:00:00.000Z"
+  },
+  "data_registro": "2026-02-14",
   "tipo": "Receita",
   "natureza": "Fixo",
-  "valor": 5000,
+  "valor": 6500,
   "categoria": "Empréstimo",
   "descricao": "Cheque Especial Itaú",
   "status": "🟡 Pendente",
