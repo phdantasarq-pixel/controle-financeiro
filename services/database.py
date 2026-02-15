@@ -33,30 +33,48 @@ class Database:
 
     @staticmethod
     def carregar_dados():
-        """Carrega os lançamentos e garante a presença da coluna status e tipagem de data."""
+        """Carrega os lançamentos filtrados pelo usuário logado e garante a tipagem correta."""
         db = Database.conectar()
-        if db is None: return pd.DataFrame()
+        if db is None:
+            return pd.DataFrame()
+
+        # Recupera o ID do usuário da sessão
+        user_id = st.session_state.get('user_id')
+
+        # Se por algum motivo não houver usuário logado, retorna vazio por segurança
+        if not user_id:
+            return pd.DataFrame(
+                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
+                         "status"]
+            )
 
         colecao = db["lancamentos"]
-        dados = list(colecao.find())
+
+        # FILTRO DE ISOLAMENTO: Busca apenas os documentos deste usuário
+        query = {"user_id": user_id}
+        dados = list(colecao.find(query))
+
         if not dados:
             return pd.DataFrame(
                 columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
-                         "status"])
+                         "status"]
+            )
 
         df = pd.DataFrame(dados)
 
-        # Garantia de Status (Essencial para o H8.1 Saldo em Tempo Real)
+        # --- REGRAS DE NEGÓCIO HOMOLOGADAS ---
+
+        # Garantia de Status (Essencial para o [H8.1] Saldo em Tempo Real)
         if "status" not in df.columns:
-            df["status"] = "Pendente"
+            df["status"] = "🟡 Pendente"
         else:
-            df["status"] = df["status"].fillna("Pendente")
+            df["status"] = df["status"].fillna("🟡 Pendente")
 
         # Conversão de data para evitar erros no acessor .dt
         if "data_vencimento" in df.columns:
             df["data_vencimento"] = pd.to_datetime(df["data_vencimento"], errors='coerce')
 
-        # Regra de negócio: Remover 'id' (UUID legado) se presente, mantendo apenas o _id do Mongo internamente
+        # Regra de negócio: Remover 'id' (UUID legado) mantendo apenas o _id do Mongo internamente
         if 'id' in df.columns:
             df = df.drop(columns=['id'])
 
@@ -77,33 +95,43 @@ class Database:
 
     @staticmethod
     def salvar_dados(df):
-        """Salva os lançamentos financeiros com limpeza profunda de NaT e Timezones."""
+        """Salva os lançamentos financeiros garantindo o isolamento por usuário."""
         db = Database.conectar()
         if db is not None:
             colecao = db["lancamentos"]
+            user_id = st.session_state.get('user_id')
+
+            if not user_id:
+                st.error("Erro: Usuário não identificado. Não é possível salvar.")
+                return
+
             try:
+                # 1. Limpa APENAS os dados deste usuário logado
+                colecao.delete_many({"user_id": user_id})
+
                 if df.empty:
-                    colecao.delete_many({})
                     return
 
                 df_para_salvar = df.copy()
 
-                # Tratamento de tipagem para compatibilidade MongoDB
+                # 2. Garante que todos os registros tenham o user_id antes de salvar
+                df_para_salvar["user_id"] = user_id
+
+                # Tratamento de tipagem (Mantendo sua lógica de NaT e Timezones)
                 for col in df_para_salvar.columns:
                     if pd.api.types.is_datetime64_any_dtype(df_para_salvar[col]):
                         if df_para_salvar[col].dt.tz is not None:
                             df_para_salvar[col] = df_para_salvar[col].dt.tz_localize(None)
-                        # Converte NaT para None (null no Mongo)
                         df_para_salvar[col] = df_para_salvar[col].astype(object).where(df_para_salvar[col].notnull(),
                                                                                        None)
 
-                # Se houver a coluna interna do Mongo '_id', removemos para reinserção ou tratamos
+                # Se houver a coluna interna do Mongo '_id', removemos para não dar erro de duplicidade
                 if '_id' in df_para_salvar.columns:
                     df_para_salvar = df_para_salvar.drop(columns=['_id'])
 
                 registros = df_para_salvar.to_dict("records")
-                colecao.delete_many({})  # Sobrescreve para manter sincronia com o DataFrame do State
                 colecao.insert_many(registros)
+
             except Exception as e:
                 st.error(f"⚠️ Erro ao processar dados para o MongoDB: {e}")
 
@@ -111,12 +139,20 @@ class Database:
 
     @staticmethod
     def carregar_saldos():
-        """Carrega os saldos gerais das contas da coleção dedicada."""
+        """Carrega os saldos das contas filtrados pelo usuário logado."""
         db = Database.conectar()
-        if db is None:
+        user_id = st.session_state.get('user_id')
+
+        if db is None or not user_id:
             return pd.DataFrame(columns=["conta", "valor"])
-        dados = list(db["saldos_gerais"].find({}, {"_id": 0}))
-        return pd.DataFrame(dados) if dados else pd.DataFrame(columns=["conta", "valor"])
+
+        # Filtra apenas as contas do usuário logado
+        dados = list(db["saldos_gerais"].find({"user_id": user_id}))
+
+        if not dados:
+            return pd.DataFrame(columns=["conta", "valor"])
+
+        return pd.DataFrame(dados)
 
     @staticmethod
     def listar_contas():
@@ -130,13 +166,26 @@ class Database:
 
     @staticmethod
     def salvar_saldos(df_saldos):
-        """Salva os saldos gerais (sobrescreve a coleção)."""
+        """Salva os saldos gerais garantindo o isolamento por usuário."""
         db = Database.conectar()
-        if db is not None:
+        user_id = st.session_state.get('user_id')
+
+        if db is not None and user_id:
             try:
-                db["saldos_gerais"].delete_many({})
+                colecao = db["saldos_gerais"]
+                # 1. Limpa apenas as contas deste usuário
+                colecao.delete_many({"user_id": user_id})
+
                 if not df_saldos.empty:
-                    db["saldos_gerais"].insert_many(df_saldos.to_dict("records"))
+                    df_para_salvar = df_saldos.copy()
+                    # 2. Garante o vínculo do user_id em cada conta
+                    df_para_salvar["user_id"] = user_id
+
+                    # Remove o _id antigo se existir para evitar conflitos de inserção
+                    if '_id' in df_para_salvar.columns:
+                        df_para_salvar = df_para_salvar.drop(columns=['_id'])
+
+                    colecao.insert_many(df_para_salvar.to_dict("records"))
             except Exception as e:
                 st.error(f"⚠️ Erro ao salvar saldos: {e}")
 
@@ -205,6 +254,7 @@ class Database:
                     cat_final = "Fixo Mensal"
 
                 novos_lancamentos.append({
+                    "user_id": st.session_state.user_id,  # O vínculo crucial
                     "data_vencimento": data_venc,
                     "data_registro": datetime.now().strftime('%Y-%m-%d'),
                     "tipo": "Despesa",
@@ -232,41 +282,37 @@ class Database:
 
     @staticmethod
     def salvar_preferencias(cores):
-        """Salva as cores do tema na coleção 'configuracoes' do MongoDB."""
         db = Database.conectar()
-        if db is not None:
-            try:
-                db["configuracoes"].update_one(
-                    {"_id": "tema_usuario"},
-                    {"$set": {"cores": list(cores)}},
-                    upsert=True
-                )
-            except Exception as e:
-                st.error(f"Erro ao salvar preferências no banco: {e}")
+        user_id = st.session_state.get('user_id')  # Busca o dono do tema
+        if db is not None and user_id:
+            db["configuracoes"].update_one(
+                {"user_id": user_id},  # Filtra pelo usuário
+                {"$set": {"cores": list(cores)}},
+                upsert=True
+            )
 
     @staticmethod
     def carregar_preferencias():
-        """Carrega as cores salvas. Retorna None se não houver configuração."""
         db = Database.conectar()
-        if db is not None:
-            config = db["configuracoes"].find_one({"_id": "tema_usuario"})
+        user_id = st.session_state.get('user_id')
+        if db is not None and user_id:
+            config = db["configuracoes"].find_one({"user_id": user_id})
             if config and "cores" in config:
                 return tuple(config["cores"])
         return None
 
-
     @staticmethod
     def inserir_muitos(lista_registros):
-        """
-        Adiciona vários registros de uma vez sem apagar o que já existe.
-        Ideal para clonagem e importações.
-        """
         db = Database.conectar()
+        user_id = st.session_state.get('user_id')
+
         if db is not None and lista_registros:
             try:
                 colecao = db["lancamentos"]
-                # Converte datas de datetime para string ou trata NaT para não quebrar o Mongo
                 for reg in lista_registros:
+                    # Garante o vínculo do usuário em cada registro clonado
+                    reg["user_id"] = user_id
+
                     if isinstance(reg.get('data_vencimento'), pd.Timestamp):
                         reg['data_vencimento'] = reg['data_vencimento'].to_pydatetime()
 
@@ -275,3 +321,36 @@ class Database:
             except Exception as e:
                 st.error(f"⚠️ Erro ao inserir novos registros: {e}")
         return False
+    @staticmethod
+    def buscar_usuario(email):
+        """Busca um usuário na coleção 'usuarios' pelo email."""
+        try:
+            # Acesse a coleção 'usuarios' (ajuste o nome se necessário)
+            db = Database.conectar()
+            return db.usuarios.find_one({"email": email})
+        except Exception as e:
+            print(f"Erro ao buscar usuário: {e}")
+            return None
+
+    @staticmethod
+    def criar_usuario(nome, email, senha):
+        try:
+            db = Database.conectar()
+            # Verifica se o email já existe
+            if db.usuarios.find_one({"email": email}):
+                return False, "Este e-mail já está cadastrado."
+
+            novo_usuario = {
+                "nome": nome,
+                "email": email,
+                "senha": senha,  # No futuro, aplicaremos hash aqui
+                "data_cadastro": datetime.now(),
+                "preferencias": {
+                    "tema": "Luxury",
+                    "cores": ["#4facfe", "#FFFFFF", "#050608", "#0d1b2a"]
+                }
+            }
+            db.usuarios.insert_one(novo_usuario)
+            return True, "Usuário criado com sucesso!"
+        except Exception as e:
+            return False, f"Erro ao conectar ao banco: {e}"
