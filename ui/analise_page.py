@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json
+import calendar
 from datetime import datetime
 from domain.analise import (
     calcular_pareto_categorias,
@@ -12,6 +13,7 @@ try:
     from ui.components import seletor_meses_inteligente
 except Exception:
     seletor_meses_inteligente = None
+
 
 def processar_dados_detalhados(df_original):
     """Mantém a lógica de expansão de itens de IA para análise precisa"""
@@ -48,6 +50,7 @@ def processar_dados_detalhados(df_original):
         df_analise = pd.concat([df_analise, pd.DataFrame(registros_expandidos)], ignore_index=True)
     return df_analise
 
+
 def analise_categorias_page(df, df_saldos=None):
     # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
     st.markdown("""
@@ -69,7 +72,7 @@ def analise_categorias_page(df, df_saldos=None):
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0px;
-            text-transform: uppercase; /* Força Caixa Alta */
+            text-transform: uppercase;
         }
 
         .subtitle-main {
@@ -136,36 +139,50 @@ def analise_categorias_page(df, df_saldos=None):
         mes_selecionado = st.selectbox("📅 Mês de Referência", options=opcoes)
 
     m_sel, a_sel = map(int, mes_selecionado.split("/"))
+    ultimo_dia = calendar.monthrange(a_sel, m_sel)[1]
+    data_corte = pd.Timestamp(datetime(a_sel, m_sel, ultimo_dia)).normalize()
+
     df['data_vencimento'] = pd.to_datetime(df['data_vencimento']).dt.normalize()
     hoje = pd.Timestamp(datetime.now().date()).normalize()
+
+    # --- 2. CÁLCULO DE SALDO ASSERTIVO (H8.1 - CUMULATIVO ATÉ O MÊS) ---
+    saldo_atual_real = df_saldos['valor'].sum() if (df_saldos is not None and not df_saldos.empty) else 0.0
+
+    # Filtro: Tudo que está pendente/atrasado ATÉ o final do mês selecionado
+    mask_pendente = (df['data_vencimento'] <= data_corte) & (df['status'] != "🟢 Concluído")
+
+    receber_total = df[mask_pendente & (df['tipo'] == "Receita")]['valor'].sum()
+    pagar_total = df[mask_pendente & (df['tipo'] == "Despesa")]['valor'].sum()
+
+    saldo_projetado = saldo_atual_real + (receber_total - pagar_total)
+
+    # Dados específicos do mês para os cards de performance
     df_mes = df[(df['data_vencimento'].dt.month == m_sel) & (df['data_vencimento'].dt.year == a_sel)].copy()
 
     if df_mes.empty:
         st.info(f"Nenhum lançamento encontrado para {mes_selecionado}.")
+        st.markdown(f"""
+        <div class="dashboard-container">
+            <div class="card-modern bg-blue">
+                <div class="label-modern">Saldo Projetado Final 🎯</div>
+                <div class="value-modern">R$ {saldo_projetado:,.2f}</div>
+                <div class="sub-value-modern">Acumulado até {mes_selecionado}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
         return
 
-    # --- 2. CÁLCULO DE SALDO E PERFORMANCE (H8.1 - CORRIGIDO) ---
-    saldo_atual_real = df_saldos['valor'].sum() if (df_saldos is not None and not df_saldos.empty) else 0.0
-
-    # Filtramos apenas o que ainda NÃO foi concluído no mês
-    pendente_receber = df_mes[(df_mes['tipo'] == "Receita") & (df_mes['status'] != "🟢 Concluído")]['valor'].sum()
-    pendente_pagar = df_mes[(df_mes['tipo'] == "Despesa") & (df_mes['status'] != "🟢 Concluído")]['valor'].sum()
-
-    # O saldo projetado agora é o Real + o que vai entrar - o que vai sair
-    sobra_pendente = pendente_receber - pendente_pagar
-    saldo_projetado = saldo_atual_real + sobra_pendente
-
-    # Para a Eficiência, mantemos o cálculo sobre o total do mês (planejado vs realizado)
-    receita_total = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
+    # Cálculos de eficiência do mês
+    receita_total_mes = df_mes[df_mes['tipo'] == "Receita"]['valor'].sum()
     despesa_total_mes = df_mes[df_mes['tipo'] == "Despesa"]['valor'].sum()
-    eficiencia = (despesa_total_mes / receita_total * 100) if receita_total > 0 else 0
+    eficiencia = (despesa_total_mes / receita_total_mes * 100) if receita_total_mes > 0 else 0
 
     st.markdown(f"### 🛡️ Potencial de Reserva {mes_selecionado}")
 
     if eficiencia > 90:
         st.markdown(f"""
             <div style="padding: 15px; background: rgba(231, 76, 60, 0.1); border-left: 5px solid #e74c3c; border-radius: 10px; margin-bottom: 20px; color: #ff4d4d;">
-                ⚠️ <b>Atenção:</b> Comprometimento crítico de {eficiencia:.1f}% da renda!
+                ⚠️ <b>Atenção:</b> Comprometimento crítico de {eficiencia:.1f}% da renda em {mes_selecionado}!
             </div>
         """, unsafe_allow_html=True)
 
@@ -173,9 +190,9 @@ def analise_categorias_page(df, df_saldos=None):
     st.markdown(f"""
     <div class="dashboard-container">
         <div class="card-modern bg-blue">
-            <div class="label-modern">Saldo Projetado Final</div>
+            <div class="label-modern">Saldo Projetado Final 🎯</div>
             <div class="value-modern">R$ {saldo_projetado:,.2f}</div>
-            <div class="sub-value-modern">Saldo Atual em Conta: R$ {saldo_atual_real:,.2f}</div>
+            <div class="sub-value-modern">Considerando pendências até {mes_selecionado}</div>
         </div>
         <div class="card-modern {'bg-red' if eficiencia > 90 else 'bg-green'}">
             <div class="label-modern">Margem de Aporte</div>
@@ -185,7 +202,7 @@ def analise_categorias_page(df, df_saldos=None):
             </div>
         </div>
         <div class="card-modern bg-dark">
-            <div class="label-modern">Eficiência</div>
+            <div class="label-modern">Eficiência ({mes_selecionado})</div>
             <div class="value-modern">{eficiencia:.1f}%</div>
             <div class="sub-value-modern">Meta: < 70%</div>
         </div>
@@ -226,7 +243,6 @@ def analise_categorias_page(df, df_saldos=None):
         </div>
         """, unsafe_allow_html=True)
 
-    # BARRA DE DISTRIBUIÇÃO VISUAL (RESTAURADA)
     if despesa_total_mes > 0:
         p_pago = (pago / despesa_total_mes * 100)
         p_pend = (pendente / despesa_total_mes * 100)
@@ -237,11 +253,6 @@ def analise_categorias_page(df, df_saldos=None):
                     <div style="width: {p_pago}%; background: linear-gradient(90deg, #2ecc71, #27ae60); transition: width 0.5s ease;"></div>
                     <div style="width: {p_pend}%; background: linear-gradient(90deg, #f1c40f, #f39c12); transition: width 0.5s ease;"></div>
                     <div style="width: {p_atra}%; background: linear-gradient(90deg, #e74c3c, #c0392b); transition: width 0.5s ease;"></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-top: -20px; margin-bottom: 20px;">
-                    <span style="color: #2ecc71; font-size: 0.65rem; font-weight: bold;">{p_pago:.1f}%</span>
-                    <span style="color: #f1c40f; font-size: 0.65rem; font-weight: bold;">{p_pend:.1f}%</span>
-                    <span style="color: #e74c3c; font-size: 0.65rem; font-weight: bold;">{p_atra:.1f}%</span>
                 </div>
             """, unsafe_allow_html=True)
 
