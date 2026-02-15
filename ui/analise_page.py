@@ -120,7 +120,7 @@ def analise_categorias_page(df, df_saldos=None):
         <div class="subtitle-main">Insights & Performance</div>
         <div class="title-main">Inteligência Financeira</div>
         <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-            PlanejAI <span style="color: #3498db; font-weight: bold;">v8.1</span>
+            PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
         </div>
         <div class="accent-line"></div>
     </div>

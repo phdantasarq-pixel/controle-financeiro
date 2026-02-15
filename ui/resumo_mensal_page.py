@@ -75,7 +75,7 @@ def resumo_mensal_page(df):
             <div class="subtitle-main">Cockpit de Gestão</div>
             <div class="title-main">Resumo Mensal</div>
             <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                PlanejAI <span style="color: #3498db; font-weight: bold;">v8.1</span>
+                PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
             </div>
             <div class="accent-line"></div>
         </div>

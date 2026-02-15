@@ -46,7 +46,7 @@ def lancamentos_page(df_atual):
             <div class="subtitle-main">Cockpit de Entradas</div>
             <div class="title-main">Gerenciar Lançamentos</div>
             <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                PlanejAI <span style="color: #3498db; font-weight: bold;">v8.1</span>
+                PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
             </div>
         </div>
     """, unsafe_allow_html=True)

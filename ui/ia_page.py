@@ -21,7 +21,7 @@ def gerar_pdf_completo(mensagens, indicadores, insight_ia, df_mensal):
     pdf.set_text_color(255, 255, 255)
     pdf.cell(0, 20, "PLANEJAI - CONSULTORIA ESTRATEGICA", ln=True, align='C')
     pdf.set_font("Arial", size=10)
-    pdf.cell(0, 5, f"Relatorio v8.1 | Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}", ln=True, align='C')
+    pdf.cell(0, 5, f"Relatorio v1.0 | Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}", ln=True, align='C')
 
     pdf.ln(25)
     pdf.set_text_color(40, 40, 40)
@@ -122,7 +122,7 @@ def ia_page(df_lancamentos):
             <div class="subtitle-main">Consultoria Inteligente</div>
             <div class="title-main">Cérebro PlanejAI</div>
             <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                Tecnologia <span style="color: #3498db; font-weight: bold;">v8.1</span>
+                Tecnologia <span style="color: #3498db; font-weight: bold;">v1.0</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
