@@ -8,40 +8,47 @@ def seletor_meses_inteligente(key_suffix=""):
         st.session_state[mes_foco_key] = datetime.now().strftime("%m/%Y")
 
     base_dt = datetime.strptime(st.session_state[mes_foco_key], "%m/%Y")
-    ano_foco = base_dt.year
-    mes_foco = base_dt.month
 
-    # CONTROLES DE ANO
-    col_prev, col_title, col_next = st.columns([1, 6, 1])
-    with col_prev:
-        if st.button("⬅️", key=f"ano_prev_{key_suffix}"):
-            st.session_state[mes_foco_key] = f"{mes_foco:02d}/{ano_foco - 1}"
+    # Lista de nomes de meses
+    meses_nomes = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+
+    # --- UI COMPACTA (1 LINHA) ---
+    col_ano_prev, col_ano, col_mes, col_ano_next = st.columns([0.5, 1.5, 4, 0.5])
+
+    with col_ano_prev:
+        if st.button("⬅️", key=f"prev_a_{key_suffix}", use_container_width=True):
+            novo_ano = base_dt.year - 1
+            st.session_state[mes_foco_key] = f"{base_dt.month:02d}/{novo_ano}"
             st.rerun()
-    with col_title:
-        # CORREÇÃO AQUI: Usando var(--text-color) para garantir contraste
-        st.markdown(
-            f"""<p style='text-align:center; font-weight:bold; margin-bottom:0; color: var(--text-color);'>
-                Ano {ano_foco}
-            </p>""",
-            unsafe_allow_html=True
+
+    with col_ano:
+        # Mostra o ano em destaque
+        st.markdown(f"""
+            <div style='text-align: center; background: rgba(255,255,255,0.05); 
+            border-radius: 8px; padding: 5px; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);'>
+                {base_dt.year}
+            </div>
+        """, unsafe_allow_html=True)
+
+    with col_mes:
+        # O pulo do gato: Um slider ou selectbox minimalista para o mês
+        opcoes_meses = list(range(1, 13))
+        mes_idx = st.select_slider(
+            label="Mês",
+            options=opcoes_meses,
+            value=base_dt.month,
+            format_func=lambda x: meses_nomes[x - 1],
+            label_visibility="collapsed",
+            key=f"slider_{key_suffix}"
         )
-    with col_next:
-        if st.button("➡️", key=f"ano_next_{key_suffix}"):
-            st.session_state[mes_foco_key] = f"{mes_foco:02d}/{ano_foco + 1}"
+        if mes_idx != base_dt.month:
+            st.session_state[mes_foco_key] = f"{mes_idx:02d}/{base_dt.year}"
             st.rerun()
 
-    # GRID DE MESES
-    meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-    for i in range(0, 12, 6):
-        cols = st.columns(6)
-        for idx, nome in enumerate(meses[i:i+6]):
-            num = i + idx + 1
-            ativo = (num == mes_foco)
-            with cols[idx]:
-                # O botão primário usa a cor do tema, o secundário agora será forçado no CSS
-                if st.button(nome, key=f"btn_{num}_{key_suffix}", use_container_width=True,
-                             type="primary" if ativo else "secondary"):
-                    st.session_state[mes_foco_key] = f"{num:02d}/{ano_foco}"
-                    st.rerun()
+    with col_ano_next:
+        if st.button("➡️", key=f"next_a_{key_suffix}", use_container_width=True):
+            novo_ano = base_dt.year + 1
+            st.session_state[mes_foco_key] = f"{base_dt.month:02d}/{novo_ano}"
+            st.rerun()
 
     return st.session_state[mes_foco_key]

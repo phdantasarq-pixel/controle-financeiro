@@ -41,15 +41,44 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# =====================================================
+# CONFIGURAÇÃO PlanejAI (CSS Ajustado para Botões Menores)
+# =====================================================
 st.markdown("""
 <style>
     [data-testid="stSidebarNav"] {display: none;}
     #MainMenu, footer { visibility: hidden; }
     [data-testid="stHeader"] { background: rgba(0,0,0,0) !important; color: inherit !important; }
-    .block-container { padding-top: 2rem; }
+    .block-container { padding-top: 1rem; }
+
+    /* AJUSTE DOS BOTÕES DO MENU: Menores e mais compactos */
     [data-testid="stSidebarContent"] .stButton button {
-        width: 100%; border-radius: 10px; height: 3.2em; text-align: left;
-        padding-left: 15px; margin-bottom: 8px; display: flex; align-items: center;
+        width: 100%; 
+        border-radius: 8px; 
+        height: 2.4em; /* Altura reduzida */
+        text-align: left;
+        padding-left: 12px; 
+        margin-bottom: 4px; /* Espaçamento entre botões reduzido */
+        display: flex; 
+        align-items: center;
+        font-size: 0.9rem; /* Fonte levemente menor */
+    }
+
+    /* Reduzir o espaço do topo da sidebar */
+    [data-testid="stSidebarContent"] {
+        padding-top: 0rem !important;
+    }
+    
+    /* Remove o espaço excessivo acima do slider e centraliza componentes */
+    .stSelectSlider {
+        padding-top: 0px !important;
+        margin-top: -5px !important;
+    }
+
+    /* Deixa a linha divisória da sidebar mais sutil */
+    hr {
+        margin: 1em 0 !important;
+        opacity: 0.1 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -83,29 +112,60 @@ else:
     saldo_disponivel, pendente_pagar, pendente_receber = saldo_atual_contas, 0.0, 0.0
 
 # =====================================================
-# 3. SIDEBAR (MENU)
+# 3. SIDEBAR (MENU) - Logo Ajustada
 # =====================================================
 with st.sidebar:
     tema_atual = st.session_state.get("tema", "padrão")
     logo_path = "assets/logo_light.png" if tema_atual == "padrão" else "assets/logo_dark.png"
+
     if os.path.exists(logo_path):
-        st.image(logo_path, use_container_width=True)
+        # Logo centralizada com 180px (equilíbrio entre o pequeno e o grande)
+        st.markdown("<div style='text-align: center; padding-bottom: 10px;'>", unsafe_allow_html=True)
+        st.image(logo_path, width=180)
+        st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.title("💎 PlanejAI")
 
-    st.write("---")
+    # Botões do Menu (Agora mais compactos pelo CSS acima)
     if st.button("📈 Resumo Mensal"): st.session_state.pagina = "Resumo"
+    if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
     if st.button("➕ Gerenciar Lançamentos"): st.session_state.pagina = "Lançamento"
     if st.button("💰 Meus Saldos"): st.session_state.pagina = "Saldos"
-    if st.button("🎯 Inteligência Financeira"): st.session_state.pagina = "Inteligencia_Financeira"
     if st.button("📄 Exportar Relatórios"): st.session_state.pagina = "Exportacao"
     if st.button("🤖 IA Consultora"): st.session_state.pagina = "IA"
     if st.button("⚙️ Configurações"): st.session_state.pagina = "Config"
 
     st.write("---")
+
+    # --- MÉTRICAS DE SALDO ---
     st.metric("Saldo em Contas", f"R$ {saldo_disponivel:,.2f}")
-    if pendente_pagar > 0: st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
-    if pendente_receber > 0: st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
+
+    if pendente_receber > 0:
+        st.caption(f"🟢 **A Receber:** R$ {pendente_receber:,.2f}")
+    if pendente_pagar > 0:
+        st.caption(f"🔴 **A Pagar:** R$ {pendente_pagar:,.2f}")
+
+
+    # --- KPI: MÉDIA DISPONÍVEL MENSAL ---
+    hoje = datetime.now()
+    meses_restantes = 12 - hoje.month + 1
+
+    try:
+        media_disponivel_mes = (pendente_receber - pendente_pagar) / meses_restantes
+    except ZeroDivisionError:
+        media_disponivel_mes = 0
+
+    if media_disponivel_mes != 0:
+        st.write("")
+        cor_kpi = "💰" if media_disponivel_mes > 0 else "⚠️"
+        st.caption(f"{cor_kpi} **Média disponível mensal:**")
+        st.markdown(f"**R$ {media_disponivel_mes:,.2f}** <small>/ mês</small>", unsafe_allow_html=True)
+
+        # DESCRIÇÃO ORIGINAL RESTAURADA
+        with st.expander("ℹ️ Info Cálculo"):
+            st.write(
+                f"Projeção baseada em (A Receber - A Pagar) = R$ {pendente_receber - pendente_pagar:,.2f} divididos pelos {meses_restantes} meses restantes de {hoje.year}."
+            )
 
 # =====================================================
 # 4. ROTEAMENTO
@@ -117,6 +177,13 @@ if '_id' in df_display.columns:
 if st.session_state.pagina == "Resumo":
     resumo_mensal_page(df_display)
 
+elif st.session_state.pagina == "Inteligencia_Financeira":
+    # 1. Carregamos os saldos reais do banco antes de chamar a página
+    df_saldos_reais = Database.carregar_saldos()
+
+    # 2. Passamos os dois DataFrames para a função
+    analise_categorias_page(df_display, df_saldos_reais)
+
 elif st.session_state.pagina == "Lançamento":
     lancamentos_page(st.session_state.df)
 
@@ -125,11 +192,12 @@ elif st.session_state.pagina == "Saldos":
 
     saldos_page()
 
-elif st.session_state.pagina == "Inteligencia_Financeira":
-    analise_categorias_page(df_display)
-
 elif st.session_state.pagina == "Exportacao":
-    exportacao_page(df_display)
+    try:
+        from ui.exportacao_page import exportacao_page
+        exportacao_page(df_display)
+    except Exception as e:
+        st.error(f"Erro ao carregar a página de exportação: {e}")
 
 elif st.session_state.pagina == "IA":
     from ui.ia_page import ia_page
