@@ -68,6 +68,18 @@ st.markdown("""
     [data-testid="stSidebarContent"] {
         padding-top: 0rem !important;
     }
+    
+    /* Remove o espaço excessivo acima do slider e centraliza componentes */
+    .stSelectSlider {
+        padding-top: 0px !important;
+        margin-top: -5px !important;
+    }
+
+    /* Deixa a linha divisória da sidebar mais sutil */
+    hr {
+        margin: 1em 0 !important;
+        opacity: 0.1 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
