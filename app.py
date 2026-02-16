@@ -88,12 +88,23 @@ else:
     if 'theme_manager' not in st.session_state:
         st.session_state.theme_manager = ThemeManager()
 
+    # --- GARANTIA DE TEMA PARA NOVOS USUÁRIOS ---
     if 'theme_colors' not in st.session_state:
-        cores_salvas = Database.carregar_preferencias()
-        if cores_salvas:
-            st.session_state.theme_colors = cores_salvas
-        else:
+        # 1. Tenta carregar do banco
+        cores_do_banco = Database.carregar_preferencias()
+
+        # 2. Se o banco estiver vazio (Novo Usuário), define o Luxury como padrão
+        if not cores_do_banco:
+            # Padrão Luxury: Ciano, Texto Branco, Fundo Preto, Sidebar Dark
             st.session_state.theme_colors = ("#4facfe", "#FFFFFF", "#050608", "#0d1b2a")
+            # Salva para que o novo usuário já tenha isso registrado
+            Database.salvar_preferencias(st.session_state.theme_colors)
+        else:
+            st.session_state.theme_colors = cores_do_banco
+
+    # 3. INJEÇÃO IMEDIATA DO CSS (Evita o "flash" branco)
+    if 'theme_manager' not in st.session_state:
+        st.session_state.theme_manager = ThemeManager()
 
     st.markdown(
         st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
