@@ -148,6 +148,9 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
                     if user_data and user_data.get("senha") == senha_input:
                         st.session_state.authenticated = True
                         st.session_state.user_id = str(user_data.get("_id"))
+                        # FORÇA a limpeza e recarga dos dados do NOVO usuário
+                        st.session_state.df = Database.carregar_dados()
+
                         st.session_state.user_name = user_data.get("nome", "Usuário")
 
                         # --- CORREÇÃO DO ERRO ---

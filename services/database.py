@@ -14,6 +14,16 @@ Responsável por:
 """
 
 class Database:
+
+    # 1. Mudança para garantir que a conexão seja recuperada corretamente
+    _db = None
+
+    @classmethod
+    def get_db(cls):
+        if cls._db is None:
+            cls._db = cls.conectar()
+        return cls._db
+
     @staticmethod
     def conectar():
         """Estabelece a conexão exclusivamente com o MongoDB ATLAS (Nuvem)."""
@@ -42,37 +52,37 @@ class Database:
 
     @staticmethod
     def carregar_dados():
-        """Carrega os lançamentos filtrados pelo usuário logado e garante a tipagem correta."""
-        if Database.db is None: return pd.DataFrame()
+        """Carrega os lançamentos filtrados estritamente pelo usuário logado."""
+        db = Database.get_db()
+        if db is None: return pd.DataFrame()
 
+        # RECOLETA O USER_ID A CADA CHAMADA
         user_id = st.session_state.get('user_id')
+
+        # BLOQUEIO: Se não tem user_id, retorna vazio. Jamais busca sem filtro.
         if not user_id:
             return pd.DataFrame(
-                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao", "status"]
-            )
+                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
+                         "status"])
 
-        colecao = Database.db["lancamentos"]
-        query = {"user_id": user_id}
-        dados = list(colecao.find(query))
+        colecao = db["lancamentos"]
+
+        # FILTRO CRÍTICO: O user_id é obrigatório na query
+        dados = list(colecao.find({"user_id": user_id}))
 
         if not dados:
             return pd.DataFrame(
-                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao", "status"]
-            )
+                columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
+                         "status"])
 
         df = pd.DataFrame(dados)
 
-        # --- REGRAS DE NEGÓCIO HOMOLOGADAS ---
-        if "status" not in df.columns:
-            df["status"] = "🟡 Pendente"
-        else:
-            df["status"] = df["status"].fillna("🟡 Pendente")
+        # Limpeza de segurança: remove qualquer menção a outros usuários se por acaso o Mongo falhar
+        if "user_id" in df.columns:
+            df = df[df["user_id"] == user_id]
 
-        if "data_vencimento" in df.columns:
-            df["data_vencimento"] = pd.to_datetime(df["data_vencimento"], errors='coerce')
-
-        if 'id' in df.columns:
-            df = df.drop(columns=['id'])
+        # Remove campos internos do Mongo para não expor IDs
+        if "_id" in df.columns: del df["_id"]
 
         return df
 

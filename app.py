@@ -43,14 +43,18 @@ if not cookies.ready():
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
-# --- LÓGICA DE PERSISTÊNCIA (F5) ---
+# --- LÓGICA DE PERSISTÊNCIA (F5) CORRIGIDA ---
 token = cookies.get("auth_token")
-if token == "token_valido_do_ph" and not st.session_state.authenticated:
-    user_data = Database.buscar_usuario("phdantasdesousa@gmail.com")
+# O token deve ser o próprio e-mail ou um ID único, não uma string fixa
+if token and not st.session_state.authenticated:
+    # Aqui o ideal é que o token contenha a informação de QUEM é o usuário
+    user_data = Database.buscar_usuario(token) # Assumindo que o token é o e-mail
     if user_data:
         st.session_state.authenticated = True
         st.session_state.user_id = str(user_data.get("_id"))
         st.session_state.user_name = user_data.get("nome")
+        # Força recarga dos dados para garantir isolamento
+        st.session_state.df = Database.carregar_dados()
         st.rerun()
 
 # =====================================================
@@ -197,6 +201,19 @@ else:
             cor_kpi = "💰" if media_disponivel_mes > 0 else "⚠️"
             st.caption(f"{cor_kpi} **Média disponível mensal:**")
             st.markdown(f"**R$ {media_disponivel_mes:,.2f}** <small>/ mês</small>", unsafe_allow_html=True)
+
+    # =====================================================
+    # 3.5 VERIFICAÇÃO DE INTEGRIDADE (O "SEGURANÇA")
+    # =====================================================
+    if st.session_state.authenticated:
+        if 'df' in st.session_state and not st.session_state.df.empty:
+            if "user_id" in st.session_state.df.columns:
+                dono_dos_dados = str(st.session_state.df["user_id"].iloc[0])
+                usuario_logado = str(st.session_state.user_id)
+
+                if dono_dos_dados != usuario_logado:
+                    st.session_state.df = Database.carregar_dados()
+                    st.rerun()
 
     # =====================================================
     # 4. ROTEAMENTO DE PÁGINAS
