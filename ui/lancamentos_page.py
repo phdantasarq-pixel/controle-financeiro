@@ -243,7 +243,14 @@ def lancamentos_page(df_atual):
                     st.rerun()
 
             if tipo == "Despesa":
-                df_ia = df_tipo[df_tipo['detalhes'].notna() & (df_tipo['detalhes'] != "")]
+                # Filtra apenas lançamentos que possuem detalhes da IA
+                # No ui/lancamentos_page.py, procure a linha do filtro df_ia:
+                df_ia = df_tipo[
+                    df_tipo['detalhes'].notna() &
+                    df_tipo['detalhes'].astype(str).str.startswith('[') &
+                    (df_tipo['detalhes'].astype(str) != "[]")
+                    ]
+
                 if not df_ia.empty:
                     st.write("")
                     st.markdown('### 🔍 Detalhamento de Itens das Faturas (IA)')
@@ -253,12 +260,33 @@ def lancamentos_page(df_atual):
 
                     for i, (idx_orig, row_f) in enumerate(df_ia.iterrows()):
                         with abas_faturas[i]:
+                            # Recupera o dado e garante que não seja nulo
                             dado_atual = st.session_state.df.at[idx_orig, "detalhes"]
-                            df_itens_ia = pd.DataFrame(
-                                json.loads(dado_atual) if isinstance(dado_atual, str) else dado_atual).fillna("")
+
+                            # --- BLOCO DE SEGURANÇA CONTRA ERRO SCALAR ---
+                            try:
+                                if isinstance(dado_atual, str):
+                                    dados_json = json.loads(dado_atual)
+                                else:
+                                    dados_json = dado_atual
+
+                                # Se não for uma lista (ex: for um texto solto ou número), força lista vazia
+                                if not isinstance(dados_json, list):
+                                    dados_json = []
+                            except:
+                                dados_json = []
+
+                            # Só cria o DataFrame se houver itens
+                            if dados_json:
+                                df_itens_ia = pd.DataFrame(dados_json).fillna("")
+                            else:
+                                df_itens_ia = pd.DataFrame(columns=["descricao", "valor", "categoria", "natureza"])
+                            # ---------------------------------------------
 
                             ed_ia = st.data_editor(
-                                df_itens_ia, hide_index=True, use_container_width=True,
+                                df_itens_ia,
+                                hide_index=True,
+                                use_container_width=True,
                                 key=f"ed_ia_{idx_orig}",
                                 column_config={
                                     "descricao": st.column_config.TextColumn("Descrição", disabled=True),
