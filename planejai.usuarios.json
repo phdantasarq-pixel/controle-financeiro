@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "699231aa77ef12d875178868"
+  },
+  "nome": "pH",
+  "email": "phdantasdesousa@gmail.com",
+  "senha": "Ph818324@",
+  "data_cadastro": {
+    "$date": "2026-02-15T17:50:50.047Z"
+  },
+  "preferencias": {
+    "tema": "Luxury",
+    "cores": [
+      "#4facfe",
+      "#FFFFFF",
+      "#050608",
+      "#0d1b2a"
+    ]
+  }
+}]
