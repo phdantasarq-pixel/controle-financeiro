@@ -3,6 +3,7 @@ import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
 import re
+from bson import ObjectId
 import sys
 
 """
@@ -52,14 +53,12 @@ class Database:
 
     @staticmethod
     def carregar_dados():
-        """Carrega os lançamentos filtrados estritamente pelo usuário logado."""
+        """Carrega os lançamentos filtrados estritamente pelo usuário logado (String ou ObjectId)."""
         db = Database.get_db()
         if db is None: return pd.DataFrame()
 
-        # RECOLETA O USER_ID A CADA CHAMADA
         user_id = st.session_state.get('user_id')
 
-        # BLOQUEIO: Se não tem user_id, retorna vazio. Jamais busca sem filtro.
         if not user_id:
             return pd.DataFrame(
                 columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
@@ -67,8 +66,16 @@ class Database:
 
         colecao = db["lancamentos"]
 
-        # FILTRO CRÍTICO: O user_id é obrigatório na query
-        dados = list(colecao.find({"user_id": user_id}))
+        # --- AJUSTE CRÍTICO: FILTRO HÍBRIDO ---
+        # Isso garante que ele ache os dados se o ID estiver como String OU como ObjectId no Atlas
+        query = {
+            "$or": [
+                {"user_id": user_id},
+                {"user_id": ObjectId(user_id) if ObjectId.is_valid(user_id) else user_id}
+            ]
+        }
+
+        dados = list(colecao.find(query))
 
         if not dados:
             return pd.DataFrame(
@@ -77,11 +84,14 @@ class Database:
 
         df = pd.DataFrame(dados)
 
-        # Limpeza de segurança: remove qualquer menção a outros usuários se por acaso o Mongo falhar
+        # Limpeza de segurança: ajustada para o filtro híbrido
         if "user_id" in df.columns:
-            df = df[df["user_id"] == user_id]
+            # Converte a coluna para string para facilitar a comparação de segurança
+            df["user_id_str"] = df["user_id"].apply(lambda x: str(x))
+            df = df[df["user_id_str"] == str(user_id)]
+            del df["user_id_str"]
 
-        # Remove campos internos do Mongo para não expor IDs
+        # Remove campos internos do Mongo
         if "_id" in df.columns: del df["_id"]
 
         return df
