@@ -34,6 +34,19 @@ except ImportError:
 # =====================================================
 st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 
+# Injeção de PWA
+pwa_html = """
+    <link rel="manifest" href="/static/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/static/service-worker.js');
+          });
+        }
+    </script>
+"""
+st.markdown(pwa_html, unsafe_allow_html=True)
+
 # Inicializa o gerenciador de cookies
 cookies = CookieManager()
 if not cookies.ready():
