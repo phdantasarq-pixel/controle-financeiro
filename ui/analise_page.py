@@ -215,9 +215,16 @@ def analise_categorias_page(df, df_saldos=None):
     # --- 3. SAÚDE DO FLUXO DE CAIXA ---
     st.subheader("🕒 Dinâmica de Pagamentos")
     despesas_contexto = df_mes[df_mes['tipo'] == "Despesa"].copy()
+    # Substitua a sua mask_atrasado por esta:
     mask_pago = despesas_contexto['status'].str.contains('Concluído|Pago|🟢', case=False, na=False)
+
+    # Considera atrasado APENAS se:
+    # 1. O status explicitamente contiver "Atrasado"
+    # 2. OU se a data for menor que hoje E o status NÃO for Pago E NÃO for Pendente (ajustado)
     mask_atrasado = (despesas_contexto['status'].str.contains('Atrasado|Vencido|🔴', case=False, na=False)) | \
-                    ((despesas_contexto['data_vencimento'] < hoje) & (~mask_pago))
+                    ((despesas_contexto['data_vencimento'] < hoje) & (~mask_pago) & (
+                        despesas_contexto['status'].str.contains('Atrasado')))
+
 
     pago = despesas_contexto[mask_pago]['valor'].sum()
     atrasado = despesas_contexto[mask_atrasado]['valor'].sum()
