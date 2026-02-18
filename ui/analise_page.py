@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import calendar
 from datetime import datetime
+from services.database import Database
 from domain.analise import (
     calcular_pareto_categorias,
     gerar_grafico_pareto
@@ -51,7 +52,10 @@ def processar_dados_detalhados(df_original):
     return df_analise
 
 
-def analise_categorias_page(df, df_saldos=None):
+def analise_categorias_page(df_ignorar, df_saldos=None):
+
+    df = Database.carregar_dados()
+
     # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
     st.markdown("""
     <style>
@@ -212,22 +216,21 @@ def analise_categorias_page(df, df_saldos=None):
     st.progress(max(0.0, min(eficiencia / 100, 1.0)))
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # --- 3. SAÚDE DO FLUXO DE CAIXA ---
+    # --- 3. SAÚDE DO FLUXO DE CAIXA (Versão Blindada) ---
     st.subheader("🕒 Dinâmica de Pagamentos")
     despesas_contexto = df_mes[df_mes['tipo'] == "Despesa"].copy()
-    # Substitua a sua mask_atrasado por esta:
+
+    # 1. Tudo que NÃO tem a bolinha verde ou "Pago" é considerado "Não Liquidado"
     mask_pago = despesas_contexto['status'].str.contains('Concluído|Pago|🟢', case=False, na=False)
 
-    # Considera atrasado APENAS se:
-    # 1. O status explicitamente contiver "Atrasado"
-    # 2. OU se a data for menor que hoje E o status NÃO for Pago E NÃO for Pendente (ajustado)
-    mask_atrasado = (despesas_contexto['status'].str.contains('Atrasado|Vencido|🔴', case=False, na=False)) | \
-                    ((despesas_contexto['data_vencimento'] < hoje) & (~mask_pago) & (
-                        despesas_contexto['status'].str.contains('Atrasado')))
-
+    # 2. ATRASADO é tudo que: (Não está pago) E (Data de vencimento é menor que hoje)
+    # Note que aqui não dependemos mais de texto "🔴" ou "Atrasado", apenas da data!
+    mask_atrasado = (~mask_pago) & (despesas_contexto['data_vencimento'] < hoje)
 
     pago = despesas_contexto[mask_pago]['valor'].sum()
     atrasado = despesas_contexto[mask_atrasado]['valor'].sum()
+
+    # Pendente é o que vence HOJE ou no FUTURO e não está pago
     pendente = despesa_total_mes - pago - atrasado
 
     st.markdown(f"""
