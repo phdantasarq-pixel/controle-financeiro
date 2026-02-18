@@ -1,0 +1,21 @@
+{
+  "name": "PlanejAI - Inteligência Financeira",
+  "short_name": "PlanejAI",
+  "description": "Gestão financeira com Inteligência Artificial",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050608",
+  "theme_color": "#4facfe",
+  "icons": [
+    {
+      "src": "logo_planejai_app.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo_planejai_app.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
