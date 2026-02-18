@@ -37,6 +37,9 @@ st.set_page_config(page_title="PlanejAI", page_icon="💎", layout="wide")
 # Injeção de PWA
 pwa_html = """
     <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/phdantasarq-pixel/controle-financeiro/develop/static/logo_planejai_app.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
