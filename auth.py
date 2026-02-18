@@ -118,12 +118,12 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
                 <p style="font-size: 1.3rem; color: #FFFFFF; font-weight: 400; margin-top: 10px; margin-bottom: 30px; opacity: 0.9;">
                     Sua liberdade projetada por IA.
                 </p>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Saldo Projetado:</b>&nbsp; Controle do amanhã.</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Análise de Padrões:</b>&nbsp; IA em tempo real.</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>WhatsApp Sync:</b>&nbsp; Comandos por voz/texto.</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>IA de Faturas:</b>&nbsp; Insights de economia real.</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Metas Inteligentes:</b>&nbsp; Simulação de aportes.</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Consultoria:</b>&nbsp; Estratégias personalizadas.</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>Saldo Projetado</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>Análise de Padrões</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>WhatsApp Sync</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>IA de Faturas</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>Metas Inteligentes</div>
+                <div class="feature-line">●&nbsp;&nbsp;<b>Consultoria Inteligente</div>
             </div>
         """, unsafe_allow_html=True)
 

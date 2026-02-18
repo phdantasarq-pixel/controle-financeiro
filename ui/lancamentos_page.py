@@ -92,16 +92,39 @@ def lancamentos_page(df_atual):
                 if not descricao or valor <= 0:
                     st.error("Preencha descrição e valor.")
                 else:
+                    # 1. Preparação do dado
                     novo_dado = pd.DataFrame([{
                         "data_vencimento": pd.to_datetime(data_base),
                         "data_registro": datetime.now().strftime('%Y-%m-%d'),
-                        "tipo": tipo_manual, "natureza": natureza, "valor": round(float(valor), 2),
-                        "categoria": categoria, "descricao": descricao,
-                        "status": "🟡 Pendente", "detalhes": None, "parcela": parcela_input
+                        "tipo": tipo_manual,
+                        "natureza": natureza,
+                        "valor": round(float(valor), 2),
+                        "categoria": categoria,
+                        "descricao": descricao,
+                        "status": "🟡 Pendente",
+                        "detalhes": None,
+                        "parcela": parcela_input
                     }])
+
+                    # 2. Atualização do estado local
                     st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
+
+                    # 3. Persistência no MongoDB Atlas (Nuvem)
                     Database.salvar_dados(st.session_state.df)
-                    st.toast("Sucesso!", icon="✅")
+
+                    # --- CORREÇÃO DO BUG DE ATUALIZAÇÃO ---
+                    # 4. Limpamos qualquer cache de análise que a página de Inteligência Financeira utilize
+                    # Se você usa alguma chave específica no session_state para os gráficos, limpe-a aqui.
+                    if 'dados_detalhados' in st.session_state:
+                        del st.session_state.dados_detalhados
+
+                    # 5. Incrementamos a versão do formulário (Para limpar os campos de input da tela)
+                    st.session_state.form_version += 1
+
+                    st.toast("Lançamento salvo com sucesso!", icon="✅")
+
+                    # 6. O rerun agora vai recarregar o Database.carregar_dados()
+                    # com os novos valores de data e status, limpando o card de "Atrasados".
                     st.rerun()
 
     with tab_ia:
