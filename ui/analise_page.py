@@ -53,7 +53,6 @@ def processar_dados_detalhados(df_original):
 
 
 def analise_categorias_page(df_ignorar, df_saldos=None):
-
     df = Database.carregar_dados()
 
     # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
@@ -208,13 +207,15 @@ def analise_categorias_page(df_ignorar, df_saldos=None):
         <div class="card-modern bg-dark">
             <div class="label-modern">Eficiência ({mes_selecionado})</div>
             <div class="value-modern">{eficiencia:.1f}%</div>
-            <div class="sub-value-modern">Meta: < 70%</div>
+            <div class="sub-value-modern">Meta: &lt; 70%</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     st.progress(max(0.0, min(eficiencia / 100, 1.0)))
-    st.markdown("<br>", unsafe_allow_html=True)
+
+    # 🔴 Correção da tag solta que confunde o DOM do React
+    st.write("")
 
     # --- 3. SAÚDE DO FLUXO DE CAIXA (Versão Blindada) ---
     st.subheader("🕒 Dinâmica de Pagamentos")
