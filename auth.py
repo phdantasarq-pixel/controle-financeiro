@@ -2,7 +2,7 @@ import streamlit as st
 from services.database import Database
 
 
-def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
+def login_page(cookies_manager):  # <--- ADICIONE O ARGUMENTO AQUI
 
     # --- CSS: MANTIDO INTEGRALMENTE (Luxury Space) ---
     st.markdown("""
@@ -19,42 +19,11 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
 
         .block-container { padding-top: 2rem !important; }
 
-        .mkt-box {
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 480px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .title-hero {
-            font-size: 4.2rem;
-            font-weight: 900;
-            color: #FFFFFF !important;
-            letter-spacing: -2px;
-            margin: 0;
-            line-height: 1;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.5), 0 0 10px rgba(79, 172, 254, 0.4);
-        }
-
-        .feature-line {
-            color: #f0f0f0;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-
         .stTextInput > div > div > input {
             background-color: #FFFFFF !important;
             color: #000000 !important;
             border: 2px solid #4facfe !important;
-            border-radius: 8px !important; /* Ajustado de 0 para 8 para combinar com o sistema */
+            border-radius: 8px !important;
             height: 3.2rem !important;
         }
 
@@ -64,9 +33,9 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
             border: none !important;
             color: #000 !important;
             font-weight: 800 !important;
-            height: 3.8rem !important; /* Um pouco mais alto para destaque */
-            width: 100% !important;    /* Força a largura total */
-            display: block !important;  /* Garante que ele se comporte como bloco */
+            height: 3.8rem !important;
+            width: 100% !important;
+            display: block !important;
             border-radius: 12px !important;
             margin-top: 20px !important;
             font-size: 1.1rem !important;
@@ -86,8 +55,9 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 12px;
             height: 3rem;
+            width: 100% !important;
         }
-        
+
         /* Transforma o botão de navegação em um link fake elegante */
         div[data-testid="stColumn"] > div > div > div > button:not([kind="primary"]) {
             background-color: transparent !important;
@@ -97,45 +67,56 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
             font-size: 0.9rem !important;
             height: auto !important;
             padding: 0 !important;
+            box-shadow: none !important;
         }
-        
+
         div[data-testid="stColumn"] > div > div > div > button:hover {
             text-decoration: underline !important;
             background-color: transparent !important;
         }
+
+        /* Estiliza o container central para parecer um card moderno (Glassmorphism) */
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            background: rgba(0, 0, 0, 0.35) !important;
+            backdrop-filter: blur(20px) !important;
+            border-radius: 24px !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 25px !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 
-    col_esp, col_mkt, col_login, col_esp2 = st.columns([0.4, 1.8, 1.2, 0.4])
+    # Layout de 3 colunas (Centraliza no desktop e força 100% no mobile)
+    col_left, col_center, col_right = st.columns([1, 1.5, 1])
 
-    with col_mkt:
-        st.markdown(f"""
-            <div class="mkt-box">
-                <div style="font-size: 0.85rem; color: #4facfe; letter-spacing: 5px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">
-                    Sistema de Inteligência Financeira
-                </div>
-                <h1 class="title-hero">PlanejAI</h1>
-                <p style="font-size: 1.3rem; color: #FFFFFF; font-weight: 400; margin-top: 10px; margin-bottom: 30px; opacity: 0.9;">
-                    Sua liberdade projetada por IA.
-                </p>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Saldo Projetado</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Análise de Padrões</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>WhatsApp Sync</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>IA de Faturas</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Metas Inteligentes</div>
-                <div class="feature-line">●&nbsp;&nbsp;<b>Consultoria Inteligente</div>
-            </div>
-        """, unsafe_allow_html=True)
+    with col_center:
+        # Espaçador superior para não ficar colado no topo
+        st.markdown("<div style='margin-top: 6vh;'></div>", unsafe_allow_html=True)
 
-    with col_login:
-        st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+        # Quadrado principal único
         with st.container(border=True):
-            st.markdown("<h2 style='color:#FFFFFF; margin-bottom:5px; font-weight:800;'>Acesso</h2>",
+
+            # Título do App dentro do Card
+            st.markdown("""
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 0.75rem; color: #4facfe; letter-spacing: 4px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;">
+                        Sistema de Inteligência Financeira
+                    </div>
+                    <h1 style="font-size: 3rem; font-weight: 900; color: #FFFFFF; margin: 0; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.5), 0 0 10px rgba(79, 172, 254, 0.4);">
+                        PlanejAI
+                    </h1>
+                </div>
+            """, unsafe_allow_html=True)
+
+            # Cabeçalho de Acesso
+            st.markdown("<h2 style='color:#FFFFFF; margin-bottom:5px; font-weight:800; text-align:center;'>Acesso</h2>",
                         unsafe_allow_html=True)
             st.markdown(
-                "<p style='color:#cccccc; font-size:0.95rem; margin-bottom:20px;'>Entre na nova era financeira.</p>",
+                "<p style='color:#cccccc; font-size:0.95rem; margin-bottom:20px; text-align:center;'>Entre na nova era financeira.</p>",
                 unsafe_allow_html=True)
 
+            # Campos de Entrada
             email_input = st.text_input("Identificação", placeholder="seu@email.com", key="login_user")
             senha_input = st.text_input("Senha", type="password", placeholder="••••••••", key="login_pass")
 
@@ -163,17 +144,14 @@ def login_page(cookies_manager): # <--- ADICIONE O ARGUMENTO AQUI
                     else:
                         st.error("Credenciais inválidas.")
 
-            # --- BOTÃO GOOGLE ---
-            st.button("Continuar com Google", use_container_width=True, key="google_login")
+                        # --- BOTÃO GOOGLE ---
+                        st.button("Continuar com Google", use_container_width=True, key="google_login")
 
-            # --- RODAPÉ COM NAVEGAÇÃO PARA CADASTRO ---
-            st.markdown("<div style='text-align: center; margin-top: 15px;'>", unsafe_allow_html=True)
+                        # --- RODAPÉ COM NAVEGAÇÃO PARA CADASTRO ---
+                        st.write("")  # Dá um pequeno espaço visual
 
-            # Usamos colunas pequenas para centralizar o texto e o botão de "Cadastre-se"
-            c1, c2, c3 = st.columns([1, 2, 1])
-            with c2:
-                if st.button("Ainda não tem conta? Cadastre-se", key="go_to_signup"):
-                    st.session_state.auth_mode = "signup"
-                    st.rerun()
-
-            st.markdown("</div>", unsafe_allow_html=True)
+                        c1, c2, c3 = st.columns([0.5, 2, 0.5])
+                        with c2:
+                            if st.button("Ainda não tem conta? Cadastre-se", key="go_to_signup"):
+                                st.session_state.auth_mode = "signup"
+                                st.rerun()
