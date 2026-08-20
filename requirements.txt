@@ -1,4 +1,4 @@
-streamlit
+streamlit==1.32.0
 pandas
 plotly
 pymongo
@@ -7,3 +7,4 @@ xlsxwriter
 fpdf2
 matplotlib
 streamlit-cookies-manager
+
