@@ -44,6 +44,30 @@ def lancamentos_page(df_atual):
                 border-radius: 14px; padding: 18px;
                 border: 1px solid rgba(56, 189, 248, 0.25); margin: 12px 0;
             }
+
+            /* Estilo dos Cartões Mobile de Lançamentos */
+            .item-card {
+                background: #151d2e;
+                border-radius: 14px;
+                padding: 14px 18px;
+                margin-bottom: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            }
+            .item-card-ok { border-left: 5px solid #22c55e; }
+            .item-card-pendente { border-left: 5px solid #eab308; }
+            .item-card-atrasado { border-left: 5px solid #ef4444; }
+
+            .item-badge {
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 3px 8px;
+                border-radius: 6px;
+                display: inline-block;
+                margin-right: 6px;
+            }
+            .badge-cat { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+            .badge-nat { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; }
         </style>
 
         <div class="main-header">
@@ -96,7 +120,6 @@ def lancamentos_page(df_atual):
                 if not descricao or valor <= 0:
                     st.error("Preencha descrição e valor.")
                 else:
-                    # 1. Preparação do dado
                     novo_dado = pd.DataFrame([{
                         "data_vencimento": pd.to_datetime(data_base),
                         "data_registro": datetime.now().strftime('%Y-%m-%d'),
@@ -110,10 +133,7 @@ def lancamentos_page(df_atual):
                         "parcela": parcela_input
                     }])
 
-                    # 2. Atualização do estado local
                     st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
-
-                    # 3. Persistência no MongoDB Atlas (Nuvem)
                     Database.salvar_dados(st.session_state.df)
 
                     if 'dados_detalhados' in st.session_state:
@@ -209,6 +229,19 @@ def lancamentos_page(df_atual):
     df_mes = df_temp[mask].copy()
     hoje_pd = pd.Timestamp(datetime.now().date())
 
+    # --- SELETOR DE MODO DE EXIBIÇÃO (HÍBRIDO MOBILE/DESKTOP) ---
+    col_titulo_tab, col_modo = st.columns([1.5, 1])
+    with col_titulo_tab:
+        st.subheader("📋 Meus Lançamentos")
+    with col_modo:
+        modo_visao = st.radio(
+            "Modo de Exibição",
+            ["📱 Cartões (Mobile)", "📊 Tabela Clássica"],
+            horizontal=True,
+            label_visibility="collapsed",
+            key="modo_visao_lancamentos"
+        )
+
     tab_despesas, tab_receitas = st.tabs(["💸 Despesas", "💰 Receitas"])
 
     for aba_tipo, tipo in zip([tab_despesas, tab_receitas], ["Despesa", "Receita"]):
@@ -222,43 +255,139 @@ def lancamentos_page(df_atual):
                 "🔴 Atrasado" if pd.notnull(r["data_vencimento"]) and r["data_vencimento"] < hoje_pd else "🟡 Pendente"),
                                                 axis=1)
             df_tipo["original_index"] = df_tipo.index
-            df_tipo["🗑️"] = False
 
-            with st.form(key=f"form_v8_{tipo}"):
-                df_editado = st.data_editor(
-                    df_tipo[["Situacao", "data_vencimento", "descricao", "natureza", "categoria", "valor", "🗑️",
-                             "original_index"]].fillna(""),
-                    hide_index=True, use_container_width=True,
-                    column_config={
-                        "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente",
-                                                                                        "🔴 Atrasado"]),
-                        "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
-                        "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA),
-                        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
-                        "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS),
-                        "🗑️": st.column_config.CheckboxColumn("🗑️", default=False),
-                        "original_index": None
-                    },
-                    key=f"editor_{tipo}"
-                )
+            # --- MODO 1: CARTÕES INTERATIVOS (MOBILE FRIENDLY) ---
+            if modo_visao == "📱 Cartões (Mobile)":
+                cor_valor = "#f87171" if tipo == "Despesa" else "#4ade80"
+                sinal = "-" if tipo == "Despesa" else "+"
 
-                salvar = st.form_submit_button("💾 Salvar Alterações na Lista", use_container_width=True, type="primary")
+                # Busca rápida para filtrar itens
+                col_busca, col_filtro = st.columns([1.8, 1.2])
+                with col_busca:
+                    busca = st.text_input("🔍 Buscar", placeholder="Ex: Mercado, Aluguel...", key=f"busca_{tipo}")
+                with col_filtro:
+                    status_filtro = st.selectbox("Status", ["Todos", "🟢 Concluído", "🟡 Pendente", "🔴 Atrasado"], key=f"filtro_{tipo}")
 
-                if salvar:
-                    itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
-                    if itens_excluir:
-                        st.session_state.df = st.session_state.df.drop(itens_excluir)
+                df_cards = df_tipo.copy()
+                if busca:
+                    df_cards = df_cards[df_cards['descricao'].str.contains(busca, case=False, na=False) |
+                                        df_cards['categoria'].str.contains(busca, case=False, na=False)]
+                if status_filtro != "Todos":
+                    df_cards = df_cards[df_cards['Situacao'] == status_filtro]
 
-                    for _, row in df_editado.iterrows():
+                if df_cards.empty:
+                    st.info("Nenhum lançamento encontrado com os filtros aplicados.")
+                else:
+                    for _, row in df_cards.iterrows():
                         idx = row["original_index"]
-                        if idx not in itens_excluir:
-                            st.session_state.df.loc[
-                                idx, ["status", "data_vencimento", "descricao", "natureza", "categoria", "valor"]] = \
-                                [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["descricao"],
-                                 row["natureza"], row["categoria"], row["valor"]]
+                        sit = row["Situacao"]
+                        classe_borda = "item-card-ok" if "🟢" in sit else ("item-card-atrasado" if "🔴" in sit else "item-card-pendente")
+                        dt_formatada = row["data_vencimento"].strftime('%d/%m/%Y') if pd.notnull(row["data_vencimento"]) else "Sem data"
+                        parcela_str = f" • Parcela {row['parcela']}" if pd.notnull(row.get('parcela')) and row.get('parcela') != "" else ""
 
-                    Database.salvar_dados(st.session_state.df)
-                    st.rerun()
+                        # Card Visual
+                        st.markdown(f"""
+                            <div class="item-card {classe_borda}">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                                    <div>
+                                        <span class="item-badge badge-cat">{row['categoria']}</span>
+                                        <span class="item-badge badge-nat">{row['natureza']}</span>
+                                    </div>
+                                    <div style="font-size: 1.15rem; font-weight: 800; color: {cor_valor};">
+                                        {sinal} R$ {row['valor']:,.2f}
+                                    </div>
+                                </div>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 4px;">
+                                    {row['descricao']}
+                                </div>
+                                <div style="font-size: 0.8rem; color: #94a3b8;">
+                                    📅 Vencimento: {dt_formatada} {parcela_str} | <b>{sit}</b>
+                                </div>
+                            </div>
+                        """, unsafe_allow_html=True)
+
+                        # Ações Rápidas do Cartão
+                        c_acao1, c_acao2, c_acao3 = st.columns([1.5, 1.2, 1])
+
+                        # 1. Toggle rápido de status (Concluir / Reabrir)
+                        with c_acao1:
+                            if "🟢" in sit:
+                                if st.button("⏳ Reabrir", key=f"btn_reabrir_{idx}", use_container_width=True):
+                                    st.session_state.df.loc[idx, "status"] = "🟡 Pendente"
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.rerun()
+                            else:
+                                if st.button("✅ Concluir", key=f"btn_concluir_{idx}", type="primary", use_container_width=True):
+                                    st.session_state.df.loc[idx, "status"] = "🟢 Concluído"
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.rerun()
+
+                        # 2. Edição rápida expansível
+                        with c_acao2:
+                            with st.popover("✏️ Editar", use_container_width=True):
+                                st.markdown(f"**Editar: {row['descricao']}**")
+                                ed_desc = st.text_input("Descrição", value=row["descricao"], key=f"ed_desc_{idx}")
+                                ed_val = st.number_input("Valor (R$)", value=float(row["valor"]), min_value=0.0, step=1.0, format="%.2f", key=f"ed_val_{idx}")
+                                ed_cat = st.selectbox("Categoria", options=LISTA_CATEGORIAS, index=LISTA_CATEGORIAS.index(row["categoria"]) if row["categoria"] in LISTA_CATEGORIAS else 0, key=f"ed_cat_{idx}")
+                                ed_nat = st.selectbox("Natureza", options=OPCOES_NATUREZA, index=OPCOES_NATUREZA.index(row["natureza"]) if row["natureza"] in OPCOES_NATUREZA else 0, key=f"ed_nat_{idx}")
+                                ed_dt = st.date_input("Vencimento", value=row["data_vencimento"].to_pydatetime() if pd.notnull(row["data_vencimento"]) else data_selecionada, format="DD/MM/YYYY", key=f"ed_dt_{idx}")
+
+                                if st.button("💾 Salvar Alterações", key=f"btn_save_card_{idx}", type="primary", use_container_width=True):
+                                    st.session_state.df.loc[idx, ["descricao", "valor", "categoria", "natureza", "data_vencimento"]] = [
+                                        ed_desc, round(float(ed_val), 2), ed_cat, ed_nat, pd.to_datetime(ed_dt)
+                                    ]
+                                    Database.salvar_dados(st.session_state.df)
+                                    st.toast("Lançamento atualizado!", icon="💾")
+                                    st.rerun()
+
+                        # 3. Excluir item
+                        with c_acao3:
+                            if st.button("🗑️", key=f"btn_del_card_{idx}", use_container_width=True, help="Excluir este lançamento"):
+                                st.session_state.df = st.session_state.df.drop(idx)
+                                Database.salvar_dados(st.session_state.df)
+                                st.toast("Lançamento removido!", icon="🗑️")
+                                st.rerun()
+
+                        st.write("")
+
+            # --- MODO 2: TABELA CLÁSSICA (DATA EDITOR) ---
+            else:
+                df_tipo["🗑️"] = False
+                with st.form(key=f"form_v8_{tipo}"):
+                    df_editado = st.data_editor(
+                        df_tipo[["Situacao", "data_vencimento", "descricao", "natureza", "categoria", "valor", "🗑️",
+                                 "original_index"]].fillna(""),
+                        hide_index=True, use_container_width=True,
+                        column_config={
+                            "Situacao": st.column_config.SelectboxColumn("Status", options=["🟢 Concluído", "🟡 Pendente",
+                                                                                            "🔴 Atrasado"]),
+                            "data_vencimento": st.column_config.DateColumn("Vencimento", format="DD/MM/YYYY"),
+                            "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA),
+                            "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f"),
+                            "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS),
+                            "🗑️": st.column_config.CheckboxColumn("🗑️", default=False),
+                            "original_index": None
+                        },
+                        key=f"editor_{tipo}"
+                    )
+
+                    salvar = st.form_submit_button("💾 Salvar Alterações na Lista", use_container_width=True, type="primary")
+
+                    if salvar:
+                        itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+                        if itens_excluir:
+                            st.session_state.df = st.session_state.df.drop(itens_excluir)
+
+                        for _, row in df_editado.iterrows():
+                            idx = row["original_index"]
+                            if idx not in itens_excluir:
+                                st.session_state.df.loc[
+                                    idx, ["status", "data_vencimento", "descricao", "natureza", "categoria", "valor"]] = \
+                                    [row["Situacao"], pd.to_datetime(row["data_vencimento"]), row["descricao"],
+                                     row["natureza"], row["categoria"], row["valor"]]
+
+                        Database.salvar_dados(st.session_state.df)
+                        st.rerun()
 
             if tipo == "Despesa":
                 df_ia = df_tipo[
