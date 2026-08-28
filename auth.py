@@ -2,7 +2,7 @@ import streamlit as st
 from services.database import Database
 
 
-def login_page(cookies_manager):  # <--- ADICIONE O ARGUMENTO AQUI
+def login_page(cookie_manager):
 
     # --- CSS: MANTIDO INTEGRALMENTE (Luxury Space) ---
     st.markdown("""
@@ -134,24 +134,22 @@ def login_page(cookies_manager):  # <--- ADICIONE O ARGUMENTO AQUI
 
                         st.session_state.user_name = user_data.get("nome", "Usuário")
 
-                        # --- CORREÇÃO DO ERRO ---
-                        # Usamos o manager que veio por argumento e salvamos
-                        cookies_manager["auth_token"] = "token_valido_do_ph"
-                        cookies_manager.save()  # Importante para gravar no disco/browser
+                        if cookie_manager:
+                            cookie_manager.set("auth_token", email_input)
 
                         st.rerun()
 
                     else:
                         st.error("Credenciais inválidas.")
 
-                        # --- BOTÃO GOOGLE ---
-                        st.button("Continuar com Google", use_container_width=True, key="google_login")
+            # --- BOTÃO GOOGLE ---
+            st.button("Continuar com Google", use_container_width=True, key="google_login")
 
-                        # --- RODAPÉ COM NAVEGAÇÃO PARA CADASTRO ---
-                        st.write("")  # Dá um pequeno espaço visual
+            # --- RODAPÉ COM NAVEGAÇÃO PARA CADASTRO ---
+            st.write("")  # Dá um pequeno espaço visual
 
-                        c1, c2, c3 = st.columns([0.5, 2, 0.5])
-                        with c2:
-                            if st.button("Ainda não tem conta? Cadastre-se", key="go_to_signup"):
-                                st.session_state.auth_mode = "signup"
-                                st.rerun()
+            c1, c2, c3 = st.columns([0.5, 2, 0.5])
+            with c2:
+                if st.button("Ainda não tem conta? Cadastre-se", key="go_to_signup"):
+                    st.session_state.auth_mode = "signup"
+                    st.rerun()

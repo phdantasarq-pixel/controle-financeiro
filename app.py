@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 import os
 import calendar
+import extra_streamlit_components as stx
 
 # --- NOVO: IMPORTAÇÃO DO MÓDULO DE AUTENTICAÇÃO ---
 from auth import login_page
@@ -13,8 +14,6 @@ from services.database import Database
 from ui.components import seletor_meses_inteligente
 from ui.lancamentos_page import lancamentos_page
 from ui.resumo_mensal_page import resumo_mensal_page
-
-from streamlit_cookies_manager import CookieManager
 
 # --- IMPORTAÇÃO DE PÁGINAS COM FALLBACK ---
 try:
@@ -51,16 +50,14 @@ pwa_html = """
 st.markdown(pwa_html, unsafe_allow_html=True)
 
 # Inicializa o gerenciador de cookies
-cookies = CookieManager()
-if not cookies.ready():
-    st.stop()
+cookie_manager = stx.CookieManager()
 
 # Inicializa o estado de autenticação se não existir
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
 # --- LÓGICA DE PERSISTÊNCIA (F5) CORRIGIDA ---
-token = cookies.get("auth_token")
+token = cookie_manager.get("auth_token")
 # O token deve ser o próprio e-mail ou um ID único, não uma string fixa
 if token and not st.session_state.authenticated:
     # Aqui o ideal é que o token contenha a informação de QUEM é o usuário
@@ -81,7 +78,7 @@ if not st.session_state.authenticated:
         st.session_state.auth_mode = "login"
 
     if st.session_state.auth_mode == "login":
-        login_page(cookies) # Passando o objeto cookies para o auth.py
+        login_page(cookie_manager) # Passando o objeto cookies para o auth.py
     else:
         from ui.signup_page import signup_page
         signup_page()
@@ -96,8 +93,7 @@ else:
             st.session_state.user_name = user_data.get("nome")
         else:
             st.session_state.authenticated = False
-            cookies["auth_token"] = ""
-            cookies.save()
+            cookie_manager.delete("auth_token")
             st.rerun()
 
     # --- GERENCIAMENTO DE TEMA ---
@@ -200,8 +196,7 @@ else:
         # No app.py, dentro do 'with st.sidebar:'
         if st.button("🚪 Sair do Sistema"):
             # 1. Limpa o Cookie no Navegador
-            cookies["auth_token"] = ""
-            cookies.save()  # <--- ESSENCIAL: Grava a remoção imediatamente
+            cookie_manager.delete("auth_token")
 
             # 2. Limpa a Memória RAM do Streamlit
             st.session_state.authenticated = False
