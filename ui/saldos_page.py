@@ -3,6 +3,46 @@ import pandas as pd
 from services.database import Database
 
 
+# --- MODAL NATIVO DE AJUSTE DE SALDO (FECHA AUTOMATICAMENTE APÓS SALVAR) ---
+@st.dialog("✏️ Ajustar Saldo")
+def modal_ajustar_saldo(idx, row_dict):
+    st.markdown(f"<p style='color:#94a3b8; font-size:0.85rem; margin-bottom:12px;'>Ajuste o valor ou nome da conta/ativo:</p>", unsafe_allow_html=True)
+    
+    novo_nome = st.text_input("Instituição / Ativo", value=row_dict.get("conta", ""))
+    novo_val = st.number_input("Saldo Atual (R$)", value=float(row_dict.get("valor", 0.0)), min_value=0.0, step=50.0, format="%.2f")
+    
+    st.write("")
+    c_save, c_cancel = st.columns(2)
+    with c_save:
+        if st.button("💾 Salvar Saldo", type="primary", use_container_width=True):
+            st.session_state.df_saldos.loc[idx, ["conta", "valor"]] = [novo_nome, novo_val]
+            Database.salvar_saldos(st.session_state.df_saldos)
+            st.toast("Saldo atualizado com sucesso!", icon="💰")
+            st.rerun()
+    with c_cancel:
+        if st.button("Cancelar", use_container_width=True):
+            st.rerun()
+
+
+# --- MODAL NATIVO DE CONFIRMAÇÃO DE EXCLUSÃO DE CONTA ---
+@st.dialog("⚠️ Confirmar Exclusão de Ativo")
+def modal_confirmar_exclusao_saldo(idx, conta, valor):
+    st.markdown(f"Tem certeza que deseja excluir a conta/ativo **{conta}** no valor de **R$ {float(valor):,.2f}**?")
+    st.warning("Esta ação não poderá ser desfeita.")
+    st.write("")
+    c_del, c_canc = st.columns(2)
+    with c_del:
+        if st.button("🗑️ Sim, Excluir", type="primary", use_container_width=True):
+            if idx in st.session_state.df_saldos.index:
+                st.session_state.df_saldos = st.session_state.df_saldos.drop(idx)
+                Database.salvar_saldos(st.session_state.df_saldos)
+                st.toast(f"{conta} excluído com sucesso!", icon="🗑️")
+            st.rerun()
+    with c_canc:
+        if st.button("Cancelar", use_container_width=True):
+            st.rerun()
+
+
 def saldos_page():
     # --- CABEÇALHO MODERNIZADO (PADRÃO COCKPIT RESUMO) ---
     st.markdown("""
@@ -133,21 +173,11 @@ def saldos_page():
 
                     c_ed, c_del = st.columns([1.5, 1])
                     with c_ed:
-                        with st.popover("✏️ Ajustar Saldo", use_container_width=True):
-                            st.markdown(f"**Ajustar: {row['conta']}**")
-                            novo_nome = st.text_input("Instituição / Ativo", value=row["conta"], key=f"s_nome_{idx}")
-                            novo_val = st.number_input("Novo Saldo (R$)", value=float(row["valor"]), min_value=0.0, step=50.0, format="%.2f", key=f"s_val_{idx}")
-                            if st.button("💾 Atualizar", key=f"s_btn_save_{idx}", type="primary", use_container_width=True):
-                                st.session_state.df_saldos.loc[idx, ["conta", "valor"]] = [novo_nome, novo_val]
-                                Database.salvar_saldos(st.session_state.df_saldos)
-                                st.toast("Saldo atualizado!", icon="💰")
-                                st.rerun()
+                        if st.button("✏️ Ajustar", key=f"s_btn_modal_{idx}", use_container_width=True):
+                            modal_ajustar_saldo(idx, row.to_dict())
                     with c_del:
                         if st.button("🗑️ Excluir", key=f"s_btn_del_{idx}", use_container_width=True):
-                            st.session_state.df_saldos = st.session_state.df_saldos.drop(idx)
-                            Database.salvar_saldos(st.session_state.df_saldos)
-                            st.toast(f"{row['conta']} removido!", icon="🗑️")
-                            st.rerun()
+                            modal_confirmar_exclusao_saldo(idx, row["conta"], row["valor"])
 
                     st.write("")
 
