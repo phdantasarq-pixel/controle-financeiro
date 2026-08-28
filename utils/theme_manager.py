@@ -27,7 +27,6 @@ class ThemeManager:
         primary, background, text, sidebar = theme_colors
 
         # Sanitize / normalização de segurança para contraste garantido
-        # Se por acaso o texto estiver escuro ou o fundo estiver claro, forçamos alto contraste
         if text.lower() in ["#050608", "#000000", "#0e1117", "#111827", "#1a1a1a"] or text.lower().startswith("#0") or text.lower().startswith("#1"):
             text = "#ffffff"
         if background.lower() in ["#ffffff", "#fafafa", "#f0f2f6", "#fff"] or background.lower().startswith("#f") or background.lower().startswith("#e"):
@@ -44,7 +43,11 @@ class ThemeManager:
                PLANEJAI - TEMA ESCURO DE ALTO CONTRASTE
                =================================================== */
 
-            :root, html, body, .stApp {{
+            :root, html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+                --primary-color: {primary} !important;
+                --background-color: {background} !important;
+                --secondary-background-color: {card_bg} !important;
+                --text-color: {text} !important;
                 color-scheme: dark !important;
                 background-color: {background} !important;
                 color: {text} !important;
@@ -258,10 +261,12 @@ class ThemeManager:
                 color: {primary} !important;
             }}
 
-            /* --- DATA EDITOR / TABELAS --- */
+            /* --- DATA EDITOR / TABELAS (GLIDE DATA GRID) --- */
             [data-testid="stDataFrame"], [data-testid="stDataEditor"] {{
                 background-color: {card_bg} !important;
+                border: 1px solid {border_color} !important;
                 border-radius: 12px !important;
+                overflow: hidden !important;
             }}
 
             /* --- ALERTAS E TOASTS --- */
