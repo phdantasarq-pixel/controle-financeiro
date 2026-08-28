@@ -17,7 +17,7 @@ venv/
 # =========================
 # Streamlit
 # =========================
-.streamlit/
+.streamlit/secrets.toml
 *.log
 
 # =========================
