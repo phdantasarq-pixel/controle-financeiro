@@ -54,6 +54,15 @@ def saldos_page():
             }
             .label { font-size: 0.78rem; text-transform: uppercase; color: #cbd5e1; letter-spacing: 1px; font-weight: 600; }
             .value { font-size: 1.8rem; font-weight: 800; margin: 8px 0; color: #ffffff !important; }
+
+            .saldo-item-card {
+                background: #151d2e;
+                border-radius: 14px;
+                padding: 16px;
+                margin-bottom: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-left: 4px solid #38bdf8;
+            }
         </style>
 
         <div class="main-header">
@@ -88,44 +97,90 @@ def saldos_page():
     col_lista, col_add = st.columns([1.6, 1.4], gap="large")
 
     with col_lista:
-        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #ffffff !important;">🏦 Portfólio de Contas</p>',
-                    unsafe_allow_html=True)
+        c_tit, c_modo_saldos = st.columns([1.3, 1.2])
+        with c_tit:
+            st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #ffffff !important;">🏦 Portfólio de Contas</p>',
+                        unsafe_allow_html=True)
+        with c_modo_saldos:
+            modo_saldos = st.radio(
+                "Visualização Saldos",
+                ["📱 Cartões", "📊 Tabela"],
+                horizontal=True,
+                label_visibility="collapsed",
+                key="modo_visao_saldos"
+            )
+
         if not df_saldos.empty:
-            # Adicionando índice original para garantir exclusão precisa
             df_saldos["original_index"] = df_saldos.index
-            df_saldos["🗑️"] = False
 
-            # --- FORMULÁRIO DE GESTÃO (PADRÃO LANÇAMENTOS) ---
-            with st.form(key="form_saldos_v8"):
-                df_editado = st.data_editor(
-                    df_saldos[["conta", "valor", "🗑️", "original_index"]],
-                    use_container_width=True,
-                    hide_index=True,
-                    column_config={
-                        "🗑️": st.column_config.CheckboxColumn("🗑️", width="small", default=False),
-                        "conta": st.column_config.TextColumn("Instituição / Ativo"),
-                        "valor": st.column_config.NumberColumn("Valor (R$)", format="R$ %.2f"),
-                        "original_index": None  # Esconde o índice técnico
-                    },
-                    key="editor_saldos_luxury_v8"
-                )
+            # --- MODO CARTÕES MOBILE ---
+            if modo_saldos == "📱 Cartões":
+                for _, row in df_saldos.iterrows():
+                    idx = row["original_index"]
+                    st.markdown(f"""
+                        <div class="saldo-item-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 1.1rem; font-weight: 700; color: #ffffff;">{row['conta']}</div>
+                                    <div style="font-size: 0.8rem; color: #94a3b8;">Ativo Líquido</div>
+                                </div>
+                                <div style="font-size: 1.25rem; font-weight: 800; color: #38bdf8;">
+                                    R$ {float(row['valor']):,.2f}
+                                </div>
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
 
-                if st.form_submit_button("💾 Salvar Alterações no Patrimônio", use_container_width=True, type="primary"):
-                    # 1. Identificar itens para exclusão
-                    indices_para_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+                    c_ed, c_del = st.columns([1.5, 1])
+                    with c_ed:
+                        with st.popover("✏️ Ajustar Saldo", use_container_width=True):
+                            st.markdown(f"**Ajustar: {row['conta']}**")
+                            novo_nome = st.text_input("Instituição / Ativo", value=row["conta"], key=f"s_nome_{idx}")
+                            novo_val = st.number_input("Novo Saldo (R$)", value=float(row["valor"]), min_value=0.0, step=50.0, format="%.2f", key=f"s_val_{idx}")
+                            if st.button("💾 Atualizar", key=f"s_btn_save_{idx}", type="primary", use_container_width=True):
+                                st.session_state.df_saldos.loc[idx, ["conta", "valor"]] = [novo_nome, novo_val]
+                                Database.salvar_saldos(st.session_state.df_saldos)
+                                st.toast("Saldo atualizado!", icon="💰")
+                                st.rerun()
+                    with c_del:
+                        if st.button("🗑️ Excluir", key=f"s_btn_del_{idx}", use_container_width=True):
+                            st.session_state.df_saldos = st.session_state.df_saldos.drop(idx)
+                            Database.salvar_saldos(st.session_state.df_saldos)
+                            st.toast(f"{row['conta']} removido!", icon="🗑️")
+                            st.rerun()
 
-                    # 2. Atualizar o DataFrame do session_state
-                    novo_df = df_editado[df_editado["🗑️"] == False].drop(columns=["🗑️", "original_index"])
+                    st.write("")
 
-                    st.session_state.df_saldos = novo_df
-                    Database.salvar_saldos(st.session_state.df_saldos)
+            # --- MODO TABELA CLÁSSICA ---
+            else:
+                df_saldos["🗑️"] = False
+                with st.form(key="form_saldos_v8"):
+                    df_editado = st.data_editor(
+                        df_saldos[["conta", "valor", "🗑️", "original_index"]],
+                        use_container_width=True,
+                        hide_index=True,
+                        column_config={
+                            "🗑️": st.column_config.CheckboxColumn("🗑️", width="small", default=False),
+                            "conta": st.column_config.TextColumn("Instituição / Ativo"),
+                            "valor": st.column_config.NumberColumn("Valor (R$)", format="R$ %.2f"),
+                            "original_index": None
+                        },
+                        key="editor_saldos_luxury_v8"
+                    )
 
-                    if indices_para_excluir:
-                        st.toast(f"{len(indices_para_excluir)} ativo(s) removido(s)!", icon="🗑️")
-                    else:
-                        st.toast("Patrimônio atualizado!", icon="💰")
+                    if st.form_submit_button("💾 Salvar Alterações no Patrimônio", use_container_width=True, type="primary"):
+                        indices_para_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
+                        novo_df = df_editado[df_editado["🗑️"] == False].drop(columns=["🗑️", "original_index"])
 
-                    st.rerun()
+                        st.session_state.df_saldos = novo_df
+                        Database.salvar_saldos(st.session_state.df_saldos)
+
+                        if indices_para_excluir:
+                            st.toast(f"{len(indices_para_excluir)} ativo(s) removido(s)!", icon="🗑️")
+                        else:
+                            st.toast("Patrimônio atualizado!", icon="💰")
+
+                        st.rerun()
         else:
             st.info("Nenhuma conta registrada no cockpit.")
 
