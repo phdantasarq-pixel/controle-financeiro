@@ -51,13 +51,16 @@ def gerar_grafico_pareto(df_pareto):
         y=df_pareto['acumulado'],
         name="% Acumulado",
         yaxis="y2",
-        line=dict(color="#636EFA", width=4, shape='spline'),
+        line=dict(color="#38BDF8", width=4, shape='spline'),
         hovertemplate="Acumulado: %{y:.1f}%<extra></extra>"
     ))
 
     fig.update_layout(
         title="<b>Análise de Pareto: Vilões de Gastos (Regra 80/20)</b>",
-        template="plotly_white",
+        template="plotly_dark",
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color="#F8FAFC"),
         yaxis=dict(title="Gasto Bruto (R$)", side="left"),
         yaxis2=dict(
             title="Percentual Acumulado (%)",
@@ -75,7 +78,7 @@ def gerar_grafico_pareto(df_pareto):
     fig.add_hline(
         y=80,
         line_dash="dash",
-        line_color="grey",
+        line_color="#94A3B8",
         yref="y2",
         annotation_text="Ponto de Corte 80%",
         annotation_position="bottom right"
@@ -131,12 +134,15 @@ def gerar_grafico_performance(df_status):
 
     fig.update_layout(
         title="<b>Performance de Pagamentos</b>",
-        template="plotly_white",
+        template="plotly_dark",
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color="#F8FAFC"),
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=-0.1, xanchor="center", x=0.5),
         margin=dict(l=20, r=20, t=50, b=20),
         height=400,
-        annotations=[dict(text='Status', x=0.5, y=0.5, font_size=20, showarrow=False)]
+        annotations=[dict(text='Status', x=0.5, y=0.5, font_size=20, showarrow=False, font=dict(color="#F8FAFC"))]
     )
 
     return fig

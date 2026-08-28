@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 import os
 import calendar
+import extra_streamlit_components as stx
 
 # --- NOVO: IMPORTAÇÃO DO MÓDULO DE AUTENTICAÇÃO ---
 from auth import login_page
@@ -13,8 +14,6 @@ from services.database import Database
 from ui.components import seletor_meses_inteligente
 from ui.lancamentos_page import lancamentos_page
 from ui.resumo_mensal_page import resumo_mensal_page
-
-from streamlit_cookies_manager import CookieManager
 
 # --- IMPORTAÇÃO DE PÁGINAS COM FALLBACK ---
 try:
@@ -51,16 +50,14 @@ pwa_html = """
 st.markdown(pwa_html, unsafe_allow_html=True)
 
 # Inicializa o gerenciador de cookies
-cookies = CookieManager()
-if not cookies.ready():
-    st.stop()
+cookie_manager = stx.CookieManager()
 
 # Inicializa o estado de autenticação se não existir
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
 # --- LÓGICA DE PERSISTÊNCIA (F5) CORRIGIDA ---
-token = cookies.get("auth_token")
+token = cookie_manager.get("auth_token")
 # O token deve ser o próprio e-mail ou um ID único, não uma string fixa
 if token and not st.session_state.authenticated:
     # Aqui o ideal é que o token contenha a informação de QUEM é o usuário
@@ -81,7 +78,7 @@ if not st.session_state.authenticated:
         st.session_state.auth_mode = "login"
 
     if st.session_state.auth_mode == "login":
-        login_page(cookies) # Passando o objeto cookies para o auth.py
+        login_page(cookie_manager) # Passando o objeto cookies para o auth.py
     else:
         from ui.signup_page import signup_page
         signup_page()
@@ -96,32 +93,29 @@ else:
             st.session_state.user_name = user_data.get("nome")
         else:
             st.session_state.authenticated = False
-            cookies["auth_token"] = ""
-            cookies.save()
+            cookie_manager.delete("auth_token")
             st.rerun()
 
     # --- GERENCIAMENTO DE TEMA ---
     if 'theme_manager' not in st.session_state:
         st.session_state.theme_manager = ThemeManager()
 
-    # --- GARANTIA DE TEMA PARA NOVOS USUÁRIOS ---
+    # --- GARANTIA DE TEMA PARA USUÁRIOS (ALTO CONTRASTE) ---
     if 'theme_colors' not in st.session_state:
-        # 1. Tenta carregar do banco
         cores_do_banco = Database.carregar_preferencias()
-
-        # 2. Se o banco estiver vazio (Novo Usuário), define o Luxury como padrão
-        if not cores_do_banco:
-            # Padrão Luxury: Ciano, Texto Branco, Fundo Preto, Sidebar Dark
-            st.session_state.theme_colors = ("#4facfe", "#FFFFFF", "#050608", "#0d1b2a")
-            # Salva para que o novo usuário já tenha isso registrado
+        if not cores_do_banco or len(cores_do_banco) < 4:
+            st.session_state.theme_colors = ("#38bdf8", "#0b0f19", "#ffffff", "#0f172a")
             Database.salvar_preferencias(st.session_state.theme_colors)
         else:
-            st.session_state.theme_colors = cores_do_banco
+            p, b, t, s = cores_do_banco
+            # Sanitização automática contra dados de cores invertidos no banco
+            if str(t).lower().startswith("#0") or str(t).lower().startswith("#1") or str(t).lower() in ["#050608", "#000000"]:
+                t = "#ffffff"
+            if str(b).lower().startswith("#f") or str(b).lower().startswith("#e") or str(b).lower() in ["#ffffff", "#fafafa"]:
+                b = "#0b0f19"
+            st.session_state.theme_colors = (p, b, t, s)
 
-    # 3. INJEÇÃO IMEDIATA DO CSS (Evita o "flash" branco)
-    if 'theme_manager' not in st.session_state:
-        st.session_state.theme_manager = ThemeManager()
-
+    # 3. INJEÇÃO IMEDIATA DO CSS
     st.markdown(
         st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
         unsafe_allow_html=True
@@ -140,7 +134,7 @@ else:
         }
         [data-testid="stSidebarContent"] { padding-top: 0rem !important; }
         .stSelectSlider { padding-top: 0px !important; margin-top: -5px !important; }
-        hr { margin: 1em 0 !important; opacity: 0.1 !important; }
+        hr { margin: 1em 0 !important; opacity: 0.15 !important; border-color: rgba(255,255,255,0.15) !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -200,8 +194,7 @@ else:
         # No app.py, dentro do 'with st.sidebar:'
         if st.button("🚪 Sair do Sistema"):
             # 1. Limpa o Cookie no Navegador
-            cookies["auth_token"] = ""
-            cookies.save()  # <--- ESSENCIAL: Grava a remoção imediatamente
+            cookie_manager.delete("auth_token")
 
             # 2. Limpa a Memória RAM do Streamlit
             st.session_state.authenticated = False

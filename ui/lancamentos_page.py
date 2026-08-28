@@ -13,40 +13,44 @@ except Exception as e:
 
 
 def lancamentos_page(df_atual):
-    # --- CSS REFINADO (LUXURY & STABLE) ---
+    # --- CSS REFINADO (LUXURY & ALTO CONTRASTE) ---
     st.markdown("""
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
-            .main-header { font-family: 'Inter', sans-serif; margin-bottom: 25px; }
+            .main-header { 
+                font-family: 'Inter', sans-serif; 
+                padding: 15px 0 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                margin-bottom: 25px; 
+            }
             .title-main {
-                font-size: 2rem; font-weight: 800; letter-spacing: -1px;
-                background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
-                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                font-size: 2.2rem; font-weight: 800; letter-spacing: -1px;
+                color: #ffffff !important;
                 margin-bottom: 0px; text-transform: uppercase;
             }
             .subtitle-main {
-                font-size: 0.8rem; font-weight: 300; color: #3498db;
+                font-size: 0.85rem; font-weight: 600; color: #38bdf8 !important;
                 letter-spacing: 2px; text-transform: uppercase;
             }
             .stForm {
-                border: 1px solid rgba(255, 255, 255, 0.05) !important;
-                background: rgba(255, 255, 255, 0.01) !important;
-                border-radius: 15px !important;
+                border: 1px solid rgba(255, 255, 255, 0.12) !important;
+                background: #151d2e !important;
+                border-radius: 16px !important;
                 padding: 20px !important;
             }
             .ia-section-card {
-                background: rgba(52, 152, 219, 0.03);
-                border-radius: 12px; padding: 15px;
-                border: 1px solid rgba(52, 152, 219, 0.1); margin: 10px 0;
+                background: #151d2e;
+                border-radius: 14px; padding: 18px;
+                border: 1px solid rgba(56, 189, 248, 0.25); margin: 12px 0;
             }
         </style>
 
         <div class="main-header">
             <div class="subtitle-main">Cockpit de Entradas</div>
             <div class="title-main">Gerenciar Lançamentos</div>
-            <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
+            <div class="subtitle-main" style="color: #94a3b8 !important; letter-spacing: 1px; margin-top: 4px;">
+                PlanejAI <span style="color: #38bdf8; font-weight: bold;">v1.0</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -74,7 +78,7 @@ def lancamentos_page(df_atual):
 
     with tab_manual:
         with st.container(border=True):
-            st.markdown('<p style="font-weight:600; font-size:1.1rem; margin-bottom:15px;">Novo Registro</p>',
+            st.markdown('<p style="font-weight:700; font-size:1.1rem; margin-bottom:15px; color:#ffffff;">Novo Registro</p>',
                         unsafe_allow_html=True)
             c1, c2 = st.columns(2)
             with c1:
@@ -112,24 +116,16 @@ def lancamentos_page(df_atual):
                     # 3. Persistência no MongoDB Atlas (Nuvem)
                     Database.salvar_dados(st.session_state.df)
 
-                    # --- CORREÇÃO DO BUG DE ATUALIZAÇÃO ---
-                    # 4. Limpamos qualquer cache de análise que a página de Inteligência Financeira utilize
-                    # Se você usa alguma chave específica no session_state para os gráficos, limpe-a aqui.
                     if 'dados_detalhados' in st.session_state:
                         del st.session_state.dados_detalhados
 
-                    # 5. Incrementamos a versão do formulário (Para limpar os campos de input da tela)
                     st.session_state.form_version += 1
-
                     st.toast("Lançamento salvo com sucesso!", icon="✅")
-
-                    # 6. O rerun agora vai recarregar o Database.carregar_dados()
-                    # com os novos valores de data e status, limpando o card de "Atrasados".
                     st.rerun()
 
     with tab_ia:
         st.markdown(
-            '<p class="subtitle-main" style="color:#fff; font-size:1rem; margin-bottom:15px;">🔍 Detalhamento de Itens das Faturas (IA)</p>',
+            '<p class="subtitle-main" style="color:#fff !important; font-size:1rem; margin-bottom:15px;">🔍 Detalhamento de Itens das Faturas (IA)</p>',
             unsafe_allow_html=True)
 
         if ia is None:
@@ -159,7 +155,6 @@ def lancamentos_page(df_atual):
                 emissor = dados_ia.get("emissor", "Cartão")
                 st.write(f"### Conferência: {emissor}")
 
-                # Limpeza e Ordenação: Natureza e Categoria editáveis, Excluir por último
                 df_ia_display = pd.DataFrame(dados_ia["itens"]).fillna("")
                 cols = [c for c in df_ia_display.columns if c != 'excluir'] + ['excluir']
                 df_ia_display = df_ia_display[cols]
@@ -266,8 +261,6 @@ def lancamentos_page(df_atual):
                     st.rerun()
 
             if tipo == "Despesa":
-                # Filtra apenas lançamentos que possuem detalhes da IA
-                # No ui/lancamentos_page.py, procure a linha do filtro df_ia:
                 df_ia = df_tipo[
                     df_tipo['detalhes'].notna() &
                     df_tipo['detalhes'].astype(str).str.startswith('[') &
@@ -283,28 +276,23 @@ def lancamentos_page(df_atual):
 
                     for i, (idx_orig, row_f) in enumerate(df_ia.iterrows()):
                         with abas_faturas[i]:
-                            # Recupera o dado e garante que não seja nulo
                             dado_atual = st.session_state.df.at[idx_orig, "detalhes"]
 
-                            # --- BLOCO DE SEGURANÇA CONTRA ERRO SCALAR ---
                             try:
                                 if isinstance(dado_atual, str):
                                     dados_json = json.loads(dado_atual)
                                 else:
                                     dados_json = dado_atual
 
-                                # Se não for uma lista (ex: for um texto solto ou número), força lista vazia
                                 if not isinstance(dados_json, list):
                                     dados_json = []
                             except:
                                 dados_json = []
 
-                            # Só cria o DataFrame se houver itens
                             if dados_json:
                                 df_itens_ia = pd.DataFrame(dados_json).fillna("")
                             else:
                                 df_itens_ia = pd.DataFrame(columns=["descricao", "valor", "categoria", "natureza"])
-                            # ---------------------------------------------
 
                             ed_ia = st.data_editor(
                                 df_itens_ia,
