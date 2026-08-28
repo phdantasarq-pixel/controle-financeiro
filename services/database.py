@@ -16,7 +16,6 @@ Responsável por:
 
 class Database:
 
-    # 1. Mudança para garantir que a conexão seja recuperada corretamente
     _db = None
 
     @classmethod
@@ -52,6 +51,20 @@ class Database:
     db = conectar.__func__()
 
     @staticmethod
+    def _limpar_texto(val):
+        """Limpa valores nulos, dicionários de NaN do MongoDB BSON e strings 'NaN'."""
+        if val is None or pd.isna(val):
+            return ""
+        if isinstance(val, dict):
+            return ""
+        val_str = str(val).strip()
+        if val_str.lower() in ["nan", "none", "null", "{'$numberdouble': 'nan'}", "{\"$numberdouble\": \"nan\"}"]:
+            return ""
+        if "$numberdouble" in val_str.lower():
+            return ""
+        return val_str
+
+    @staticmethod
     def carregar_dados():
         """Carrega os lançamentos filtrados estritamente pelo usuário logado (String ou ObjectId)."""
         db = Database.get_db()
@@ -62,12 +75,11 @@ class Database:
         if not user_id:
             return pd.DataFrame(
                 columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
-                         "status"])
+                         "status", "parcela"])
 
         colecao = db["lancamentos"]
 
-        # --- AJUSTE CRÍTICO: FILTRO HÍBRIDO ---
-        # Isso garante que ele ache os dados se o ID estiver como String OU como ObjectId no Atlas
+        # Filtro híbrido (String ou ObjectId)
         query = {
             "$or": [
                 {"user_id": user_id},
@@ -80,19 +92,36 @@ class Database:
         if not dados:
             return pd.DataFrame(
                 columns=["data_vencimento", "data_registro", "tipo", "natureza", "valor", "categoria", "descricao",
-                         "status"])
+                         "status", "parcela"])
 
         df = pd.DataFrame(dados)
 
-        # Limpeza de segurança: ajustada para o filtro híbrido
+        # Limpeza de segurança por user_id
         if "user_id" in df.columns:
-            # Converte a coluna para string para facilitar a comparação de segurança
             df["user_id_str"] = df["user_id"].apply(lambda x: str(x))
             df = df[df["user_id_str"] == str(user_id)]
             del df["user_id_str"]
 
-        # Remove campos internos do Mongo
         if "_id" in df.columns: del df["_id"]
+
+        # Higienização de campos especiais (parcela, id_parcelamento, detalhes)
+        if "parcela" in df.columns:
+            df["parcela"] = df["parcela"].apply(Database._limpar_texto)
+        else:
+            df["parcela"] = ""
+
+        if "id_parcelamento" in df.columns:
+            df["id_parcelamento"] = df["id_parcelamento"].apply(Database._limpar_texto)
+
+        if "detalhes" in df.columns:
+            def limpar_detalhes(v):
+                if v is None or pd.isna(v) or isinstance(v, dict) and "$numberDouble" in v:
+                    return None
+                s = str(v).strip()
+                if s.lower() in ["nan", "none", "null", ""] or "$numberdouble" in s.lower():
+                    return None
+                return v
+            df["detalhes"] = df["detalhes"].apply(limpar_detalhes)
 
         return df
 
@@ -129,6 +158,12 @@ class Database:
                 df_para_salvar = df.copy()
                 df_para_salvar["user_id"] = user_id
 
+                # Limpeza de campos de texto para evitar NaN do mongo
+                if "parcela" in df_para_salvar.columns:
+                    df_para_salvar["parcela"] = df_para_salvar["parcela"].apply(Database._limpar_texto)
+                if "id_parcelamento" in df_para_salvar.columns:
+                    df_para_salvar["id_parcelamento"] = df_para_salvar["id_parcelamento"].apply(Database._limpar_texto)
+
                 for col in df_para_salvar.columns:
                     if pd.api.types.is_datetime64_any_dtype(df_para_salvar[col]):
                         if df_para_salvar[col].dt.tz is not None:
@@ -137,6 +172,9 @@ class Database:
 
                 if '_id' in df_para_salvar.columns:
                     df_para_salvar = df_para_salvar.drop(columns=['_id'])
+
+                # Preencher NaN restantes com None para salvar como null limpo no Mongo
+                df_para_salvar = df_para_salvar.astype(object).where(pd.notnull(df_para_salvar), None)
 
                 registros = df_para_salvar.to_dict("records")
                 colecao.insert_many(registros)
@@ -156,7 +194,9 @@ class Database:
         if not dados:
             return pd.DataFrame(columns=["conta", "valor"])
 
-        return pd.DataFrame(dados)
+        df_s = pd.DataFrame(dados)
+        if "_id" in df_s.columns: del df_s["_id"]
+        return df_s
 
     @staticmethod
     def listar_contas():
@@ -180,6 +220,7 @@ class Database:
                     df_para_salvar["user_id"] = user_id
                     if '_id' in df_para_salvar.columns:
                         df_para_salvar = df_para_salvar.drop(columns=['_id'])
+                    df_para_salvar = df_para_salvar.astype(object).where(pd.notnull(df_para_salvar), None)
                     colecao.insert_many(df_para_salvar.to_dict("records"))
             except Exception as e:
                 st.error(f"⚠️ Erro ao salvar saldos na nuvem: {e}")
@@ -254,6 +295,8 @@ class Database:
                     reg["user_id"] = user_id
                     if isinstance(reg.get('data_vencimento'), pd.Timestamp):
                         reg['data_vencimento'] = reg['data_vencimento'].to_pydatetime()
+                    if 'parcela' in reg:
+                        reg['parcela'] = Database._limpar_texto(reg['parcela'])
                 Database.db["lancamentos"].insert_many(lista_registros)
                 return True
             except Exception as e:
@@ -287,7 +330,6 @@ class Database:
                 valor_final = v_divida if v_divida > 0 else v_pago
                 if valor_final == 0: continue
 
-                # Lógica de dia extraído do texto
                 dia = 10
                 texto_venc = str(row.get('Venc e Quantidade', ''))
                 numeros = re.findall(r'\d+', texto_venc)
@@ -297,13 +339,13 @@ class Database:
 
                 data_venc = datetime(ano, mes, dia)
                 desc_lower = desc.lower()
-                cat_final = "Outros"
+                cat_final = "Outro"
                 if any(x in desc_lower for x in ["cartão", "itau", "nubank", "caixa", "inter", "visa", "master"]):
                     cat_final = "Cartão de Crédito"
                 elif any(x in desc_lower for x in ["emprestimo", "financiamento", "parcela", "bradesco", "embracon"]):
                     cat_final = "Empréstimo"
                 elif any(x in desc_lower for x in ["internet", "energia", "condominio", "seguro", "faculdade", "park", "bsparc"]):
-                    cat_final = "Fixo Mensal"
+                    cat_final = "Moradia"
 
                 novos_lancamentos.append({
                     "user_id": user_id,
@@ -314,7 +356,8 @@ class Database:
                     "valor": valor_final,
                     "categoria": cat_final,
                     "descricao": desc,
-                    "status": "Concluído" if v_pago > 0 else "Pendente"
+                    "status": "🟢 Concluído" if v_pago > 0 else "🟡 Pendente",
+                    "parcela": ""
                 })
 
             if novos_lancamentos:

@@ -12,6 +12,105 @@ except Exception as e:
     st.error(f"Erro ao carregar dependências: {e}")
 
 
+def formatar_parcela(p):
+    """Limpa e formata valor de parcela evitando resíduos como NaN ou BSON dicts."""
+    if p is None or pd.isna(p):
+        return ""
+    if isinstance(p, dict):
+        return ""
+    p_str = str(p).strip()
+    if p_str.lower() in ["nan", "none", "null", ""] or "$numberdouble" in p_str.lower():
+        return ""
+    return p_str
+
+
+# --- MODAL NATIVO DE CONFIRMAÇÃO DE EXCLUSÃO ---
+@st.dialog("⚠️ Confirmar Exclusão")
+def modal_confirmar_exclusao_lancamento(idx, descricao, valor):
+    st.markdown(f"Tem certeza que deseja excluir o lançamento **{descricao}** no valor de **R$ {valor:,.2f}**?")
+    st.warning("Esta ação não poderá ser desfeita.")
+    st.write("")
+    c_del, c_canc = st.columns(2)
+    with c_del:
+        if st.button("🗑️ Sim, Excluir", type="primary", use_container_width=True):
+            if idx in st.session_state.df.index:
+                st.session_state.df = st.session_state.df.drop(idx)
+                Database.salvar_dados(st.session_state.df)
+                st.toast("Lançamento excluído com sucesso!", icon="🗑️")
+            st.rerun()
+    with c_canc:
+        if st.button("Cancelar", use_container_width=True):
+            st.rerun()
+
+
+@st.dialog("⚠️ Confirmar Exclusão de Fatura")
+def modal_confirmar_exclusao_fatura(idx_orig, descricao):
+    st.markdown(f"Tem certeza que deseja excluir a fatura **{descricao}** e todos os seus itens importados?")
+    st.warning("Esta ação não poderá ser desfeita.")
+    st.write("")
+    c_del, c_canc = st.columns(2)
+    with c_del:
+        if st.button("🗑️ Sim, Excluir Fatura", type="primary", use_container_width=True):
+            if idx_orig in st.session_state.df.index:
+                st.session_state.df = st.session_state.df.drop(idx_orig)
+                Database.salvar_dados(st.session_state.df)
+                st.toast("Fatura excluída com sucesso!", icon="🗑️")
+            st.rerun()
+    with c_canc:
+        if st.button("Cancelar", use_container_width=True):
+            st.rerun()
+
+
+# --- MODAL NATIVO DE EDIÇÃO (FECHA AUTOMATICAMENTE APÓS SALVAR) ---
+@st.dialog("✏️ Editar Lançamento")
+def modal_editar_lancamento(idx, row_dict, categorias, naturezas):
+    st.markdown(f"<p style='color:#94a3b8; font-size:0.85rem; margin-bottom:12px;'>Altere as informações do registro abaixo:</p>", unsafe_allow_html=True)
+    
+    ed_desc = st.text_input("Descrição", value=row_dict.get("descricao", ""))
+    c1, c2 = st.columns(2)
+    with c1:
+        ed_val = st.number_input("Valor (R$)", value=float(row_dict.get("valor", 0.0)), min_value=0.0, step=1.0, format="%.2f")
+        ed_cat = st.selectbox("Categoria", options=categorias, index=categorias.index(row_dict["categoria"]) if row_dict.get("categoria") in categorias else 0)
+    with c2:
+        opcoes_status = ["🟡 Pendente", "🟢 Concluído", "🔴 Atrasado"]
+        status_atual = row_dict.get("Situacao", row_dict.get("status", "🟡 Pendente"))
+        idx_status = opcoes_status.index(status_atual) if status_atual in opcoes_status else 0
+        ed_status = st.selectbox("Status", options=opcoes_status, index=idx_status)
+        ed_nat = st.selectbox("Natureza", options=naturezas, index=naturezas.index(row_dict["natureza"]) if row_dict.get("natureza") in naturezas else 0)
+    
+    c_dt, c_parc = st.columns(2)
+    with c_dt:
+        dt_val = row_dict.get("data_vencimento")
+        if isinstance(dt_val, pd.Timestamp):
+            dt_val = dt_val.to_pydatetime()
+        elif isinstance(dt_val, str):
+            try:
+                dt_val = pd.to_datetime(dt_val).to_pydatetime()
+            except:
+                dt_val = datetime.now().date()
+        elif not isinstance(dt_val, (date, datetime)):
+            dt_val = datetime.now().date()
+
+        ed_dt = st.date_input("Data de Vencimento", value=dt_val, format="DD/MM/YYYY")
+
+    with c_parc:
+        ed_parc = st.text_input("Parcela", value=formatar_parcela(row_dict.get("parcela", "")), placeholder="Ex: 1/12")
+
+    st.write("")
+    c_save, c_cancel = st.columns(2)
+    with c_save:
+        if st.button("💾 Salvar Alterações", type="primary", use_container_width=True):
+            st.session_state.df.loc[idx, ["descricao", "valor", "categoria", "natureza", "status", "data_vencimento", "parcela"]] = [
+                ed_desc, round(float(ed_val), 2), ed_cat, ed_nat, ed_status, pd.to_datetime(ed_dt), ed_parc
+            ]
+            Database.salvar_dados(st.session_state.df)
+            st.toast("Lançamento atualizado com sucesso!", icon="✅")
+            st.rerun()
+    with c_cancel:
+        if st.button("Cancelar", use_container_width=True):
+            st.rerun()
+
+
 def lancamentos_page(df_atual):
     # --- CSS REFINADO (LUXURY & ALTO CONTRASTE) ---
     st.markdown("""
@@ -124,13 +223,13 @@ def lancamentos_page(df_atual):
                         "data_vencimento": pd.to_datetime(data_base),
                         "data_registro": datetime.now().strftime('%Y-%m-%d'),
                         "tipo": tipo_manual,
-                        "natureza": natureza,
+                        "natureza": naturezas if 'naturezas' in locals() else natureza,
                         "valor": round(float(valor), 2),
                         "categoria": categoria,
                         "descricao": descricao,
                         "status": "🟡 Pendente",
                         "detalhes": None,
-                        "parcela": parcela_input
+                        "parcela": formatar_parcela(parcela_input)
                     }])
 
                     st.session_state.df = pd.concat([st.session_state.df, novo_dado], ignore_index=True)
@@ -182,8 +281,8 @@ def lancamentos_page(df_atual):
                 df_editavel = st.data_editor(
                     df_ia_display,
                     column_config={
-                        "descricao": st.column_config.TextColumn("Descrição", disabled=True),
-                        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", disabled=True),
+                        "descricao": st.column_config.TextColumn("Descrição", required=True),
+                        "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", required=True),
                         "categoria": st.column_config.SelectboxColumn("Categoria", options=LISTA_CATEGORIAS,
                                                                       required=True),
                         "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA,
@@ -283,7 +382,9 @@ def lancamentos_page(df_atual):
                         sit = row["Situacao"]
                         classe_borda = "item-card-ok" if "🟢" in sit else ("item-card-atrasado" if "🔴" in sit else "item-card-pendente")
                         dt_formatada = row["data_vencimento"].strftime('%d/%m/%Y') if pd.notnull(row["data_vencimento"]) else "Sem data"
-                        parcela_str = f" • Parcela {row['parcela']}" if pd.notnull(row.get('parcela')) and row.get('parcela') != "" else ""
+                        
+                        parc_val = formatar_parcela(row.get('parcela'))
+                        parcela_str = f" • Parcela {parc_val}" if parc_val else ""
 
                         # Card Visual
                         st.markdown(f"""
@@ -301,7 +402,7 @@ def lancamentos_page(df_atual):
                                     {row['descricao']}
                                 </div>
                                 <div style="font-size: 0.8rem; color: #94a3b8;">
-                                    📅 Vencimento: {dt_formatada} {parcela_str} | <b>{sit}</b>
+                                    📅 Vencimento: {dt_formatada}{parcela_str} | <b>{sit}</b>
                                 </div>
                             </div>
                         """, unsafe_allow_html=True)
@@ -322,31 +423,15 @@ def lancamentos_page(df_atual):
                                     Database.salvar_dados(st.session_state.df)
                                     st.rerun()
 
-                        # 2. Edição rápida expansível
+                        # 2. Edição rápida via Modal Dialog (Fecha sozinho após salvar)
                         with c_acao2:
-                            with st.popover("✏️ Editar", use_container_width=True):
-                                st.markdown(f"**Editar: {row['descricao']}**")
-                                ed_desc = st.text_input("Descrição", value=row["descricao"], key=f"ed_desc_{idx}")
-                                ed_val = st.number_input("Valor (R$)", value=float(row["valor"]), min_value=0.0, step=1.0, format="%.2f", key=f"ed_val_{idx}")
-                                ed_cat = st.selectbox("Categoria", options=LISTA_CATEGORIAS, index=LISTA_CATEGORIAS.index(row["categoria"]) if row["categoria"] in LISTA_CATEGORIAS else 0, key=f"ed_cat_{idx}")
-                                ed_nat = st.selectbox("Natureza", options=OPCOES_NATUREZA, index=OPCOES_NATUREZA.index(row["natureza"]) if row["natureza"] in OPCOES_NATUREZA else 0, key=f"ed_nat_{idx}")
-                                ed_dt = st.date_input("Vencimento", value=row["data_vencimento"].to_pydatetime() if pd.notnull(row["data_vencimento"]) else data_selecionada, format="DD/MM/YYYY", key=f"ed_dt_{idx}")
+                            if st.button("✏️ Editar", key=f"btn_modal_ed_{idx}", use_container_width=True):
+                                modal_editar_lancamento(idx, row.to_dict(), LISTA_CATEGORIAS, OPCOES_NATUREZA)
 
-                                if st.button("💾 Salvar Alterações", key=f"btn_save_card_{idx}", type="primary", use_container_width=True):
-                                    st.session_state.df.loc[idx, ["descricao", "valor", "categoria", "natureza", "data_vencimento"]] = [
-                                        ed_desc, round(float(ed_val), 2), ed_cat, ed_nat, pd.to_datetime(ed_dt)
-                                    ]
-                                    Database.salvar_dados(st.session_state.df)
-                                    st.toast("Lançamento atualizado!", icon="💾")
-                                    st.rerun()
-
-                        # 3. Excluir item
+                        # 3. Excluir item com confirmação
                         with c_acao3:
                             if st.button("🗑️", key=f"btn_del_card_{idx}", use_container_width=True, help="Excluir este lançamento"):
-                                st.session_state.df = st.session_state.df.drop(idx)
-                                Database.salvar_dados(st.session_state.df)
-                                st.toast("Lançamento removido!", icon="🗑️")
-                                st.rerun()
+                                modal_confirmar_exclusao_lancamento(idx, row["descricao"], float(row["valor"]))
 
                         st.write("")
 
@@ -377,6 +462,7 @@ def lancamentos_page(df_atual):
                         itens_excluir = df_editado[df_editado["🗑️"] == True]["original_index"].tolist()
                         if itens_excluir:
                             st.session_state.df = st.session_state.df.drop(itens_excluir)
+                            st.toast(f"{len(itens_excluir)} item(ns) removido(s)!", icon="🗑️")
 
                         for _, row in df_editado.iterrows():
                             idx = row["original_index"]
@@ -387,6 +473,7 @@ def lancamentos_page(df_atual):
                                      row["natureza"], row["categoria"], row["valor"]]
 
                         Database.salvar_dados(st.session_state.df)
+                        st.toast("Tabela salva com sucesso!", icon="💾")
                         st.rerun()
 
             if tipo == "Despesa":
@@ -429,8 +516,8 @@ def lancamentos_page(df_atual):
                                 use_container_width=True,
                                 key=f"ed_ia_{idx_orig}",
                                 column_config={
-                                    "descricao": st.column_config.TextColumn("Descrição", disabled=True),
-                                    "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", disabled=True),
+                                    "descricao": st.column_config.TextColumn("Descrição", required=True),
+                                    "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", required=True),
                                     "categoria": st.column_config.SelectboxColumn("Categoria",
                                                                                   options=LISTA_CATEGORIAS),
                                     "natureza": st.column_config.SelectboxColumn("Natureza", options=OPCOES_NATUREZA)
@@ -447,6 +534,4 @@ def lancamentos_page(df_atual):
                                     st.rerun()
                             with col_btn_2:
                                 if st.button(f"🗑️ Excluir Fatura", key=f"del_fat_{idx_orig}", use_container_width=True):
-                                    st.session_state.df = st.session_state.df.drop(idx_orig)
-                                    Database.salvar_dados(st.session_state.df)
-                                    st.rerun()
+                                    modal_confirmar_exclusao_fatura(idx_orig, row_f["descricao"])
