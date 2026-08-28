@@ -215,7 +215,7 @@ class Database:
                 "data_cadastro": datetime.now(),
                 "preferencias": {
                     "tema": "Luxury",
-                    "cores": ["#4facfe", "#FFFFFF", "#050608", "#0d1b2a"]
+                    "cores": ["#38bdf8", "#0b0f19", "#ffffff", "#0f172a"]
                 }
             }
             Database.db.usuarios.insert_one(novo_usuario)

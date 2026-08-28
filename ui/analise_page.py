@@ -55,75 +55,74 @@ def processar_dados_detalhados(df_original):
 def analise_categorias_page(df_ignorar, df_saldos=None):
     df = Database.carregar_dados()
 
-    # --- STYLE ENGINE: GLASSMORPHISM LUXURY ---
+    # --- STYLE ENGINE: GLASSMORPHISM LUXURY ALTO CONTRASTE ---
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
 
         .main-header {
             font-family: 'Inter', sans-serif;
-            padding: 20px 0 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 30px;
+            padding: 15px 0 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
         }
 
         .title-main {
             font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -1px;
-            background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff !important;
             margin-bottom: 0px;
             text-transform: uppercase;
         }
 
         .subtitle-main {
             font-size: 0.85rem;
-            font-weight: 300;
-            color: #3498db;
-            letter-spacing: 3px;
+            font-weight: 600;
+            color: #38bdf8 !important;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            opacity: 0.9;
         }
 
         .accent-line {
             width: 50px;
             height: 4px;
-            background: #3498db;
+            background: #38bdf8;
             border-radius: 10px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .dashboard-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; margin-bottom: 20px; }
         .card-modern {
-            flex: 1; min-width: 250px; padding: 22px; border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
-            color: white; transition: all 0.3s ease-in-out;
+            flex: 1; min-width: 250px; padding: 22px; border-radius: 16px;
+            background: #151d2e;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            color: #ffffff; transition: all 0.25s ease-in-out;
         }
         .card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-color: rgba(56, 189, 248, 0.4);
         }
-        .label-modern { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1.5px; font-weight: 600; }
-        .value-modern { font-size: 1.6rem; font-weight: 800; margin: 8px 0; }
-        .sub-value-modern { font-size: 0.8rem; opacity: 0.6; }
-        .bg-blue { background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(44, 62, 80, 0.4)); border-top: 4px solid #3498db; }
-        .bg-green { background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #2ecc71; }
-        .bg-red { background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #e74c3c; }
-        .bg-yellow { background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(0, 0, 0, 0.4)); border-top: 4px solid #f1c40f; }
-        .bg-dark { background: rgba(255, 255, 255, 0.05); border-top: 4px solid #95a5a6; }
-        .status-badge-modern { font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-top: 5px; }
-        .badge-alert { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
-        .badge-ok { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .label-modern { font-size: 0.78rem; text-transform: uppercase; color: #cbd5e1; letter-spacing: 1px; font-weight: 600; }
+        .value-modern { font-size: 1.7rem; font-weight: 800; margin: 8px 0; color: #ffffff !important; }
+        .sub-value-modern { font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
+        .bg-blue { background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #38bdf8; }
+        .bg-green { background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #22c55e; }
+        .bg-red { background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #ef4444; }
+        .bg-yellow { background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #eab308; }
+        .bg-dark { background: #151d2e; border-top: 4px solid #94a3b8; }
+        .status-badge-modern { font-size: 0.78rem; font-weight: 700; padding: 5px 14px; border-radius: 50px; display: inline-block; margin-top: 6px; }
+        .badge-alert { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .badge-ok { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
     </style>
 
     <div class="main-header">
         <div class="subtitle-main">Insights & Performance</div>
         <div class="title-main">Inteligência Financeira</div>
-        <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-            PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
+        <div class="subtitle-main" style="color: #94a3b8 !important; letter-spacing: 1px; margin-top: 4px;">
+            PlanejAI <span style="color: #38bdf8; font-weight: bold;">v1.0</span>
         </div>
         <div class="accent-line"></div>
     </div>
@@ -184,7 +183,7 @@ def analise_categorias_page(df_ignorar, df_saldos=None):
 
     if eficiencia > 90:
         st.markdown(f"""
-            <div style="padding: 15px; background: rgba(231, 76, 60, 0.1); border-left: 5px solid #e74c3c; border-radius: 10px; margin-bottom: 20px; color: #ff4d4d;">
+            <div style="padding: 15px; background: rgba(239, 68, 68, 0.15); border-left: 5px solid #ef4444; border-radius: 10px; margin-bottom: 20px; color: #fca5a5; font-weight: 600;">
                 ⚠️ <b>Atenção:</b> Comprometimento crítico de {eficiencia:.1f}% da renda em {mes_selecionado}!
             </div>
         """, unsafe_allow_html=True)
@@ -214,24 +213,17 @@ def analise_categorias_page(df_ignorar, df_saldos=None):
 
     st.progress(max(0.0, min(eficiencia / 100, 1.0)))
 
-    # 🔴 Correção da tag solta que confunde o DOM do React
     st.write("")
 
-    # --- 3. SAÚDE DO FLUXO DE CAIXA (Versão Blindada) ---
+    # --- 3. SAÚDE DO FLUXO DE CAIXA ---
     st.subheader("🕒 Dinâmica de Pagamentos")
     despesas_contexto = df_mes[df_mes['tipo'] == "Despesa"].copy()
 
-    # 1. Tudo que NÃO tem a bolinha verde ou "Pago" é considerado "Não Liquidado"
     mask_pago = despesas_contexto['status'].str.contains('Concluído|Pago|🟢', case=False, na=False)
-
-    # 2. ATRASADO é tudo que: (Não está pago) E (Data de vencimento é menor que hoje)
-    # Note que aqui não dependemos mais de texto "🔴" ou "Atrasado", apenas da data!
     mask_atrasado = (~mask_pago) & (despesas_contexto['data_vencimento'] < hoje)
 
     pago = despesas_contexto[mask_pago]['valor'].sum()
     atrasado = despesas_contexto[mask_atrasado]['valor'].sum()
-
-    # Pendente é o que vence HOJE ou no FUTURO e não está pago
     pendente = despesa_total_mes - pago - atrasado
 
     st.markdown(f"""
@@ -260,10 +252,10 @@ def analise_categorias_page(df_ignorar, df_saldos=None):
         p_atra = (atrasado / despesa_total_mes * 100)
 
         st.markdown(f"""
-                <div style="display: flex; width: 100%; height: 10px; border-radius: 5px; overflow: hidden; background-color: rgba(255,255,255,0.05); margin-top: 10px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                    <div style="width: {p_pago}%; background: linear-gradient(90deg, #2ecc71, #27ae60); transition: width 0.5s ease;"></div>
-                    <div style="width: {p_pend}%; background: linear-gradient(90deg, #f1c40f, #f39c12); transition: width 0.5s ease;"></div>
-                    <div style="width: {p_atra}%; background: linear-gradient(90deg, #e74c3c, #c0392b); transition: width 0.5s ease;"></div>
+                <div style="display: flex; width: 100%; height: 10px; border-radius: 5px; overflow: hidden; background-color: rgba(255,255,255,0.08); margin-top: 10px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: {p_pago}%; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width 0.5s ease;"></div>
+                    <div style="width: {p_pend}%; background: linear-gradient(90deg, #eab308, #ca8a04); transition: width 0.5s ease;"></div>
+                    <div style="width: {p_atra}%; background: linear-gradient(90deg, #ef4444, #dc2626); transition: width 0.5s ease;"></div>
                 </div>
             """, unsafe_allow_html=True)
 
@@ -289,6 +281,6 @@ def analise_categorias_page(df_ignorar, df_saldos=None):
             with st.expander("💡 Como otimizar?"):
                 st.caption("""
                     **Como ler este gráfico:**
-                    As barras mostram o gasto total por categoria. A linha vermelha representa o impacto acumulado. 
+                    As barras mostram o gasto total por categoria. A linha azul representa o impacto acumulado. 
                     💡 **Dica:** Foque em reduzir os primeiros itens da lista, pois representam a maior parte do seu custo.
                 """)

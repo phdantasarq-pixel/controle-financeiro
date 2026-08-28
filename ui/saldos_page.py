@@ -11,59 +11,56 @@ def saldos_page():
 
             .main-header {
                 font-family: 'Inter', sans-serif;
-                padding: 20px 0 10px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                margin-bottom: 30px;
+                padding: 15px 0 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                margin-bottom: 25px;
             }
 
             .title-main {
                 font-size: 2.2rem;
                 font-weight: 800;
                 letter-spacing: -1px;
-                background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                color: #ffffff !important;
                 margin-bottom: 0px;
                 text-transform: uppercase;
             }
 
             .subtitle-main {
                 font-size: 0.85rem;
-                font-weight: 300;
-                color: #3498db;
-                letter-spacing: 3px;
+                font-weight: 600;
+                color: #38bdf8 !important;
+                letter-spacing: 2px;
                 text-transform: uppercase;
-                opacity: 0.9;
             }
 
             .accent-line {
                 width: 50px;
                 height: 4px;
-                background: #3498db;
+                background: #38bdf8;
                 border-radius: 10px;
-                margin-top: 15px;
+                margin-top: 10px;
             }
 
-            /* Estilo dos Cards Glassmorphism */
+            /* Estilo dos Cards Glassmorphism Alto Contraste */
             .card-modern {
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-                padding: 20px; 
-                border-radius: 20px;
-                border: 1px solid rgba(255, 255, 255, 0.1); 
-                backdrop-filter: blur(10px);
-                margin-bottom: 15px; 
-                color: white;
-                border-top: 4px solid #3498db;
+                background: #151d2e;
+                padding: 22px; 
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.12); 
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                margin-bottom: 20px; 
+                color: #ffffff;
+                border-top: 4px solid #38bdf8;
             }
-            .label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
-            .value { font-size: 1.8rem; font-weight: 800; margin: 5px 0; color: #fff; }
+            .label { font-size: 0.78rem; text-transform: uppercase; color: #cbd5e1; letter-spacing: 1px; font-weight: 600; }
+            .value { font-size: 1.8rem; font-weight: 800; margin: 8px 0; color: #ffffff !important; }
         </style>
 
         <div class="main-header">
             <div class="subtitle-main">Cockpit de Liquidez</div>
             <div class="title-main">Gestão de Saldos</div>
-            <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
+            <div class="subtitle-main" style="color: #94a3b8 !important; letter-spacing: 1px; margin-top: 4px;">
+                PlanejAI <span style="color: #38bdf8; font-weight: bold;">v1.0</span>
             </div>
             <div class="accent-line"></div>
         </div>
@@ -81,7 +78,7 @@ def saldos_page():
         <div class="card-modern">
             <div class="label">Patrimônio Líquido Disponível 💰</div>
             <div class="value">R$ {total:,.2f}</div>
-            <div style="font-size: 0.8rem; color: #2ecc71; font-weight: 600;">
+            <div style="font-size: 0.85rem; color: #4ade80; font-weight: 700;">
                 ● Live Update (Tempo Real)
             </div>
         </div>
@@ -91,7 +88,7 @@ def saldos_page():
     col_lista, col_add = st.columns([1.6, 1.4], gap="large")
 
     with col_lista:
-        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem;">🏦 Portfólio de Contas</p>',
+        st.markdown('<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #ffffff !important;">🏦 Portfólio de Contas</p>',
                     unsafe_allow_html=True)
         if not df_saldos.empty:
             # Adicionando índice original para garantir exclusão precisa
@@ -134,7 +131,7 @@ def saldos_page():
 
     with col_add:
         st.markdown(
-            '<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #3498db;">➕ Novo Registro</p>',
+            '<p class="subtitle-main" style="margin-bottom:15px; font-size:1rem; color: #ffffff !important;">➕ Novo Registro</p>',
             unsafe_allow_html=True)
         with st.container(border=True):
             n_conta = st.text_input("Instituição / Ativo", placeholder="Ex: Bitcoin, Nubank...")

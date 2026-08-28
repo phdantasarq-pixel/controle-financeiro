@@ -100,24 +100,22 @@ else:
     if 'theme_manager' not in st.session_state:
         st.session_state.theme_manager = ThemeManager()
 
-    # --- GARANTIA DE TEMA PARA NOVOS USUÁRIOS ---
+    # --- GARANTIA DE TEMA PARA USUÁRIOS (ALTO CONTRASTE) ---
     if 'theme_colors' not in st.session_state:
-        # 1. Tenta carregar do banco
         cores_do_banco = Database.carregar_preferencias()
-
-        # 2. Se o banco estiver vazio (Novo Usuário), define o Luxury como padrão
-        if not cores_do_banco:
-            # Padrão Luxury: Ciano, Texto Branco, Fundo Preto, Sidebar Dark
-            st.session_state.theme_colors = ("#4facfe", "#FFFFFF", "#050608", "#0d1b2a")
-            # Salva para que o novo usuário já tenha isso registrado
+        if not cores_do_banco or len(cores_do_banco) < 4:
+            st.session_state.theme_colors = ("#38bdf8", "#0b0f19", "#ffffff", "#0f172a")
             Database.salvar_preferencias(st.session_state.theme_colors)
         else:
-            st.session_state.theme_colors = cores_do_banco
+            p, b, t, s = cores_do_banco
+            # Sanitização automática contra dados de cores invertidos no banco
+            if str(t).lower().startswith("#0") or str(t).lower().startswith("#1") or str(t).lower() in ["#050608", "#000000"]:
+                t = "#ffffff"
+            if str(b).lower().startswith("#f") or str(b).lower().startswith("#e") or str(b).lower() in ["#ffffff", "#fafafa"]:
+                b = "#0b0f19"
+            st.session_state.theme_colors = (p, b, t, s)
 
-    # 3. INJEÇÃO IMEDIATA DO CSS (Evita o "flash" branco)
-    if 'theme_manager' not in st.session_state:
-        st.session_state.theme_manager = ThemeManager()
-
+    # 3. INJEÇÃO IMEDIATA DO CSS
     st.markdown(
         st.session_state.theme_manager.get_theme_css(st.session_state.theme_colors),
         unsafe_allow_html=True
@@ -136,7 +134,7 @@ else:
         }
         [data-testid="stSidebarContent"] { padding-top: 0rem !important; }
         .stSelectSlider { padding-top: 0px !important; margin-top: -5px !important; }
-        hr { margin: 1em 0 !important; opacity: 0.1 !important; }
+        hr { margin: 1em 0 !important; opacity: 0.15 !important; border-color: rgba(255,255,255,0.15) !important; }
     </style>
     """, unsafe_allow_html=True)
 

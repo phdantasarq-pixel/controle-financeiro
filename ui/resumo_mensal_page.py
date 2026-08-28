@@ -30,85 +30,83 @@ def processar_dados_detalhados_resumo(df_despesas):
 
 
 def resumo_mensal_page(df):
-    # --- CABEÇALHO MODERNIZADO (LUXURY STYLE) ---
+    # --- CABEÇALHO MODERNIZADO (LUXURY STYLE - ALTO CONTRASTE) ---
     st.markdown("""
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
 
             .main-header {
                 font-family: 'Inter', sans-serif;
-                padding: 20px 0 10px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                margin-bottom: 30px;
+                padding: 15px 0 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                margin-bottom: 25px;
             }
 
             .title-main {
                 font-size: 2.2rem;
                 font-weight: 800;
                 letter-spacing: -1px;
-                background: linear-gradient(90deg, #FFFFFF 0%, #A0A0A0 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                color: #FFFFFF !important;
                 margin-bottom: 0px;
                 text-transform: uppercase;
             }
 
             .subtitle-main {
                 font-size: 0.85rem;
-                font-weight: 300;
-                color: #3498db;
-                letter-spacing: 3px;
+                font-weight: 600;
+                color: #38bdf8 !important;
+                letter-spacing: 2px;
                 text-transform: uppercase;
-                opacity: 0.9;
             }
 
             .accent-line {
                 width: 50px;
                 height: 4px;
-                background: #3498db;
+                background: #38bdf8;
                 border-radius: 10px;
-                margin-top: 15px;
+                margin-top: 10px;
             }
         </style>
 
         <div class="main-header">
             <div class="subtitle-main">Cockpit de Gestão</div>
             <div class="title-main">Resumo Mensal</div>
-            <div class="subtitle-main" style="color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-top: 5px;">
-                PlanejAI <span style="color: #3498db; font-weight: bold;">v1.0</span>
+            <div class="subtitle-main" style="color: #94a3b8 !important; letter-spacing: 1px; margin-top: 4px;">
+                PlanejAI <span style="color: #38bdf8; font-weight: bold;">v1.0</span>
             </div>
             <div class="accent-line"></div>
         </div>
     """, unsafe_allow_html=True)
 
-    # --- STYLE ENGINE: GLASSMORPHISM + ANIMATION ---
+    # --- STYLE ENGINE: GLASSMORPHISM + ALTO CONTRASTE ---
     st.markdown("""
     <style>
-        .dashboard-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+        .dashboard-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; margin-bottom: 20px; }
         .card-modern {
-            flex: 1; min-width: 220px; padding: 20px; border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
-            margin-bottom: 15px; color: white;
-            transition: all 0.3s ease-in-out; cursor: pointer;
+            flex: 1; min-width: 220px; padding: 22px; border-radius: 16px;
+            background: #151d2e;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            transition: all 0.25s ease-in-out;
         }
-        /* Efeito Hover restaurado */
         .card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-color: rgba(56, 189, 248, 0.4);
         }
-        .label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
-        .value { font-size: 1.6rem; font-weight: 800; margin: 5px 0; }
-        .status { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 50px; display: inline-block; }
+        .label { font-size: 0.78rem; text-transform: uppercase; color: #cbd5e1; letter-spacing: 1px; font-weight: 600; }
+        .value { font-size: 1.7rem; font-weight: 800; margin: 8px 0; color: #ffffff !important; }
+        .status { font-size: 0.8rem; font-weight: 700; padding: 5px 12px; border-radius: 50px; display: inline-block; }
 
-        .bg-saldo { background: linear-gradient(135deg, rgba(41, 128, 185, 0.2), rgba(44, 62, 80, 0.4)); border-top: 4px solid #3498db; }
-        .bg-receita { background: linear-gradient(135deg, rgba(39, 174, 96, 0.2), rgba(22, 160, 133, 0.4)); border-top: 4px solid #2ecc71; }
-        .bg-despesa { background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(142, 68, 173, 0.4)); border-top: 4px solid #e74c3c; }
-        .bg-resultado { background: linear-gradient(135deg, rgba(241, 196, 15, 0.15), rgba(243, 156, 18, 0.3)); border-top: 4px solid #f1c40f; }
-        .bg-comprometimento { background: linear-gradient(135deg, rgba(52, 73, 94, 0.4), rgba(0, 0, 0, 0.6)); border-top: 4px solid #95a5a6; }
+        .bg-saldo { background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #38bdf8; }
+        .bg-receita { background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #22c55e; }
+        .bg-despesa { background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #ef4444; }
+        .bg-resultado { background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #eab308; }
+        .bg-comprometimento { background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(15, 23, 42, 0.8)); border-top: 4px solid #6366f1; }
 
-        .status-ok { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
-        .status-alert { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        .status-ok { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+        .status-alert { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
     </style>
     """, unsafe_allow_html=True)
 
@@ -154,7 +152,7 @@ def resumo_mensal_page(df):
             <div class="label">Resultado Mensal ⚖️</div>
             <div class="value">R$ {resultado_mes:,.2f}</div>
             <div class="status {'status-ok' if resultado_mes >= 0 else 'status-alert'}">
-                {'🟢 Superavit' if resultado_mes >= 0 else '🔴 Deficit'}
+                {'🟢 Superávit' if resultado_mes >= 0 else '🔴 Déficit'}
             </div>
         </div>
         <div class="card-modern bg-comprometimento">
@@ -164,11 +162,11 @@ def resumo_mensal_page(df):
                 {'Saudável' if comprometimento < 70 else 'Cuidado!'}
             </div>
         </div>
-        <div class="card-modern" style="background: rgba(255,255,255,0.05); border-top: 4px solid #9b59b6;">
+        <div class="card-modern" style="background: #151d2e; border-top: 4px solid #a855f7;">
             <div class="label">Divisão de Custos 📊</div>
-            <div style="margin-top:10px; font-size: 0.9rem;">
-                📌 Fixos: <b>R$ {fixos:,.2f}</b><br>
-                💸 Variáveis: <b>R$ {variaveis:,.2f}</b>
+            <div style="margin-top:10px; font-size: 0.95rem; color: #f1f5f9;">
+                📌 Fixos: <b style="color: #ffffff;">R$ {fixos:,.2f}</b><br>
+                💸 Variáveis: <b style="color: #ffffff;">R$ {variaveis:,.2f}</b>
             </div>
         </div>
     </div>
@@ -184,8 +182,15 @@ def resumo_mensal_page(df):
             if not df_analise.empty:
                 fig_pizza = px.pie(df_analise, values='valor', names='categoria', hole=0.4,
                                    color_discrete_sequence=px.colors.qualitative.Pastel)
-                fig_pizza.update_layout(height=300, showlegend=False, margin=dict(t=0, b=0, l=0, r=0),
-                                        paper_bgcolor='rgba(0,0,0,0)')
+                fig_pizza.update_layout(
+                    height=300, 
+                    showlegend=False, 
+                    margin=dict(t=10, b=10, l=10, r=10),
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    template="plotly_dark",
+                    font=dict(color="#F8FAFC")
+                )
                 st.plotly_chart(fig_pizza, use_container_width=True)
 
     with col_area:
@@ -193,9 +198,15 @@ def resumo_mensal_page(df):
             st.markdown("**📅 Fluxo de Caixa Diário**")
             df_daily = df_mes[df_mes['tipo'] == "Despesa"].groupby(pd.to_datetime(df_mes['data_vencimento']).dt.day)[
                 'valor'].sum().reset_index()
-            fig_area = px.area(df_daily, x='data_vencimento', y='valor', color_discrete_sequence=['#e74c3c'])
-            fig_area.update_layout(height=300, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-                                   margin=dict(t=10, l=10, r=10, b=10))
+            fig_area = px.area(df_daily, x='data_vencimento', y='valor', color_discrete_sequence=['#ef4444'])
+            fig_area.update_layout(
+                height=300, 
+                paper_bgcolor='rgba(0,0,0,0)', 
+                plot_bgcolor='rgba(0,0,0,0)',
+                template="plotly_dark",
+                font=dict(color="#F8FAFC"),
+                margin=dict(t=10, l=10, r=10, b=10)
+            )
             st.plotly_chart(fig_area, use_container_width=True)
 
     # --- LINHA 4: Desembolsos Detalhados ---
@@ -203,7 +214,6 @@ def resumo_mensal_page(df):
     if not df_analise.empty:
         top5 = df_analise.sort_values(by='valor', ascending=False).head(5)
 
-        # Criamos um container para agrupar a lista vertical
         with st.container():
             for _, row in top5.iterrows():
                 st.markdown(f"""
@@ -211,18 +221,18 @@ def resumo_mensal_page(df):
                         display: flex; 
                         justify-content: space-between; 
                         align-items: center; 
-                        padding: 12px 20px; 
+                        padding: 14px 20px; 
                         margin-bottom: 8px; 
-                        border-left: 4px solid #e74c3c; 
+                        border-left: 4px solid #ef4444; 
                         border-bottom: none;
                         min-width: 100%;
                     ">
                         <div style="flex: 2;">
-                            <div style="font-size: 0.7rem; opacity: 0.6; text-transform: uppercase;">{row['categoria']}</div>
-                            <div style="font-size: 1rem; font-weight: bold;">{row['descricao']}</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">{row['categoria']}</div>
+                            <div style="font-size: 1.05rem; font-weight: 700; color: #ffffff;">{row['descricao']}</div>
                         </div>
                         <div style="flex: 1; text-align: right;">
-                            <div style="color: #ff4b4b; font-weight: 800; font-size: 1.1rem;">
+                            <div style="color: #f87171; font-weight: 800; font-size: 1.15rem;">
                                 R$ {row['valor']:,.2f}
                             </div>
                         </div>
